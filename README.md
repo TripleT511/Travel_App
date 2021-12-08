@@ -1,9 +1,9 @@
 # VietNam Travel App - Đồ Án Android
 
-- Danh sách thành viên thực hiện:
-  1. 0306191074
-  2. 0306191060
-  3. 0306191062
+    - Danh sách thành viên thực hiện:
+      1. 0306191074
+      2. 0306191060
+      3. 0306191062
 
 ## Getting Started
 
