@@ -1,4 +1,4 @@
-# VietNam Travel App - Đồ Án Android
+# VietNam Travel App - Đồ Án Android 👋
 
     - Danh sách thành viên thực hiện:
       1. 0306191074
