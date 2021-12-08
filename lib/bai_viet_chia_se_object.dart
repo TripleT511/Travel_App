@@ -1,4 +1,4 @@
-class bai_viet_chia_se_object {
+class BaiVietChiaSeObject {
   final int idBaiViet;
   final int idDiaDanh;
   final int idUser;
@@ -6,6 +6,6 @@ class bai_viet_chia_se_object {
   final String hinhAnh;
   final int trangThai;
 
-  bai_viet_chia_se_object(this.idBaiViet, this.idDiaDanh, this.idUser,
-      this.noiDung, this.hinhAnh, this.trangThai);
+  BaiVietChiaSeObject(this.idBaiViet, this.idDiaDanh, this.idUser, this.noiDung,
+      this.hinhAnh, this.trangThai);
 }

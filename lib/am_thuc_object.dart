@@ -1,4 +1,4 @@
-class am_thuc_object {
+class AmThucObject {
   final int id;
   final int idVung;
   final int idMien;
@@ -10,7 +10,7 @@ class am_thuc_object {
   final String hinhAnh;
   final int trangThai;
 
-  am_thuc_object(
+  AmThucObject(
       this.id,
       this.idVung,
       this.idMien,

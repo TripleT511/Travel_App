@@ -1,4 +1,4 @@
-class dia_danh_object {
+class DiaDanhObject {
   final int id;
   final String tenDiaDanh;
   final String moTa;
@@ -11,7 +11,7 @@ class dia_danh_object {
   final int idMien;
   final int trangThai;
 
-  dia_danh_object(
+  DiaDanhObject(
       this.id,
       this.tenDiaDanh,
       this.moTa,
