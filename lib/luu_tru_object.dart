@@ -24,16 +24,5 @@ class LuuTruObject {
       this.hinhAnh,
       this.trangThai);
 
-  LuuTruObject.fromJson(Map<String, dynamic> res)
-      : id = res["id"],
-        idVung = res["idVung"],
-        idMien = res["idMien"],
-        tenLuuTru = res["tenLuuTru"],
-        moTa = res["moTa"],
-        diaChi = res["diaChi"],
-        soDienThoai = res["soDienThoai"],
-        gia = res["gia"],
-        thoiGianMoCua = res["thoiGianMoCua"],
-        hinhAnh = res["hinhAnh"],
-        trangThai = res["trangThai"];
+
 }

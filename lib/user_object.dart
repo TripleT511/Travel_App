@@ -10,14 +10,4 @@ class UserObject {
 
   UserObject(this.id, this.idPhanQuyen, this.hoTen, this.email, this.matKhau,
       this.soDienThoai, this.trangThaiTaiKhoan, this.trangThai);
-
-  UserObject.fromJson(Map<String, dynamic> res)
-      : id = res["id"],
-        idPhanQuyen = res["idPhanQuyen"],
-        hoTen = res["hoTen"],
-        email = res["email"],
-        matKhau = res["matKhau"],
-        soDienThoai = res["soDienThoai"],
-        trangThaiTaiKhoan = res["trangThaiTaiKhoan"],
-        trangThai = res["trangThai"];
 }
