@@ -4,5 +4,4 @@ class PhanQuyenObject {
   final int trangThai;
 
   PhanQuyenObject(this.id, this.tenQuyen, this.trangThai);
-
 }
