@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
-import 'package:travel_p/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 
 class dia_danh extends StatefulWidget {
   @override

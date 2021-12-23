@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,47 +12,60 @@ class ChangePasswordPage extends StatefulWidget {
 
 class ChangePasswordPageState extends State<ChangePasswordPage> {
   bool checkPass = true;
+  bool checkPass2 = true;
+  bool checkPass3 = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const FaIcon(
-                FontAwesomeIcons.arrowLeft,
-                color: Color(0XFF0869E1),
-              )),
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          title: Container(
-            margin: const EdgeInsets.only(left: 66),
-            child: const Text(
-              "Đổi mật khẩu",
-              style: TextStyle(
-                  fontSize: 27,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Roboto',
-                  color: Color(0XFF0869E1)),
-            ),
-          )),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+              color: Color(0XFF0869E1),
+            )),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.white,
+        title: const Text(
+          "Đổi mật khẩu",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'Roboto',
+            color: Color(0XFF0869E1),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            padding:
+                const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
             child: const Text(
-              "Mật khẩu cũ",
+              "Mật khẩu hiện tại",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 20, bottom: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
             child: TextField(
               obscureText: checkPass ? true : false,
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {});
@@ -71,29 +83,39 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                           size: 20,
                         ),
                 ),
-                hintText: "Nhập mật khẩu cũ",
+                hintText: "Nhập mật khẩu hiện tại",
               ),
             ),
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             child: const Text(
               "Mật khẩu mới",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 20, bottom: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
             child: TextField(
-              obscureText: checkPass ? true : false,
+              obscureText: checkPass2 ? true : false,
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {});
-                    checkPass = !checkPass;
+                    checkPass2 = !checkPass2;
                   },
-                  icon: checkPass
+                  icon: checkPass2
                       ? const FaIcon(
                           FontAwesomeIcons.eyeSlash,
                           color: Color(0XFF050505),
@@ -111,23 +133,33 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
           ),
           Container(
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
             child: const Text(
-              "Mật khẩu mới",
+              "Xác nhận mật khẩu",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 20, bottom: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
             child: TextField(
-              obscureText: checkPass ? true : false,
+              obscureText: checkPass3 ? true : false,
               decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {});
-                    checkPass = !checkPass;
+                    checkPass3 = !checkPass3;
                   },
-                  icon: checkPass
+                  icon: checkPass3
                       ? const FaIcon(
                           FontAwesomeIcons.eyeSlash,
                           color: Color(0XFF050505),

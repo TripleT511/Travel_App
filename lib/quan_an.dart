@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/chitiet_quan_an.dart';
-import 'package:travel_p/home_tab.dart';
-import 'package:travel_p/main.dart';
+import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class quan_an extends StatefulWidget {
   @override
@@ -18,7 +16,6 @@ class quan_anState extends State<quan_an> {
       backgroundColor: Colors.white,
       body: ListView(
         children: [
-          
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

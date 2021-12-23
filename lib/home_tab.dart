@@ -1,12 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/chitiet_luu_tru.dart';
-import 'package:travel_p/create_post.dart';
-import 'package:travel_p/dia_danh.dart';
-import 'package:travel_p/luu_tru.dart';
-import 'package:travel_p/nhu_cau.dart';
-import 'package:travel_p/quan_an.dart';
-import 'package:travel_p/trang_ca_nhan.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
@@ -15,14 +8,16 @@ import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/trang_ca_nhan.dart';
 
-class home_tab extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return home_tabState();
+    return HomePageState();
   }
 }
 
-class home_tabState extends State<home_tab> {
+class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final scroll = ScrollController();

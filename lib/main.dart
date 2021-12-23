@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/map_areas.dart';
 import 'package:vietnam_travel_app/splash_page1.dart';
 import 'package:vietnam_travel_app/tim_kiem.dart';
-import 'package:vietnam_travel_app/xem_them_tab.dart';
+import 'package:vietnam_travel_app/seemore_page.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: "Travel",
-    debugShowCheckedModeBanner: false,
-    home: SplashPage(),
-  ));
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'Roboto'),
+      home: const SplashPage(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -38,44 +41,61 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: TabBarView(controller: _tabController, children: [
-          home_tab(),
-          search_tab(),
-          map_areas(),
-          xem_them(),
-        ]),
-        bottomNavigationBar: TabBar(
-            labelColor: Color(0XFF0869E1),
-            controller: _tabController,
-            tabs: [
-              Tab(
-                icon: Icon(
-                  Icons.house_outlined,
-                  color: Color(0XFF0869E1),
-                ),
-                text: "Trang chủ",
+      body: TabBarView(controller: _tabController, children: [
+        const Text(
+          'Home Page đang bị lỗi',
+          style: TextStyle(color: Colors.black),
+        ),
+        search_tab(),
+        map_areas(),
+        const SeeMorePage(),
+      ]),
+      bottomNavigationBar: Container(
+        width: 50,
+        decoration: const BoxDecoration(
+          border: Border(top: BorderSide(color: Color(0XFF0869E1), width: 2)),
+        ),
+        child: TabBar(
+          labelColor: const Color(0XFF0869E1),
+          controller: _tabController,
+          unselectedLabelColor: const Color(0XFF050505),
+          isScrollable: true,
+          tabs: const [
+            Tab(
+              icon: FaIcon(
+                FontAwesomeIcons.home,
+                color: Color(0XFF0869E1),
+                size: 18,
               ),
-              Tab(
-                icon: Icon(
-                  Icons.search_outlined,
-                  color: Color(0XFF0869E1),
-                ),
-                text: "Tìm kiếm",
+              text: "Trang chủ",
+            ),
+            Tab(
+              icon: FaIcon(
+                FontAwesomeIcons.search,
+                color: Color(0XFF0869E1),
+                size: 18,
               ),
-              Tab(
-                icon: Icon(
-                  Icons.map,
-                  color: Color(0XFF0869E1),
-                ),
-                text: "Bản đồ",
+              text: "Tìm kiếm",
+            ),
+            Tab(
+              icon: FaIcon(
+                FontAwesomeIcons.mapMarkedAlt,
+                color: Color(0XFF0869E1),
+                size: 18,
               ),
-              Tab(
-                icon: Icon(
-                  Icons.dehaze,
-                  color: Color(0XFF0869E1),
-                ),
-                text: "Xem thêm",
+              text: "Bản đồ",
+            ),
+            Tab(
+              icon: FaIcon(
+                FontAwesomeIcons.bars,
+                color: Color(0XFF0869E1),
+                size: 18,
               ),
-            ]));
+              text: "Xem thêm",
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

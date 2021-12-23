@@ -16,14 +16,15 @@ class SplashPage2State extends State<SplashPage2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Align(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Align(
           alignment: Alignment.center,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 75, bottom: 25),
+                margin: const EdgeInsets.only(top: 45, bottom: 25),
                 child: Image.asset(
                   "images/logo-ver3.png",
                   width: 183,
@@ -31,16 +32,16 @@ class SplashPage2State extends State<SplashPage2> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 55),
+                margin: const EdgeInsets.only(top: 20),
                 child: Image.asset("images/banner_main.png",
                     width: 366, fit: BoxFit.cover),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 55, left: 20, right: 20),
+                margin: const EdgeInsets.only(top: 35, left: 20, right: 20),
                 width: 374,
                 height: 64,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(10),
                     color: const Color(0XFF0869E1)),
                 child: TextButton(
                   onPressed: () {
@@ -60,7 +61,8 @@ class SplashPage2State extends State<SplashPage2> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
+                margin: const EdgeInsets.only(
+                    top: 15, left: 20, right: 20, bottom: 40),
                 width: 374,
                 height: 64,
                 decoration: BoxDecoration(
@@ -68,7 +70,7 @@ class SplashPage2State extends State<SplashPage2> {
                     color: const Color(0XFF0869E1),
                     width: 2,
                   ),
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextButton(
                   onPressed: () {
@@ -89,6 +91,8 @@ class SplashPage2State extends State<SplashPage2> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

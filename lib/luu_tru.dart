@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/chitiet_luu_tru.dart';
-import 'package:travel_p/home_tab.dart';
-import 'package:travel_p/main.dart';
+import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 
 class luu_tru extends StatefulWidget {
   @override
@@ -17,13 +15,12 @@ class luu_truState extends State<luu_tru> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
-       
         children: [
-        Image.network("sadad")
+          Image.network("sadad"),
           ListTile(
             title: Icon(Icons.add),
             subtitle: Icon(Icons.add),
-          )
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
