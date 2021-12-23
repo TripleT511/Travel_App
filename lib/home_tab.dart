@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_p/chitiet_luu_tru.dart';
 import 'package:travel_p/create_post.dart';
 import 'package:travel_p/dia_danh.dart';
 import 'package:travel_p/luu_tru.dart';
@@ -15,317 +16,343 @@ class home_tab extends StatefulWidget {
 }
 
 class home_tabState extends State<home_tab> {
-  final scroll = ScrollController();
-  final List<Column> imgListDiaDanh = [
-    Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadiusDirectional.all(Radius.circular(16))),
-                clipBehavior: Clip.antiAlias,
-                child: Image.asset(
-                  "images/z.jpg",
-                  width: double.maxFinite,
+  @override
+  Widget build(BuildContext context) {
+    final scroll = ScrollController();
+    final List<Column> imgListDiaDanh = [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(16))),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/z.jpg",
+                    width: double.maxFinite,
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-                top: 140,
-                left: 25,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.place,
-                      color: Colors.red,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "Nha Trang",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )
-                  ],
-                ))
-          ],
-        ),
-        Expanded(
-          child: SizedBox(),
-        ),
-      ],
-    )
-  ];
-  final List<Column> imgListNhuCau = [
-    Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadiusDirectional.all(Radius.circular(16))),
-                clipBehavior: Clip.antiAlias,
-                child: Image.asset(
-                  "images/z.jpg",
-                  width: double.maxFinite,
-                ),
-              ),
-            ),
-            Positioned(
-                top: 145,
-                left: 130,
-                child: Row(
-                  children: [
-                    Container(
-                      child: Text(
-                        "Tắm Biển",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
-                ))
-          ],
-        ),
-        Expanded(
-          child: SizedBox(),
-        ),
-      ],
-    )
-  ];
-  final List<Expanded> imgListQuanAn = [
-    Expanded(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          child: Image.asset(
-            "images/z.jpg",
-            height: 150,
-            width: 250,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.only(left: 30),
-              child: Text("Nhà Hàng ABC", style: TextStyle(fontSize: 18)),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [Icon(Icons.place), Text("Ho Chi Minh")],
-                  )),
-            ),
-            Expanded(
-              child: SizedBox(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: TextButton(
-                  onPressed: () {},
+              Positioned(
+                  top: 140,
+                  left: 25,
                   child: Row(
                     children: [
-                      Icon(Icons.access_time_outlined),
-                      Text("12 a.m - 10 p.m")
+                      Icon(
+                        Icons.place,
+                        color: Colors.red,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                          "Nha Trang",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      )
                     ],
-                  )),
-            ),
-          ],
-        )
-      ],
-    ))
-  ];
-  final List<Expanded> imgListBaiViet = [
-    Expanded(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          child: Image.asset(
-            "images/z.jpg",
-            height: 150,
-            width: 250,
-            fit: BoxFit.cover,
+                  ))
+            ],
           ),
-        ),
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.only(left: 30),
-              child: Text(
-                "Check-in điểm du lịch",
-                style: TextStyle(fontSize: 18),
+          Expanded(
+            child: SizedBox(),
+          ),
+        ],
+      )
+    ];
+    final List<Column> imgListNhuCau = [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(16))),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/d.jpg",
+                    width: double.maxFinite,
+                  ),
+                ),
+              ),
+              Positioned(
+                  bottom: 20,
+                  left: 130,
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Text(
+                          "Tắm Biển",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ))
+            ],
+          ),
+          Expanded(
+            child: SizedBox(),
+          ),
+        ],
+      )
+    ];
+    final List<Expanded> imgListQuanAn = [
+      Expanded(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadiusDirectional.all(Radius.circular(16))),
+              clipBehavior: Clip.antiAlias,
+              child: Image.asset(
+                "images/z.jpg",
+                width: double.maxFinite,
               ),
             ),
-          ],
-        ),
-        Expanded(
-            child: Padding(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          child: Row(
+          ),
+          Row(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.thumb_up, color: Color(0XFF0869E1)),
-                  ),
-                  Text("5.6k")
-                ],
+              Container(
+                padding: EdgeInsets.only(left: 30),
+                child: Text("Nhà Hàng ABC", style: TextStyle(fontSize: 18)),
               ),
-              Row(
-                children: [
-                  IconButton(
+            ],
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: TextButton(
                     onPressed: () {},
-                    icon: Icon(Icons.remove_red_eye, color: Colors.greenAccent),
-                  ),
-                  Text("6.1k")
-                ],
+                    child: Row(
+                      children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                    )),
               ),
-              Row(
-                children: [
-                  IconButton(
+              Expanded(
+                child: SizedBox(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: TextButton(
                     onPressed: () {},
-                    icon: Icon(Icons.place, color: Colors.redAccent),
-                  ),
-                  Text("Nha Trang")
-                ],
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time_outlined),
+                        Text("12 a.m - 10 p.m")
+                      ],
+                    )),
+              ),
+            ],
+          )
+        ],
+      ))
+    ];
+    final List<Expanded> imgListBaiViet = [
+      Expanded(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadiusDirectional.all(Radius.circular(16))),
+              clipBehavior: Clip.antiAlias,
+              child: Image.asset(
+                "images/z.jpg",
+                width: double.maxFinite,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 30),
+                child: Text(
+                  "Check-in điểm du lịch",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+              child: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Row(
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.thumb_up, color: Color(0XFF0869E1)),
+                    ),
+                    Text("5.6k")
+                  ],
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon:
+                          Icon(Icons.remove_red_eye, color: Colors.greenAccent),
+                    ),
+                    Text("6.1k")
+                  ],
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.place, color: Colors.redAccent),
+                    ),
+                    Text("Nha Trang")
+                  ],
+                )
+              ],
+            ),
+          ))
+        ],
+      ))
+    ];
+    final List<Expanded> imgListLuuTru = [
+      Expanded(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              child: TextButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => chitiet_luutru()));
+            },
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadiusDirectional.all(Radius.circular(16))),
+              clipBehavior: Clip.antiAlias,
+              child: Image.asset(
+                "images/z.jpg",
+                width: double.maxFinite,
+              ),
+            ),
+          )),
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.only(left: 30),
+                child: Text("Khách Sạn Wano"),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                    )),
+              ),
+              Expanded(
+                child: SizedBox(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time_outlined),
+                        Text("12 a.m - 10 p.m")
+                      ],
+                    )),
+              ),
+            ],
+          )
+        ],
+      ))
+    ];
+    CarouselSlider slideShow(List<Column> lst) {
+      return CarouselSlider(
+        items: lst,
+        options: CarouselOptions(
+            height: 220.0, autoPlay: false, enableInfiniteScroll: true),
+      );
+    }
+
+    CarouselSlider slideShowNhuCau(List<Column> lst) {
+      return CarouselSlider(
+        items: lst,
+        options: CarouselOptions(
+            height: 500.0, autoPlay: false, enableInfiniteScroll: true),
+      );
+    }
+
+    CarouselSlider slideShowQuan(List<Expanded> lst) {
+      return CarouselSlider(
+        items: lst,
+        options: CarouselOptions(
+            height: 250.0, autoPlay: false, enableInfiniteScroll: true),
+      );
+    }
+
+    Row sliderTitle(String title) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Text(
+                title,
+                style: TextStyle(color: Color(0XFF0869E1), fontSize: 20),
               )
             ],
           ),
-        ))
-      ],
-    ))
-  ];
-  final List<Expanded> imgListLuuTru = [
-    Expanded(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          child: Image.asset(
-            "images/z.jpg",
-            height: 150,
-            width: 250,
-            fit: BoxFit.cover,
-          ),
-        ),
-        Row(
-          children: [
-            Container(
-              padding: EdgeInsets.only(left: 30),
-              child: Text("Khách Sạn Wano"),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [Icon(Icons.place), Text("Ho Chi Minh")],
-                  )),
-            ),
-            Expanded(
-              child: SizedBox(),
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    children: [
-                      Icon(Icons.access_time_outlined),
-                      Text("12 a.m - 10 p.m")
-                    ],
-                  )),
-            ),
-          ],
-        )
-      ],
-    ))
-  ];
-  CarouselSlider slideShow(List<Column> lst) {
-    return CarouselSlider(
-      items: lst,
-      options: CarouselOptions(
-          height: 220.0, autoPlay: false, enableInfiniteScroll: true),
-    );
-  }
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {
+                  if (title == "Quán Ăn") {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => quan_an()));
+                  }
+                  if (title == "Lưu Trú") {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => luu_tru()));
+                  }
+                  if (title == "Nhu Cầu") {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => nhu_cau()));
+                  }
+                  if (title == "Địa Danh Nổi Bật") {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => dia_danh()));
+                  }
+                },
+                child: Text(
+                  "Xem thêm",
+                  style: TextStyle(fontSize: 15, color: Color(0XFF0869E1)),
+                ),
+              )
+            ],
+          )
+        ],
+      );
+    }
 
-  CarouselSlider slideShowQuan(List<Expanded> lst) {
-    return CarouselSlider(
-      items: lst,
-      options: CarouselOptions(
-          height: 220.0, autoPlay: false, enableInfiniteScroll: true),
-    );
-  }
-
-  Row sliderTitle(String title) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Text(
-              title,
-              style: TextStyle(color: Color(0XFF0869E1), fontSize: 20),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            TextButton(
-              onPressed: () {
-                if (title == "Quán Ăn") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => quan_an()));
-                }
-                if (title == "Lưu Trú") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => luu_tru()));
-                }
-                if (title == "Nhu Cầu") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => nhu_cau()));
-                }
-                if (title == "Địa Danh Nổi Bật") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => dia_danh()));
-                }
-              },
-              child: Text(
-                "Xem thêm",
-                style: TextStyle(fontSize: 15, color: Color(0XFF0869E1)),
-              ),
-            )
-          ],
-        )
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         controller: scroll,
@@ -448,7 +475,7 @@ class home_tabState extends State<home_tab> {
                   SizedBox(
                     height: 15,
                   ),
-                  slideShow(imgListNhuCau),
+                  slideShowNhuCau(imgListNhuCau),
                   SizedBox(
                     height: 25,
                   ),
