@@ -34,7 +34,7 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
               padding: EdgeInsets.only(left: 15),
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Color(0XFF0869E1),
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
@@ -65,7 +65,8 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
               },
               child: Text(
                 "Xem thêm",
-                style: TextStyle(fontSize: 15, color: Color(0XFF0869E1)),
+                style: const TextStyle(
+                    fontSize: 15, color: const Color(0XFF0869E1)),
               ),
             )
           ],
@@ -89,19 +90,20 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
         Row(
           children: [
             Container(
-              padding: EdgeInsets.only(left: 30),
-              child: Text("Khách Sạn Wano", style: TextStyle(fontSize: 18)),
+              padding: const EdgeInsets.only(left: 30),
+              child:
+                  const Text("Khách Sạn Wano", style: TextStyle(fontSize: 18)),
             ),
           ],
         ),
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 15),
+              padding: const EdgeInsets.only(left: 15),
               child: TextButton(
                   onPressed: () {},
                   child: Row(
-                    children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                    children: [const Icon(Icons.place), Text("Ho Chi Minh")],
                   )),
             ),
           ],
@@ -136,10 +138,10 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
               child: TextButton(
                   onPressed: () {},
                   child: Row(
-                    children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                    children: [Icon(Icons.place), const Text("Ho Chi Minh")],
                   )),
             ),
-            Expanded(
+            const Expanded(
               child: SizedBox(),
             ),
             Padding(
@@ -240,7 +242,7 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
           SizedBox(
             height: 15,
           ),
-          slideShow(imgListQuanAn)
+          slideShow(imgListdiadanh)
         ],
       ),
       floatingActionButton: FloatingActionButton(

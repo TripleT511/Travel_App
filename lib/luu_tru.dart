@@ -17,7 +17,7 @@ class luu_truState extends State<luu_tru> {
       body: ListView(
         children: [
           Image.network("sadad"),
-          ListTile(
+          const ListTile(
             title: Icon(Icons.add),
             subtitle: Icon(Icons.add),
           ),
