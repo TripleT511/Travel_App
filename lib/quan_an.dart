@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
-class quan_an extends StatefulWidget {
+class QuanAn extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return quan_anState();
+    return QuanAnState();
   }
 }
 
-class quan_anState extends State<quan_an> {
+class QuanAnState extends State<QuanAn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,236 +60,217 @@ class quan_anState extends State<quan_an> {
                 margin: EdgeInsets.only(top: 5),
                 decoration: BoxDecoration(
                     border: Border.fromBorderSide(
-                        BorderSide(width: 1, color: Colors.grey))),
+                        BorderSide(width: 0.5, color: Colors.grey))),
               ),
               Container(
-                padding: EdgeInsets.all(30),
+                padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                 child: Text(
-                  "QUÁN ĂN",
+                  "Quán Ăn - " + "Hồ Chí Minh",
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0XFF0869E1)),
-                ),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: SizedBox(
-                      width: 360,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: "Nhập điểm cần đến....",
-                            prefixIcon: Icon(
-                              Icons.place,
-                              color: Color(0XFF0869E1),
-                            )),
-                      ),
-                    ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0XFF0869E1),
                   ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Icon(Icons.near_me_outlined),
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: Text(
-                            "Sử dụng vị trí của bạn ngay bây giờ",
-                            style: TextStyle(color: Colors.grey, fontSize: 17),
-                          ),
-                        )
-                      ],
-                    )),
+                ),
               ),
             ],
           ),
-          TextButton(
-            onPressed: () {
+          InkWell(
+            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => chitiet_quan_an()));
-            },
-            child: Expanded(
-                child: Column(
+            }, // Handle your callback
+            child: Column(
               children: [
-                Card(
-                  shape: RoundedRectangleBorder(
+                SizedBox(
+                  height: 265,
+                  width: 374,
+                  child: Card(
+                    elevation: 3.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(20),
-                          topEnd: Radius.circular(20))),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/z.jpg",
-                    width: double.maxFinite,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: Text("Nhà Hàng ABC"),
+                        topStart: Radius.circular(16.0),
+                        topEnd: Radius.circular(16.0),
+                        bottomStart: Radius.circular(16.0),
+                        bottomEnd: Radius.circular(16.0),
+                      ),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Row(
-                            children: [Icon(Icons.place), Text("Ho Chi Minh")],
-                          )),
-                    ),
-                    Expanded(
-                      child: SizedBox(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => chitiet_quan_an()));
-                          },
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          "images/quanan2.jpg",
+                          width: 374,
+                          height: 132,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 20, bottom: 12),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Nhà Hàng Cơm Niêu Thiên Lý",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0XFF000000),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
                             children: [
-                              Icon(Icons.access_time_outlined),
-                              Text("12 a.m - 10 p.m")
+                              Icon(
+                                Icons.place,
+                                color: Color(0XFF0869E1),
+                              ),
+                              Text(
+                                " " +
+                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0XFF050505),
+                                  fontFamily: 'Roboto',
+                                ),
+                              ),
                             ],
-                          )),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.access_time_outlined,
+                                color: Color(0XFF0869E1),
+                              ),
+                              Text(
+                                " " + "12 a.m - 10 p.m",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0XFF050505),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ],
-            )),
+            ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            decoration: BoxDecoration(
-                border: Border.fromBorderSide(
-                    BorderSide(width: 1, color: Colors.grey))),
+          const SizedBox(
+            height: 15.0,
           ),
-          TextButton(
-            onPressed: () {
+          InkWell(
+            onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => chitiet_quan_an()));
-            },
-            child: Expanded(
-                child: Column(
+            }, // Handle your callback
+            child: Column(
               children: [
-                Card(
-                  shape: RoundedRectangleBorder(
+                SizedBox(
+                  height: 265,
+                  width: 374,
+                  child: Card(
+                    elevation: 3.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(20),
-                          topEnd: Radius.circular(20))),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/z.jpg",
-                    width: double.maxFinite,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: Text("Nhà Hàng ABC"),
+                        topStart: Radius.circular(16.0),
+                        topEnd: Radius.circular(16.0),
+                        bottomStart: Radius.circular(16.0),
+                        bottomEnd: Radius.circular(16.0),
+                      ),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Row(
-                            children: [Icon(Icons.place), Text("Ho Chi Minh")],
-                          )),
-                    ),
-                    Expanded(
-                      child: SizedBox(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: TextButton(
-                          onPressed: () {},
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          "images/quanan.jpg",
+                          width: 374,
+                          height: 132,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(
+                          height: 15.0,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 20, bottom: 12),
+                          child: Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              "Nhà Hàng Cơm Niêu Thiên Lý",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0XFF000000),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
                             children: [
-                              Icon(Icons.access_time_outlined),
-                              Text("12 a.m - 10 p.m")
+                              Icon(
+                                Icons.place,
+                                color: Color(0XFF0869E1),
+                              ),
+                              Text(
+                                " " +
+                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0XFF050505),
+                                  fontFamily: 'Roboto',
+                                ),
+                              ),
                             ],
-                          )),
-                    ),
-                  ],
-                ),
-              ],
-            )),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            decoration: BoxDecoration(
-                border: Border.fromBorderSide(
-                    BorderSide(width: 1, color: Colors.grey))),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Expanded(
-                child: Column(
-              children: [
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(20),
-                          topEnd: Radius.circular(20))),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/z.jpg",
-                    width: double.maxFinite,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: Text("Nhà Hàng ABC"),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Row(
-                            children: [Icon(Icons.place), Text("Ho Chi Minh")],
-                          )),
-                    ),
-                    Expanded(
-                      child: SizedBox(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10),
-                      child: TextButton(
-                          onPressed: () {},
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
                             children: [
-                              Icon(Icons.access_time_outlined),
-                              Text("12 a.m - 10 p.m")
+                              Icon(
+                                Icons.access_time_outlined,
+                                color: Color(0XFF0869E1),
+                              ),
+                              Text(
+                                " " + "12 a.m - 10 p.m",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0XFF050505),
+                                ),
+                              ),
                             ],
-                          )),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ],
-            )),
+            ),
           ),
         ],
       ),

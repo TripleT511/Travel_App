@@ -80,6 +80,10 @@ flutter:
     - images/splash_logo.png
     - images/avatar.jpg
     - images/banner_main.png
+    - images/luutru.jpg
+    - images/luutru1.jpg
+    - images/quanan.jpg
+    - images/quanan2.jpg
     - images/tam_bien.jpg
   #   - images/a_dot_ham.jpeg
 
