@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
-import 'package:vietnam_travel_app/map_areas.dart';
+import 'package:vietnam_travel_app/map_page.dart';
 import 'package:vietnam_travel_app/splash_page1.dart';
-import 'package:vietnam_travel_app/tim_kiem.dart';
+import 'package:vietnam_travel_app/search_page.dart';
 import 'package:vietnam_travel_app/seemore_page.dart';
 
 void main() {
@@ -41,23 +41,29 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(controller: _tabController, children: [
-        HomePage(),
-        search_tab(),
-        map_areas(),
-        const SeeMorePage(),
-      ]),
+      body: TabBarView(
+        controller: _tabController,
+        children: const [
+          HomePage(),
+          SearchPage(),
+          MapPage(),
+          SeeMorePage(),
+        ],
+      ),
       bottomNavigationBar: Container(
         height: 65,
         decoration: const BoxDecoration(
-          border: Border(top: BorderSide(color: Color(0XFF0869E1), width: 2)),
+          border: Border(
+            top: BorderSide(color: Color(0XFF0869E1), width: 2),
+          ),
         ),
         child: TabBar(
           labelStyle: const TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: Color(0XFF050505)),
+            fontFamily: 'Roboto',
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Color(0XFF050505),
+          ),
           labelColor: const Color(0XFF0869E1),
           controller: _tabController,
           unselectedLabelColor: const Color(0XFF050505),
