@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_p/main.dart';
+import 'package:vietnam_travel_app/main.dart';
 
 class search_tab extends StatefulWidget {
   @override

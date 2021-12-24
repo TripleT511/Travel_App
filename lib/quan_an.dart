@@ -1,24 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/chitiet_quan_an.dart';
-import 'package:travel_p/home_tab.dart';
-import 'package:travel_p/main.dart';
+import 'package:vietnam_travel_app/chitiet_quan_an.dart';
+import 'package:vietnam_travel_app/home_tab.dart';
+import 'package:vietnam_travel_app/main.dart';
 
-class quan_an extends StatefulWidget {
+class QuanAn extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return quan_anState();
+    return QuanAnState();
   }
 }
 
-class quan_anState extends State<quan_an> {
+class QuanAnState extends State<QuanAn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
         children: [
-          
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

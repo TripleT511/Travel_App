@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/main.dart';
+import 'package:vietnam_travel_app/main.dart';
 
 class form_login extends StatefulWidget {
   @override
@@ -127,8 +127,8 @@ class form_loginState extends State<form_login> {
                 color: Color(0XFF0869E1)),
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => MyApp()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyApp()));
               },
               child: Text(
                 "Đăng Nhập",

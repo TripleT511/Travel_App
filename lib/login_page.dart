@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -145,7 +146,10 @@ class LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(15),
                     color: const Color(0XFF0869E1)),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MyApp()));
+                  },
                   child: const Text(
                     "Đăng nhập",
                     style: TextStyle(

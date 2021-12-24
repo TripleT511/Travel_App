@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/create_post.dart';
-import 'package:travel_p/de_xuat_dia_danh.dart';
-import 'package:travel_p/form_app.dart';
+import 'package:vietnam_travel_app/create_post.dart';
+import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
+// import 'package:vietnam_travel_app/form_app.dart';
 
 class xem_them extends StatefulWidget {
   @override
@@ -64,8 +64,8 @@ class xem_themState extends State<xem_them> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => form_app()));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => form_app()));
                   },
                   child: Text(
                     "Đăng Xuất",

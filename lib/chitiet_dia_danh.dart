@@ -2,10 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:travel_p/quan_an.dart';
+import 'package:vietnam_travel_app/luu_tru.dart';
+import 'package:vietnam_travel_app/quan_an.dart';
 
 import 'dia_danh.dart';
-import 'luu_tru.dart';
+// import 'luu_tru.dart';
 import 'nhu_cau.dart';
 
 class chitiet_diadanh extends StatefulWidget {
@@ -48,11 +49,11 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
               onPressed: () {
                 if (title == "Quán ăn gần đây") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => quan_an()));
+                      MaterialPageRoute(builder: (context) => QuanAn()));
                 }
                 if (title == "Lưu trú gần đây") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => luu_tru()));
+                      MaterialPageRoute(builder: (context) => LuuTru()));
                 }
                 if (title == "Nhu Cầu") {
                   Navigator.push(context,

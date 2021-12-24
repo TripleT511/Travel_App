@@ -83,6 +83,14 @@ class LuuTruState extends State<LuuTru> {
           // 1 Lưu trú
           Container(
             padding: EdgeInsets.only(left: 20, bottom: 20, top: 15, right: 20),
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: Colors.grey.shade300,
+              ),
+              borderRadius: BorderRadiusDirectional.only(
+                  topStart: Radius.circular(20), topEnd: Radius.circular(20)),
+            ),
             child: TextButton(
               onPressed: () {
                 Navigator.push(context,
@@ -90,6 +98,7 @@ class LuuTruState extends State<LuuTru> {
               },
               child: Column(
                 children: [
+                  // Hình ảnh
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadiusDirectional.only(
@@ -101,6 +110,7 @@ class LuuTruState extends State<LuuTru> {
                       width: double.maxFinite,
                     ),
                   ),
+                  //  Tên lưu trú
                   Container(
                     padding: EdgeInsets.only(left: 15, bottom: 0, top: 0),
                     child: TextButton(
@@ -118,6 +128,7 @@ class LuuTruState extends State<LuuTru> {
                       ),
                     ),
                   ),
+                  //  Địa chỉ
                   Container(
                     padding: EdgeInsets.only(left: 15, top: 0, bottom: 0),
                     child: TextButton(
@@ -139,6 +150,7 @@ class LuuTruState extends State<LuuTru> {
                   // Expanded(
                   //   child: SizedBox(),
                   // ),
+                  // Thời Gian hoạt động
                   Padding(
                     padding: EdgeInsets.only(left: 15, top: 0, bottom: 0),
                     child: TextButton(

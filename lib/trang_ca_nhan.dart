@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_p/form_change_info.dart';
-import 'package:travel_p/form_change_pass.dart';
+import 'package:vietnam_travel_app/form_change_info.dart';
+import 'package:vietnam_travel_app/form_change_pass.dart';
 
 class trang_ca_nhan extends StatefulWidget {
   @override

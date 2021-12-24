@@ -1,12 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_p/chitiet_luu_tru.dart';
-import 'package:travel_p/create_post.dart';
-import 'package:travel_p/dia_danh.dart';
-import 'package:travel_p/luu_tru.dart';
-import 'package:travel_p/nhu_cau.dart';
-import 'package:travel_p/quan_an.dart';
-import 'package:travel_p/trang_ca_nhan.dart';
+import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
+import 'package:vietnam_travel_app/create_post.dart';
+import 'package:vietnam_travel_app/dia_danh.dart';
+import 'package:vietnam_travel_app/luu_tru.dart';
+import 'package:vietnam_travel_app/nhu_cau.dart';
+import 'package:vietnam_travel_app/quan_an.dart';
+import 'package:vietnam_travel_app/trang_ca_nhan.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
@@ -85,7 +85,7 @@ class home_tabState extends State<home_tab> {
                           BorderRadiusDirectional.all(Radius.circular(16))),
                   clipBehavior: Clip.antiAlias,
                   child: Image.asset(
-                    "images/d.jpg",
+                    "images/c.jpg",
                     width: double.maxFinite,
                   ),
                 ),
@@ -334,11 +334,11 @@ class home_tabState extends State<home_tab> {
                 onPressed: () {
                   if (title == "Quán Ăn") {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => quan_an()));
+                        MaterialPageRoute(builder: (context) => QuanAn()));
                   }
                   if (title == "Lưu Trú") {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => luu_tru()));
+                        MaterialPageRoute(builder: (context) => LuuTru()));
                   }
                   if (title == "Nhu Cầu") {
                     Navigator.push(context,
