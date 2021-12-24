@@ -5,6 +5,7 @@ import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
+import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/trang_ca_nhan.dart';
@@ -77,187 +78,155 @@ class HomePageState extends State<HomePage> {
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 1,
-                color: const Color(0XFF0869E1),
-              ),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: const Text(
-              "Tắm biển",
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w400,
-                fontSize: 18,
-                color: Color(0XFF0869E1),
-              ),
-            ),
-          ),
-        ],
-      ),
-    ];
-    final List<Expanded> imgListQuanAn = [
-      Expanded(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadiusDirectional.all(Radius.circular(16))),
-              clipBehavior: Clip.antiAlias,
-              child: Image.asset(
-                "images/z.jpg",
-                width: double.maxFinite,
-              ),
-            ),
-          ),
-          Row(
+          Stack(
+            alignment: Alignment.center,
             children: [
-              Container(
-                padding: EdgeInsets.only(left: 30),
-                child: Text("Nhà Hàng ABC", style: TextStyle(fontSize: 18)),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [Icon(Icons.place), Text("Ho Chi Minh")],
-                    )),
-              ),
-              Expanded(
-                child: SizedBox(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: 10),
-                child: TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time_outlined),
-                        Text("12 a.m - 10 p.m")
-                      ],
-                    )),
-              ),
-            ],
-          )
-        ],
-      ))
-    ];
-    final List<Expanded> imgListBaiViet = [
-      Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.only(
-                  topStart: Radius.circular(16.0),
-                  topEnd: Radius.circular(16.0),
-                ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: Image.asset(
-                "images/z.jpg",
-                width: double.maxFinite,
-                height: 132,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              alignment: Alignment.centerLeft,
-              child: const Expanded(
-                child: Text(
-                  "Check-in điểm du lịch ",
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                    color: Color(0XFF050505),
+              Card(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadiusDirectional.all(
+                    Radius.circular(16),
                   ),
                 ),
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  "images/slide_1.jpg",
+                  width: double.maxFinite,
+                  height: 210,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Row(
-              children: [
-                Row(
+              Positioned(
+                top: 185,
+                left: 20,
+                child: Row(
                   children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.thumb_up,
-                        color: Color(0XFF0869E1),
-                      ),
+                    const FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      color: Color(0XFFFF3535),
+                      size: 18,
                     ),
-                    const Text(
-                      "5.6k",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        color: Color(0XFF050505),
-                        fontWeight: FontWeight.normal,
+                    Container(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: const Text(
+                        "Tắm Biển",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
                       ),
                     )
                   ],
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.solidEye,
-                        color: Color(0XFF3EFF7F),
-                        size: 18,
-                      ),
-                    ),
-                    const Text(
-                      "6.1k",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        color: Color(0XFF050505),
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                        color: Color(0XFFFF3535),
-                        size: 18,
-                      ),
-                    ),
-                    const Text(
-                      "Nha Trang",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 14,
-                        color: Color(0XFF050505),
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ];
+
+    final List<Column> imgListBaiViet = [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadiusDirectional.only(
+                topStart: Radius.circular(16.0),
+                topEnd: Radius.circular(16.0),
+              ),
             ),
-          ],
-        ),
+            clipBehavior: Clip.antiAlias,
+            child: Image.asset(
+              "images/z.jpg",
+              width: double.maxFinite,
+              height: 132,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Check-in điểm du lịch ",
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+                color: Color(0XFF050505),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.thumb_up,
+                      color: Color(0XFF0869E1),
+                    ),
+                  ),
+                  const Text(
+                    "5.6k",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      color: Color(0XFF050505),
+                      fontWeight: FontWeight.normal,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const FaIcon(
+                      FontAwesomeIcons.solidEye,
+                      color: Color(0XFF3EFF7F),
+                      size: 18,
+                    ),
+                  ),
+                  const Text(
+                    "6.1k",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      color: Color(0XFF050505),
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      color: Color(0XFFFF3535),
+                      size: 18,
+                    ),
+                  ),
+                  const Text(
+                    "Nha Trang",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      color: Color(0XFF050505),
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     ];
     final List<Expanded> imgListLuuTru = [
@@ -323,19 +292,11 @@ class HomePageState extends State<HomePage> {
       return CarouselSlider(
         items: lst,
         options: CarouselOptions(
-            height: 220.0, autoPlay: false, enableInfiniteScroll: true),
-      );
-    }
-
-    CarouselSlider slideShowNhuCau(List<Column> lst) {
-      return CarouselSlider(
-        items: lst,
-        options: CarouselOptions(
             height: 260.0, autoPlay: false, enableInfiniteScroll: true),
       );
     }
 
-    CarouselSlider slideShowQuan(List<Expanded> lst) {
+    CarouselSlider slideShowNhuCau(List<Column> lst) {
       return CarouselSlider(
         items: lst,
         options: CarouselOptions(
@@ -406,7 +367,10 @@ class HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => MyApp()));
+              },
               child: Container(
                 margin: const EdgeInsets.only(left: 5),
                 width: 95,
@@ -414,7 +378,10 @@ class HomePageState extends State<HomePage> {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => trang_ca_nhan()));
+              },
               child: Container(
                 margin: const EdgeInsets.only(right: 5),
                 width: 40,
@@ -504,7 +471,7 @@ class HomePageState extends State<HomePage> {
               sliderTitle("Địa Danh Nổi Bật"),
               slideShow(imgListDiaDanh),
               sliderTitle("Bài Viết Nổi Bật"),
-              // slideShowQuan(imgListBaiViet),
+              slideShow(imgListBaiViet),
               sliderTitle("Nhu Cầu"),
               slideShowNhuCau(imgListNhuCau),
             ],
