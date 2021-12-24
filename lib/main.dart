@@ -42,24 +42,25 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(controller: _tabController, children: [
-        const Text(
-          'Home Page đang bị lỗi',
-          style: TextStyle(color: Colors.black),
-        ),
+        HomePage(),
         search_tab(),
         map_areas(),
         const SeeMorePage(),
       ]),
       bottomNavigationBar: Container(
-        width: 50,
+        height: 65,
         decoration: const BoxDecoration(
           border: Border(top: BorderSide(color: Color(0XFF0869E1), width: 2)),
         ),
         child: TabBar(
+          labelStyle: const TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Color(0XFF050505)),
           labelColor: const Color(0XFF0869E1),
           controller: _tabController,
           unselectedLabelColor: const Color(0XFF050505),
-          isScrollable: true,
           tabs: const [
             Tab(
               icon: FaIcon(

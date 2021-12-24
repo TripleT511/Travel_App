@@ -40,30 +40,30 @@ class SeeMorePageState extends State<SeeMorePage> {
           margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Column(
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => de_xuat_dia_danh()));
-                },
-                child: Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(
-                    top: 20,
-                    bottom: 20,
-                    left: 25,
+              Container(
+                width: 374,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(
+                    color: const Color(0XFFB9B9B9),
+                    width: 2,
                   ),
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(color: Colors.grey.shade300)),
-                  child: const Text(
-                    "Đề xuất địa danh lên hệ thống",
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0XFF050505),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextButton(
+                  onPressed: () {},
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 10),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Đề xuất địa danh lên hệ thống",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF050505),
+                      ),
                     ),
                   ),
                 ),
@@ -71,7 +71,7 @@ class SeeMorePageState extends State<SeeMorePage> {
               Container(
                 margin: const EdgeInsets.only(top: 15, bottom: 40),
                 width: 374,
-                height: 64,
+                height: 50,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const Color(0XFF0869E1),
@@ -90,7 +90,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                     "Đăng xuất",
                     style: TextStyle(
                         color: Color(0XFF0869E1),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700),
                   ),

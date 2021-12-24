@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
@@ -28,84 +29,75 @@ class HomePageState extends State<HomePage> {
           Stack(
             alignment: Alignment.center,
             children: [
-              Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(16))),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/z.jpg",
-                    width: double.maxFinite,
+              Card(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadiusDirectional.all(
+                    Radius.circular(16),
                   ),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  "images/slide_1.jpg",
+                  width: double.maxFinite,
+                  height: 210,
+                  fit: BoxFit.cover,
                 ),
               ),
               Positioned(
-                  top: 140,
-                  left: 25,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.place,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          "Nha Trang",
-                          style: TextStyle(color: Colors.white),
+                top: 185,
+                left: 20,
+                child: Row(
+                  children: [
+                    const FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      color: Color(0XFFFF3535),
+                      size: 18,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: const Text(
+                        "Nha Trang",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
                         ),
-                      )
-                    ],
-                  ))
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
-          Expanded(
-            child: SizedBox(),
-          ),
         ],
-      )
+      ),
     ];
     final List<Column> imgListNhuCau = [
       Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(16))),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/d.jpg",
-                    width: double.maxFinite,
-                  ),
-                ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 1,
+                color: const Color(0XFF0869E1),
               ),
-              Positioned(
-                  bottom: 20,
-                  left: 130,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Text(
-                          "Tắm Biển",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ))
-            ],
-          ),
-          Expanded(
-            child: SizedBox(),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: const Text(
+              "Tắm biển",
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+                fontSize: 18,
+                color: Color(0XFF0869E1),
+              ),
+            ),
           ),
         ],
-      )
+      ),
     ];
     final List<Expanded> imgListQuanAn = [
       Expanded(
@@ -163,70 +155,110 @@ class HomePageState extends State<HomePage> {
     ];
     final List<Expanded> imgListBaiViet = [
       Expanded(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadiusDirectional.all(Radius.circular(16))),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Card(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadiusDirectional.only(
+                  topStart: Radius.circular(16.0),
+                  topEnd: Radius.circular(16.0),
+                ),
+              ),
               clipBehavior: Clip.antiAlias,
               child: Image.asset(
                 "images/z.jpg",
                 width: double.maxFinite,
+                height: 132,
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.only(left: 30),
+            Container(
+              padding: const EdgeInsets.all(10),
+              alignment: Alignment.centerLeft,
+              child: const Expanded(
                 child: Text(
-                  "Check-in điểm du lịch",
-                  style: TextStyle(fontSize: 18),
+                  "Check-in điểm du lịch ",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w400,
+                    color: Color(0XFF050505),
+                  ),
                 ),
               ),
-            ],
-          ),
-          Expanded(
-              child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: Row(
+            ),
+            Row(
               children: [
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.thumb_up, color: Color(0XFF0869E1)),
+                      icon: const Icon(
+                        Icons.thumb_up,
+                        color: Color(0XFF0869E1),
+                      ),
                     ),
-                    Text("5.6k")
+                    const Text(
+                      "5.6k",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                        color: Color(0XFF050505),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    )
                   ],
                 ),
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon:
-                          Icon(Icons.remove_red_eye, color: Colors.greenAccent),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.solidEye,
+                        color: Color(0XFF3EFF7F),
+                        size: 18,
+                      ),
                     ),
-                    Text("6.1k")
+                    const Text(
+                      "6.1k",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                        color: Color(0XFF050505),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
                   ],
                 ),
                 Row(
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.place, color: Colors.redAccent),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.mapMarkerAlt,
+                        color: Color(0XFFFF3535),
+                        size: 18,
+                      ),
                     ),
-                    Text("Nha Trang")
+                    const Text(
+                      "Nha Trang",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                        color: Color(0XFF050505),
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
                   ],
-                )
+                ),
               ],
             ),
-          ))
-        ],
-      ))
+          ],
+        ),
+      ),
     ];
     final List<Expanded> imgListLuuTru = [
       Expanded(
@@ -299,7 +331,7 @@ class HomePageState extends State<HomePage> {
       return CarouselSlider(
         items: lst,
         options: CarouselOptions(
-            height: 500.0, autoPlay: false, enableInfiniteScroll: true),
+            height: 260.0, autoPlay: false, enableInfiniteScroll: true),
       );
     }
 
@@ -307,7 +339,7 @@ class HomePageState extends State<HomePage> {
       return CarouselSlider(
         items: lst,
         options: CarouselOptions(
-            height: 250.0, autoPlay: false, enableInfiniteScroll: true),
+            height: 260.0, autoPlay: false, enableInfiniteScroll: true),
       );
     }
 
@@ -315,326 +347,382 @@ class HomePageState extends State<HomePage> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Text(
-                title,
-                style: TextStyle(color: Color(0XFF0869E1), fontSize: 20),
-              )
-            ],
+          Container(
+            margin: const EdgeInsets.only(left: 10),
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Color(0XFF050505),
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Roboto',
+              ),
+            ),
           ),
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {
-                  if (title == "Quán Ăn") {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => quan_an()));
-                  }
-                  if (title == "Lưu Trú") {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => luu_tru()));
-                  }
-                  if (title == "Nhu Cầu") {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => nhu_cau()));
-                  }
-                  if (title == "Địa Danh Nổi Bật") {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => dia_danh()));
-                  }
-                },
-                child: Text(
-                  "Xem thêm",
-                  style: TextStyle(fontSize: 15, color: Color(0XFF0869E1)),
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: TextButton(
+              onPressed: () {
+                if (title == "Quán Ăn") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => quan_an()));
+                }
+                if (title == "Lưu Trú") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => luu_tru()));
+                }
+                if (title == "Nhu Cầu") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => nhu_cau()));
+                }
+                if (title == "Địa Danh Nổi Bật") {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => dia_danh()));
+                }
+              },
+              child: const Text(
+                "Xem thêm",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0XFF0869E1),
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
                 ),
-              )
-            ],
-          )
+              ),
+            ),
+          ),
         ],
       );
     }
 
     return Scaffold(
+      appBar: AppBar(
+        leading: null,
+        leadingWidth: 0,
+        titleSpacing: 0,
+        elevation: 1.5,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {},
+              child: Container(
+                margin: const EdgeInsets.only(left: 5),
+                width: 95,
+                child: Image.asset("images/logo-ver3.png"),
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Container(
+                margin: const EdgeInsets.only(right: 5),
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Color(0xff7c94b6),
+                  image: DecorationImage(
+                    image: AssetImage('images/avatar.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50.0),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: ListView(
         controller: scroll,
         children: [
-          Padding(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          TextButton(
-                              onPressed: () {},
-                              child: Container(
-                                width: 95,
-                                child: Image.asset("images/logo-ver3.png"),
-                              ))
-                        ],
+                  Container(
+                    margin: const EdgeInsets.all(15),
+                    width: 40,
+                    height: 40,
+                    decoration: const BoxDecoration(
+                      color: Color(0xff7c94b6),
+                      image: DecorationImage(
+                        image: AssetImage('images/avatar.jpg'),
+                        fit: BoxFit.cover,
                       ),
-                      Row(
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => trang_ca_nhan()));
-                              },
-                              child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                            "images/a.jpg",
-                                          ),
-                                          fit: BoxFit.cover),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(50.0)),
-                                      border: Border.all(
-                                          width: 2, color: Colors.white))))
-                        ],
-                      )
-                    ],
+                      borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.only(left: 10),
+                    width: 280,
+                    height: 40,
                     decoration: BoxDecoration(
-                        border: Border.fromBorderSide(
-                            BorderSide(width: 1, color: Colors.grey.shade300))),
+                      border: Border.all(
+                        width: 1,
+                        color: const Color(0XFFB9B9B9),
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => create_post(),
+                          ),
+                        );
+                      },
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Chia sẻ địa danh...",
+                          style: TextStyle(
+                            color: Color(0XFF050505),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.all(15),
-                          child: Container(
-                              width: 40,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                        "images/a.jpg",
-                                      ),
-                                      fit: BoxFit.cover),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50.0)),
-                                  border: Border.all(
-                                      width: 2, color: Colors.white)))),
-                      Container(
-                        padding: EdgeInsets.only(left: 5),
-                        width: 280,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: Colors.grey),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => create_post()));
-                            },
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text("Chia sẻ địa danh..."),
-                            )),
-                      )
-                    ],
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
-                        border: Border.fromBorderSide(
-                            BorderSide(width: 1, color: Colors.grey.shade300))),
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  sliderTitle("Địa Danh Nổi Bật"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  slideShow(imgListDiaDanh),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  sliderTitle("Bài Viết Nổi Bật"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  slideShowQuan(imgListBaiViet),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  sliderTitle("Nhu Cầu"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  slideShowNhuCau(imgListNhuCau),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  sliderTitle("Quán Ăn"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  slideShowQuan(imgListQuanAn),
-                  SizedBox(
-                    height: 25,
-                  ),
-                  sliderTitle("Lưu Trú"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  slideShowQuan(imgListLuuTru),
                 ],
-              )),
-          SizedBox(
-            height: 10,
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 5),
+                decoration: const BoxDecoration(
+                  border: Border.fromBorderSide(
+                    BorderSide(
+                      width: 0.5,
+                      color: Color(0XFFD2D4D8),
+                    ),
+                  ),
+                ),
+              ),
+              sliderTitle("Địa Danh Nổi Bật"),
+              slideShow(imgListDiaDanh),
+              sliderTitle("Bài Viết Nổi Bật"),
+              // slideShowQuan(imgListBaiViet),
+              sliderTitle("Nhu Cầu"),
+              slideShowNhuCau(imgListNhuCau),
+            ],
           ),
           Container(
-            padding: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(width: 1, color: Colors.grey.shade300),
-                    bottom: BorderSide(width: 1, color: Colors.grey.shade300))),
-            child: Text(
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(width: 0.5, color: Color(0XFFB9B9B9)),
+                bottom: BorderSide(width: 0.5, color: Color(0XFFB9B9B9)),
+              ),
+            ),
+            child: const Text(
               "Bài Viết",
-              style: TextStyle(fontSize: 20, color: Color(0XFF0869E1)),
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0XFF050505),
+                  fontWeight: FontWeight.w500),
             ),
           ),
-          Container(
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: AssetImage("images/a.jpg"),
+          ListTile(
+            leading: const CircleAvatar(
+              backgroundImage: AssetImage("images/avatar.jpg"),
+            ),
+            title: const Text(
+              "Phuc Nguyen",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Roboto',
+                fontSize: 16,
               ),
-              title: Text(
-                "Phuc Nguyen",
-                style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text("23-12-2021"),
+            ),
+            trailing: IconButton(
+              onPressed: () {},
+              icon: const FaIcon(
+                FontAwesomeIcons.ellipsisH,
+                size: 18,
               ),
-              subtitle: Align(
-                alignment: Alignment.centerLeft,
-                child: Text("13 giờ"),
-              ),
-              trailing:
-                  IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz)),
             ),
           ),
-          Container(
-            child: Image.asset("images/i.jpg"),
+          Image.asset(
+            "images/slide_1.jpg",
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
+            child: Text(
+              "Hạ Long Bay is a UNESCO World Heritage Site and popular travel destination in Quảng Ninh Province, Vietnam",
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+                color: Color(0XFF050505),
+                height: 1.4,
+                fontSize: 16,
+              ),
+            ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 25, right: 25, left: 25),
-            child: Text("Đẹp vl !"),
-          ),
-          Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.only(left: 0),
             child: TextButton(
-                onPressed: () {},
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Color(0XFF0869E1)),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Text("Ho Chi Minh City,Viet Nam"),
+              onPressed: () {},
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: const Color(0XFF0869E1),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                )),
+                  child: const Text(
+                    "Ho Chi Minh City, Viet Nam",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Color(0XFF0869E1),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
           Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.remove_red_eye, color: Colors.grey),
-                      Text("10k lượt xem")
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [Text("1.2k lượt thích")],
+            padding: const EdgeInsets.only(left: 10, bottom: 10, right: 10),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    FaIcon(
+                      FontAwesomeIcons.solidEye,
+                      color: Color(0XFF65676B),
+                      size: 18,
+                    ),
+                    Text(
+                      " 10k lượt xem",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF65676B),
                       ),
-                      Row(
-                        children: [Text("56 lượt không thích")],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: const [
+                      Text(
+                        "1.2k lượt thích",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0XFF65676B),
+                        ),
                       ),
-                      Row(
-                        children: [Text("5.6k lượt chia sẻ")],
-                      )
-                    ],
+                      Text(
+                        "56 lượt không thích",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0XFF65676B),
+                        ),
+                      ),
+                    ]),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  decoration: const BoxDecoration(
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        width: 0.5,
+                        color: Color(0XFFD2D4D8),
+                      ),
+                    ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    decoration: BoxDecoration(
-                        border: Border.fromBorderSide(
-                            BorderSide(width: 1, color: Colors.grey.shade300))),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon:
-                                Icon(Icons.thumb_up, color: Color(0XFF0869E1)),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.thumb_up,
+                            color: Color(0XFF0869E1),
                           ),
-                          Text("Thích")
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.thumb_down_outlined,
-                                color: Colors.grey),
+                        ),
+                        const Text(
+                          "Thích",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0XFF65676B),
                           ),
-                          Text("Không thích")
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon:
-                                Icon(Icons.share_outlined, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.thumb_down_outlined,
+                              color: Colors.grey),
+                        ),
+                        const Text(
+                          "Không thích",
+                          style: TextStyle(
+                            color: Color(0XFF65676B),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Roboto',
                           ),
-                          Text("Chia sẻ")
-                        ],
-                      )
-                    ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border.fromBorderSide(
+                      BorderSide(
+                        width: 0.5,
+                        color: Color(0XFFD2D4D8),
+                      ),
+                    ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    decoration: BoxDecoration(
-                        border: Border.fromBorderSide(
-                            BorderSide(width: 1, color: Colors.grey.shade300))),
-                  )
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          final double start = 0;
+          const double start = 0;
           scroll.animateTo(start,
-              duration: Duration(seconds: 1), curve: Curves.easeIn);
+              duration: const Duration(seconds: 1), curve: Curves.easeIn);
         },
-        child: Icon(Icons.arrow_upward),
+        backgroundColor: const Color(0XFF0869E1),
+        child: const FaIcon(
+          FontAwesomeIcons.arrowUp,
+          color: Colors.white,
+        ),
       ),
     );
   }

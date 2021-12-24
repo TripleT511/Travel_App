@@ -74,12 +74,12 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   icon: checkPass
                       ? const FaIcon(
                           FontAwesomeIcons.eyeSlash,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF65676B),
                           size: 20,
                         )
                       : const FaIcon(
                           FontAwesomeIcons.eye,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF65676B),
                           size: 20,
                         ),
                 ),
@@ -118,12 +118,12 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   icon: checkPass2
                       ? const FaIcon(
                           FontAwesomeIcons.eyeSlash,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF65676B),
                           size: 20,
                         )
                       : const FaIcon(
                           FontAwesomeIcons.eye,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF65676B),
                           size: 20,
                         ),
                 ),
@@ -140,7 +140,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextField(
               obscureText: checkPass3 ? true : false,
               decoration: InputDecoration(
@@ -162,12 +162,12 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   icon: checkPass3
                       ? const FaIcon(
                           FontAwesomeIcons.eyeSlash,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF65676B),
                           size: 20,
                         )
                       : const FaIcon(
                           FontAwesomeIcons.eye,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF65676B),
                           size: 20,
                         ),
                 ),
@@ -178,9 +178,9 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
           Container(
             margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
             width: 374,
-            height: 64,
+            height: 50,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
                 color: const Color(0XFF0869E1)),
             child: TextButton(
               onPressed: () {},
@@ -188,7 +188,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 "Đổi mật khẩu",
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w700),
               ),
@@ -197,9 +197,9 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
           Container(
             margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
             width: 374,
-            height: 64,
+            height: 50,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(10),
                 color: const Color(0XFFE4E6EB)),
             child: TextButton(
               onPressed: () {
@@ -209,7 +209,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 "Huỷ",
                 style: TextStyle(
                     color: Color(0XFF050505),
-                    fontSize: 20,
+                    fontSize: 18,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w700),
               ),

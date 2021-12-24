@@ -52,7 +52,7 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 15, right: 20),
+              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập email",
@@ -100,13 +100,13 @@ class LoginPageState extends State<LoginPage> {
                     icon: checkPass
                         ? const FaIcon(
                             FontAwesomeIcons.eyeSlash,
-                            color: Color(0XFF050505),
-                            size: 20,
+                            color: Color(0XFF65676B),
+                            size: 18,
                           )
                         : const FaIcon(
                             FontAwesomeIcons.eye,
-                            color: Color(0XFF050505),
-                            size: 20,
+                            color: Color(0XFF65676B),
+                            size: 18,
                           ),
                   ),
                   hintText: "Nhập mật khẩu",
@@ -163,7 +163,7 @@ class LoginPageState extends State<LoginPage> {
             Container(
               margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
               width: 374,
-              height: 64,
+              height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0XFF0869E1)),
@@ -212,7 +212,7 @@ class LoginPageState extends State<LoginPage> {
                         color: Color(0XFF0869E1),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

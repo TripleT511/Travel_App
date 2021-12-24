@@ -51,7 +51,7 @@ class RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 15, right: 20),
+              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập họ tên",
@@ -77,7 +77,7 @@ class RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 15, right: 20),
+              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập email",
@@ -103,7 +103,7 @@ class RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 15, right: 20),
+              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập số điện thoại",
@@ -151,12 +151,12 @@ class RegisterPageState extends State<RegisterPage> {
                     icon: checkPass
                         ? const FaIcon(
                             FontAwesomeIcons.eyeSlash,
-                            color: Color(0XFF050505),
+                            color: Color(0XFF65676B),
                             size: 20,
                           )
                         : const FaIcon(
                             FontAwesomeIcons.eye,
-                            color: Color(0XFF050505),
+                            color: Color(0XFF65676B),
                             size: 20,
                           ),
                   ),
@@ -195,12 +195,12 @@ class RegisterPageState extends State<RegisterPage> {
                     icon: checkPass
                         ? const FaIcon(
                             FontAwesomeIcons.eyeSlash,
-                            color: Color(0XFF050505),
+                            color: Color(0XFF65676B),
                             size: 20,
                           )
                         : const FaIcon(
                             FontAwesomeIcons.eye,
-                            color: Color(0XFF050505),
+                            color: Color(0XFF65676B),
                             size: 20,
                           ),
                   ),
@@ -211,7 +211,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
               width: 374,
-              height: 64,
+              height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0XFF0869E1)),

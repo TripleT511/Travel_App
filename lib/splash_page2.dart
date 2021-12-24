@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:vietnam_travel_app/login_page.dart';
 import 'package:vietnam_travel_app/register_page.dart';
 
@@ -24,37 +23,36 @@ class SplashPage2State extends State<SplashPage2> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 45, bottom: 25),
+                margin: const EdgeInsets.only(top: 65, bottom: 25),
                 child: Image.asset(
                   "images/logo-ver3.png",
                   width: 183,
                   fit: BoxFit.cover,
                 ),
               ),
+              Image.asset("images/banner_main.png",
+                  width: 366, fit: BoxFit.cover),
               Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: Image.asset("images/banner_main.png",
-                    width: 366, fit: BoxFit.cover),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 35, left: 20, right: 20),
+                margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
                 width: 374,
-                height: 64,
+                height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0XFF0869E1)),
                 child: TextButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
                   },
                   child: const Text(
-                    "Đăng Nhập",
+                    "Đăng nhập",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700),
                   ),
@@ -64,7 +62,7 @@ class SplashPage2State extends State<SplashPage2> {
                 margin: const EdgeInsets.only(
                     top: 15, left: 20, right: 20, bottom: 40),
                 width: 374,
-                height: 64,
+                height: 50,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: const Color(0XFF0869E1),
@@ -83,7 +81,7 @@ class SplashPage2State extends State<SplashPage2> {
                     "Đăng ký",
                     style: TextStyle(
                         color: Color(0XFF0869E1),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700),
                   ),
