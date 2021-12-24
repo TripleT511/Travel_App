@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 
 class dia_danh extends StatefulWidget {
@@ -11,13 +12,151 @@ class dia_danh extends StatefulWidget {
 }
 
 class dia_danhState extends State<dia_danh> {
+  final List<Column> imgListDiaDanhQuangNinh = [];
+  final List<Column> imgListDiaDanhLongAn = [];
+  void loadListDiaDanh() {
+    int b = 5;
+    for (int i = 0; i < b; i++) {
+      Column a = Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Card(
+                  elevation: 3.0,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.all(
+                      Radius.circular(16),
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/slide_1.jpg",
+                    /*a.image*/
+                    width: double.maxFinite,
+                    height: 210,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 185,
+                  left: 20,
+                  child: Row(
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.mapMarkerAlt,
+                        color: Color(0XFFFF3535),
+                        size: 18,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: const Text(
+                          "Vịnh Hạ Long",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+      imgListDiaDanhQuangNinh.add(a);
+    }
+  }
+
+  void loadListDiaDanhLongAn() {
+    int b = 5;
+    for (int i = 0; i < b; i++) {
+      Column a = Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Card(
+                  elevation: 3.0,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.all(
+                      Radius.circular(16),
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/slide_1.jpg",
+                    /*a.image*/
+                    width: double.maxFinite,
+                    height: 210,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  top: 185,
+                  left: 20,
+                  child: Row(
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.mapMarkerAlt,
+                        color: Color(0XFFFF3535),
+                        size: 18,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: const Text(
+                          "Vịnh Hạ Long",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+      imgListDiaDanhLongAn.add(a);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadListDiaDanh();
+    loadListDiaDanhLongAn();
+  }
+
   @override
   Widget build(BuildContext context) {
     CarouselSlider slideShow(List<Column> lst) {
       return CarouselSlider(
         items: lst,
         options: CarouselOptions(
-            height: 220.0, autoPlay: false, enableInfiniteScroll: true),
+            viewportFraction: 0.7,
+            height: 230.0,
+            autoPlay: false,
+            enableInfiniteScroll: true),
       );
     }
 
@@ -46,104 +185,6 @@ class dia_danhState extends State<dia_danh> {
       );
     }
 
-    final List<Column> imgListDiaDanhQuangNinh = [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => chitiet_diadanh()));
-                },
-                child: Container(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadiusDirectional.all(Radius.circular(16))),
-                    clipBehavior: Clip.antiAlias,
-                    child: Image.asset(
-                      "images/z.jpg",
-                      width: double.maxFinite,
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                  top: 145,
-                  left: 25,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.place,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          "Vịnh Hạ Long",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                    ],
-                  ))
-            ],
-          ),
-          Expanded(
-            child: SizedBox(),
-          ),
-        ],
-      )
-    ];
-    final List<Column> imgListDiaDanhLongAn = [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadiusDirectional.all(Radius.circular(16))),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/z.jpg",
-                    width: double.maxFinite,
-                  ),
-                ),
-              ),
-              Positioned(
-                  top: 145,
-                  left: 25,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.place,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          "Long An",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                    ],
-                  ))
-            ],
-          ),
-          Expanded(
-            child: SizedBox(),
-          ),
-        ],
-      )
-    ];
     bool checkFloat = false;
     return Scaffold(
       backgroundColor: Colors.white,

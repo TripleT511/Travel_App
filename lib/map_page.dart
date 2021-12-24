@@ -4,14 +4,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import 'chitiet_dia_danh.dart';
 
-class map_areas extends StatefulWidget {
+class MapPage extends StatefulWidget {
+  const MapPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return map_areasState();
+    return MapPageState();
   }
 }
 
-class map_areasState extends State<map_areas> {
+class MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     final List<Column> imgListDiaDanhQuangNinh = [
