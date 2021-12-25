@@ -79,7 +79,7 @@ class LuuTruState extends State<LuuTru> {
           InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => chitiet_luutru()));
+                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
             }, // Handle your callback
             child: Column(
               children: [
@@ -179,7 +179,7 @@ class LuuTruState extends State<LuuTru> {
           InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => chitiet_luutru()));
+                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
             }, // Handle your callback
             child: Column(
               children: [
