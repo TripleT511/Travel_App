@@ -13,8 +13,8 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Roboto'),
-      home: ChiTietQuanAn(),
-      // home: const SplashPage(),
+      //home: ChiTietQuanAn(),
+      home: const SplashPage(),
     ),
   );
 }

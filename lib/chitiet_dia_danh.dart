@@ -52,7 +52,7 @@ class chitiet_diadanhState extends State<chitiet_diadanh> {
                 }
                 if (title == "Lưu trú gần đây") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LuuTru()));
+                      MaterialPageRoute(builder: (context) => luu_tru()));
                 }
                 if (title == "Nhu Cầu") {
                   Navigator.push(context,

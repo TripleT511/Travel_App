@@ -1,22 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 
-class LuuTru extends StatefulWidget {
+class luu_tru extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LuuTruState();
+    return luu_truState();
   }
 }
 
-class LuuTruState extends State<LuuTru> {
+class luu_truState extends State<luu_tru> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
         children: [
+          Image.network("sadad"),
+          const ListTile(
+            title: Icon(Icons.add),
+            subtitle: Icon(Icons.add),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -61,217 +65,235 @@ class LuuTruState extends State<LuuTru> {
                 margin: EdgeInsets.only(top: 5),
                 decoration: BoxDecoration(
                     border: Border.fromBorderSide(
-                        BorderSide(width: 0.5, color: Colors.grey))),
+                        BorderSide(width: 1, color: Colors.grey))),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                padding: EdgeInsets.all(30),
                 child: Text(
-                  "Lưu Trú - " + "Hồ Chí Minh",
+                  "LƯU TRÚ",
                   style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0XFF0869E1),
-                  ),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0XFF0869E1)),
                 ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: SizedBox(
+                      width: 360,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            hintText: "Nhập điểm cần đến....",
+                            prefixIcon: Icon(
+                              Icons.place,
+                              color: Color(0XFF0869E1),
+                            )),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Icon(Icons.near_me_outlined),
+                        Container(
+                          margin: EdgeInsets.only(left: 10),
+                          child: Text(
+                            "Sử dụng vị trí của bạn ngay bây giờ",
+                            style: TextStyle(color: Colors.grey, fontSize: 17),
+                          ),
+                        )
+                      ],
+                    )),
               ),
             ],
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
-            }, // Handle your callback
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 265,
-                  width: 374,
-                  child: Card(
-                    elevation: 3.0,
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.only(
-                        topStart: Radius.circular(16.0),
-                        topEnd: Radius.circular(16.0),
-                        bottomStart: Radius.circular(16.0),
-                        bottomEnd: Radius.circular(16.0),
-                      ),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          "images/luutru.jpg",
-                          width: 374,
-                          height: 132,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 20, bottom: 12),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Khách Sạn Wano",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0XFF000000),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.place,
-                                color: Color(0XFF0869E1),
-                              ),
-                              Text(
-                                " " +
-                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFF050505),
-                                  fontFamily: 'Roboto',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.access_time_outlined,
-                                color: Color(0XFF0869E1),
-                              ),
-                              Text(
-                                " " + "12 a.m - 10 p.m",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFF050505),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+          Container(
+            padding: EdgeInsets.only(left: 20, top: 15, bottom: 10),
+            child: Text(
+              "Hồ Chí Minh",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(
-            height: 15.0,
-          ),
-          InkWell(
-            onTap: () {
+          TextButton(
+            onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
-            }, // Handle your callback
-            child: Column(
+            },
+            child: Expanded(
+                child: Column(
               children: [
-                SizedBox(
-                  height: 265,
-                  width: 374,
-                  child: Card(
-                    elevation: 3.0,
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
+                Card(
+                  shape: RoundedRectangleBorder(
                       borderRadius: BorderRadiusDirectional.only(
-                        topStart: Radius.circular(16.0),
-                        topEnd: Radius.circular(16.0),
-                        bottomStart: Radius.circular(16.0),
-                        bottomEnd: Radius.circular(16.0),
-                      ),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          "images/luutru.jpg",
-                          width: 374,
-                          height: 132,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 20, bottom: 12),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Khách Sạn Wano",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0XFF000000),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.place,
-                                color: Color(0XFF0869E1),
-                              ),
-                              Text(
-                                " " +
-                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFF050505),
-                                  fontFamily: 'Roboto',
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.access_time_outlined,
-                                color: Color(0XFF0869E1),
-                              ),
-                              Text(
-                                " " + "12 a.m - 10 p.m",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFF050505),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                          topStart: Radius.circular(20),
+                          topEnd: Radius.circular(20))),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/z.jpg",
+                    width: double.maxFinite,
                   ),
                 ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 30),
+                      child: Text("Khách Sạn Wano"),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                          )),
+                    ),
+                    Expanded(
+                      child: SizedBox(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              Icon(Icons.access_time_outlined),
+                              Text("12 a.m - 10 p.m")
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
               ],
-            ),
+            )),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 5),
+            decoration: BoxDecoration(
+                border: Border.fromBorderSide(
+                    BorderSide(width: 1, color: Colors.grey))),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: Expanded(
+                child: Column(
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(20),
+                          topEnd: Radius.circular(20))),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/z.jpg",
+                    width: double.maxFinite,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 30),
+                      child: Text("Khách Sạn Wano"),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                          )),
+                    ),
+                    Expanded(
+                      child: SizedBox(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              Icon(Icons.access_time_outlined),
+                              Text("12 a.m - 10 p.m")
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
+              ],
+            )),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 5),
+            decoration: BoxDecoration(
+                border: Border.fromBorderSide(
+                    BorderSide(width: 1, color: Colors.grey))),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: Expanded(
+                child: Column(
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(20),
+                          topEnd: Radius.circular(20))),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/z.jpg",
+                    width: double.maxFinite,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 30),
+                      child: Text("Khách Sạn Wano"),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [Icon(Icons.place), Text("Ho Chi Minh")],
+                          )),
+                    ),
+                    Expanded(
+                      child: SizedBox(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              Icon(Icons.access_time_outlined),
+                              Text("12 a.m - 10 p.m")
+                            ],
+                          )),
+                    ),
+                  ],
+                ),
+              ],
+            )),
           ),
         ],
       ),
