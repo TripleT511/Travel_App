@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class de_xuat_dia_danh extends StatefulWidget {
+class DeXuatDiaDanh extends StatefulWidget {
+  const DeXuatDiaDanh({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return de_xuat_dia_danhState();
+    return DeXuatDiaDanhState();
   }
 }
 
-class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
+class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,8 +19,8 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
         title: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 40),
-              child: Text(
+              margin: const EdgeInsets.only(left: 40),
+              child: const Text(
                 "Đề xuất địa danh",
                 style: TextStyle(
                     color: Colors.blueAccent,
@@ -32,7 +33,7 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
       ),
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Column(
@@ -40,21 +41,21 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    child: Text("Chọn tỉnh thành"),
+                    margin: const EdgeInsets.only(left: 20, right: 20),
+                    child: const Text("Chọn tỉnh thành"),
                   ),
                   Container(
                       alignment: Alignment.center,
                       height: 35,
-                      margin: EdgeInsets.only(right: 15),
-                      padding: EdgeInsets.all(0),
+                      margin: const EdgeInsets.only(right: 15),
+                      padding: const EdgeInsets.all(0),
                       decoration: BoxDecoration(
                           color: Colors.grey.shade300,
                           borderRadius: BorderRadius.circular(7)),
                       child: TextButton(
                           onPressed: () {},
                           child: Row(
-                            children: [
+                            children: const [
                               Text(
                                 "Hồ Chí Minh",
                                 style: TextStyle(
@@ -70,15 +71,15 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(top: 50, left: 15),
-                child: Text(
+                padding: const EdgeInsets.only(top: 50, left: 15),
+                child: const Text(
                   "Tên địa danh",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 15, bottom: 15, right: 15),
-                child: TextField(
+                padding: const EdgeInsets.only(left: 15, bottom: 15, right: 15),
+                child: const TextField(
                   decoration: InputDecoration(
                     hintText: "Nhập tên địa danh",
                   ),
@@ -86,15 +87,15 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                padding: EdgeInsets.only(top: 20, left: 15),
-                child: Text(
+                padding: const EdgeInsets.only(top: 20, left: 15),
+                child: const Text(
                   "Mô tả",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 15, bottom: 15, right: 15),
-                child: TextField(
+                padding: const EdgeInsets.only(left: 15, bottom: 15, right: 15),
+                child: const TextField(
                   decoration: InputDecoration(
                     hintText: "Nhập mô tả",
                   ),
@@ -110,9 +111,9 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
                 child: Container(
                   height: 35,
                   width: 160,
-                  margin: EdgeInsets.only(bottom: 30, left: 20),
-                  padding:
-                      EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                  margin: const EdgeInsets.only(bottom: 30, left: 20),
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 5, bottom: 5),
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(5)),
@@ -122,7 +123,7 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
                         Icons.photo_library,
                         color: Colors.greenAccent,
                       ),
-                      Text("Ảnh")
+                      const Text("Ảnh")
                     ],
                   ),
                 ),
@@ -132,9 +133,9 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
                   child: Container(
                     height: 35,
                     width: 160,
-                    margin: EdgeInsets.only(bottom: 30, right: 20),
-                    padding:
-                        EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                    margin: const EdgeInsets.only(bottom: 30, right: 20),
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 20, top: 5, bottom: 5),
                     decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(5)),
@@ -144,7 +145,7 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
                           Icons.place,
                           color: Colors.redAccent,
                         ),
-                        Text("Địa điểm")
+                        const Text("Địa điểm")
                       ],
                     ),
                   ))
@@ -154,13 +155,13 @@ class de_xuat_dia_danhState extends State<de_xuat_dia_danh> {
       ),
       bottomSheet: Container(
         width: 380,
-        margin: EdgeInsets.only(left: 7, bottom: 30),
-        padding: EdgeInsets.all(5),
+        margin: const EdgeInsets.only(left: 7, bottom: 30),
+        padding: const EdgeInsets.all(5),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10), color: Colors.blueAccent),
         child: TextButton(
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Chia Sẻ",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),

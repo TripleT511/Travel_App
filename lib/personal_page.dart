@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/changepw_page.dart';
 import 'package:vietnam_travel_app/edit_info_page.dart';
+import 'package:vietnam_travel_app/settings_page.dart';
 
 class PersonalPage extends StatefulWidget {
   const PersonalPage({Key? key}) : super(key: key);
@@ -43,71 +44,18 @@ class PersonalPageState extends State<PersonalPage> {
             ),
             Container(
               margin: const EdgeInsets.only(right: 5),
-              child: PopupMenuButton(
-                icon: const SizedBox(
-                  width: 30,
-                  height: 30,
-                  child: FaIcon(
-                    FontAwesomeIcons.cog,
-                    color: Colors.white,
-                    size: 25,
-                  ),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsPage()));
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.cog,
+                  color: Colors.white,
+                  size: 25,
                 ),
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: const FaIcon(
-                        FontAwesomeIcons.unlockAlt,
-                        color: Color(0XFF050505),
-                        size: 18,
-                      ),
-                      title: const Text(
-                        'Đổi mật khẩu',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0XFF050505),
-                          fontSize: 16,
-                        ),
-                      ),
-                      onTap: () {
-                        setState(() {});
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ChangePasswordPage(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  PopupMenuItem(
-                    child: ListTile(
-                      leading: const FaIcon(
-                        FontAwesomeIcons.userEdit,
-                        color: Color(0XFF050505),
-                        size: 18,
-                      ),
-                      title: const Text(
-                        'Chỉnh sửa thông tin',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w500,
-                          color: Color(0XFF050505),
-                          fontSize: 16,
-                        ),
-                      ),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const EditInforPage(),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
               ),
             )
           ],
@@ -124,7 +72,7 @@ class PersonalPageState extends State<PersonalPage> {
                   width: MediaQuery.of(context).size.width,
                   height: 200,
                   child: Image.asset(
-                    "images/banner.png",
+                    "images/slide_1.jpg",
                     fit: BoxFit.cover,
                   ),
                 ),

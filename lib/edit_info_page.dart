@@ -27,10 +27,10 @@ class EditInforPageState extends State<EditInforPage> {
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
         title: const Text(
-          "Chỉnh sửa thông tin cá nhân",
+          "Chỉnh sửa thông tin",
           style: TextStyle(
             fontSize: 22,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
             color: Color(0XFF0869E1),
           ),
@@ -42,7 +42,7 @@ class EditInforPageState extends State<EditInforPage> {
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(
-                  top: 20, left: 20, right: 20, bottom: 10),
+                  top: 20, left: 15, right: 15, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -94,7 +94,7 @@ class EditInforPageState extends State<EditInforPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Akagami no Shankusu",
@@ -113,7 +113,7 @@ class EditInforPageState extends State<EditInforPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -165,7 +165,7 @@ class EditInforPageState extends State<EditInforPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "shanks@gmail.com",
@@ -184,7 +184,7 @@ class EditInforPageState extends State<EditInforPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -236,7 +236,7 @@ class EditInforPageState extends State<EditInforPage> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "0123456975",
@@ -254,7 +254,7 @@ class EditInforPageState extends State<EditInforPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
               width: 374,
               height: 50,
               decoration: BoxDecoration(
@@ -273,7 +273,7 @@ class EditInforPageState extends State<EditInforPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
               width: 374,
               height: 50,
               decoration: BoxDecoration(

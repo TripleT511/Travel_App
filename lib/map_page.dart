@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -25,10 +24,8 @@ class MapPageState extends State<MapPage> {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => chitiet_diadanh()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => PlaceDetail()));
                 },
                 child: Container(
                   child: Card(

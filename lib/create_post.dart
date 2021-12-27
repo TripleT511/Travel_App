@@ -1,27 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class create_post extends StatefulWidget {
+class CreatePost extends StatefulWidget {
+  const CreatePost({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return create_postState();
+    return CreatePostState();
   }
 }
 
-class create_postState extends State<create_post> {
+class CreatePostState extends State<CreatePost> {
   List items = ['Công khai', 'Chỉ mình tôi'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Color(0XFF0869E1),
+        foregroundColor: const Color(0XFF0869E1),
         backgroundColor: Colors.white,
         title: Row(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 80),
-              child: Text(
+              margin: const EdgeInsets.only(left: 80),
+              child: const Text(
                 "Bài viết",
                 style: TextStyle(
                     color: Color(0XFF0869E1),
@@ -31,18 +32,18 @@ class create_postState extends State<create_post> {
             ),
             Container(
                 decoration: BoxDecoration(
-                    color: Color(0XFF0869E1),
+                    color: const Color(0XFF0869E1),
                     borderRadius: BorderRadius.circular(5)),
                 width: 65,
                 height: 35,
-                margin: EdgeInsets.only(left: 75),
+                margin: const EdgeInsets.only(left: 75),
                 child: Align(
                     alignment: Alignment.center,
                     child: TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
+                      child: const Text(
                         "Post",
                         style: TextStyle(color: Colors.white),
                       ),
@@ -52,37 +53,34 @@ class create_postState extends State<create_post> {
       ),
       body: Column(
         children: [
-          Container(
-            child: ListTile(
-              leading: Container(
-                width: 50,
-                height: 50,
-                child: CircleAvatar(
-                  backgroundImage: AssetImage("images/a.jpg"),
-                ),
+          ListTile(
+            leading: const SizedBox(
+              width: 50,
+              height: 50,
+              child: CircleAvatar(
+                backgroundImage: AssetImage("images/a.jpg"),
               ),
-              title: Text(
-                "Phuc Nguyen",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                    child: Row(
-                  children: [
-                    Text(
-                      "Công khai",
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    Icon(Icons.keyboard_arrow_down)
-                  ],
-                )),
+            ),
+            title: const Text(
+              "Phuc Nguyen",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            subtitle: Align(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: const [
+                  Text(
+                    "Công khai",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Icon(Icons.keyboard_arrow_down)
+                ],
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(15),
-            child: TextField(
+            padding: const EdgeInsets.all(15),
+            child: const TextField(
               decoration: InputDecoration(
                   hintText: "Bạn đang nghĩ gì...", border: InputBorder.none),
               keyboardType: TextInputType.multiline,
@@ -99,13 +97,14 @@ class create_postState extends State<create_post> {
             child: Container(
               height: 35,
               width: 160,
-              margin: EdgeInsets.only(bottom: 30, left: 20),
-              padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+              margin: const EdgeInsets.only(bottom: 30, left: 20),
+              padding:
+                  const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
               decoration: BoxDecoration(
-                  border: Border.all(color: Color(0XFF65676B)),
+                  border: Border.all(color: const Color(0XFF65676B)),
                   borderRadius: BorderRadius.circular(5)),
               child: Row(
-                children: [
+                children: const [
                   Icon(
                     Icons.photo_library,
                     color: Colors.greenAccent,
@@ -120,14 +119,14 @@ class create_postState extends State<create_post> {
               child: Container(
                 height: 35,
                 width: 160,
-                margin: EdgeInsets.only(bottom: 30, right: 20),
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+                margin: const EdgeInsets.only(bottom: 30, right: 20),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 5, bottom: 5),
                 decoration: BoxDecoration(
-                    border: Border.all(color: Color(0XFF65676B)),
+                    border: Border.all(color: const Color(0XFF65676B)),
                     borderRadius: BorderRadius.circular(5)),
                 child: Row(
-                  children: [
+                  children: const [
                     Icon(
                       Icons.place,
                       color: Colors.redAccent,

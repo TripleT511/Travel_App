@@ -33,7 +33,7 @@ class SplashPage2State extends State<SplashPage2> {
               Image.asset("images/banner_main.png",
                   width: 366, fit: BoxFit.cover),
               Container(
-                margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                margin: const EdgeInsets.only(top: 30, left: 15, right: 15),
                 width: 374,
                 height: 50,
                 decoration: BoxDecoration(
@@ -60,7 +60,7 @@ class SplashPage2State extends State<SplashPage2> {
               ),
               Container(
                 margin: const EdgeInsets.only(
-                    top: 15, left: 20, right: 20, bottom: 40),
+                    top: 15, left: 15, right: 15, bottom: 40),
                 width: 374,
                 height: 50,
                 decoration: BoxDecoration(

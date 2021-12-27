@@ -34,7 +34,7 @@ class HomePageState extends State<HomePage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => chitiet_diadanh()));
+                  MaterialPageRoute(builder: (context) => PlaceDetail()));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -323,7 +323,7 @@ class HomePageState extends State<HomePage> {
                 }
                 if (title == "Địa Danh Nổi Bật") {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => dia_danh()));
+                      MaterialPageRoute(builder: (context) => const Place()));
                 }
               },
               child: const Text(
@@ -443,7 +443,7 @@ class HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => create_post(),
+                                builder: (context) => const CreatePost(),
                               ),
                             );
                           },

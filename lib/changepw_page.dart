@@ -34,7 +34,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
           "Đổi mật khẩu",
           style: TextStyle(
             fontSize: 22,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
             color: Color(0XFF0869E1),
           ),

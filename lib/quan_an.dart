@@ -78,7 +78,7 @@ class QuanAnState extends State<QuanAn> {
           InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => chitiet_quan_an()));
+                  MaterialPageRoute(builder: (context) => RestaurantDetail()));
             }, // Handle your callback
             child: Column(
               children: [
@@ -178,7 +178,7 @@ class QuanAnState extends State<QuanAn> {
           InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => chitiet_quan_an()));
+                  MaterialPageRoute(builder: (context) => RestaurantDetail()));
             }, // Handle your callback
             child: Column(
               children: [

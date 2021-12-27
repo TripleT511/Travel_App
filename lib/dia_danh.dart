@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 
-class dia_danh extends StatefulWidget {
+class Place extends StatefulWidget {
+  const Place({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return dia_danhState();
+    return PlaceState();
   }
 }
 
-class dia_danhState extends State<dia_danh> {
+class PlaceState extends State<Place> {
   final List<Column> imgListDiaDanhQuangNinh = [];
   final List<Column> imgListDiaDanhLongAn = [];
   void loadListDiaDanh() {

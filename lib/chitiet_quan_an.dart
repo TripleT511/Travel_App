@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class chitiet_quan_an extends StatefulWidget {
+class RestaurantDetail extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return chitiet_quan_anState();
+    return RestaurantDetailState();
   }
 }
 
-class chitiet_quan_anState extends State<chitiet_quan_an> {
+class RestaurantDetailState extends State<RestaurantDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

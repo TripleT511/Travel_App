@@ -32,7 +32,7 @@ class RegisterPageState extends State<RegisterPage> {
           "Đăng ký",
           style: TextStyle(
             fontSize: 22,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
             color: Color(0XFF0869E1),
           ),
@@ -44,14 +44,14 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(
-                  top: 20, left: 20, right: 20, bottom: 10),
+                  top: 20, left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Họ tên",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập họ tên",
@@ -70,14 +70,14 @@ class RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Email",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập email",
@@ -96,14 +96,14 @@ class RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Số điện thoại",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 decoration: InputDecoration(
                   hintText: "Nhập số điện thoại",
@@ -122,14 +122,14 @@ class RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Mật khẩu",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 obscureText: checkPass ? true : false,
                 decoration: InputDecoration(
@@ -166,14 +166,14 @@ class RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Xác nhận mật khẩu",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
                 obscureText: checkPass ? true : false,
                 decoration: InputDecoration(
@@ -209,7 +209,7 @@ class RegisterPageState extends State<RegisterPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
               width: 374,
               height: 50,
               decoration: BoxDecoration(

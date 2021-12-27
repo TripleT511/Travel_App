@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/splash_page2.dart';
+import 'package:vietnam_travel_app/changepw_page.dart';
+import 'package:vietnam_travel_app/edit_info_page.dart';
 
-class SeeMorePage extends StatefulWidget {
-  const SeeMorePage({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return SeeMorePageState();
+    return SettingsPageState();
   }
 }
 
-class SeeMorePageState extends State<SeeMorePage> {
+class SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +28,7 @@ class SeeMorePageState extends State<SeeMorePage> {
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
           title: const Text(
-            "Xem thêm",
+            "Cài đặt",
             style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
@@ -52,7 +52,12 @@ class SeeMorePageState extends State<SeeMorePage> {
                     width: 374,
                     height: 50,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditInforPage()));
+                      },
                       child: Container(
                         padding: const EdgeInsets.only(left: 10),
                         alignment: Alignment.centerLeft,
@@ -60,7 +65,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: const [
                             FaIcon(
-                              FontAwesomeIcons.solidPaperPlane,
+                              FontAwesomeIcons.userEdit,
                               size: 18,
                               color: Color(0XFF050505),
                             ),
@@ -68,7 +73,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                               width: 15,
                             ),
                             Text(
-                              "Đề xuất địa danh lên hệ thống",
+                              "Chỉnh sửa thông tin cá nhân",
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 16,
@@ -90,12 +95,10 @@ class SeeMorePageState extends State<SeeMorePage> {
                 width: double.infinity,
                 height: 60,
                 child: Card(
-                  color: const Color(0XFF0869E1),
-                  clipBehavior: Clip.antiAlias,
+                  elevation: 3.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  elevation: 3.0,
                   child: SizedBox(
                     width: 374,
                     height: 50,
@@ -104,7 +107,8 @@ class SeeMorePageState extends State<SeeMorePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SplashPage2()));
+                                builder: (context) =>
+                                    const ChangePasswordPage()));
                       },
                       child: Container(
                         padding: const EdgeInsets.only(left: 10),
@@ -113,20 +117,20 @@ class SeeMorePageState extends State<SeeMorePage> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: const [
                             FaIcon(
-                              FontAwesomeIcons.signOutAlt,
+                              FontAwesomeIcons.unlockAlt,
                               size: 18,
-                              color: Color(0XFFFFFFFF),
+                              color: Color(0XFF050505),
                             ),
                             SizedBox(
                               width: 15,
                             ),
                             Text(
-                              "Đăng xuất",
+                              "Đổi mật khẩu",
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0XFFFFFFFF),
+                                color: Color(0XFF050505),
                               ),
                             ),
                           ],
