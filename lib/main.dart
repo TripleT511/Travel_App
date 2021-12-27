@@ -5,12 +5,15 @@ import 'package:vietnam_travel_app/map_page.dart';
 import 'package:vietnam_travel_app/splash_page1.dart';
 import 'package:vietnam_travel_app/search_page.dart';
 import 'package:vietnam_travel_app/seemore_page.dart';
+import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
+import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Roboto'),
+      //home: ChiTietQuanAn(),
       home: const SplashPage(),
     ),
   );

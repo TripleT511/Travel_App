@@ -84,6 +84,10 @@ flutter:
     - images/luutru1.jpg
     - images/quanan.jpg
     - images/quanan2.jpg
+    - images/chitietquanan.jpg
+    - images/monan.jpg
+    - images/monan2.jpg
+    - images/banner.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
