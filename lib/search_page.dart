@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/personal_page.dart';
+
+import 'main.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -14,56 +18,59 @@ class SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: null,
+        leadingWidth: 0,
+        titleSpacing: 0,
+        elevation: 1.5,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MyApp()));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 5),
+                width: 95,
+                child: Image.asset("images/logo-ver3.png"),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PersonalPage()));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 5),
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Color(0xff7c94b6),
+                  image: DecorationImage(
+                    image: AssetImage('images/avatar.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50.0),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: ListView(
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              width: 95,
-                              child: Image.asset("images/logo-ver3.png"),
-                            ))
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        TextButton(
-                            onPressed: () {},
-                            child: Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    image: const DecorationImage(
-                                        image: AssetImage(
-                                          "images/a.jpg",
-                                        ),
-                                        fit: BoxFit.cover),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(50.0)),
-                                    border: Border.all(
-                                        width: 2, color: Colors.white))))
-                      ],
-                    ),
-                  ],
-                ),
-              ),
               Container(
-                margin: const EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(
-                    border: Border.fromBorderSide(
-                        BorderSide(width: 1, color: Colors.grey.shade300))),
-              ),
-              Container(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: const Text(
                   "ĐIỂM ĐẾN",
                   style: TextStyle(
@@ -72,26 +79,42 @@ class SearchPageState extends State<SearchPage> {
                       color: Color(0XFF0869E1)),
                 ),
               ),
-              Row(
-                children: const [
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: SizedBox(
-                      width: 360,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: "Nhập điểm cần đến....",
-                            prefixIcon: Icon(
-                              Icons.place,
-                              color: Color(0XFF0869E1),
-                            )),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Container(
+                  height: 45.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.white),
+                  child: TextField(
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      hintText: "Nhập đia điểm cần đến",
+                      contentPadding:
+                          const EdgeInsets.only(left: 15.0, top: 15.0),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0XFFB9B9B9)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 1, color: Color(0XFF0869E1)),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      suffixIcon: const FaIcon(
+                        FontAwesomeIcons.search,
+                        size: 20,
                       ),
                     ),
+                    onChanged: (val) {},
+                    onSubmitted: (term) {},
                   ),
-                ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15, top: 10),
                 child: TextButton(
                     onPressed: () {},
                     child: Row(

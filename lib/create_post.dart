@@ -67,60 +67,25 @@ class CreatePostState extends State<CreatePost> {
           )),
       body: Column(
         children: [
-          ListTile(
-            leading: const SizedBox(
-              width: 50,
-              height: 50,
-              child: CircleAvatar(
-                backgroundImage: AssetImage("images/a.jpg"),
-              ),
+          const ListTile(
+            leading: CircleAvatar(
+              backgroundImage: AssetImage("images/avatar.jpg"),
             ),
-            title: const Text(
+            title: Text(
               "Phuc Nguyen",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Roboto',
+                fontSize: 16,
+              ),
             ),
             subtitle: Align(
               alignment: Alignment.centerLeft,
-              child: Container(
-                height: 35,
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(7),
-                  color: const Color(0XFFE4E6EB),
-                ),
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: const FaIcon(
-                    FontAwesomeIcons.chevronDown,
-                    color: Color(0XFF050505),
-                    size: 14,
-                  ),
-                  elevation: 3,
-                  underline: const SizedBox(),
-                  style: const TextStyle(
-                    color: Color(0XFF050505),
-                    fontFamily: 'Roboto',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      dropdownValue = newValue!;
-                    });
-                  },
-                  items: <String>['Công khai', 'Chỉ mình tôi']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ),
+              child: Text("23-12-2021"),
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
             child: const TextField(
               decoration: InputDecoration(
                   hintText: "Bạn đang nghĩ gì...", border: InputBorder.none),
@@ -130,53 +95,41 @@ class CreatePostState extends State<CreatePost> {
           ),
         ],
       ),
-      bottomSheet: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextButton(
-            onPressed: () {},
-            child: Container(
-              height: 35,
-              width: 160,
-              margin: const EdgeInsets.only(bottom: 30, left: 20),
-              padding:
-                  const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
-              decoration: BoxDecoration(
-                  border: Border.all(color: const Color(0XFF65676B)),
-                  borderRadius: BorderRadius.circular(5)),
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.photo_library,
-                    color: Colors.greenAccent,
-                  ),
-                  Text("Ảnh")
-                ],
+      bottomSheet: TextButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        ),
+        onPressed: () {},
+        child: Container(
+          width: double.infinity,
+          margin:
+              const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+          padding:
+              const EdgeInsets.only(left: 20, right: 20, top: 7, bottom: 7),
+          decoration: BoxDecoration(
+              border: Border.all(color: const Color(0XFF9F9F9F)),
+              borderRadius: BorderRadius.circular(5)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: const [
+              FaIcon(
+                FontAwesomeIcons.image,
+                size: 18,
+                color: Color(0XFF3EFF7F),
               ),
-            ),
-          ),
-          TextButton(
-              onPressed: () {},
-              child: Container(
-                height: 35,
-                width: 160,
-                margin: const EdgeInsets.only(bottom: 30, right: 20),
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 5, bottom: 5),
-                decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0XFF65676B)),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.place,
-                      color: Colors.redAccent,
-                    ),
-                    Text("Địa điểm")
-                  ],
+              Text(
+                "   Ảnh",
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 15,
+                  fontWeight: FontWeight.normal,
+                  color: Color(0XFF5C5C5C),
                 ),
-              ))
-        ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
