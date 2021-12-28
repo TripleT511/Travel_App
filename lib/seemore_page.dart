@@ -16,6 +16,7 @@ class SeeMorePageState extends State<SeeMorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {

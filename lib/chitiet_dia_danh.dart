@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
+import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class PlaceDetail extends StatefulWidget {
   const PlaceDetail({Key? key}) : super(key: key);
@@ -20,7 +22,7 @@ class PlaceDetailState extends State<PlaceDetail> {
       items: lst,
       options: CarouselOptions(
           viewportFraction: 0.7,
-          height: 215.0,
+          height: 217.0,
           autoPlay: false,
           enableInfiniteScroll: true),
     );
@@ -61,7 +63,10 @@ class PlaceDetailState extends State<PlaceDetail> {
       Column a = Column(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RestaurantDetail()));
+            },
             child: SizedBox(
               height: 215,
               child: Card(
@@ -105,8 +110,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, bottom: 10),
+                      padding: const EdgeInsets.only(right: 10, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -174,7 +178,10 @@ class PlaceDetailState extends State<PlaceDetail> {
       Column a = Column(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
+            },
             child: SizedBox(
               height: 215,
               child: Card(
@@ -218,8 +225,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, bottom: 10),
+                      padding: const EdgeInsets.only(right: 10, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

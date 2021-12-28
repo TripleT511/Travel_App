@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChiTietLuuTru extends StatefulWidget {
   @override
@@ -15,6 +16,27 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0X1A050505),
+        elevation: 0,
+        leading: null,
+        leadingWidth: 0,
+        titleSpacing: 0,
+        title: TextButton(
+          onPressed: () {},
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
       body: ListView(
         children: [
           Image.asset(
@@ -153,12 +175,6 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back),
       ),
     );
   }

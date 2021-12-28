@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RestaurantDetail extends StatefulWidget {
   @override
@@ -12,6 +13,27 @@ class RestaurantDetailState extends State<RestaurantDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0X1A050505),
+        elevation: 0,
+        leading: null,
+        leadingWidth: 0,
+        titleSpacing: 0,
+        title: TextButton(
+          onPressed: () {},
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
       body: ListView(
         children: [
           Image.asset(
@@ -275,12 +297,6 @@ class RestaurantDetailState extends State<RestaurantDetail> {
             height: 20,
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back),
       ),
     );
   }
