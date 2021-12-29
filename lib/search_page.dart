@@ -79,136 +79,135 @@ class SearchPageState extends State<SearchPage> {
                       color: Color(0XFF0869E1)),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: Container(
-                  height: 45.0,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.white),
-                  child: TextField(
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                      hintText: "Nhập đia điểm cần đến",
-                      contentPadding:
-                          const EdgeInsets.only(left: 15.0, top: 15.0),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 1, color: Color(0XFFB9B9B9)),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 1, color: Color(0XFF0869E1)),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      suffixIcon: const FaIcon(
+              Container(
+                padding: const EdgeInsets.only(left: 10, bottom: 10, right: 10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: IconButton(
+                      onPressed: () {},
+                      icon: const FaIcon(
                         FontAwesomeIcons.search,
                         size: 20,
                       ),
                     ),
-                    onChanged: (val) {},
-                    onSubmitted: (term) {},
+                    hintText: "Nhập địa điểm cần đến",
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15, top: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10),
                 child: TextButton(
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.near_me_outlined),
+                        const FaIcon(
+                          FontAwesomeIcons.locationArrow,
+                          size: 20,
+                        ),
                         Container(
                           margin: const EdgeInsets.only(left: 10),
                           child: const Text(
                             "Sử dụng vị trí của bạn ngay bây giờ",
                             style: TextStyle(
-                                color: Color(0XFF65676B), fontSize: 17),
+                              color: Color(0XFF65676B),
+                              fontSize: 16,
+                              fontFamily: 'Roboto',
+                            ),
                           ),
                         )
                       ],
                     )),
               ),
               Container(
-                  height: 300,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.only(right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 65),
-                        child: Table(
-                          children: const [
-                            TableRow(children: [
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              )
-                            ]),
-                            TableRow(children: [
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              )
-                            ]),
-                            TableRow(children: [
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              )
-                            ]),
-                            TableRow(children: [
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              )
-                            ]),
-                            TableRow(children: [
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              )
-                            ]),
-                            TableRow(children: [
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              ),
-                              SizedBox(
-                                height: 30,
-                                child: Text("Long An"),
-                              )
-                            ]),
-                          ],
+                height: 300,
+                margin: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: const Text(
+                        "TP. Hồ Chí Minh",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                      )
-                    ],
-                  ))
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      decoration: const BoxDecoration(
+                        border: Border.fromBorderSide(
+                          BorderSide(
+                            width: 0.5,
+                            color: Color(0XFFD2D4D8),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: const Text(
+                        "Long An",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      decoration: const BoxDecoration(
+                        border: Border.fromBorderSide(
+                          BorderSide(
+                            width: 0.5,
+                            color: Color(0XFFD2D4D8),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: const EdgeInsets.only(bottom: 5),
+                      child: const Text(
+                        "Hà Nội",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 15),
+                      decoration: const BoxDecoration(
+                        border: Border.fromBorderSide(
+                          BorderSide(
+                            width: 0.5,
+                            color: Color(0XFFD2D4D8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );

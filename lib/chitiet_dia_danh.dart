@@ -64,8 +64,10 @@ class PlaceDetailState extends State<PlaceDetail> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RestaurantDetail()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RestaurantDetail()));
             },
             child: SizedBox(
               height: 215,
@@ -395,17 +397,21 @@ class PlaceDetailState extends State<PlaceDetail> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 10, right: 50, bottom: 10),
+              padding: const EdgeInsets.only(left: 10, right: 50),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  FaIcon(
-                    FontAwesomeIcons.mapMarkerAlt,
-                    size: 18,
-                    color: Color(0XFFFF3535),
+                children: [
+                  Container(
+                    width: 18,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: 10),
+                    child: const FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      size: 18,
+                      color: Color(0XFFFF3535),
+                    ),
                   ),
-                  SizedBox(width: 5),
-                  Flexible(
+                  const Flexible(
                     child: Text(
                       "Nguyen Du St. & Hai Ba Trung Le Van Huu St, Ho Chi Minh City, Vietnam",
                       softWrap: true,
@@ -423,7 +429,7 @@ class PlaceDetailState extends State<PlaceDetail> {
             Container(
               padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
               child: const Text(
-                "Chi tiết",
+                "Mô tả",
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   height: 1.5,

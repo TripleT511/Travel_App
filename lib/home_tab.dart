@@ -35,7 +35,7 @@ class HomePageState extends State<HomePage> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlaceDetail()));
+                  MaterialPageRoute(builder: (context) => const PlaceDetail()));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -481,7 +481,7 @@ class HomePageState extends State<HomePage> {
                   ),
                   child: const Align(
                     alignment: Alignment.centerLeft,
-                    child: const Text(
+                    child: Text(
                       "Bài Viết",
                       style: TextStyle(
                           fontSize: 20,
