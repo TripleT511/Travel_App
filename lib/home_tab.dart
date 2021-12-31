@@ -5,9 +5,12 @@ import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
+import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
+import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
+import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -228,17 +231,21 @@ class HomePageState extends State<HomePage> {
     int b = 5;
     for (int i = 0; i < b; i++) {
       Column a = Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TextButton(
-            onPressed: () {},
+          MaterialButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ChiTietNhuCau()));
+            },
             child: Container(
               decoration: BoxDecoration(
-                  color: const Color(0XFF0869E1),
-                  borderRadius: BorderRadius.circular(16)),
+                color: const Color(0XFF0869E1),
+                borderRadius: BorderRadius.circular(16),
+              ),
               padding:
                   const EdgeInsets.only(left: 22, top: 7, right: 22, bottom: 7),
-              child: const Text(
+              child: Text(
                 "Tắm Biển",
                 style: TextStyle(
                   color: Colors.white,
@@ -435,14 +442,14 @@ class HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const CreatePost(),
+                                builder: (context) => const DeXuatDiaDanh(),
                               ),
                             );
                           },
                           child: const Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Chia sẻ địa danh...",
+                              "Chia sẻ địa danh mới...",
                               style: TextStyle(
                                 color: Color(0XFF050505),
                               ),

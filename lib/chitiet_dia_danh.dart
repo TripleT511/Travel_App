@@ -3,6 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
+import 'package:vietnam_travel_app/luu_tru.dart';
+import 'package:vietnam_travel_app/quan_an.dart';
+import 'package:vietnam_travel_app/create_post.dart';
 
 class PlaceDetail extends StatefulWidget {
   const PlaceDetail({Key? key}) : super(key: key);
@@ -309,8 +312,14 @@ class PlaceDetailState extends State<PlaceDetail> {
           margin: const EdgeInsets.only(right: 10),
           child: TextButton(
             onPressed: () {
-              if (title == "Lưu trú gần đây") {}
-              if (title == "Quán ăn gần đây") {}
+              if (title == "Quán ăn gần đây") {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => QuanAn()));
+              }
+              if (title == "Lưu trú gần đây") {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => LuuTru()));
+              }
             },
             child: const Text(
               "Xem thêm",
@@ -366,7 +375,12 @@ class PlaceDetailState extends State<PlaceDetail> {
             Container(
               margin: const EdgeInsets.only(right: 5),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const CreatePost(),
+                              ),
+                            );},
                 icon: const FaIcon(
                   FontAwesomeIcons.shareAlt,
                   color: Colors.white,

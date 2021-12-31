@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
+import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class nhu_cau extends StatefulWidget {
   @override
@@ -45,46 +47,63 @@ class nhu_cauState extends State<nhu_cau> {
   }
 
   final List<Column> imgListNhuCauTamBien = [];
-  final List<Column> imgListNhuCauPhuot = [];
+  final List<Column> imgListNhuCauCamTrai = [];
 
   void loadListNhuCauTamBien() {
     final Column a = Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadiusDirectional.all(Radius.circular(16))),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PlaceDetail()));
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Card(
+                elevation: 3.0,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadiusDirectional.all(
+                    Radius.circular(16),
+                  ),
+                ),
                 clipBehavior: Clip.antiAlias,
                 child: Image.asset(
-                  "images/z.jpg",
+                  "images/tambien.jpg",
+                  /*a.image*/
                   width: double.maxFinite,
+                  height: 190,
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            Positioned(
-                top: 145,
-                left: 25,
+              Positioned(
+                top: 165,
+                left: 20,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.place,
-                      color: Colors.red,
+                    const FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      color: Color(0XFFFF3535),
+                      size: 18,
                     ),
                     Container(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: const Text(
                         "Nha Trang",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
                       ),
                     )
                   ],
-                ))
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: SizedBox(),
@@ -94,57 +113,74 @@ class nhu_cauState extends State<nhu_cau> {
     imgListNhuCauTamBien.add(a);
   }
 
-  void loadListNhuCauPhuot() {
+  void loadListNhuCauCamTrai() {
     final Column a = Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Container(
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadiusDirectional.all(Radius.circular(16))),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PlaceDetail()));
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Card(
+                elevation: 3.0,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadiusDirectional.all(
+                    Radius.circular(16),
+                  ),
+                ),
                 clipBehavior: Clip.antiAlias,
                 child: Image.asset(
-                  "images/z.jpg",
+                  "images/camtrai.jpg",
+                  /*a.image*/
                   width: double.maxFinite,
+                  height: 190,
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            Positioned(
-                top: 145,
-                left: 25,
+              Positioned(
+                top: 165,
+                left: 20,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.place,
-                      color: Colors.red,
+                    const FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      color: Color(0XFFFF3535),
+                      size: 18,
                     ),
                     Container(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: const Text(
                         "Nha Trang",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
                       ),
                     )
                   ],
-                ))
-          ],
+                ),
+              ),
+            ],
+          ),
         ),
         Expanded(
           child: SizedBox(),
         ),
       ],
     );
-    imgListNhuCauPhuot.add(a);
+    imgListNhuCauCamTrai.add(a);
   }
 
   @override
   void initState() {
     super.initState();
-    loadListNhuCauPhuot();
+    loadListNhuCauCamTrai();
     loadListNhuCauTamBien();
   }
 
@@ -209,40 +245,22 @@ class nhu_cauState extends State<nhu_cau> {
                   color: Color(0XFF0869E1)),
             ),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 360,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: "Nhu cầu của bạn là gì ?",
-                        prefixIcon: Icon(
-                          Icons.place,
-                          color: Color(0XFF0869E1),
-                        )),
-                  ),
-                ),
-              ),
-            ],
-          ),
           SizedBox(
             height: 15,
           ),
           sliderTitle("Tắm Biển"),
           SizedBox(
-            height: 25,
+            height: 15,
           ),
           slideShow(imgListNhuCauTamBien),
           SizedBox(
             height: 15,
           ),
-          sliderTitle("Phượt"),
+          sliderTitle("Cắm Trại"),
           SizedBox(
-            height: 25,
+            height: 15,
           ),
-          slideShow(imgListNhuCauPhuot)
+          slideShow(imgListNhuCauCamTrai)
         ],
       ),
     );

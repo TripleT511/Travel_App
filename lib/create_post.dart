@@ -67,7 +67,7 @@ class CreatePostState extends State<CreatePost> {
           )),
       body: Column(
         children: [
-          const ListTile(
+          ListTile(
             leading: CircleAvatar(
               backgroundImage: AssetImage("images/avatar.jpg"),
             ),
@@ -79,9 +79,30 @@ class CreatePostState extends State<CreatePost> {
                 fontSize: 16,
               ),
             ),
-            subtitle: Align(
-              alignment: Alignment.centerLeft,
-              child: Text("23-12-2021"),
+            subtitle: Row(
+              children: [
+                Text("23-12-2021"),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  margin: EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0XFF0869E1),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    "Ho Chi Minh City, Viet Nam",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12,
+                      color: Color(0XFF0869E1),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Container(

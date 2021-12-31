@@ -3,16 +3,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 
-class Place extends StatefulWidget {
-  const Place({Key? key}) : super(key: key);
+class ChiTietNhuCau extends StatefulWidget {
+  const ChiTietNhuCau({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return PlaceState();
+    return ChiTietNhuCauState();
   }
 }
 
-class PlaceState extends State<Place> {
+class ChiTietNhuCauState extends State<ChiTietNhuCau> {
   final List<Column> imgListDiaDanh = [];
   final List<Column> imgListDiaDanhLongAn = [];
   void loadListDiaDanh() {
@@ -29,45 +29,47 @@ class PlaceState extends State<Place> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Card(
-                  elevation: 3.0,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/slide_1.jpg",
-                    /*a.image*/
-                    width: double.maxFinite,
-                    height: 210,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: 185,
-                  left: 20,
-                  child: Row(
-                    children: [
-                      const FaIcon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                        color: Color(0XFFFF3535),
-                        size: 18,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: const Text(
-                          "Vịnh Hạ Long",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
+                Container(
+                  padding: const EdgeInsets.only(left: 3.0),
+                  child: SizedBox(
+                    height: 195,
+                    width: double.infinity,
+                    child: Card(
+                      elevation: 3.0,
+                      color: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(16.0),
+                          topEnd: Radius.circular(16.0),
+                          bottomStart: Radius.circular(16.0),
+                          bottomEnd: Radius.circular(16.0),
                         ),
-                      )
-                    ],
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            "images/tambien.jpg",
+                            width: double.infinity,
+                            height: 132,
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(15),
+                            child: const Text(
+                              "Bãi Dốc Lếch",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w700,
+                                color: Color(0XFF050505),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -87,50 +89,53 @@ class PlaceState extends State<Place> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PlaceDetail()));
             },
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Card(
-                  elevation: 3.0,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/slide_1.jpg",
-                    /*a.image*/
-                    width: double.maxFinite,
-                    height: 210,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: 185,
-                  left: 20,
-                  child: Row(
-                    children: [
-                      const FaIcon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                        color: Color(0XFFFF3535),
-                        size: 18,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: const Text(
-                          "Vịnh Hạ Long",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
+                Container(
+                  padding: const EdgeInsets.only(left: 3.0),
+                  child: SizedBox(
+                    height: 195,
+                    width: double.infinity,
+                    child: Card(
+                      elevation: 3.0,
+                      color: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(16.0),
+                          topEnd: Radius.circular(16.0),
+                          bottomStart: Radius.circular(16.0),
+                          bottomEnd: Radius.circular(16.0),
                         ),
-                      )
-                    ],
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            "images/tambien1.jpg",
+                            width: double.infinity,
+                            height: 132,
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(15),
+                            child: const Text(
+                              "Bãi Biển Làng Vân",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w700,
+                                color: Color(0XFF050505),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -236,58 +241,37 @@ class PlaceState extends State<Place> {
                     BorderSide(width: 1, color: Colors.grey.shade300))),
           ),
           Container(
-            padding: EdgeInsets.all(30),
-            margin: EdgeInsets.only(left: 125),
-            child: Text(
-              "Địa Danh",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0XFF0869E1)),
-            ),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: SizedBox(
-                  width: 360,
-                  child: TextField(
-                    decoration: InputDecoration(
-                        hintText: "Nhập địa điểm cần đến...",
-                        prefixIcon: Icon(
-                          Icons.place,
-                          color: Color(0XFF0869E1),
-                        )),
-                  ),
-                ),
+            padding: EdgeInsets.all(15),
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Nhu Cầu - " + "Tắm Biển",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0XFF0869E1)),
               ),
-            ],
+            ),
           ),
           SizedBox(
             height: 15,
           ),
-          sliderTitle("Quảng Ninh"),
+          sliderTitle("Nha Trang"),
           SizedBox(
-            height: 25,
+            height: 5,
           ),
           slideShow(imgListDiaDanh),
           SizedBox(
             height: 15,
           ),
-          sliderTitle("Long An"),
+          sliderTitle("Đà Nẳng"),
           SizedBox(
-            height: 25,
+            height: 5,
           ),
           slideShow(imgListDiaDanhLongAn),
           SizedBox(
             height: 15,
           ),
-          sliderTitle("Long An"),
-          SizedBox(
-            height: 25,
-          ),
-          slideShow(imgListDiaDanhLongAn)
         ],
       ),
     );
