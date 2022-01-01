@@ -24,19 +24,19 @@ class MapPageState extends State<MapPage> {
             children: [
               TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => PlaceDetail()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PlaceDetail()));
                 },
-                child: Container(
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadiusDirectional.all(Radius.circular(16))),
-                    clipBehavior: Clip.antiAlias,
-                    child: Image.asset(
-                      "images/z.jpg",
-                      width: double.maxFinite,
-                    ),
+                child: Card(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadiusDirectional.all(Radius.circular(16))),
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.asset(
+                    "images/z.jpg",
+                    width: double.maxFinite,
                   ),
                 ),
               ),
@@ -45,13 +45,13 @@ class MapPageState extends State<MapPage> {
                   left: 25,
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.place,
                         color: Colors.red,
                       ),
                       Container(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
+                        padding: const EdgeInsets.all(5),
+                        child: const Text(
                           "Vịnh Hạ Long",
                           style: TextStyle(color: Colors.white),
                         ),
@@ -60,7 +60,7 @@ class MapPageState extends State<MapPage> {
                   ))
             ],
           ),
-          Expanded(
+          const Expanded(
             child: SizedBox(),
           ),
         ],
@@ -81,10 +81,10 @@ class MapPageState extends State<MapPage> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0XFF0869E1),
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -92,9 +92,6 @@ class MapPageState extends State<MapPage> {
               )
             ],
           ),
-          Row(
-            children: [],
-          )
         ],
       );
     }
@@ -115,14 +112,14 @@ class MapPageState extends State<MapPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Icon(Icons.ac_unit),
+                      const Icon(Icons.ac_unit),
                       Container(
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.all(8),
+                        decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             color: Colors.white),
-                        margin: EdgeInsets.only(right: 15),
-                        child: Text(
+                        margin: const EdgeInsets.only(right: 15),
+                        child: const Text(
                           "Đề xuất lên hệ thống",
                           style: TextStyle(color: Color(0XFF0869E1)),
                         ),
@@ -132,12 +129,12 @@ class MapPageState extends State<MapPage> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 20),
+                margin: const EdgeInsets.only(bottom: 20),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Card(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius:
                               BorderRadiusDirectional.all(Radius.circular(16))),
                       clipBehavior: Clip.antiAlias,
@@ -154,23 +151,23 @@ class MapPageState extends State<MapPage> {
                                 color: Colors.white,
                                 border: Border.all(
                                     width: 2, color: Colors.grey.shade300),
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     bottomLeft: Radius.circular(16),
                                     bottomRight: Radius.circular(16))),
                             child: Padding(
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               child: Column(
                                 children: [
-                                  Text("Địa danh abc"),
+                                  const Text("Địa danh abc"),
                                   Row(
-                                    children: [
+                                    children: const [
                                       Icon(Icons.place_outlined),
                                       Text(
                                           "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM")
                                     ],
                                   ),
                                   Row(
-                                    children: [
+                                    children: const [
                                       Icon(Icons.place_outlined),
                                       Text(
                                           "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM")

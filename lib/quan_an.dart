@@ -20,7 +20,7 @@ class QuanAnState extends State<QuanAn> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -28,7 +28,7 @@ class QuanAnState extends State<QuanAn> {
                       children: [
                         TextButton(
                             onPressed: () {},
-                            child: Container(
+                            child: SizedBox(
                               width: 95,
                               child: Image.asset("images/logo-ver3.png"),
                             ))
@@ -42,7 +42,7 @@ class QuanAnState extends State<QuanAn> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                         image: AssetImage(
                                           "images/a.jpg",
                                         ),
@@ -57,14 +57,14 @@ class QuanAnState extends State<QuanAn> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.only(top: 5),
+                decoration: const BoxDecoration(
                     border: Border.fromBorderSide(
                         BorderSide(width: 0.5, color: Colors.grey))),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                child: Text(
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                child: const Text(
                   "Quán Ăn - " + "Hồ Chí Minh",
                   style: TextStyle(
                     fontSize: 20,
@@ -77,8 +77,10 @@ class QuanAnState extends State<QuanAn> {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RestaurantDetail()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RestaurantDetail()));
             }, // Handle your callback
             child: Column(
               children: [
@@ -110,8 +112,8 @@ class QuanAnState extends State<QuanAn> {
                           height: 15.0,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 20, bottom: 12),
-                          child: Align(
+                          padding: const EdgeInsets.only(left: 20, bottom: 12),
+                          child: const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               "Nhà Hàng Cơm Niêu Thiên Lý",
@@ -124,9 +126,9 @@ class QuanAnState extends State<QuanAn> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.place,
                                 color: Color(0XFF0869E1),
@@ -147,9 +149,9 @@ class QuanAnState extends State<QuanAn> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.access_time_outlined,
                                 color: Color(0XFF0869E1),
@@ -177,8 +179,10 @@ class QuanAnState extends State<QuanAn> {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => RestaurantDetail()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const RestaurantDetail()));
             }, // Handle your callback
             child: Column(
               children: [
@@ -210,8 +214,8 @@ class QuanAnState extends State<QuanAn> {
                           height: 15.0,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 20, bottom: 12),
-                          child: Align(
+                          padding: const EdgeInsets.only(left: 20, bottom: 12),
+                          child: const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               "Nhà Hàng Cơm Niêu Thiên Lý",
@@ -224,9 +228,9 @@ class QuanAnState extends State<QuanAn> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.place,
                                 color: Color(0XFF0869E1),
@@ -247,9 +251,9 @@ class QuanAnState extends State<QuanAn> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.access_time_outlined,
                                 color: Color(0XFF0869E1),

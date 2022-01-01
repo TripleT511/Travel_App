@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
+import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/splash_page2.dart';
 
 class SeeMorePage extends StatefulWidget {
   const SeeMorePage({Key? key}) : super(key: key);

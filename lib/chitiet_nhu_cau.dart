@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/main.dart';
+import 'package:vietnam_travel_app/personal_page.dart';
 
 class ChiTietNhuCau extends StatefulWidget {
   const ChiTietNhuCau({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlaceDetail()));
+                  MaterialPageRoute(builder: (context) => const PlaceDetail()));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -62,7 +63,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0XFF050505),
                               ),
                             ),
@@ -90,7 +91,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlaceDetail()));
+                  MaterialPageRoute(builder: (context) => const PlaceDetail()));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -128,7 +129,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.w500,
                                 color: Color(0XFF050505),
                               ),
                             ),
@@ -174,10 +175,10 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0XFF0869E1),
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -185,91 +186,88 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
               )
             ],
           ),
-          Row(
-            children: [],
-          )
         ],
       );
     }
 
-    bool checkFloat = false;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {},
-                        child: Container(
-                          width: 95,
-                          child: Image.asset("images/logo-ver3.png"),
-                        ))
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {},
-                        child: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                      "images/a.jpg",
-                                    ),
-                                    fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
-                                border:
-                                    Border.all(width: 2, color: Colors.white))))
-                  ],
-                )
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 5),
-            decoration: BoxDecoration(
-                border: Border.fromBorderSide(
-                    BorderSide(width: 1, color: Colors.grey.shade300))),
-          ),
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                "Nhu Cầu - " + "Tắm Biển",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0XFF0869E1)),
+      appBar: AppBar(
+        leading: null,
+        leadingWidth: 0,
+        titleSpacing: 0,
+        elevation: 1.5,
+        backgroundColor: Colors.white,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MyApp()));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 5),
+                width: 95,
+                child: Image.asset("images/logo-ver3.png"),
               ),
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PersonalPage()));
+              },
+              child: Container(
+                margin: const EdgeInsets.only(right: 5),
+                width: 40,
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Color(0xff7c94b6),
+                  image: DecorationImage(
+                    image: AssetImage('images/avatar.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(50.0),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: ListView(
+        children: [
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(top: 15, bottom: 15),
+            child: const Text(
+              "Nhu Cầu - Tắm Biển",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0XFF0869E1)),
+            ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Nha Trang"),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           slideShow(imgListDiaDanh),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Đà Nẳng"),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           slideShow(imgListDiaDanhLongAn),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/login_page.dart';
-import 'package:vietnam_travel_app/register_page.dart';
+import 'package:vietnam_travel_app/Views/LoginRegister/login_page.dart';
+import 'package:vietnam_travel_app/Views/LoginRegister/register_page.dart';
 
 class SplashPage2 extends StatefulWidget {
   const SplashPage2({Key? key}) : super(key: key);

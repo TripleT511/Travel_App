@@ -184,8 +184,10 @@ class PlaceDetailState extends State<PlaceDetail> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChiTietLuuTru()));
             },
             child: SizedBox(
               height: 215,
@@ -317,8 +319,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                     context, MaterialPageRoute(builder: (context) => QuanAn()));
               }
               if (title == "Lưu trú gần đây") {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => LuuTru()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LuuTru()));
               }
             },
             child: const Text(
@@ -375,12 +377,14 @@ class PlaceDetailState extends State<PlaceDetail> {
             Container(
               margin: const EdgeInsets.only(right: 5),
               child: IconButton(
-                onPressed: () {Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CreatePost(),
-                              ),
-                            );},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CreatePost(),
+                    ),
+                  );
+                },
                 icon: const FaIcon(
                   FontAwesomeIcons.shareAlt,
                   color: Colors.white,
@@ -488,7 +492,7 @@ class PlaceDetailState extends State<PlaceDetail> {
             sliderTitle("Quán ăn gần đây"),
             slideShow(imgListQuanAn),
             const SizedBox(
-              height: 15,
+              height: 20,
             ),
             sliderTitle("Lưu trú gần đây"),
             slideShow(imgListLuuTru),

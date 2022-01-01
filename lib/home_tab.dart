@@ -5,12 +5,10 @@ import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
-import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
-import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -235,8 +233,10 @@ class HomePageState extends State<HomePage> {
         children: [
           MaterialButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChiTietNhuCau()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChiTietNhuCau()));
             },
             child: Container(
               decoration: BoxDecoration(
@@ -245,7 +245,7 @@ class HomePageState extends State<HomePage> {
               ),
               padding:
                   const EdgeInsets.only(left: 22, top: 7, right: 22, bottom: 7),
-              child: Text(
+              child: const Text(
                 "Tắm Biển",
                 style: TextStyle(
                   color: Colors.white,
@@ -326,8 +326,10 @@ class HomePageState extends State<HomePage> {
             child: TextButton(
               onPressed: () {
                 if (title == "Nhu Cầu") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => nhu_cau()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NhuCauPage()));
                 }
                 if (title == "Địa Danh Nổi Bật") {
                   Navigator.push(context,
@@ -337,7 +339,7 @@ class HomePageState extends State<HomePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => baiviet_noibat()));
+                          builder: (context) => const BaiVietNoiBatPage()));
                 }
               },
               child: const Text(
@@ -442,7 +444,7 @@ class HomePageState extends State<HomePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const DeXuatDiaDanh(),
+                                builder: (context) => const CreatePost(),
                               ),
                             );
                           },

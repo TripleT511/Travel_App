@@ -5,14 +5,16 @@ import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class nhu_cau extends StatefulWidget {
+class NhuCauPage extends StatefulWidget {
+  const NhuCauPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return nhu_cauState();
+    return NhuCauPageState();
   }
 }
 
-class nhu_cauState extends State<nhu_cau> {
+class NhuCauPageState extends State<NhuCauPage> {
   CarouselSlider slideShow(List<Column> lst) {
     return CarouselSlider(
       items: lst,

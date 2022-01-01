@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChiTietLuuTru extends StatefulWidget {
+  const ChiTietLuuTru({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return ChiTietLuuTruState();
@@ -166,7 +165,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
               ),
             ),
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
               child: const Flexible(
                 child: Text(
                   "Hotel Continental Saigon (tên tiếng Việt là Khách sạn Hoàn Cầu) có vị trí rất thuận tiện, tọa lạc ngay giữa trung tâm thành phố Hồ Chí Minh. Từ đây, du khách có thể đi bộ đến các điểm vui chơi giải trí, các điểm tổ chức lễ hội, sự kiện và các nơi giao dịch công việc như Nhà hát Thành Phố, Dinh Độc Lập, Nhà thờ Đức Bà, Chợ Bến Thành... Được xây dựng từ 1878, Hotel Continental ngày nay vẫn giữ được",

@@ -222,7 +222,8 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 15, right: 10, left: 10),
+                  padding: const EdgeInsets.only(
+                      top: 15, right: 10, left: 10, bottom: 20),
                   child: SizedBox(
                     height: 195,
                     width: double.infinity,

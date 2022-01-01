@@ -7,8 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:vietnam_travel_app/splash_page1.dart';
+import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

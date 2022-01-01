@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 
 class LuuTru extends StatefulWidget {
+  const LuuTru({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return LuuTruState();
@@ -22,7 +21,7 @@ class LuuTruState extends State<LuuTru> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -30,7 +29,7 @@ class LuuTruState extends State<LuuTru> {
                       children: [
                         TextButton(
                             onPressed: () {},
-                            child: Container(
+                            child: SizedBox(
                               width: 95,
                               child: Image.asset("images/logo-ver3.png"),
                             ))
@@ -44,13 +43,13 @@ class LuuTruState extends State<LuuTru> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
+                                    image: const DecorationImage(
                                         image: AssetImage(
                                           "images/a.jpg",
                                         ),
                                         fit: BoxFit.cover),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50.0)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50.0)),
                                     border: Border.all(
                                         width: 2, color: Colors.white))))
                       ],
@@ -59,14 +58,14 @@ class LuuTruState extends State<LuuTru> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.only(top: 5),
+                decoration: const BoxDecoration(
                     border: Border.fromBorderSide(
                         BorderSide(width: 0.5, color: Colors.grey))),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                child: Text(
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
+                child: const Text(
                   "Lưu Trú - " + "Hồ Chí Minh",
                   style: TextStyle(
                     fontSize: 20,
@@ -112,8 +111,8 @@ class LuuTruState extends State<LuuTru> {
                           height: 15.0,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 20, bottom: 12),
-                          child: Align(
+                          padding: const EdgeInsets.only(left: 20, bottom: 12),
+                          child: const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               "Khách Sạn Sunny",
@@ -126,9 +125,9 @@ class LuuTruState extends State<LuuTru> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.place,
                                 color: Color(0XFF0869E1),
@@ -151,7 +150,7 @@ class LuuTruState extends State<LuuTru> {
                         Container(
                           padding: EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.access_time_outlined,
                                 color: Color(0XFF0869E1),
@@ -212,8 +211,8 @@ class LuuTruState extends State<LuuTru> {
                           height: 15.0,
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 20, bottom: 12),
-                          child: Align(
+                          padding: const EdgeInsets.only(left: 20, bottom: 12),
+                          child: const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               "Khách Sạn Sunny",
@@ -226,9 +225,9 @@ class LuuTruState extends State<LuuTru> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.place,
                                 color: Color(0XFF0869E1),
@@ -249,9 +248,9 @@ class LuuTruState extends State<LuuTru> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.access_time_outlined,
                                 color: Color(0XFF0869E1),

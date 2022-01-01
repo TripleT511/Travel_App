@@ -118,12 +118,12 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                       border: Border.all(color: Colors.grey),
                       borderRadius: BorderRadius.circular(5)),
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.photo_library,
                         color: Colors.greenAccent,
                       ),
-                      const Text("Ảnh")
+                      Text("Ảnh")
                     ],
                   ),
                 ),
@@ -140,12 +140,12 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                         border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(5)),
                     child: Row(
-                      children: [
+                      children: const [
                         Icon(
                           Icons.place,
                           color: Colors.redAccent,
                         ),
-                        const Text("Địa điểm")
+                        Text("Địa điểm")
                       ],
                     ),
                   ))

@@ -68,10 +68,10 @@ class CreatePostState extends State<CreatePost> {
       body: Column(
         children: [
           ListTile(
-            leading: CircleAvatar(
+            leading: const CircleAvatar(
               backgroundImage: AssetImage("images/avatar.jpg"),
             ),
-            title: Text(
+            title: const Text(
               "Phuc Nguyen",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
@@ -81,18 +81,18 @@ class CreatePostState extends State<CreatePost> {
             ),
             subtitle: Row(
               children: [
-                Text("23-12-2021"),
+                const Text("23-12-2021"),
                 Container(
-                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  margin: EdgeInsets.only(left: 10),
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  margin: const EdgeInsets.only(left: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       width: 1,
-                      color: Color(0XFF0869E1),
+                      color: const Color(0XFF0869E1),
                     ),
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Ho Chi Minh City, Viet Nam",
                     style: TextStyle(
                       fontFamily: 'Roboto',

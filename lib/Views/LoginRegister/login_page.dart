@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/changepw_page.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/home_tab.dart';
+import 'package:vietnam_travel_app/Views/LoginRegister/register_page.dart';
 import 'package:vietnam_travel_app/main.dart';
-import 'package:vietnam_travel_app/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,6 +17,30 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   bool check = true;
   bool checkPass = true;
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+  void _login() async {
+    if (txtEmail.text.isNotEmpty && txtPassword.text.isNotEmpty) {
+      bool isSuccess =
+          await UserProvider.login(txtEmail.text, txtPassword.text);
+
+      if (isSuccess) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyApp(),
+          ),
+        );
+      } else {
+        const snackBar = SnackBar(content: Text('Đăng nhập thất bại'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    } else {
+      const snackBar = SnackBar(content: Text('Đăng nhập thất bại'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +80,7 @@ class LoginPageState extends State<LoginPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtEmail,
                 decoration: InputDecoration(
                   hintText: "Nhập email",
                   enabledBorder: OutlineInputBorder(
@@ -81,6 +107,7 @@ class LoginPageState extends State<LoginPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtPassword,
                 obscureText: checkPass ? true : false,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -164,8 +191,7 @@ class LoginPageState extends State<LoginPage> {
                   color: const Color(0XFF0869E1)),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const MyApp()));
+                  _login();
                 },
                 child: const Text(
                   "Đăng nhập",

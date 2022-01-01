@@ -24,7 +24,7 @@ class PlaceState extends State<Place> {
           GestureDetector(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlaceDetail()));
+                  MaterialPageRoute(builder: (context) => const PlaceDetail()));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -169,10 +169,10 @@ class PlaceState extends State<Place> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0XFF0869E1),
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -180,20 +180,16 @@ class PlaceState extends State<Place> {
               )
             ],
           ),
-          Row(
-            children: [],
-          )
         ],
       );
     }
 
-    bool checkFloat = false;
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
         children: [
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -201,7 +197,7 @@ class PlaceState extends State<Place> {
                   children: [
                     TextButton(
                         onPressed: () {},
-                        child: Container(
+                        child: SizedBox(
                           width: 95,
                           child: Image.asset("images/logo-ver3.png"),
                         ))
@@ -215,13 +211,13 @@ class PlaceState extends State<Place> {
                             width: 40,
                             height: 40,
                             decoration: BoxDecoration(
-                                image: DecorationImage(
+                                image: const DecorationImage(
                                     image: AssetImage(
                                       "images/a.jpg",
                                     ),
                                     fit: BoxFit.cover),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(50.0)),
                                 border:
                                     Border.all(width: 2, color: Colors.white))))
                   ],
@@ -230,15 +226,15 @@ class PlaceState extends State<Place> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 5),
+            margin: const EdgeInsets.only(top: 5),
             decoration: BoxDecoration(
                 border: Border.fromBorderSide(
                     BorderSide(width: 1, color: Colors.grey.shade300))),
           ),
           Container(
-            padding: EdgeInsets.all(30),
-            margin: EdgeInsets.only(left: 125),
-            child: Text(
+            padding: const EdgeInsets.all(30),
+            margin: const EdgeInsets.only(left: 125),
+            child: const Text(
               "Địa Danh",
               style: TextStyle(
                   fontSize: 20,
@@ -247,7 +243,7 @@ class PlaceState extends State<Place> {
             ),
           ),
           Row(
-            children: [
+            children: const [
               Padding(
                 padding: EdgeInsets.all(10),
                 child: SizedBox(
@@ -264,27 +260,27 @@ class PlaceState extends State<Place> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Quảng Ninh"),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           slideShow(imgListDiaDanh),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Long An"),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           slideShow(imgListDiaDanhLongAn),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Long An"),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           slideShow(imgListDiaDanhLongAn)

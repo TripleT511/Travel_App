@@ -1,17 +1,18 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 
-class baiviet_noibat extends StatefulWidget {
+class BaiVietNoiBatPage extends StatefulWidget {
+  const BaiVietNoiBatPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    return baiviet_noibatState();
+    return BaiVietNoiBatPageState();
   }
 }
 
-class baiviet_noibatState extends State<baiviet_noibat> {
+class BaiVietNoiBatPageState extends State<BaiVietNoiBatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +70,7 @@ class baiviet_noibatState extends State<baiviet_noibat> {
                   padding: const EdgeInsets.all(20),
                   child: const Text(
                     "Bài viết nổi bật",
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 25,
                         color: Colors.blueAccent,
                         fontWeight: FontWeight.bold),
