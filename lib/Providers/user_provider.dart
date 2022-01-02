@@ -45,9 +45,23 @@ class UserProvider {
   /* ==== End Register ==== */
 
   /* ==== Start Logout ==== */
-  // static Future<bool> logout() async {
-
-  // }
+  static Future<bool> logout() async {
+    var token = await getToken();
+    final response = await http.post(
+        Uri.parse('https://secret-forest-78671.herokuapp.com/api/logout'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    final jsonRespon = jsonDecode(response.body);
+    if (jsonRespon['status_code'] == 200) {
+      await storage.delete(key: "access_token");
+      return true;
+    } else {
+      return false;
+    }
+  }
   /* ==== End Logout ==== */
 
 }
