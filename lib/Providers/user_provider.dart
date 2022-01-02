@@ -39,9 +39,33 @@ class UserProvider {
   }
 
   /* ==== Start Register ==== */
-  // static Future<bool> register(
+  static Future<bool> register(
+      String hoTen, String email, String password, String soDienThoai) async {
+    final response = await http.post(
+        Uri.parse('https://secret-forest-78671.herokuapp.com/api/register'),
+        body: jsonEncode({
+          'idPhanQuyen': 1,
+          'hoTen': hoTen,
+          'email': email,
+          'password': password,
+          'soDienThoai': soDienThoai,
+          'trangThaiHoTen': 1,
+          'trangThaiSDT': 1,
+          'trangThaiEmail': 1,
+          'trangThai': 1,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        });
+    final jsonRespon = jsonDecode(response.body);
 
-  // }
+    if (jsonRespon["status_code"] == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   /* ==== End Register ==== */
 
   /* ==== Start Logout ==== */

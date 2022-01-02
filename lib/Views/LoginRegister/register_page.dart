@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,6 +15,39 @@ class RegisterPage extends StatefulWidget {
 class RegisterPageState extends State<RegisterPage> {
   bool checkPass = true;
   bool checkPass2 = true;
+
+  TextEditingController txtHoTen = TextEditingController();
+  TextEditingController txtEmail = TextEditingController();
+  TextEditingController txtPassword = TextEditingController();
+  TextEditingController txtPassword2 = TextEditingController();
+  TextEditingController txtSoDienThoai = TextEditingController();
+
+  void _register() async {
+    if (txtHoTen.text.isNotEmpty &&
+        txtEmail.text.isNotEmpty &&
+        txtPassword.text.isNotEmpty &&
+        txtPassword2.text.isNotEmpty &&
+        txtSoDienThoai.text.isNotEmpty) { 
+      if (txtPassword.text == txtPassword2.text) {
+        bool isRegister = await UserProvider.register(txtHoTen.text,
+            txtEmail.text, txtPassword.text, txtSoDienThoai.text);
+
+        if (isRegister) {
+          Navigator.pop(context);
+        } else {
+          const snackBar = SnackBar(content: Text('Đăng ký thất bại'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      } else {
+        const snackBar = SnackBar(content: Text('Mật khẩu không trùng khớp'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    } else {
+      const snackBar = SnackBar(content: Text('Đăng ký thất bại'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +88,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtHoTen,
                 decoration: InputDecoration(
                   hintText: "Nhập họ tên",
                   enabledBorder: OutlineInputBorder(
@@ -80,6 +115,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtEmail,
                 decoration: InputDecoration(
                   hintText: "Nhập email",
                   enabledBorder: OutlineInputBorder(
@@ -106,6 +142,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtSoDienThoai,
                 decoration: InputDecoration(
                   hintText: "Nhập số điện thoại",
                   enabledBorder: OutlineInputBorder(
@@ -132,6 +169,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtPassword,
                 obscureText: checkPass ? true : false,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -176,6 +214,7 @@ class RegisterPageState extends State<RegisterPage> {
             Container(
               padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextField(
+                controller: txtPassword2,
                 obscureText: checkPass ? true : false,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
@@ -218,10 +257,7 @@ class RegisterPageState extends State<RegisterPage> {
                   color: const Color(0XFF0869E1)),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterPage()));
+                  _register();
                 },
                 child: const Text(
                   "Đăng ký",
