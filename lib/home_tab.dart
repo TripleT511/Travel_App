@@ -35,7 +35,7 @@ class HomePageState extends State<HomePage> {
 
   List<NhuCauObject> lstNC = [];
   List<DiaDanhObject> lstDD = [];
-
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   @override
   void initState() {
     super.initState();
@@ -70,8 +70,8 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/slide_1.jpg",
+                  child: Image.network(
+                    urlImg + lstDD[i].hinhanh.hinhAnh,
                     /*a.image*/
                     width: double.maxFinite,
                     height: 210,
@@ -92,7 +92,7 @@ class HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(left: 5),
                         child: Text(
                           lstDD[i].tenDiaDanh,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w700,
@@ -263,18 +263,21 @@ class HomePageState extends State<HomePage> {
                       builder: (context) => const ChiTietNhuCau()));
             },
             child: Container(
+              width: double.infinity,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: const Color(0XFF0869E1),
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                    .withOpacity(1.0),
                 borderRadius: BorderRadius.circular(16),
               ),
               padding:
                   const EdgeInsets.only(left: 22, top: 7, right: 22, bottom: 7),
               child: Text(
                 lstNC[i].tenNhuCau,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   fontSize: 16,
                 ),
               ),

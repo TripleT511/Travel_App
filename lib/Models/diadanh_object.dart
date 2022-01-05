@@ -8,7 +8,6 @@ class DiaDanhObject {
   final String kinhDo;
   final String viDo;
   final HinhAnhObject hinhanh;
-
   final int tinh_thanh_id;
   final int trangThai;
   final TinhThanhObject tinhthanh;
