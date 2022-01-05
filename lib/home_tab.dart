@@ -1,7 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/nhucau_object.dart';
+import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
+import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
+import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
@@ -27,8 +33,23 @@ class HomePageState extends State<HomePage> {
   final List<Column> imgListBaiViet = [];
   final List<Column> imgListNhuCau = [];
 
-  void loadListDiaDanh() {
-    int b = 5;
+  List<NhuCauObject> lstNC = [];
+  List<DiaDanhObject> lstDD = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    loadListDiaDanh();
+    loadListNhuCau();
+    loadListBaiViet();
+  }
+
+  void loadListDiaDanh() async {
+    final data = await DiaDanhProvider.getAllDiaDanh();
+    setState(() {});
+    lstDD = data;
+    int b = lstDD.length;
     for (int i = 0; i < b; i++) {
       Column a = Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -69,8 +90,8 @@ class HomePageState extends State<HomePage> {
                       ),
                       Container(
                         padding: const EdgeInsets.only(left: 5),
-                        child: const Text(
-                          "Vịnh Hạ Long",
+                        child: Text(
+                          lstDD[i].tenDiaDanh,
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'Roboto',
@@ -225,8 +246,11 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  void loadListNhuCau() {
-    int b = 5;
+  void loadListNhuCau() async {
+    final data = await NhuCauProvider.getAllNhuCau();
+    setState(() {});
+    lstNC = data;
+    int b = lstNC.length;
     for (int i = 0; i < b; i++) {
       Column a = Column(
         // mainAxisAlignment: MainAxisAlignment.start,
@@ -245,8 +269,8 @@ class HomePageState extends State<HomePage> {
               ),
               padding:
                   const EdgeInsets.only(left: 22, top: 7, right: 22, bottom: 7),
-              child: const Text(
-                "Tắm Biển",
+              child: Text(
+                lstNC[i].tenNhuCau,
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
@@ -260,14 +284,6 @@ class HomePageState extends State<HomePage> {
       );
       imgListNhuCau.add(a);
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadListBaiViet();
-    loadListDiaDanh();
-    loadListNhuCau();
   }
 
   @override
@@ -461,10 +477,10 @@ class HomePageState extends State<HomePage> {
                               ),
                             );
                           },
-                          child: const Align(
+                          child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Chia sẻ địa danh mới...",
+                              "Chia sẻ địa danh lên hệ thống...",
                               style: TextStyle(
                                 color: Color(0XFF050505),
                               ),
