@@ -1,4 +1,4 @@
-class HinhAnhObject {
+class HinhAnhObject1 {
   final int idHinhAnh;
   final int idQuanAn;
   final int idMonAn;
@@ -9,7 +9,7 @@ class HinhAnhObject {
   final String hinhAnh;
   final int trangThai;
 
-  HinhAnhObject(
+  HinhAnhObject1(
       this.idHinhAnh,
       this.idQuanAn,
       this.idMonAn,
