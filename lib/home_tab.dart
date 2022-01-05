@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/nhucau_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
@@ -225,9 +227,10 @@ class HomePageState extends State<HomePage> {
     }
   }
 
-  void loadListNhuCau() {
-    int b = 5;
-    for (int i = 0; i < b; i++) {
+  void loadListNhuCau() async {
+    final data = await NhuCauProvider.getAllNhuCau();
+    setState(() {});
+    for (int i = 0; i < data.length; i++) {
       Column a = Column(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -245,8 +248,8 @@ class HomePageState extends State<HomePage> {
               ),
               padding:
                   const EdgeInsets.only(left: 22, top: 7, right: 22, bottom: 7),
-              child: const Text(
-                "Tắm Biển",
+              child: Text(
+                data[i].tenNhuCau,
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
@@ -256,6 +259,50 @@ class HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          // FutureBuilder(
+          //   future: NhuCauProvider.getAllNhuCau(),
+          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+          //     if (snapshot.hasError) {
+          //       return Center(
+          //         child: Text('Có lỗi xảy ra!!!'),
+          //       );
+          //     } else if (snapshot.hasData) {
+          //       return ListView.builder(
+          //         // scrollDirection: Axis.vertical,
+          //         shrinkWrap: true,
+          //         itemCount: snapshot.data.length,
+          //         itemBuilder: (context, index) => MaterialButton(
+          //           onPressed: () {
+          //             Navigator.push(
+          //                 context,
+          //                 MaterialPageRoute(
+          //                     builder: (context) => const ChiTietNhuCau()));
+          //           },
+          //           child: Container(
+          //             decoration: BoxDecoration(
+          //               color: const Color(0XFF0869E1),
+          //               borderRadius: BorderRadius.circular(16),
+          //             ),
+          //             padding: const EdgeInsets.only(
+          //                 left: 22, top: 7, right: 22, bottom: 7),
+          //             child: Text(
+          //               data[i].tenNhuCau,
+          //               style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontFamily: 'Roboto',
+          //                 fontWeight: FontWeight.w500,
+          //                 fontSize: 16,
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       );
+          //     }
+          //     return Center(
+          //       child: CircularProgressIndicator(),
+          //     );
+          //   },
+          // ),
         ],
       );
       imgListNhuCau.add(a);
