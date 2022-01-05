@@ -36,4 +36,20 @@ class TinhThanhProvider {
     //     .map<TinhThanhObject>((e) => TinhThanhObject.fromJson(e))
     //     .toList();
   }
+
+  //  Tìm kiếm danh bạ
+  static Future<List<TinhThanhObject>> searchTinhThanh(String searchString) async {
+    List<TinhThanhObject> lstResult = [];
+    List<dynamic> data = await getAllTinhThanh();
+
+    if (searchString == '') return lstResult = [];
+
+    data.forEach((e) {
+      TinhThanhObject co = TinhThanhObject.fromJson(e);
+      if (co.tenTinhThanh.toUpperCase().contains(searchString.toUpperCase())) {
+        lstResult.add(co);
+      }
+    });
+    return lstResult;
+  }
 }

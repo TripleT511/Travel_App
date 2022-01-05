@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
+import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
+import 'package:vietnam_travel_app/search_page_result.dart';
 
 import 'main.dart';
 
@@ -14,6 +17,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class SearchPageState extends State<SearchPage> {
+  final List<TinhThanhObject> countLstTinhThanhs = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,106 +111,82 @@ class SearchPageState extends State<SearchPage> {
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: TextButton(
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.locationArrow,
-                          size: 20,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 10),
-                          child: const Text(
-                            "Sử dụng vị trí của bạn ngay bây giờ",
-                            style: TextStyle(
-                              color: Color(0XFF65676B),
-                              fontSize: 16,
-                              fontFamily: 'Roboto',
-                            ),
-                          ),
-                        )
-                      ],
-                    )),
-              ),
-              Container(
-                height: 300,
-                margin: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: const Text(
-                        "TP. Hồ Chí Minh",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.locationArrow,
+                        size: 20,
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      decoration: const BoxDecoration(
-                        border: Border.fromBorderSide(
-                          BorderSide(
-                            width: 0.5,
-                            color: Color(0XFFD2D4D8),
+                      Container(
+                        margin: const EdgeInsets.only(left: 10),
+                        child: const Text(
+                          "Sử dụng vị trí của bạn ngay bây giờ",
+                          style: TextStyle(
+                            color: Color(0XFF65676B),
+                            fontSize: 16,
+                            fontFamily: 'Roboto',
                           ),
                         ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: const Text(
-                        "Long An",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      decoration: const BoxDecoration(
-                        border: Border.fromBorderSide(
-                          BorderSide(
-                            width: 0.5,
-                            color: Color(0XFFD2D4D8),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      margin: const EdgeInsets.only(bottom: 5),
-                      child: const Text(
-                        "Hà Nội",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 15),
-                      decoration: const BoxDecoration(
-                        border: Border.fromBorderSide(
-                          BorderSide(
-                            width: 0.5,
-                            color: Color(0XFFD2D4D8),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ],
+              FutureBuilder(
+                future: TinhThanhProvider.getAllTinhThanh(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Có lỗi xảy ra!!!'),
+                    );
+                  } else if (snapshot.hasData) {
+                    List<TinhThanhObject> lstTinhThanh = snapshot.data!;
+                    return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) => MaterialButton(
+                        onPressed: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  SearchResult()));},
+                        child: Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              margin: const EdgeInsets.only(bottom: 5),
+                              child: Text(
+                                lstTinhThanh[index].tenTinhThanh,
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 15),
+                              decoration: const BoxDecoration(
+                                border: Border.fromBorderSide(
+                                  BorderSide(
+                                    width: 0.5,
+                                    color: Color(0XFFD2D4D8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+             ],
           ),
         ],
       ),
