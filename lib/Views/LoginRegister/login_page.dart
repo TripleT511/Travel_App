@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/register_page.dart';
 import 'package:vietnam_travel_app/main.dart';
+import 'package:vietnam_travel_app/test.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -19,12 +20,31 @@ class LoginPageState extends State<LoginPage> {
   bool checkPass = true;
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
+  _bindingUser() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    setState(() {});
+
+    txtEmail.text = (pres.getString('email') ?? '');
+    txtPassword.text = (pres.getString('password') ?? '');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _bindingUser();
+  }
+
   void _login() async {
     if (txtEmail.text.isNotEmpty && txtPassword.text.isNotEmpty) {
       bool isSuccess =
           await UserProvider.login(txtEmail.text, txtPassword.text);
 
       if (isSuccess) {
+        if (check) {
+          SharedPreferences pres = await SharedPreferences.getInstance();
+          pres.setString('email', txtEmail.text);
+          pres.setString('password', txtPassword.text);
+        }
         Navigator.push(
           context,
           MaterialPageRoute(

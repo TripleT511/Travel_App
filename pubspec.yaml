@@ -38,6 +38,7 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
+  shared_preferences: ^2.0.11
 
 dev_dependencies:
   flutter_test:

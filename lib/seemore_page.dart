@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/home_tab.dart';
 
 class SeeMorePage extends StatefulWidget {
   const SeeMorePage({Key? key}) : super(key: key);
@@ -17,8 +17,13 @@ class SeeMorePageState extends State<SeeMorePage> {
   void _logout() async {
     bool log = await UserProvider.logout();
     if (log) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SplashPage2()));
+      SharedPreferences pres = await SharedPreferences.getInstance();
+      pres.setString('email', '');
+      pres.setString('password', '');
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const SplashPage2()),
+          (route) => false);
     }
   }
 

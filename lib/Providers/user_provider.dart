@@ -8,12 +8,26 @@ const storage = FlutterSecureStorage();
 class UserProvider {
   static List<UserObject> parseUsers(String reponseBody) {
     final pased = jsonDecode(reponseBody).cast<Map<String, dynamic>>();
-    return pased.map<UserObject>((e) => UserObject.fromJson(e)).toList();
+    return pased.map<UserObject>((e) => UserObject.fromJson2(e)).toList();
+  }
+
+  static Future<UserObject> getUser() async {
+    var token = await getToken();
+    final response = await http.get(
+        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/user'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+
+    // print(jsonDecode(response.body));
+    return UserObject.fromJson2(jsonDecode(response.body));
   }
 
   static Future<bool> login(String email, String password) async {
     final response = await http.post(
-        Uri.parse('https://secret-forest-78671.herokuapp.com/api/login'),
+        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/login'),
         body: ({
           'email': email,
           'password': password,
@@ -42,7 +56,7 @@ class UserProvider {
   static Future<bool> register(
       String hoTen, String email, String password, String soDienThoai) async {
     final response = await http.post(
-        Uri.parse('https://secret-forest-78671.herokuapp.com/api/register'),
+        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/register'),
         body: jsonEncode({
           'idPhanQuyen': 1,
           'hoTen': hoTen,
@@ -72,7 +86,7 @@ class UserProvider {
   static Future<bool> logout() async {
     var token = await getToken();
     final response = await http.post(
-        Uri.parse('https://secret-forest-78671.herokuapp.com/api/logout'),
+        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/logout'),
         headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',

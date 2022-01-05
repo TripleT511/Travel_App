@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
@@ -47,8 +46,8 @@ class QuanAnState extends State<QuanAn> {
                                           "images/a.jpg",
                                         ),
                                         fit: BoxFit.cover),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(50.0)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(50.0)),
                                     border: Border.all(
                                         width: 2, color: Colors.white))))
                       ],
@@ -65,7 +64,7 @@ class QuanAnState extends State<QuanAn> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                 child: const Text(
-                  "Quán Ăn - " + "Hồ Chí Minh",
+                  "Quán Ăn - Hồ Chí Minh",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -134,8 +133,7 @@ class QuanAnState extends State<QuanAn> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " +
-                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
+                                "  65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -157,7 +155,7 @@ class QuanAnState extends State<QuanAn> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " + "12 a.m - 10 p.m",
+                                "  12 a.m - 10 p.m",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -236,8 +234,7 @@ class QuanAnState extends State<QuanAn> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " +
-                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
+                                " 65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -259,7 +256,7 @@ class QuanAnState extends State<QuanAn> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " + "12 a.m - 10 p.m",
+                                " 12 a.m - 10 p.m",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,

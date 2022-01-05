@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/changepw_page.dart';
-import 'package:vietnam_travel_app/edit_info_page.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 
 class PersonalPage extends StatefulWidget {

@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/create_post.dart';
@@ -9,6 +11,7 @@ import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
+import 'dart:math' as math;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,9 +28,6 @@ class HomePageState extends State<HomePage> {
   final List<Column> imgListNhuCau = [];
 
   void loadListDiaDanh() {
-    /* final List<DiaDanhObject> a = DiaDanhProvider.getalldiadanh();
-    b=a.length;
-   */
     int b = 5;
     for (int i = 0; i < b; i++) {
       Column a = Column(
@@ -386,18 +386,31 @@ class HomePageState extends State<HomePage> {
                         builder: (context) => const PersonalPage()));
               },
               child: Container(
-                margin: const EdgeInsets.only(right: 5),
                 width: 40,
                 height: 40,
-                decoration: const BoxDecoration(
-                  color: Color(0xff7c94b6),
-                  image: DecorationImage(
-                    image: AssetImage('images/avatar.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(50.0),
-                  ),
+                margin: const EdgeInsets.only(right: 5),
+                child: FutureBuilder<UserObject>(
+                  future: UserProvider.getUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      UserObject user = snapshot.data!;
+                      return CircleAvatar(
+                        backgroundColor: Color(
+                                (math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(1.0),
+                        child: Text(
+                          user.hoTen.substring(0, 1).toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    }
+                    return const CircularProgressIndicator();
+                  },
                 ),
               ),
             ),
@@ -513,8 +526,20 @@ class HomePageState extends State<HomePage> {
                                     builder: (context) =>
                                         const PersonalPage()));
                           },
-                          leading: const CircleAvatar(
-                            backgroundImage: AssetImage("images/avatar.jpg"),
+                          leading: CircleAvatar(
+                            backgroundColor: Color(
+                                    (math.Random().nextDouble() * 0xFFFFFF)
+                                        .toInt())
+                                .withOpacity(1.0),
+                            child: Text(
+                              'Phuc Nguyen'.substring(0, 1).toUpperCase(),
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                           title: const Text(
                             "Phuc Nguyen",

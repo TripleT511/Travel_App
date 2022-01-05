@@ -30,10 +30,10 @@ class NhuCauPageState extends State<NhuCauPage> {
         Row(
           children: [
             Container(
-              padding: EdgeInsets.only(left: 15),
+              padding: const EdgeInsets.only(left: 15),
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Color(0XFF0869E1),
                     fontSize: 20,
                     fontWeight: FontWeight.bold),
@@ -41,9 +41,6 @@ class NhuCauPageState extends State<NhuCauPage> {
             )
           ],
         ),
-        Row(
-          children: [],
-        )
       ],
     );
   }
@@ -58,7 +55,7 @@ class NhuCauPageState extends State<NhuCauPage> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PlaceDetail()));
+                MaterialPageRoute(builder: (context) => const PlaceDetail()));
           },
           child: Stack(
             alignment: Alignment.center,
@@ -107,7 +104,7 @@ class NhuCauPageState extends State<NhuCauPage> {
             ],
           ),
         ),
-        Expanded(
+        const Expanded(
           child: SizedBox(),
         ),
       ],
@@ -122,7 +119,7 @@ class NhuCauPageState extends State<NhuCauPage> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PlaceDetail()));
+                MaterialPageRoute(builder: (context) => const PlaceDetail()));
           },
           child: Stack(
             alignment: Alignment.center,
@@ -171,7 +168,7 @@ class NhuCauPageState extends State<NhuCauPage> {
             ],
           ),
         ),
-        Expanded(
+        const Expanded(
           child: SizedBox(),
         ),
       ],
@@ -186,6 +183,7 @@ class NhuCauPageState extends State<NhuCauPage> {
     loadListNhuCauTamBien();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -237,9 +235,9 @@ class NhuCauPageState extends State<NhuCauPage> {
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.all(30),
-            margin: EdgeInsets.only(left: 125),
-            child: Text(
+            padding: const EdgeInsets.all(30),
+            margin: const EdgeInsets.only(left: 125),
+            child: const Text(
               "Nhu Cầu",
               style: TextStyle(
                   fontSize: 20,
@@ -247,19 +245,19 @@ class NhuCauPageState extends State<NhuCauPage> {
                   color: Color(0XFF0869E1)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Tắm Biển"),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           slideShow(imgListNhuCauTamBien),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           sliderTitle("Cắm Trại"),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           slideShow(imgListNhuCauCamTrai)

@@ -78,8 +78,10 @@ class LuuTruState extends State<LuuTru> {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChiTietLuuTru()));
             }, // Handle your callback
             child: Column(
               children: [
@@ -133,8 +135,7 @@ class LuuTruState extends State<LuuTru> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " +
-                                    "65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
+                                " 65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -148,7 +149,7 @@ class LuuTruState extends State<LuuTru> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 15, bottom: 12),
+                          padding: const EdgeInsets.only(left: 15, bottom: 12),
                           child: Row(
                             children: const [
                               Icon(
@@ -156,7 +157,7 @@ class LuuTruState extends State<LuuTru> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " + "12 a.m - 10 p.m",
+                                " 12 a.m - 10 p.m",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -178,8 +179,10 @@ class LuuTruState extends State<LuuTru> {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ChiTietLuuTru()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ChiTietLuuTru()));
             }, // Handle your callback
             child: Column(
               children: [

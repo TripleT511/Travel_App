@@ -66,6 +66,7 @@ class MapPageState extends State<MapPage> {
         ],
       )
     ];
+    // ignore: unused_element
     CarouselSlider slideShow(List<Column> lst) {
       return CarouselSlider(
         items: lst,
@@ -74,6 +75,7 @@ class MapPageState extends State<MapPage> {
       );
     }
 
+    // ignore: unused_element
     Row sliderTitle(String title) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
