@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/nhucau_object.dart';
-import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
-import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
@@ -525,7 +523,7 @@ class HomePageState extends State<HomePage> {
                               ),
                             );
                           },
-                          child: Align(
+                          child: const Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Chia sẻ địa danh lên hệ thống...",
