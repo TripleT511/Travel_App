@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 
 class Place extends StatefulWidget {
@@ -15,16 +17,23 @@ class Place extends StatefulWidget {
 class PlaceState extends State<Place> {
   final List<Column> imgListDiaDanh = [];
   final List<Column> imgListDiaDanhLongAn = [];
-  void loadListDiaDanh() {
-    int b = 5;
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+  List<DiaDanhObject> lstDD = [];
+  void loadListDiaDanh() async {
+    final data = await DiaDanhProvider.getAllDiaDanh();
+    setState(() {});
+    lstDD = data;
+    int b = lstDD.length;
     for (int i = 0; i < b; i++) {
       Column a = Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const PlaceDetail()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PlaceDetail(lstDD[i])));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -37,8 +46,8 @@ class PlaceState extends State<Place> {
                     ),
                   ),
                   clipBehavior: Clip.antiAlias,
-                  child: Image.asset(
-                    "images/slide_1.jpg",
+                  child: Image.network(
+                    urlImg + lstDD[i].hinhanh.hinhAnh,
                     /*a.image*/
                     width: double.maxFinite,
                     height: 210,
@@ -57,9 +66,9 @@ class PlaceState extends State<Place> {
                       ),
                       Container(
                         padding: const EdgeInsets.only(left: 5),
-                        child: const Text(
-                          "Vịnh Hạ Long",
-                          style: TextStyle(
+                        child: Text(
+                          lstDD[i].tenDiaDanh,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w700,
