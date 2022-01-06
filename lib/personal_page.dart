@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
+import 'dart:math' as math;
 
+// ignore: must_be_immutable
 class PersonalPage extends StatefulWidget {
-  const PersonalPage({Key? key}) : super(key: key);
+  UserObject user;
+  PersonalPage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return PersonalPageState();
+    // ignore: no_logic_in_create_state
+    return PersonalPageState(user: user);
   }
 }
 
 class PersonalPageState extends State<PersonalPage> {
+  UserObject user;
+  PersonalPageState({required this.user});
   bool checkLike = true;
   bool checkUnLike = false;
+  Color _bnColor =
+      Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+  static get key => null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,55 +81,46 @@ class PersonalPageState extends State<PersonalPage> {
                   width: MediaQuery.of(context).size.width,
                   height: 200,
                   child: Image.asset(
-                    "images/slide_1.jpg",
+                    "images/banner-default.jpg",
                     fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(
-                  top: 150,
-                  left: 10,
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: AssetImage(
-                            "images/avatar.jpg",
+                    top: 150,
+                    left: (MediaQuery.of(context).size.width * 0.5) - 50,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          // image: const DecorationImage(
+                          //     image: AssetImage(
+                          //       "images/avatar.jpg",
+                          //     ),
+                          //     fit: BoxFit.cover),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(50.0),
                           ),
-                          fit: BoxFit.cover),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(50.0),
-                      ),
-                      border: Border.all(width: 5, color: Colors.white),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  top: 205,
-                  left: 70,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Container(
-                      width: 25,
-                      height: 25,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0XFFE4E6EB),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: FaIcon(
-                          FontAwesomeIcons.camera,
-                          color: Color(0XFF050505),
-                          size: 14,
+                          border: Border.all(width: 5, color: Colors.white),
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: _bnColor,
+                          child: Text(
+                            user.hoTen.substring(0, 1).toUpperCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
+                    )),
                 Positioned(
-                  top: 145,
-                  right: 10,
+                  top: 210,
+                  left: (MediaQuery.of(context).size.width * 0.5) + 10,
                   child: IconButton(
                     onPressed: () {},
                     icon: Container(
@@ -143,10 +144,11 @@ class PersonalPageState extends State<PersonalPage> {
               ],
             ),
             Container(
-              padding: const EdgeInsets.only(top: 10, left: 130),
-              child: const Text(
-                "Akagami no Shankusu",
-                style: TextStyle(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(top: 60),
+              child: Text(
+                user.hoTen,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Roboto',
@@ -214,16 +216,6 @@ class PersonalPageState extends State<PersonalPage> {
             const SizedBox(
               height: 15,
             ),
-            // Container(
-            //   decoration: const BoxDecoration(
-            //     border: Border.fromBorderSide(
-            //       BorderSide(
-            //         width: 0.5,
-            //         color: Color(0XFFD2D4D8),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -262,12 +254,21 @@ class PersonalPageState extends State<PersonalPage> {
                 return Column(
                   children: [
                     ListTile(
-                      leading: const CircleAvatar(
-                        backgroundImage: AssetImage("images/avatar.jpg"),
+                      leading: CircleAvatar(
+                        backgroundColor: _bnColor,
+                        child: Text(
+                          user.hoTen.substring(0, 1).toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
-                      title: const Text(
-                        "Phuc Nguyen",
-                        style: TextStyle(
+                      title: Text(
+                        user.hoTen,
+                        style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Roboto',
                           fontSize: 16,

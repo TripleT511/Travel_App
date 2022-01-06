@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.4
   flutter_secure_storage: ^5.0.2
   shared_preferences: ^2.0.11
+  flutter_easyloading: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -94,6 +95,7 @@ flutter:
     - images/camtrai.jpg
     - images/tambien.jpg
     - images/tambien1.jpg
+    - images/banner-default.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

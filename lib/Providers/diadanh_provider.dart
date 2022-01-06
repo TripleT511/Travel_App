@@ -25,13 +25,8 @@ class DiaDanhProvider {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         });
-    // var data = jsonDecode(response.body)["data"].cast<Map<String, dynamic>>();
-    // ;
-    // print(data);
-    return parseDiaDanh(response.body);
 
-    // return data
-    //     .map<TinhThanhObject>((e) => TinhThanhObject.fromJson(e))
-    //     .toList();
+    // print(response.body);
+    return parseDiaDanh(response.body);
   }
 }

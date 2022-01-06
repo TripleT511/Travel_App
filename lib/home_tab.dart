@@ -8,7 +8,6 @@ import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/baiviet_noibat.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
 import 'package:vietnam_travel_app/main.dart';
@@ -27,17 +26,23 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  final List<Column> imgListDiaDanh = [];
   final List<Column> imgListBaiViet = [];
   final List<Column> imgListNhuCau = [];
 
   List<NhuCauObject> lstNC = [];
   List<DiaDanhObject> lstDD = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+  late UserObject user;
+  _bindingUser() async {
+    final us = await UserProvider.getUser();
+    setState(() {});
+    user = us;
+  }
+
   @override
   void initState() {
     super.initState();
-
+    _bindingUser();
     loadListDiaDanh();
     loadListNhuCau();
     loadListBaiViet();
@@ -47,67 +52,6 @@ class HomePageState extends State<HomePage> {
     final data = await DiaDanhProvider.getAllDiaDanh();
     setState(() {});
     lstDD = data;
-    int b = lstDD.length;
-    for (int i = 0; i < b; i++) {
-      Column a = Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const PlaceDetail()));
-            },
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Card(
-                  elevation: 3.0,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.all(
-                      Radius.circular(16),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Image.network(
-                    urlImg + lstDD[i].hinhanh.hinhAnh,
-                    /*a.image*/
-                    width: double.maxFinite,
-                    height: 210,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Positioned(
-                  top: 185,
-                  left: 20,
-                  child: Row(
-                    children: [
-                      const FaIcon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                        color: Color(0XFFFF3535),
-                        size: 18,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 5),
-                        child: Text(
-                          lstDD[i].tenDiaDanh,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-      imgListDiaDanh.add(a);
-    }
   }
 
   void loadListBaiViet() {
@@ -248,122 +192,265 @@ class HomePageState extends State<HomePage> {
     final data = await NhuCauProvider.getAllNhuCau();
     setState(() {});
     lstNC = data;
-    int b = lstNC.length;
-    for (int i = 0; i < b; i++) {
-      Column a = Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          MaterialButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChiTietNhuCau()));
-            },
-            child: Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              padding:
-                  const EdgeInsets.only(left: 22, top: 7, right: 22, bottom: 7),
-              child: Text(
-                lstNC[i].tenNhuCau,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w700,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          // FutureBuilder(
-          //   future: NhuCauProvider.getAllNhuCau(),
-          //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-          //     if (snapshot.hasError) {
-          //       return Center(
-          //         child: Text('Có lỗi xảy ra!!!'),
-          //       );
-          //     } else if (snapshot.hasData) {
-          //        List<NhuCauObject> lstNhuCaus = snapshot.data!;
-          //       return ListView.builder(
-          //         // scrollDirection: Axis.vertical,
-          //         shrinkWrap: true,
-          //         itemCount: snapshot.data.length,
-          //         itemBuilder: (context, index) => MaterialButton(
-          //           onPressed: () {
-          //             Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(
-          //                     builder: (context) => const ChiTietNhuCau()));
-          //           },
-          //           child: Container(
-          //             decoration: BoxDecoration(
-          //               color: const Color(0XFF0869E1),
-          //               borderRadius: BorderRadius.circular(16),
-          //             ),
-          //             padding: const EdgeInsets.only(
-          //                 left: 22, top: 7, right: 22, bottom: 7),
-          //             child: Text(
-          //               lstNhuCaus[index].tenNhuCau,
-          //               style: TextStyle(
-          //                 color: Colors.white,
-          //                 fontFamily: 'Roboto',
-          //                 fontWeight: FontWeight.w500,
-          //                 fontSize: 16,
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       );
-          //     }
-          //     return Center(
-          //       child: CircularProgressIndicator(),
-          //     );
-          //   },
-          // ),
-        ],
-      );
-      imgListNhuCau.add(a);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    CarouselSlider slideShow(List<Column> lst) {
-      return CarouselSlider(
-        items: lst,
-        options: CarouselOptions(
-            viewportFraction: 0.7,
-            height: 230.0,
-            autoPlay: false,
-            enableInfiniteScroll: true),
+    SizedBox slideNhuCau() {
+      return SizedBox(
+        height: 40,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: lstNC.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => SizedBox(
+            width: 160,
+            height: 40,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ChiTietNhuCau(),
+                  ),
+                );
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: Card(
+                  elevation: 3.0,
+                  shape: BeveledRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color:
+                          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                              .withOpacity(1.0),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    padding: const EdgeInsets.only(
+                        left: 22, top: 7, right: 22, bottom: 7),
+                    child: Text(
+                      lstNC[index].tenNhuCau,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       );
     }
 
-    CarouselSlider slideShowBaiviet(List<Column> lst) {
-      return CarouselSlider(
-        items: lst,
-        options: CarouselOptions(
-            viewportFraction: 0.7,
-            height: 215.0,
-            autoPlay: false,
-            enableInfiniteScroll: true),
+    SizedBox slideBaiViet() {
+      return SizedBox(
+        height: 215,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: lstDD.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Container(
+            padding: const EdgeInsets.only(left: 10),
+            width: 271,
+            height: 210,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: SizedBox(
+                height: 215,
+                child: Card(
+                  elevation: 3.0,
+                  color: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.only(
+                      topStart: Radius.circular(16.0),
+                      topEnd: Radius.circular(16.0),
+                      bottomStart: Radius.circular(16.0),
+                      bottomEnd: Radius.circular(16.0),
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/j.jpg",
+                        width: 271,
+                        height: 132,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 10, bottom: 10, right: 10),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Check-in điểm du lịch ",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                            color: Color(0XFF050505),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 10, bottom: 10),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 0),
+                                  child: const Icon(
+                                    Icons.thumb_up,
+                                    color: Color(0XFF0869E1),
+                                    size: 18,
+                                  ),
+                                ),
+                                const Text(
+                                  " 5.6k",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFF050505),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.solidEye,
+                                    color: Color(0XFF3EFF7F),
+                                    size: 18,
+                                  ),
+                                ),
+                                const Text(
+                                  " 6.1k",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFF050505),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.mapMarkerAlt,
+                                    color: Color(0XFFFF3535),
+                                    size: 18,
+                                  ),
+                                ),
+                                const Text(
+                                  " Nha Trang",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFF050505),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       );
     }
 
-    CarouselSlider slideShowNhuCau(List<Column> lst) {
-      return CarouselSlider(
-        items: lst,
-        options: CarouselOptions(
-            viewportFraction: 0.5,
-            height: 55,
-            autoPlay: false,
-            enableInfiniteScroll: true),
+    SizedBox slideDiaDanh() {
+      return SizedBox(
+        height: 210,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: lstDD.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Container(
+            padding: const EdgeInsets.only(left: 10),
+            width: 271,
+            height: 210,
+            child: GestureDetector(
+              onTap: () {},
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Card(
+                    elevation: 3.0,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadiusDirectional.all(
+                        Radius.circular(16),
+                      ),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.network(
+                      urlImg + lstDD[index].hinhanh.hinhAnh,
+                      /*a.image*/
+                      width: double.maxFinite,
+                      height: 210,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    top: 170,
+                    left: 20,
+                    child: Row(
+                      children: [
+                        const FaIcon(
+                          FontAwesomeIcons.mapMarkerAlt,
+                          color: Color(0XFFFF3535),
+                          size: 18,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 5),
+                          child: Text(
+                            lstDD[index].tenDiaDanh,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       );
     }
 
@@ -445,7 +532,7 @@ class HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const PersonalPage()));
+                        builder: (context) => PersonalPage(user: user)));
               },
               child: Container(
                 width: 40,
@@ -548,11 +635,11 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   sliderTitle("Địa Danh Nổi Bật"),
-                  slideShow(imgListDiaDanh),
+                  slideDiaDanh(),
                   sliderTitle("Bài Viết Nổi Bật"),
-                  slideShowBaiviet(imgListBaiViet),
+                  slideBaiViet(),
                   sliderTitle("Nhu Cầu"),
-                  slideShowNhuCau(imgListNhuCau),
+                  slideNhuCau(),
                 ],
               ),
               Container(
@@ -586,7 +673,7 @@ class HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const PersonalPage()));
+                                        PersonalPage(user: user)));
                           },
                           leading: CircleAvatar(
                             backgroundColor: Color(

@@ -1,6 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/nhucau_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 
 class TextPage extends StatefulWidget {
@@ -11,103 +14,160 @@ class TextPage extends StatefulWidget {
 }
 
 class TextPageState extends State<TextPage> {
-  CarouselSlider slideShowNhuCau(List<Column> lst) {
-    return CarouselSlider(
-      items: lst,
-      options: CarouselOptions(
-          viewportFraction: 0.5,
-          height: 55,
-          autoPlay: false,
-          enableInfiniteScroll: true),
-    );
+  List<DiaDanhObject> lstResult = [];
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+  _bindingDiaDanh() async {
+    setState(() {});
+    lstResult = await DiaDanhProvider.getAllDiaDanh();
   }
 
-  final List<Column> imgListNhuCau = [];
-  void loadListNhuCau() {
-    FutureBuilder a = FutureBuilder<List<NhuCauObject>>(
-      future: NhuCauProvider.getAllNhuCau(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          List<NhuCauObject> lstRs = snapshot.data!;
-          return ListView.builder(
-              itemCount: lstRs.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    MaterialButton(
-                      onPressed: () {},
-                      child: Container(
-                        width: 200,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: const Color(0XFF0869E1),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        padding: const EdgeInsets.only(
-                            left: 22, top: 7, right: 22, bottom: 7),
-                        child: Text(
-                          lstRs[index].tenNhuCau,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+  @override
+  void initState() {
+    super.initState();
+    _bindingDiaDanh();
+  }
+
+  Widget VungDiaDanh() {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.grey[350],
+            expandedHeight: 200,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                height: MediaQuery.of(context).size.height * 0.3,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: lstResult.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {},
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Card(
+                          elevation: 3.0,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.all(
+                              Radius.circular(16),
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.network(
+                            urlImg + lstResult[index].hinhanh.hinhAnh,
+                            /*a.image*/
+                            width: double.maxFinite,
+                            height: 210,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      ),
+                        Positioned(
+                          top: 185,
+                          left: 20,
+                          child: Row(
+                            children: [
+                              const FaIcon(
+                                FontAwesomeIcons.mapMarkerAlt,
+                                color: Color(0XFFFF3535),
+                                size: 18,
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: Text(
+                                  lstResult[index].tenDiaDanh,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                );
-              });
-        }
-        return Text("Không có dữ liệu");
+                  ),
+                ),
+              ),
+            ),
+          )
+        ];
       },
+      body: Container(
+        child: Text('xvzx'),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: FutureBuilder<List<NhuCauObject>>(
-          future: NhuCauProvider.getAllNhuCau(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<NhuCauObject> lstRs = snapshot.data!;
-              return ListView.builder(
-                  itemCount: lstRs.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Container(
-                            width: 200,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color(0XFF0869E1),
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            padding: const EdgeInsets.only(
-                                left: 22, top: 7, right: 22, bottom: 7),
-                            child: Text(
-                              lstRs[index].tenNhuCau,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: 210,
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: lstResult.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => Container(
+                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    width: 271,
+                    height: 210,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Card(
+                            elevation: 3.0,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadiusDirectional.all(
+                                Radius.circular(16),
                               ),
                             ),
+                            clipBehavior: Clip.antiAlias,
+                            child: Image.network(
+                              urlImg + lstResult[index].hinhanh.hinhAnh,
+                              /*a.image*/
+                              width: double.maxFinite,
+                              height: 210,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  });
-            }
-            return const CircularProgressIndicator();
-          },
+                          Positioned(
+                            top: 170,
+                            left: 20,
+                            child: Row(
+                              children: [
+                                const FaIcon(
+                                  FontAwesomeIcons.mapMarkerAlt,
+                                  color: Color(0XFFFF3535),
+                                  size: 18,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    lstResult[index].tenDiaDanh,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )),
         ),
       ),
     );

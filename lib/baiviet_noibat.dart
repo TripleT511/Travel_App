@@ -38,10 +38,10 @@ class BaiVietNoiBatPageState extends State<BaiVietNoiBatPage> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PersonalPage()));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const PersonalPage()));
                 },
                 child: Container(
                   margin: const EdgeInsets.only(right: 5),
@@ -90,11 +90,11 @@ class BaiVietNoiBatPageState extends State<BaiVietNoiBatPage> {
                         children: [
                           ListTile(
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PersonalPage()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const PersonalPage()));
                             },
                             leading: const CircleAvatar(
                               backgroundImage: AssetImage("images/avatar.jpg"),

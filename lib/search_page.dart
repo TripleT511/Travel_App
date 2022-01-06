@@ -44,10 +44,10 @@ class SearchPageState extends State<SearchPage> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PersonalPage()));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const PersonalPage()));
               },
               child: Container(
                 margin: const EdgeInsets.only(right: 5),
@@ -137,7 +137,7 @@ class SearchPageState extends State<SearchPage> {
                 future: TinhThanhProvider.getAllTinhThanh(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.hasError) {
-                    return Center(
+                    return const Center(
                       child: Text('Có lỗi xảy ra!!!'),
                     );
                   } else if (snapshot.hasData) {
@@ -147,10 +147,12 @@ class SearchPageState extends State<SearchPage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) => MaterialButton(
-                        onPressed: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>  SearchResult()));},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchResult()));
+                        },
                         child: Column(
                           children: [
                             Container(
@@ -158,7 +160,7 @@ class SearchPageState extends State<SearchPage> {
                               margin: const EdgeInsets.only(bottom: 5),
                               child: Text(
                                 lstTinhThanh[index].tenTinhThanh,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -181,12 +183,12 @@ class SearchPageState extends State<SearchPage> {
                       ),
                     );
                   }
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 },
               ),
-             ],
+            ],
           ),
         ],
       ),
