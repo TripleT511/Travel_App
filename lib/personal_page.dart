@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 import 'dart:math' as math;
@@ -21,9 +22,22 @@ class PersonalPageState extends State<PersonalPage> {
   PersonalPageState({required this.user});
   bool checkLike = true;
   bool checkUnLike = false;
-  Color _bnColor =
+  final Color _bnColor =
       Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-  static get key => null;
+
+  _saveData() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    setState(() {});
+    pres.setString('hoTen', user.hoTen);
+    pres.setString('soDienThoai', user.soDienThoai);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _saveData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

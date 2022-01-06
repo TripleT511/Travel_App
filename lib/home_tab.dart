@@ -33,17 +33,12 @@ class HomePageState extends State<HomePage> {
   List<NhuCauObject> lstNC = [];
   List<DiaDanhObject> lstDD = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  late UserObject user;
-  _bindingUser() async {
-    final us = await UserProvider.getUser();
-    setState(() {});
-    user = us;
-  }
+  final Color _userColor =
+      Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
 
   @override
   void initState() {
     super.initState();
-    _bindingUser();
     loadListDiaDanh();
     loadListNhuCau();
     loadListBaiViet();
@@ -221,7 +216,7 @@ class HomePageState extends State<HomePage> {
                 child: Card(
                   elevation: 3.0,
                   shape: BeveledRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(7.0),
                   ),
                   child: Container(
                     alignment: Alignment.center,
@@ -229,7 +224,7 @@ class HomePageState extends State<HomePage> {
                       color:
                           Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
                               .withOpacity(1.0),
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.only(
                         left: 22, top: 7, right: 22, bottom: 7),
@@ -514,47 +509,47 @@ class HomePageState extends State<HomePage> {
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: null,
-        leadingWidth: 0,
-        titleSpacing: 0,
-        elevation: 1.5,
-        backgroundColor: Colors.white,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MyApp()));
-              },
-              child: Container(
-                margin: const EdgeInsets.only(left: 5),
-                width: 95,
-                child: Image.asset("images/logo-ver3.png"),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalPage(user: user)));
-              },
-              child: Container(
-                width: 40,
-                height: 40,
-                margin: const EdgeInsets.only(right: 5),
-                child: FutureBuilder<UserObject>(
-                  future: UserProvider.getUser(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      UserObject user = snapshot.data!;
-                      return CircleAvatar(
-                        backgroundColor: Color(
-                                (math.Random().nextDouble() * 0xFFFFFF).toInt())
-                            .withOpacity(1.0),
+    return FutureBuilder<UserObject>(
+      future: UserProvider.getUser(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          UserObject user = snapshot.data!;
+          return Scaffold(
+            appBar: AppBar(
+              leading: null,
+              leadingWidth: 0,
+              titleSpacing: 0,
+              elevation: 1.5,
+              backgroundColor: Colors.white,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyApp()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 5),
+                      width: 95,
+                      child: Image.asset("images/logo-ver3.png"),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PersonalPage(user: user)));
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      margin: const EdgeInsets.only(right: 5),
+                      child: CircleAvatar(
+                        backgroundColor: _userColor,
                         child: Text(
                           user.hoTen.substring(0, 1).toUpperCase(),
                           style: const TextStyle(
@@ -564,338 +559,361 @@ class HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }
-                    return const CircularProgressIndicator();
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: ListView(
-        children: [
-          Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(15),
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          color: Color(0xff7c94b6),
-                          image: DecorationImage(
-                            image: AssetImage('images/avatar.jpg'),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        width: 280,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: const Color(0XFFB9B9B9),
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(50),
-                          ),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const CreatePost(),
-                              ),
-                            );
-                          },
-                          child: const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Chia sẻ địa danh lên hệ thống...",
-                              style: TextStyle(
-                                color: Color(0XFF050505),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    decoration: const BoxDecoration(
-                      border: Border.fromBorderSide(
-                        BorderSide(
-                          width: 0.5,
-                          color: Color(0XFFD2D4D8),
-                        ),
                       ),
                     ),
                   ),
-                  sliderTitle("Địa Danh Nổi Bật"),
-                  slideDiaDanh(),
-                  sliderTitle("Bài Viết Nổi Bật"),
-                  slideBaiViet(),
-                  sliderTitle("Nhu Cầu"),
-                  slideNhuCau(),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                  padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      top: BorderSide(width: 0.5, color: Color(0XFFB9B9B9)),
-                      bottom: BorderSide(width: 0.5, color: Color(0XFFB9B9B9)),
-                    ),
-                  ),
-                  child: const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Bài Viết",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0XFF050505),
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )),
-              ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Column(
+            ),
+            body: ListView(
+              children: [
+                Column(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ListTile(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        PersonalPage(user: user)));
-                          },
-                          leading: CircleAvatar(
-                            backgroundColor: Color(
-                                    (math.Random().nextDouble() * 0xFFFFFF)
-                                        .toInt())
-                                .withOpacity(1.0),
-                            child: Text(
-                              'Phuc Nguyen'.substring(0, 1).toUpperCase(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold,
+                        Row(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(15),
+                              width: 40,
+                              height: 40,
+                              decoration: const BoxDecoration(
+                                color: Color(0xff7c94b6),
+                                image: DecorationImage(
+                                  image: AssetImage('images/avatar.jpg'),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50.0)),
+                              ),
+                              child: CircleAvatar(
+                                backgroundColor: _userColor,
+                                child: Text(
+                                  user.hoTen.substring(0, 1).toUpperCase(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(left: 10),
+                              width: 280,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: const Color(0XFFB9B9B9),
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(50),
+                                ),
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const CreatePost(),
+                                    ),
+                                  );
+                                },
+                                child: const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "Chia sẻ địa danh lên hệ thống...",
+                                    style: TextStyle(
+                                      color: Color(0XFF050505),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          decoration: const BoxDecoration(
+                            border: Border.fromBorderSide(
+                              BorderSide(
+                                width: 0.5,
+                                color: Color(0XFFD2D4D8),
                               ),
                             ),
                           ),
-                          title: const Text(
-                            "Phuc Nguyen",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                            ),
-                          ),
-                          subtitle: const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("23-12-2021"),
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {},
-                            icon: const FaIcon(
-                              FontAwesomeIcons.ellipsisH,
-                              size: 18,
-                            ),
+                        ),
+                        sliderTitle("Địa Danh Nổi Bật"),
+                        slideDiaDanh(),
+                        sliderTitle("Bài Viết Nổi Bật"),
+                        slideBaiViet(),
+                        sliderTitle("Nhu Cầu"),
+                        slideNhuCau(),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                                width: 0.5, color: Color(0XFFB9B9B9)),
+                            bottom: BorderSide(
+                                width: 0.5, color: Color(0XFFB9B9B9)),
                           ),
                         ),
-                        Image.asset(
-                          "images/slide_1.jpg",
-                          height: 240,
-                          width: 392,
-                          fit: BoxFit.cover,
-                        ),
-                        const Padding(
-                          padding:
-                              EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
                           child: Text(
-                            "Hạ Long Bay is a UNESCO World Heritage Site and popular travel destination in Quảng Ninh Province, Vietnam",
+                            "Bài Viết",
                             style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w400,
-                              color: Color(0XFF050505),
-                              height: 1.4,
-                              fontSize: 16,
-                            ),
+                                fontSize: 20,
+                                color: Color(0XFF050505),
+                                fontWeight: FontWeight.w500),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 0),
-                          child: TextButton(
-                            onPressed: () {},
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: const Color(0XFF0869E1),
+                        )),
+                    ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PersonalPage(user: user)));
+                                },
+                                leading: CircleAvatar(
+                                  backgroundColor: Color(
+                                          (math.Random().nextDouble() *
+                                                  0xFFFFFF)
+                                              .toInt())
+                                      .withOpacity(1.0),
+                                  child: Text(
+                                    'Phuc Nguyen'.substring(0, 1).toUpperCase(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                child: const Text(
-                                  "Ho Chi Minh City, Viet Nam",
+                                title: const Text(
+                                  "Phuc Nguyen",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                subtitle: const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text("23-12-2021"),
+                                ),
+                                trailing: IconButton(
+                                  onPressed: () {},
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.ellipsisH,
+                                    size: 18,
+                                  ),
+                                ),
+                              ),
+                              Image.asset(
+                                "images/slide_1.jpg",
+                                height: 240,
+                                width: 392,
+                                fit: BoxFit.cover,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(
+                                    top: 10, bottom: 5, left: 10),
+                                child: Text(
+                                  "Hạ Long Bay is a UNESCO World Heritage Site and popular travel destination in Quảng Ninh Province, Vietnam",
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: Color(0XFF0869E1),
+                                    color: Color(0XFF050505),
+                                    height: 1.4,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10, bottom: 10, right: 10),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  FaIcon(
-                                    FontAwesomeIcons.solidEye,
-                                    color: Color(0XFF65676B),
-                                    size: 18,
-                                  ),
-                                  Text(
-                                    " 10k lượt xem",
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0XFF65676B),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: const [
-                                    Text(
-                                      "1.2k lượt thích",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0XFF65676B),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 0),
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 5, 10, 5),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 1,
+                                          color: const Color(0XFF0869E1),
+                                        ),
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
-                                    ),
-                                    Text(
-                                      "56 lượt không thích",
-                                      style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0XFF65676B),
-                                      ),
-                                    ),
-                                  ]),
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                decoration: const BoxDecoration(
-                                  border: Border.fromBorderSide(
-                                    BorderSide(
-                                      width: 0.5,
-                                      color: Color(0XFFD2D4D8),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.thumb_up,
+                                      child: const Text(
+                                        "Ho Chi Minh City, Viet Nam",
+                                        style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
                                           color: Color(0XFF0869E1),
                                         ),
                                       ),
-                                      const Text(
-                                        "Thích",
-                                        style: TextStyle(
-                                          fontFamily: 'Roboto',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          color: Color(0XFF65676B),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                            Icons.thumb_down_outlined,
-                                            color: Colors.grey),
-                                      ),
-                                      const Text(
-                                        "Không thích",
-                                        style: TextStyle(
-                                          color: Color(0XFF65676B),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'Roboto',
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  border: Border.fromBorderSide(
-                                    BorderSide(
-                                      width: 0.5,
-                                      color: Color(0XFFD2D4D8),
                                     ),
                                   ),
                                 ),
                               ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, bottom: 10, right: 10),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        FaIcon(
+                                          FontAwesomeIcons.solidEye,
+                                          color: Color(0XFF65676B),
+                                          size: 18,
+                                        ),
+                                        Text(
+                                          " 10k lượt xem",
+                                          style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0XFF65676B),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: const [
+                                          Text(
+                                            "1.2k lượt thích",
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0XFF65676B),
+                                            ),
+                                          ),
+                                          Text(
+                                            "56 lượt không thích",
+                                            style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0XFF65676B),
+                                            ),
+                                          ),
+                                        ]),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      decoration: const BoxDecoration(
+                                        border: Border.fromBorderSide(
+                                          BorderSide(
+                                            width: 0.5,
+                                            color: Color(0XFFD2D4D8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.thumb_up,
+                                                color: Color(0XFF0869E1),
+                                              ),
+                                            ),
+                                            const Text(
+                                              "Thích",
+                                              style: TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color(0XFF65676B),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                  Icons.thumb_down_outlined,
+                                                  color: Colors.grey),
+                                            ),
+                                            const Text(
+                                              "Không thích",
+                                              style: TextStyle(
+                                                color: Color(0XFF65676B),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: 'Roboto',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      decoration: const BoxDecoration(
+                                        border: Border.fromBorderSide(
+                                          BorderSide(
+                                            width: 0.5,
+                                            color: Color(0XFFD2D4D8),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
-            ],
-          )
-        ],
-      ),
+                          );
+                        }),
+                  ],
+                )
+              ],
+            ),
+          );
+        }
+        return const Center(
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }
