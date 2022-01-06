@@ -53,10 +53,7 @@ class NhuCauPageState extends State<NhuCauPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const PlaceDetail()));
-          },
+          onTap: () {},
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -117,10 +114,7 @@ class NhuCauPageState extends State<NhuCauPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const PlaceDetail()));
-          },
+          onTap: () {},
           child: Stack(
             alignment: Alignment.center,
             children: [

@@ -8,6 +8,7 @@ import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/baiviet_noibat.dart';
+import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
 import 'package:vietnam_travel_app/main.dart';
@@ -401,7 +402,14 @@ class HomePageState extends State<HomePage> {
             width: 271,
             height: 210,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PlaceDetail(lstDD[index]),
+                  ),
+                );
+              },
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -641,6 +649,9 @@ class HomePageState extends State<HomePage> {
                   sliderTitle("Nhu Cầu"),
                   slideNhuCau(),
                 ],
+              ),
+              const SizedBox(
+                height: 10,
               ),
               Container(
                   padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
