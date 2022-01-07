@@ -64,16 +64,17 @@ class SettingsPageState extends State<SettingsPage> {
                         alignment: Alignment.centerLeft,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.userEdit,
-                              size: 18,
-                              color: Color(0XFF050505),
+                          children: [
+                            Container(
+                              width: 25,
+                              margin: const EdgeInsets.only(right: 15),
+                              child: const FaIcon(
+                                FontAwesomeIcons.userEdit,
+                                size: 18,
+                                color: Color(0XFF050505),
+                              ),
                             ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text(
+                            const Text(
                               "Chỉnh sửa thông tin cá nhân",
                               style: TextStyle(
                                 fontFamily: 'Roboto',
@@ -116,16 +117,17 @@ class SettingsPageState extends State<SettingsPage> {
                         alignment: Alignment.centerLeft,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.unlockAlt,
-                              size: 18,
-                              color: Color(0XFF050505),
+                          children: [
+                            Container(
+                              width: 25,
+                              margin: const EdgeInsets.only(right: 15),
+                              child: const FaIcon(
+                                FontAwesomeIcons.unlockAlt,
+                                size: 18,
+                                color: Color(0XFF050505),
+                              ),
                             ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text(
+                            const Text(
                               "Đổi mật khẩu",
                               style: TextStyle(
                                 fontFamily: 'Roboto',

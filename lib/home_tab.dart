@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
@@ -50,7 +50,7 @@ class HomePageState extends State<HomePage> {
     lstDD = data;
   }
 
-  void loadListBaiViet() {
+  loadListBaiViet() {
     int b = 5;
     for (int i = 0; i < b; i++) {
       Column a = Column(
@@ -252,6 +252,145 @@ class HomePageState extends State<HomePage> {
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: lstDD.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => Container(
+            padding: const EdgeInsets.only(left: 10),
+            width: 271,
+            height: 210,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: SizedBox(
+                height: 215,
+                child: Card(
+                  elevation: 3.0,
+                  color: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.only(
+                      topStart: Radius.circular(16.0),
+                      topEnd: Radius.circular(16.0),
+                      bottomStart: Radius.circular(16.0),
+                      bottomEnd: Radius.circular(16.0),
+                    ),
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/j.jpg",
+                        width: 271,
+                        height: 132,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 10, bottom: 10, right: 10),
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          "Check-in điểm du lịch ",
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                            color: Color(0XFF050505),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 10, right: 10, bottom: 10),
+                        child: Row(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 0),
+                                  child: const Icon(
+                                    Icons.thumb_up,
+                                    color: Color(0XFF0869E1),
+                                    size: 18,
+                                  ),
+                                ),
+                                const Text(
+                                  " 5.6k",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFF050505),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.solidEye,
+                                    color: Color(0XFF3EFF7F),
+                                    size: 18,
+                                  ),
+                                ),
+                                const Text(
+                                  " 6.1k",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFF050505),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.mapMarkerAlt,
+                                    color: Color(0XFFFF3535),
+                                    size: 18,
+                                  ),
+                                ),
+                                const Text(
+                                  " Nha Trang",
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFF050505),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    SizedBox slideShimmer() {
+      return SizedBox(
+        height: 215,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: 2,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => Container(
             padding: const EdgeInsets.only(left: 10),
@@ -906,28 +1045,85 @@ class HomePageState extends State<HomePage> {
             ),
           );
         }
-        return Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                width: 40,
-                height: 40,
-                child: CircularProgressIndicator(),
+        return Shimmer.fromColors(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.all(15),
+                        width: 40,
+                        height: 40,
+                        decoration: const BoxDecoration(
+                          color: Color(0xff7c94b6),
+                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                        ),
+                        child: CircleAvatar(
+                          backgroundColor: _userColor,
+                          child: const Text(
+                            "G",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 10),
+                        width: 280,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: const Color(0XFFB9B9B9),
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(50),
+                          ),
+                        ),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Chia sẻ địa danh lên hệ thống...",
+                              style: TextStyle(
+                                color: Color(0XFF050505),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5),
+                    decoration: const BoxDecoration(
+                      border: Border.fromBorderSide(
+                        BorderSide(
+                          width: 0.5,
+                          color: Color(0XFFD2D4D8),
+                        ),
+                      ),
+                    ),
+                  ),
+                  sliderTitle("Địa Danh Nổi Bật"),
+                  slideShimmer(),
+                  sliderTitle("Bài Viết Nổi Bật"),
+                  slideShimmer(),
+                ],
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 15),
-                child: const Text(
-                  "Vui lòng chờ",
-                  style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 16,
-                      color: Color(0XFF050505)),
-                ),
-              )
-            ],
-          ),
-        );
+            ),
+            baseColor: Colors.grey.shade500,
+            highlightColor: Colors.white);
       },
     );
   }

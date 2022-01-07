@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
+import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/map_page.dart';
 import 'package:vietnam_travel_app/search_page.dart';
@@ -27,13 +28,6 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _tabController = TabController(length: 4, vsync: this);
-  // }
-
   int currentTab = 0;
   final List<Widget> screens = const [
     HomePage(),
@@ -44,12 +38,6 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentSreen = const HomePage();
 
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _tabController.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,13 +46,34 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        elevation: 10.0,
-        onPressed: () {},
+        elevation: 3.0,
+        onPressed: () {
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => const CreatePost()));
+        },
         backgroundColor: const Color(0XFF0869E1),
-        child: const FaIcon(
-          FontAwesomeIcons.plus,
-          size: 20,
-          color: Colors.white,
+        child: Container(
+          width: 56,
+          height: 56,
+          child: const Align(
+            alignment: Alignment.center,
+            child: FaIcon(
+              FontAwesomeIcons.plus,
+              size: 20,
+              color: Colors.white,
+            ),
+          ),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: <Color>[
+                Color(0xff00D1FF),
+                Color(0XFF0869E1),
+              ],
+            ),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -96,7 +105,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           color: currentTab == 0
                               ? const Color(0XFF0869E1)
                               : const Color(0X99050505),
-                          size: 16,
+                          size: 20,
                         ),
                         const SizedBox(
                           height: 5,
@@ -131,13 +140,13 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           color: currentTab == 1
                               ? const Color(0XFF0869E1)
                               : const Color(0X99050505),
-                          size: 16,
+                          size: 20,
                         ),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          'Trang chủ',
+                          'Tìm kiếm',
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 12,
@@ -149,7 +158,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                         )
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
               Row(
@@ -171,7 +180,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           color: currentTab == 2
                               ? const Color(0XFF0869E1)
                               : const Color(0X99050505),
-                          size: 16,
+                          size: 20,
                         ),
                         const SizedBox(
                           height: 5,
@@ -206,7 +215,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                           color: currentTab == 3
                               ? const Color(0XFF0869E1)
                               : const Color(0X99050505),
-                          size: 16,
+                          size: 20,
                         ),
                         const SizedBox(
                           height: 5,

@@ -227,8 +227,68 @@ class PersonalPageState extends State<PersonalPage> {
                 ),
               ],
             ),
+            Container(
+              padding: const EdgeInsets.only(left: 15, right: 50, top: 15),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 18,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: 10),
+                    child: const FaIcon(
+                      FontAwesomeIcons.phoneAlt,
+                      size: 18,
+                      color: Color(0XFFFF3535),
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      user.soDienThoai,
+                      softWrap: true,
+                      overflow: TextOverflow.clip,
+                      style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.normal,
+                          color: Color(0XFF050505),
+                          height: 1.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 15, right: 50, top: 15),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 18,
+                    alignment: Alignment.center,
+                    margin: const EdgeInsets.only(right: 10),
+                    child: const FaIcon(
+                      FontAwesomeIcons.solidEnvelope,
+                      size: 18,
+                      color: Color(0XFF3357C0),
+                    ),
+                  ),
+                  Flexible(
+                    child: Text(
+                      user.email,
+                      softWrap: true,
+                      overflow: TextOverflow.clip,
+                      style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.normal,
+                          color: Color(0XFF050505),
+                          height: 1.5),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(
-              height: 15,
+              height: 10,
             ),
             SizedBox(
               width: double.infinity,
