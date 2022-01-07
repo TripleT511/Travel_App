@@ -38,7 +38,7 @@ class SettingsPageState extends State<SettingsPage> {
           ),
         ),
         body: Container(
-          margin: const EdgeInsets.only(top: 20, left: 15, right: 15),
+          margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
           child: Column(
             children: [
               SizedBox(

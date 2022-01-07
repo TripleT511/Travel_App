@@ -906,11 +906,26 @@ class HomePageState extends State<HomePage> {
             ),
           );
         }
-        return const Center(
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: CircularProgressIndicator(),
+        return Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(
+                width: 40,
+                height: 40,
+                child: CircularProgressIndicator(),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 15),
+                child: const Text(
+                  "Vui lòng chờ",
+                  style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      color: Color(0XFF050505)),
+                ),
+              )
+            ],
           ),
         );
       },

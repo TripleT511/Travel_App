@@ -28,81 +28,207 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _tabController = TabController(length: 4, vsync: this);
+  // }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _tabController.dispose();
-  }
+  int currentTab = 0;
+  final List<Widget> screens = const [
+    HomePage(),
+    SearchPage(),
+    MapPage(),
+    SeeMorePage(),
+  ];
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentSreen = const HomePage();
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _tabController.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          HomePage(),
-          SearchPage(),
-          MapPage(),
-          SeeMorePage(),
-        ],
+      body: PageStorage(
+        child: currentSreen,
+        bucket: bucket,
       ),
-      bottomNavigationBar: Container(
-        height: 65,
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Color(0XFF0869E1), width: 2),
-          ),
+      floatingActionButton: FloatingActionButton(
+        elevation: 10.0,
+        onPressed: () {},
+        backgroundColor: const Color(0XFF0869E1),
+        child: const FaIcon(
+          FontAwesomeIcons.plus,
+          size: 20,
+          color: Colors.white,
         ),
-        child: TabBar(
-          labelStyle: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Color(0XFF050505),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        color: Colors.white,
+        child: SizedBox(
+          height: 55,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const HomePage();
+                        currentTab = 0;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.home,
+                          color: currentTab == 0
+                              ? const Color(0XFF0869E1)
+                              : const Color(0X99050505),
+                          size: 16,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Trang chủ',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: currentTab == 0
+                                ? const Color(0XFF0869E1)
+                                : const Color(0X99050505),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const SearchPage();
+                        currentTab = 1;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.search,
+                          color: currentTab == 1
+                              ? const Color(0XFF0869E1)
+                              : const Color(0X99050505),
+                          size: 16,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Trang chủ',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: currentTab == 1
+                                ? const Color(0XFF0869E1)
+                                : const Color(0X99050505),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const MapPage();
+                        currentTab = 2;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.mapMarkedAlt,
+                          color: currentTab == 2
+                              ? const Color(0XFF0869E1)
+                              : const Color(0X99050505),
+                          size: 16,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Bản đồ',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: currentTab == 2
+                                ? const Color(0XFF0869E1)
+                                : const Color(0X99050505),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const SeeMorePage();
+                        currentTab = 3;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.bars,
+                          color: currentTab == 3
+                              ? const Color(0XFF0869E1)
+                              : const Color(0X99050505),
+                          size: 16,
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Xem thêm',
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: currentTab == 3
+                                ? const Color(0XFF0869E1)
+                                : const Color(0X99050505),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
-          labelColor: const Color(0XFF0869E1),
-          controller: _tabController,
-          unselectedLabelColor: const Color(0XFF050505),
-          tabs: const [
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.home,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Trang chủ",
-            ),
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.search,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Tìm kiếm",
-            ),
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.mapMarkedAlt,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Bản đồ",
-            ),
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.bars,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Xem thêm",
-            ),
-          ],
         ),
       ),
     );

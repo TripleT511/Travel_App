@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({Key? key}) : super(key: key);
@@ -24,6 +26,31 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
     SharedPreferences pres = await SharedPreferences.getInstance();
     setState(() {});
     txtCurrent.text = (pres.getString('password') ?? '');
+  }
+
+  void _changePassword() async {
+    if (formKey.currentState!.validate()) {
+      if (txtnewPass.text == txtconfirmPass.text) {
+        bool isChange = await UserProvider.changePassword(
+            txtCurrent.text, txtnewPass.text, txtconfirmPass.text);
+
+        if (isChange) {
+          SharedPreferences pres = await SharedPreferences.getInstance();
+          pres.setString('password', txtnewPass.text);
+          const snackBar =
+              SnackBar(content: Text('Thay đổi mật khẩu thành công'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          Navigator.pop(context);
+        } else {
+          const snackBar =
+              SnackBar(content: Text('Thay đổi mật khẩu không thành công'));
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      } else {
+        const snackBar = SnackBar(content: Text('Mật khẩu không trùng khớp'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
   }
 
   @override
@@ -65,14 +92,14 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             Container(
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.only(
-                  top: 20, left: 20, right: 20, bottom: 10),
+                  top: 20, left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Mật khẩu hiện tại",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextFormField(
                 readOnly: true,
                 controller: txtCurrent,
@@ -111,14 +138,14 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Mật khẩu mới",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, bottom: 10, right: 20),
+              padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
               child: TextFormField(
                 controller: txtnewPass,
                 obscureText: checkPass2 ? true : false,
@@ -163,14 +190,14 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: const Text(
                 "Xác nhận mật khẩu",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: TextFormField(
                 controller: txtconfirmPass,
                 obscureText: checkPass3 ? true : false,
@@ -214,14 +241,16 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
               width: 374,
               height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: const Color(0XFF0869E1)),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  _changePassword();
+                },
                 child: const Text(
                   "Đổi mật khẩu",
                   style: TextStyle(
@@ -233,7 +262,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 15, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
               width: 374,
               height: 50,
               decoration: BoxDecoration(
