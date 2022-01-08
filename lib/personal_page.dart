@@ -239,7 +239,7 @@ class PersonalPageState extends State<PersonalPage> {
                     child: const FaIcon(
                       FontAwesomeIcons.phoneAlt,
                       size: 18,
-                      color: Color(0XFFFF3535),
+                      color: Color(0XFF8C939D),
                     ),
                   ),
                   Flexible(
@@ -269,7 +269,7 @@ class PersonalPageState extends State<PersonalPage> {
                     child: const FaIcon(
                       FontAwesomeIcons.solidEnvelope,
                       size: 18,
-                      color: Color(0XFF3357C0),
+                      color: Color(0XFF8C939D),
                     ),
                   ),
                   Flexible(

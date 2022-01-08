@@ -53,8 +53,8 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         },
         backgroundColor: const Color(0XFF0869E1),
         child: Container(
-          width: 56,
-          height: 56,
+          width: 50,
+          height: 50,
           child: const Align(
             alignment: Alignment.center,
             child: FaIcon(
@@ -65,14 +65,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
           ),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: <Color>[
-                Color(0xff00D1FF),
-                Color(0XFF0869E1),
-              ],
-            ),
+            color: Color(0XFF0869E1),
           ),
         ),
       ),
@@ -82,7 +75,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         notchMargin: 10,
         color: Colors.white,
         child: SizedBox(
-          height: 55,
+          height: 50,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -97,31 +90,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       });
                     },
                     minWidth: 40,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.home,
-                          color: currentTab == 0
-                              ? const Color(0XFF0869E1)
-                              : const Color(0X99050505),
-                          size: 20,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Trang chủ',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: currentTab == 0
-                                ? const Color(0XFF0869E1)
-                                : const Color(0X99050505),
-                          ),
-                        )
-                      ],
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.home,
+                        color: currentTab == 0
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
                     ),
                   ),
                   MaterialButton(
@@ -132,31 +114,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       });
                     },
                     minWidth: 40,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.search,
-                          color: currentTab == 1
-                              ? const Color(0XFF0869E1)
-                              : const Color(0X99050505),
-                          size: 20,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Tìm kiếm',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: currentTab == 1
-                                ? const Color(0XFF0869E1)
-                                : const Color(0X99050505),
-                          ),
-                        )
-                      ],
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.search,
+                        color: currentTab == 1
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
                     ),
                   ),
                 ],
@@ -172,31 +143,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       });
                     },
                     minWidth: 40,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.mapMarkedAlt,
-                          color: currentTab == 2
-                              ? const Color(0XFF0869E1)
-                              : const Color(0X99050505),
-                          size: 20,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Bản đồ',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: currentTab == 2
-                                ? const Color(0XFF0869E1)
-                                : const Color(0X99050505),
-                          ),
-                        )
-                      ],
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.mapMarkedAlt,
+                        color: currentTab == 2
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
                     ),
                   ),
                   MaterialButton(
@@ -207,31 +167,20 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                       });
                     },
                     minWidth: 40,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.bars,
-                          color: currentTab == 3
-                              ? const Color(0XFF0869E1)
-                              : const Color(0X99050505),
-                          size: 20,
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Xem thêm',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                            color: currentTab == 3
-                                ? const Color(0XFF0869E1)
-                                : const Color(0X99050505),
-                          ),
-                        )
-                      ],
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.bars,
+                        color: currentTab == 3
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
                     ),
                   )
                 ],

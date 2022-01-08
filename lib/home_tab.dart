@@ -796,26 +796,6 @@ class HomePageState extends State<HomePage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
-                        padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                        decoration: const BoxDecoration(
-                          border: Border(
-                            top: BorderSide(
-                                width: 0.5, color: Color(0XFFB9B9B9)),
-                            bottom: BorderSide(
-                                width: 0.5, color: Color(0XFFB9B9B9)),
-                          ),
-                        ),
-                        child: const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Bài Viết",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0XFF050505),
-                                fontWeight: FontWeight.w500),
-                          ),
-                        )),
                     ListView.builder(
                         physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
@@ -823,6 +803,12 @@ class HomePageState extends State<HomePage> {
                         itemBuilder: (context, index) {
                           return Column(
                             children: [
+                              Container(
+                                height: 10,
+                                width: double.infinity,
+                                decoration: const BoxDecoration(
+                                    color: Color(0XFFF0F2F5)),
+                              ),
                               ListTile(
                                 onTap: () {
                                   Navigator.push(
@@ -857,13 +843,21 @@ class HomePageState extends State<HomePage> {
                                 ),
                                 subtitle: const Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text("23-12-2021"),
+                                  child: Text(
+                                    "23-12-2021",
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      color: Color(0X9965676B),
+                                    ),
+                                  ),
                                 ),
                                 trailing: IconButton(
                                   onPressed: () {},
                                   icon: const FaIcon(
-                                    FontAwesomeIcons.ellipsisH,
-                                    size: 18,
+                                    FontAwesomeIcons.ellipsisV,
+                                    size: 16,
+                                    color: Color(0X9965676B),
                                   ),
                                 ),
                               ),
@@ -904,7 +898,7 @@ class HomePageState extends State<HomePage> {
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: const Text(
-                                        "Ho Chi Minh City, Viet Nam",
+                                        "Vịnh Hạ Long",
                                         style: TextStyle(
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
@@ -916,125 +910,96 @@ class HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, bottom: 10, right: 10),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: const [
-                                        FaIcon(
-                                          FontAwesomeIcons.solidEye,
-                                          color: Color(0XFF65676B),
-                                          size: 18,
-                                        ),
-                                        Text(
-                                          " 10k lượt xem",
-                                          style: TextStyle(
-                                            fontFamily: 'Roboto',
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                            color: Color(0XFF65676B),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: const [
-                                          Text(
-                                            "1.2k lượt thích",
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0XFF65676B),
-                                            ),
-                                          ),
-                                          Text(
-                                            "56 lượt không thích",
-                                            style: TextStyle(
-                                              fontFamily: 'Roboto',
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w400,
-                                              color: Color(0XFF65676B),
-                                            ),
-                                          ),
-                                        ]),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 10),
-                                      decoration: const BoxDecoration(
-                                        border: Border.fromBorderSide(
-                                          BorderSide(
-                                            width: 0.5,
-                                            color: Color(0XFFD2D4D8),
-                                          ),
+                              Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 5),
+                                    decoration: const BoxDecoration(
+                                      border: Border.fromBorderSide(
+                                        BorderSide(
+                                          width: 0.5,
+                                          color: Color(0XFFe4e6eb),
                                         ),
                                       ),
                                     ),
-                                    Row(
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.thumb_up,
-                                                color: Color(0XFF0869E1),
-                                              ),
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                    Icons.thumb_up,
+                                                    color: Color(0X9965676B),
+                                                  ),
+                                                ),
+                                                const Text(
+                                                  "1.2k",
+                                                  style: TextStyle(
+                                                    fontFamily: 'Roboto',
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0XFF65676B),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            const Text(
-                                              "Thích",
-                                              style: TextStyle(
-                                                fontFamily: 'Roboto',
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0XFF65676B),
-                                              ),
+                                            const SizedBox(
+                                              width: 10,
+                                            ),
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                      Icons.thumb_down,
+                                                      color: Color(0X9965676B)),
+                                                ),
+                                                const Text(
+                                                  "100",
+                                                  style: TextStyle(
+                                                    color: Color(0XFF65676B),
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontFamily: 'Roboto',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
                                         Row(
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                  Icons.thumb_down_outlined,
-                                                  color: Colors.grey),
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: const [
+                                            FaIcon(
+                                              FontAwesomeIcons.solidEye,
+                                              color: Color(0X9965676B),
+                                              size: 18,
                                             ),
-                                            const Text(
-                                              "Không thích",
+                                            Text(
+                                              " 10k lượt xem",
                                               style: TextStyle(
-                                                color: Color(0XFF65676B),
+                                                fontFamily: 'Roboto',
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400,
-                                                fontFamily: 'Roboto',
+                                                color: Color(0XFF65676B),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                    Container(
-                                      decoration: const BoxDecoration(
-                                        border: Border.fromBorderSide(
-                                          BorderSide(
-                                            width: 0.5,
-                                            color: Color(0XFFD2D4D8),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
                             ],
                           );
@@ -1122,7 +1087,7 @@ class HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            baseColor: Colors.grey.shade500,
+            baseColor: const Color(0X26050505),
             highlightColor: Colors.white);
       },
     );
