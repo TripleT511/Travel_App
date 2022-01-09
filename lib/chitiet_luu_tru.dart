@@ -54,7 +54,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                     fontFamily: 'Roboto',
                     height: 1.6,
                     fontSize: 22,
-                    color: Color(0XFF0869E1),
+                    color: Color(0XFF0066FF),
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -81,7 +81,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                       style: TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242a37),
                           height: 1.5),
                     ),
                   ),
@@ -114,7 +114,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                       style: TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242a37),
                           height: 1.5),
                     ),
                   ),
@@ -133,7 +133,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                     child: const FaIcon(
                       FontAwesomeIcons.phoneAlt,
                       size: 18,
-                      color: Color(0XFF0869E1),
+                      color: Color(0XFF0066FF),
                     ),
                   ),
                   const Flexible(
@@ -144,7 +144,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                       style: TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242a37),
                           height: 1.5),
                     ),
                   ),
@@ -160,7 +160,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                   height: 1.5,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0XFF050505),
+                  color: Color(0XFF242a37),
                 ),
               ),
             ),

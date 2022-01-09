@@ -81,10 +81,8 @@ class CreatePostState extends State<CreatePost> {
             ),
             subtitle: Row(
               children: [
-                const Text("23-12-2021"),
                 Container(
                   padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  margin: const EdgeInsets.only(left: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       width: 1,

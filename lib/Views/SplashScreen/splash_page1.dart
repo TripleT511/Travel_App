@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
+import 'package:vietnam_travel_app/main.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -11,22 +13,46 @@ class SplashPage extends StatefulWidget {
 }
 
 class SplashPageState extends State<SplashPage> {
+  bool isLogged = false;
+
+  _checkLoggin() async {
+    bool login = await UserProvider.isLogged();
+    print(login);
+    if (login) {
+      setState(() {
+        isLogged = true;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _checkLoggin();
     startTimer();
   }
 
   startTimer() async {
-    var duration = const Duration(seconds: 4);
+    var duration = const Duration(seconds: 6);
     return Timer(duration, handleTimeout);
   }
 
   handleTimeout() {
-    // Navigator.pushReplacement(
-    //     context, MaterialPageRoute(builder: (context) => const HomePage()));
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SplashPage2()));
+    if (isLogged) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MyApp(),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SplashPage2(),
+        ),
+      );
+    }
   }
 
   @override
@@ -34,7 +60,7 @@ class SplashPageState extends State<SplashPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0XFF0066FF),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -42,17 +68,16 @@ class SplashPageState extends State<SplashPage> {
               Container(
                   margin: const EdgeInsets.only(top: 190),
                   child: Image.asset(
-                    'images/splash_logo.png',
+                    'images/logo-light.png',
                     width: 133,
                     fit: BoxFit.cover,
                   )),
               Container(
-                margin: const EdgeInsets.only(top: 50.0),
-                child: const SpinKitThreeBounce(
-                  color: Color(0XFF0869E1),
-                  size: 20.0,
-                ),
-              ),
+                  margin: const EdgeInsets.only(top: 100.0),
+                  child: const SpinKitFadingCircle(
+                    color: Colors.white,
+                    size: 50.0,
+                  )),
             ],
           ),
         ),

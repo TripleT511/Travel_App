@@ -11,7 +11,6 @@ import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/dia_danh.dart';
-import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
@@ -35,6 +34,31 @@ class HomePageState extends State<HomePage> {
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   final Color _userColor =
       Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+  bool like = false;
+  bool dislike = false;
+  int countLike = 768;
+  int countDislike = 980;
+  _like() {
+    setState(() {});
+    like = !like;
+    dislike = false;
+    like ? ++countLike : --countLike;
+  }
+
+  _dislike() {
+    setState(() {});
+    dislike = !dislike;
+    like = false;
+    dislike ? ++countDislike : --countDislike;
+  }
+
+  String nameUser = '';
+  int idUser = 0;
+  _loadUser() async {
+    UserObject user = await UserProvider.getUser();
+    setState(() {});
+    nameUser = 'Chào, ' + user.hoTen + '! 👋';
+  }
 
   @override
   void initState() {
@@ -42,6 +66,7 @@ class HomePageState extends State<HomePage> {
     loadListDiaDanh();
     loadListNhuCau();
     loadListBaiViet();
+    _loadUser();
   }
 
   void loadListDiaDanh() async {
@@ -97,7 +122,7 @@ class HomePageState extends State<HomePage> {
                           fontSize: 18,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                         ),
                       ),
                     ),
@@ -112,7 +137,7 @@ class HomePageState extends State<HomePage> {
                                 margin: const EdgeInsets.only(left: 0),
                                 child: const Icon(
                                   Icons.thumb_up,
-                                  color: Color(0XFF0869E1),
+                                  color: Color(0XFF0066FF),
                                   size: 18,
                                 ),
                               ),
@@ -121,7 +146,7 @@ class HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               )
@@ -142,7 +167,7 @@ class HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -155,7 +180,7 @@ class HomePageState extends State<HomePage> {
                                 margin: const EdgeInsets.only(left: 10),
                                 child: const FaIcon(
                                   FontAwesomeIcons.mapMarkerAlt,
-                                  color: Color(0XFFFF3535),
+                                  color: Color(0XFFFF2D55),
                                   size: 18,
                                 ),
                               ),
@@ -164,7 +189,7 @@ class HomePageState extends State<HomePage> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -299,7 +324,7 @@ class HomePageState extends State<HomePage> {
                             fontSize: 18,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
-                            color: Color(0XFF050505),
+                            color: Color(0XFF242A37),
                           ),
                         ),
                       ),
@@ -314,7 +339,7 @@ class HomePageState extends State<HomePage> {
                                   margin: const EdgeInsets.only(left: 0),
                                   child: const Icon(
                                     Icons.thumb_up,
-                                    color: Color(0XFF0869E1),
+                                    color: Color(0XFF0066FF),
                                     size: 18,
                                   ),
                                 ),
@@ -323,7 +348,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     fontWeight: FontWeight.normal,
                                   ),
                                 )
@@ -344,7 +369,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -357,7 +382,7 @@ class HomePageState extends State<HomePage> {
                                   margin: const EdgeInsets.only(left: 10),
                                   child: const FaIcon(
                                     FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0XFFFF3535),
+                                    color: Color(0XFFFF2D55),
                                     size: 18,
                                   ),
                                 ),
@@ -366,7 +391,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -438,7 +463,7 @@ class HomePageState extends State<HomePage> {
                             fontSize: 18,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,
-                            color: Color(0XFF050505),
+                            color: Color(0XFF242A37),
                           ),
                         ),
                       ),
@@ -453,7 +478,7 @@ class HomePageState extends State<HomePage> {
                                   margin: const EdgeInsets.only(left: 0),
                                   child: const Icon(
                                     Icons.thumb_up,
-                                    color: Color(0XFF0869E1),
+                                    color: Color(0XFF0066FF),
                                     size: 18,
                                   ),
                                 ),
@@ -462,7 +487,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     fontWeight: FontWeight.normal,
                                   ),
                                 )
@@ -483,7 +508,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -496,7 +521,7 @@ class HomePageState extends State<HomePage> {
                                   margin: const EdgeInsets.only(left: 10),
                                   child: const FaIcon(
                                     FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0XFFFF3535),
+                                    color: Color(0XFFFF2D55),
                                     size: 18,
                                   ),
                                 ),
@@ -505,7 +530,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     fontWeight: FontWeight.normal,
                                   ),
                                 ),
@@ -564,13 +589,38 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 5, bottom: 5),
+                      decoration: const BoxDecoration(
+                        color: Color(0XFFFF2D55),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(5),
+                          bottomLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(5),
+                        ),
+                      ),
+                      child: const Text(
+                        'Hot',
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
                     top: 170,
                     left: 20,
                     child: Row(
                       children: [
                         const FaIcon(
                           FontAwesomeIcons.mapMarkerAlt,
-                          color: Color(0XFFFF3535),
+                          color: Color(0XFFFF2D55),
                           size: 18,
                         ),
                         Container(
@@ -605,9 +655,9 @@ class HomePageState extends State<HomePage> {
             child: Text(
               title,
               style: const TextStyle(
-                color: Color(0XFF050505),
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+                color: Color(0XFF242A37),
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
                 fontFamily: 'Roboto',
               ),
             ),
@@ -636,10 +686,10 @@ class HomePageState extends State<HomePage> {
               child: const Text(
                 "Xem thêm",
                 style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0XFF0869E1),
+                  fontSize: 12,
+                  color: Color(0XFF0066FF),
                   fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -663,17 +713,17 @@ class HomePageState extends State<HomePage> {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MyApp()));
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 5),
-                      width: 95,
-                      child: Image.asset("images/logo-ver3.png"),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    width: 200,
+                    child: Text(
+                      nameUser,
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0XFF242A37),
+                      ),
                     ),
                   ),
                   TextButton(
@@ -711,80 +761,6 @@ class HomePageState extends State<HomePage> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.all(15),
-                              width: 40,
-                              height: 40,
-                              decoration: const BoxDecoration(
-                                color: Color(0xff7c94b6),
-                                image: DecorationImage(
-                                  image: AssetImage('images/avatar.jpg'),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50.0)),
-                              ),
-                              child: CircleAvatar(
-                                backgroundColor: _userColor,
-                                child: Text(
-                                  user.hoTen.substring(0, 1).toUpperCase(),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(left: 10),
-                              width: 280,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: const Color(0XFFB9B9B9),
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(50),
-                                ),
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const CreatePost(),
-                                    ),
-                                  );
-                                },
-                                child: const Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    "Chia sẻ địa danh lên hệ thống...",
-                                    style: TextStyle(
-                                      color: Color(0XFF050505),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 5),
-                          decoration: const BoxDecoration(
-                            border: Border.fromBorderSide(
-                              BorderSide(
-                                width: 0.5,
-                                color: Color(0XFFD2D4D8),
-                              ),
-                            ),
-                          ),
-                        ),
                         sliderTitle("Địa Danh Nổi Bật"),
                         slideDiaDanh(),
                         sliderTitle("Bài Viết Nổi Bật"),
@@ -836,10 +812,10 @@ class HomePageState extends State<HomePage> {
                                 title: const Text(
                                   "Phuc Nguyen",
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'Roboto',
-                                    fontSize: 16,
-                                  ),
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16,
+                                      color: Color(0XFF262626)),
                                 ),
                                 subtitle: const Align(
                                   alignment: Alignment.centerLeft,
@@ -875,7 +851,7 @@ class HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w400,
-                                    color: Color(0XFF050505),
+                                    color: Color(0XFF242A37),
                                     height: 1.4,
                                     fontSize: 16,
                                   ),
@@ -893,7 +869,7 @@ class HomePageState extends State<HomePage> {
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           width: 1,
-                                          color: const Color(0XFF0869E1),
+                                          color: const Color(0XFF0066FF),
                                         ),
                                         borderRadius: BorderRadius.circular(5),
                                       ),
@@ -903,7 +879,7 @@ class HomePageState extends State<HomePage> {
                                           fontFamily: 'Roboto',
                                           fontWeight: FontWeight.w400,
                                           fontSize: 12,
-                                          color: Color(0XFF0869E1),
+                                          color: Color(0XFF0066FF),
                                         ),
                                       ),
                                     ),
@@ -935,19 +911,28 @@ class HomePageState extends State<HomePage> {
                                             Row(
                                               children: [
                                                 IconButton(
-                                                  onPressed: () {},
-                                                  icon: const Icon(
-                                                    Icons.thumb_up,
-                                                    color: Color(0X9965676B),
+                                                  onPressed: () {
+                                                    _like();
+                                                  },
+                                                  icon: Icon(
+                                                    like
+                                                        ? Icons.thumb_up_alt
+                                                        : Icons
+                                                            .thumb_up_alt_outlined,
+                                                    color: like
+                                                        ? const Color(
+                                                            0XFF0066FF)
+                                                        : const Color(
+                                                            0X9965676B),
                                                   ),
                                                 ),
-                                                const Text(
-                                                  "1.2k",
-                                                  style: TextStyle(
+                                                Text(
+                                                  countLike.toString(),
+                                                  style: const TextStyle(
                                                     fontFamily: 'Roboto',
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
-                                                    color: Color(0XFF65676B),
+                                                    color: Color(0X9965676B),
                                                   ),
                                                 ),
                                               ],
@@ -958,15 +943,25 @@ class HomePageState extends State<HomePage> {
                                             Row(
                                               children: [
                                                 IconButton(
-                                                  onPressed: () {},
-                                                  icon: const Icon(
-                                                      Icons.thumb_down,
-                                                      color: Color(0X9965676B)),
+                                                  onPressed: () {
+                                                    _dislike();
+                                                  },
+                                                  icon: Icon(
+                                                    dislike
+                                                        ? Icons.thumb_down_alt
+                                                        : Icons
+                                                            .thumb_down_alt_outlined,
+                                                    color: dislike == true
+                                                        ? const Color(
+                                                            0XFF0066FF)
+                                                        : const Color(
+                                                            0X9965676B),
+                                                  ),
                                                 ),
-                                                const Text(
-                                                  "100",
-                                                  style: TextStyle(
-                                                    color: Color(0XFF65676B),
+                                                Text(
+                                                  countDislike.toString(),
+                                                  style: const TextStyle(
+                                                    color: Color(0X9965676B),
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w400,
                                                     fontFamily: 'Roboto',
@@ -1018,57 +1013,6 @@ class HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 50,
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(15),
-                        width: 40,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          color: Color(0xff7c94b6),
-                          borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: _userColor,
-                          child: const Text(
-                            "G",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        width: 280,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: const Color(0XFFB9B9B9),
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(50),
-                          ),
-                        ),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Chia sẻ địa danh lên hệ thống...",
-                              style: TextStyle(
-                                color: Color(0XFF050505),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Container(
                     margin: const EdgeInsets.only(top: 5),
                     decoration: const BoxDecoration(
@@ -1087,7 +1031,7 @@ class HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            baseColor: const Color(0X26050505),
+            baseColor: const Color(0X1A050505),
             highlightColor: Colors.white);
       },
     );

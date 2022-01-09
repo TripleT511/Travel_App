@@ -23,22 +23,41 @@ class SplashPage2State extends State<SplashPage2> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 65, bottom: 25),
+                margin: const EdgeInsets.only(top: 100, bottom: 5),
                 child: Image.asset(
-                  "images/logo-ver3.png",
-                  width: 183,
+                  "images/logo.png",
+                  width: 110,
                   fit: BoxFit.cover,
                 ),
               ),
-              Image.asset("images/banner_main.png",
-                  width: 366, fit: BoxFit.cover),
+              const Text(
+                'T2P Travel',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    color: Color(0XE6242A37),
+                    fontWeight: FontWeight.w900,
+                    fontSize: 25),
+              ),
+              const Text(
+                'Du lịch cho người Việt',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Roboto',
+                    color: Color(0X80242A37),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16),
+              ),
+              const SizedBox(
+                height: 200,
+              ),
               Container(
                 margin: const EdgeInsets.only(top: 30, left: 15, right: 15),
                 width: 374,
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0XFF0869E1)),
+                    color: const Color(0XFF0066ff)),
                 child: TextButton(
                   onPressed: () {
                     Navigator.push(
@@ -65,7 +84,7 @@ class SplashPage2State extends State<SplashPage2> {
                 height: 50,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: const Color(0XFF0869E1),
+                    color: const Color(0XFF0066ff),
                     width: 2,
                   ),
                   borderRadius: BorderRadius.circular(10),
@@ -80,7 +99,7 @@ class SplashPage2State extends State<SplashPage2> {
                   child: const Text(
                     "Đăng ký",
                     style: TextStyle(
-                        color: Color(0XFF0869E1),
+                        color: Color(0XFF0066ff),
                         fontSize: 18,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700),

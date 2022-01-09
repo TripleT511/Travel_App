@@ -38,7 +38,7 @@ class SeeMorePageState extends State<SeeMorePage> {
               },
               icon: const FaIcon(
                 FontAwesomeIcons.arrowLeft,
-                color: Color(0XFF0869E1),
+                color: Color(0XFF0066FF),
               )),
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
@@ -48,7 +48,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Roboto',
-                color: Color(0XFF0869E1)),
+                color: Color(0XFF0066FF)),
           ),
         ),
         body: Container(
@@ -77,7 +77,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                             FaIcon(
                               FontAwesomeIcons.solidPaperPlane,
                               size: 18,
-                              color: Color(0XFF050505),
+                              color: Color(0XFF242A37),
                             ),
                             SizedBox(
                               width: 15,
@@ -88,7 +88,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                                 fontFamily: 'Roboto',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0XFF050505),
+                                color: Color(0XFF242A37),
                               ),
                             ),
                           ],
@@ -105,7 +105,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                 width: double.infinity,
                 height: 60,
                 child: Card(
-                  color: const Color(0XFF0869E1),
+                  color: const Color(0XFF0066FF),
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

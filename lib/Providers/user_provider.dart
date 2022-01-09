@@ -25,6 +25,25 @@ class UserProvider {
     return UserObject.fromJson2(jsonDecode(response.body));
   }
 
+  static Future<bool> isLogged() async {
+    var token = await getToken();
+    final response = await http.get(
+        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/user'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+
+    final code = response.statusCode;
+    print(response.statusCode);
+    if (code == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static Future<bool> login(String email, String password) async {
     final response = await http.post(
         Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/login'),

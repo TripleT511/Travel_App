@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/register_page.dart';
 import 'package:vietnam_travel_app/main.dart';
-import 'package:vietnam_travel_app/test.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -70,7 +69,7 @@ class LoginPageState extends State<LoginPage> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF0869E1),
+              color: Color(0XFF0066FF),
             )),
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
@@ -80,7 +79,7 @@ class LoginPageState extends State<LoginPage> {
               fontSize: 22,
               fontWeight: FontWeight.w500,
               fontFamily: 'Roboto',
-              color: Color(0XFF0869E1)),
+              color: Color(0XFF0066FF)),
         ),
       ),
       body: SingleChildScrollView(
@@ -94,7 +93,10 @@ class LoginPageState extends State<LoginPage> {
                     top: 20, left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Email",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -110,7 +112,7 @@ class LoginPageState extends State<LoginPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -128,7 +130,10 @@ class LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Mật khẩu",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -151,7 +156,7 @@ class LoginPageState extends State<LoginPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     suffixIcon: IconButton(
@@ -181,8 +186,10 @@ class LoginPageState extends State<LoginPage> {
                     margin: const EdgeInsets.only(left: 15),
                     child: const Text(
                       "Nhớ mật khẩu",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0XFF242A37)),
                     ),
                   ),
                   IconButton(
@@ -193,12 +200,12 @@ class LoginPageState extends State<LoginPage> {
                       icon: check
                           ? const FaIcon(
                               FontAwesomeIcons.solidCheckSquare,
-                              color: Color(0XFF0869E1),
+                              color: Color(0XFF0066FF),
                               size: 20,
                             )
                           : const FaIcon(
                               FontAwesomeIcons.square,
-                              color: Color(0XFF0869E1),
+                              color: Color(0XFF0066FF),
                               size: 20,
                             )),
                   Expanded(child: Container()),
@@ -209,7 +216,7 @@ class LoginPageState extends State<LoginPage> {
                         child: const Text(
                           "Quên tài khoản ?",
                           style: TextStyle(
-                              color: Color(0XFF0869E1),
+                              color: Color(0XFF0066FF),
                               fontFamily: 'Roboto',
                               fontSize: 16,
                               fontWeight: FontWeight.w400),
@@ -223,7 +230,7 @@ class LoginPageState extends State<LoginPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0XFF0869E1)),
+                    color: const Color(0XFF0066FF)),
                 child: TextButton(
                   onPressed: () {
                     _login();
@@ -265,7 +272,7 @@ class LoginPageState extends State<LoginPage> {
                           fontFamily: 'Roboto',
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          color: Color(0XFF0869E1),
+                          color: Color(0XFF0066FF),
                         ),
                       ),
                     ),

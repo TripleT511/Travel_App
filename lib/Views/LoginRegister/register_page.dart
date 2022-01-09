@@ -52,7 +52,7 @@ class RegisterPageState extends State<RegisterPage> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF0869E1),
+              color: Color(0XFF0066FF),
             )),
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
@@ -62,7 +62,7 @@ class RegisterPageState extends State<RegisterPage> {
             fontSize: 22,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFF0869E1),
+            color: Color(0XFF0066FF),
           ),
         ),
       ),
@@ -77,7 +77,10 @@ class RegisterPageState extends State<RegisterPage> {
                     top: 20, left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Họ tên",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -93,7 +96,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -111,7 +114,10 @@ class RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Email",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -127,7 +133,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -145,7 +151,10 @@ class RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Số điện thoại",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -161,7 +170,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -179,7 +188,10 @@ class RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Mật khẩu",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -202,7 +214,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     suffixIcon: IconButton(
@@ -231,7 +243,10 @@ class RegisterPageState extends State<RegisterPage> {
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: const Text(
                   "Xác nhận mật khẩu",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Color(0XFF242A37)),
                 ),
               ),
               Container(
@@ -254,7 +269,7 @@ class RegisterPageState extends State<RegisterPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     suffixIcon: IconButton(
@@ -284,7 +299,7 @@ class RegisterPageState extends State<RegisterPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0XFF0869E1)),
+                    color: const Color(0XFF0066FF)),
                 child: TextButton(
                   onPressed: () {
                     _register();
@@ -326,7 +341,7 @@ class RegisterPageState extends State<RegisterPage> {
                           fontFamily: 'Roboto',
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
-                          color: Color(0XFF0869E1),
+                          color: Color(0XFF0066FF),
                         ),
                       ),
                     )

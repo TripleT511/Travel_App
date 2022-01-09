@@ -117,7 +117,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                           fontSize: 18,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                         ),
                       ),
                     ),
@@ -142,7 +142,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -164,7 +164,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -234,7 +234,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                           fontSize: 18,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                         ),
                       ),
                     ),
@@ -259,7 +259,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -281,7 +281,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
-                                  color: Color(0XFF050505),
+                                  color: Color(0XFF242A37),
                                   fontWeight: FontWeight.normal,
                                 ),
                               ),
@@ -310,9 +310,9 @@ class PlaceDetailState extends State<PlaceDetail> {
           child: Text(
             title,
             style: const TextStyle(
-              color: Color(0XFF050505),
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
+              color: Color(0XFF242A37),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
               fontFamily: 'Roboto',
             ),
           ),
@@ -333,10 +333,10 @@ class PlaceDetailState extends State<PlaceDetail> {
             child: const Text(
               "Xem thêm",
               style: TextStyle(
-                fontSize: 14,
-                color: Color(0XFF0869E1),
+                fontSize: 12,
+                color: Color(0XFF0066FF),
                 fontFamily: 'Roboto',
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -417,7 +417,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                     fontFamily: 'Roboto',
                     height: 1.6,
                     fontSize: 22,
-                    color: Color(0XFF0869E1),
+                    color: Color(0XFF0066FF),
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -444,7 +444,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                       style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           height: 1.5),
                     ),
                   ),
@@ -460,7 +460,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   height: 1.5,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0XFF050505),
+                  color: Color(0XFF242A37),
                 ),
               ),
             ),
@@ -470,7 +470,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                 child: Text(
                   dd.moTa,
                   textAlign: TextAlign.justify,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     height: 1.5,
                     fontFamily: 'Roboto',
@@ -488,7 +488,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   height: 1.5,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0XFF050505),
+                  color: Color(0XFF242A37),
                 ),
               ),
             ),

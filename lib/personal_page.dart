@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 import 'dart:math' as math;
@@ -25,19 +24,6 @@ class PersonalPageState extends State<PersonalPage> {
   final Color _bnColor =
       Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
 
-  _saveData() async {
-    SharedPreferences pres = await SharedPreferences.getInstance();
-    setState(() {});
-    pres.setString('hoTen', user.hoTen);
-    pres.setString('soDienThoai', user.soDienThoai);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _saveData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +31,7 @@ class PersonalPageState extends State<PersonalPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0X1A050505),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: null,
         leadingWidth: 0,
@@ -61,7 +47,7 @@ class PersonalPageState extends State<PersonalPage> {
                 },
                 icon: const FaIcon(
                   FontAwesomeIcons.arrowLeft,
-                  color: Colors.white,
+                  color: Color(0XFF242A37),
                 ),
               ),
             ),
@@ -76,7 +62,7 @@ class PersonalPageState extends State<PersonalPage> {
                 },
                 icon: const FaIcon(
                   FontAwesomeIcons.cog,
-                  color: Colors.white,
+                  color: Color(0XFF242A37),
                   size: 25,
                 ),
               ),
@@ -93,20 +79,16 @@ class PersonalPageState extends State<PersonalPage> {
               children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: 200,
-                  child: Image.asset(
-                    "images/banner-default.jpg",
-                    fit: BoxFit.cover,
-                  ),
+                  height: 100,
                 ),
                 Positioned(
-                    top: 150,
-                    left: (MediaQuery.of(context).size.width * 0.5) - 50,
+                    top: 80,
+                    left: (MediaQuery.of(context).size.width * 0.5) - 55,
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        width: 100,
-                        height: 100,
+                        width: 110,
+                        height: 110,
                         decoration: BoxDecoration(
                           // image: const DecorationImage(
                           //     image: AssetImage(
@@ -133,7 +115,7 @@ class PersonalPageState extends State<PersonalPage> {
                       ),
                     )),
                 Positioned(
-                  top: 210,
+                  top: 150,
                   left: (MediaQuery.of(context).size.width * 0.5) + 10,
                   child: IconButton(
                     onPressed: () {},
@@ -148,7 +130,7 @@ class PersonalPageState extends State<PersonalPage> {
                         alignment: Alignment.center,
                         child: FaIcon(
                           FontAwesomeIcons.camera,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           size: 14,
                         ),
                       ),
@@ -159,14 +141,14 @@ class PersonalPageState extends State<PersonalPage> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 60),
+              padding: const EdgeInsets.only(top: 90),
               child: Text(
                 user.hoTen,
                 style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Roboto',
-                ),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Roboto',
+                    color: Color(0XFF242A37)),
                 softWrap: true,
               ),
             ),
@@ -185,7 +167,7 @@ class PersonalPageState extends State<PersonalPage> {
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
-                        color: Color(0XFF0869E1),
+                        color: Color(0XFF0066FF),
                       ),
                     ),
                     Text(
@@ -194,7 +176,7 @@ class PersonalPageState extends State<PersonalPage> {
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w400,
                         fontSize: 18,
-                        color: Color(0XFF65676B),
+                        color: Color(0XFF8C939D),
                       ),
                     ),
                   ],
@@ -211,7 +193,7 @@ class PersonalPageState extends State<PersonalPage> {
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
-                        color: Color(0XFF0869E1),
+                        color: Color(0XFF0066FF),
                       ),
                     ),
                     Text(
@@ -220,7 +202,7 @@ class PersonalPageState extends State<PersonalPage> {
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w400,
                         fontSize: 18,
-                        color: Color(0XFF65676B),
+                        color: Color(0XFF8C939D),
                       ),
                     ),
                   ],
@@ -250,7 +232,7 @@ class PersonalPageState extends State<PersonalPage> {
                       style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           height: 1.5),
                     ),
                   ),
@@ -280,7 +262,7 @@ class PersonalPageState extends State<PersonalPage> {
                       style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           height: 1.5),
                     ),
                   ),
@@ -294,7 +276,6 @@ class PersonalPageState extends State<PersonalPage> {
               width: double.infinity,
               height: 50,
               child: Card(
-                elevation: 3.0,
                 child: Container(
                   alignment: Alignment.center,
                   child: Row(
@@ -302,7 +283,7 @@ class PersonalPageState extends State<PersonalPage> {
                     children: const [
                       FaIcon(
                         FontAwesomeIcons.clone,
-                        color: Color(0XFF050505),
+                        color: Color(0XFF242A37),
                         size: 15,
                       ),
                       Text(
@@ -311,232 +292,13 @@ class PersonalPageState extends State<PersonalPage> {
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
                           fontSize: 16,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                         ),
                       ),
                     ],
                   ),
                 ),
               ),
-            ),
-            ListView.builder(
-              padding: EdgeInsets.zero,
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: _bnColor,
-                        child: Text(
-                          user.hoTen.substring(0, 1).toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        user.hoTen,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                        ),
-                      ),
-                      subtitle: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text("23-12-2021"),
-                      ),
-                      trailing: IconButton(
-                        onPressed: () {},
-                        icon: const FaIcon(
-                          FontAwesomeIcons.ellipsisH,
-                          size: 18,
-                        ),
-                      ),
-                    ),
-                    Image.asset(
-                      "images/slide_1.jpg",
-                      height: 240,
-                      width: 392,
-                      fit: BoxFit.cover,
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                      child: Text(
-                        "Hạ Long Bay is a UNESCO World Heritage Site and popular travel destination in Quảng Ninh Province, Vietnam",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                          color: Color(0XFF050505),
-                          height: 1.4,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: const Color(0XFF0869E1),
-                              ),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: const Text(
-                              "Ho Chi Minh City, Viet Nam",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: Color(0XFF0869E1),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, bottom: 10, right: 10),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              FaIcon(
-                                FontAwesomeIcons.solidEye,
-                                color: Color(0XFF65676B),
-                                size: 18,
-                              ),
-                              Text(
-                                " 10k lượt xem",
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFF65676B),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                Text(
-                                  "1.2k lượt thích",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0XFF65676B),
-                                  ),
-                                ),
-                                Text(
-                                  "56 lượt không thích",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0XFF65676B),
-                                  ),
-                                ),
-                              ]),
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            decoration: const BoxDecoration(
-                              border: Border.fromBorderSide(
-                                BorderSide(
-                                  width: 0.5,
-                                  color: Color(0XFFD2D4D8),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(
-                                      Icons.thumb_up,
-                                      color: Color(0XFF0869E1),
-                                    ),
-                                  ),
-                                  const Text(
-                                    "Thích",
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0XFF65676B),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.thumb_down_outlined,
-                                        color: Colors.grey),
-                                  ),
-                                  const Text(
-                                    "Không thích",
-                                    style: TextStyle(
-                                      color: Color(0XFF65676B),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'Roboto',
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              border: Border.fromBorderSide(
-                                BorderSide(
-                                  width: 0.5,
-                                  color: Color(0XFFD2D4D8),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 5),
-                      decoration: const BoxDecoration(
-                        border: Border.fromBorderSide(
-                          BorderSide(
-                            width: 2.5,
-                            color: Color(0XFFF0F2F5),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
             ),
           ],
         ),
