@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class SearchResult extends StatefulWidget {
-
+  final TinhThanhObject tinhthanh;
+  SearchResult({Key? key, required this.tinhthanh}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return SearchResultState();
+    return SearchResultState(tinhthanh: tinhthanh);
   }
 }
 
 class SearchResultState extends State<SearchResult> {
+  final TinhThanhObject tinhthanh;
+  Future<List<DiaDanhObject>> lst = DiaDanhProvider.getAllDiaDanh();
+  List<DiaDanhObject> lstDiaDanhs = [];
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+
+  SearchResultState({required this.tinhthanh});
+
+  void _LoadDiaDanh() async {
+    final data = await DiaDanhProvider.getAllDiaDanh();
+    setState(() {});
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].tinh_thanh_id == tinhthanh.id) lstDiaDanhs.add(data[i]);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _LoadDiaDanh();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         children: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -65,8 +92,8 @@ class SearchResultState extends State<SearchResult> {
               ),
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                child: const Text(
-                  "Địa Danh - ",
+                child: Text(
+                  "Địa Danh - " + tinhthanh.tenTinhThanh,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -76,90 +103,232 @@ class SearchResultState extends State<SearchResult> {
               ),
             ],
           ),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RestaurantDetail()));
-            }, // Handle your callback
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 230,
-                  width: 374,
-                  child: Card(
-                    elevation: 3.0,
-                    color: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.only(
-                        topStart: Radius.circular(16.0),
-                        topEnd: Radius.circular(16.0),
-                        bottomStart: Radius.circular(16.0),
-                        bottomEnd: Radius.circular(16.0),
-                      ),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          "images/quanan2.jpg",
-                          width: 374,
-                          height: 132,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(
-                          height: 15.0,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 20, bottom: 12),
-                          child: const Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Nhà Hàng Cơm Niêu Thiên Lý",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0XFF000000),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FutureBuilder(
+                future: DiaDanhProvider.getAllDiaDanh(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  // if (lstDiaDanhs.length == 0) {
+                  //   return Center(
+                  //     child: Text(
+                  //       'Hiên Tại Chưa Có Địa Danh Tại Tỉnh Thành Này',
+                  //       style: TextStyle(
+                  //         color: Colors.red,
+                  //         fontSize: 20,
+                  //       ),
+                  //       textAlign: TextAlign.center,
+                  //     ),
+                  //   );
+                  // }
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Có lỗi xảy ra!!!'),
+                    );
+                  } else if (snapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: lstDiaDanhs.length,
+                      itemBuilder: (context, index) => InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RestaurantDetail()));
+                        }, // Handle your callback
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 15,
+                            ),
+                            SizedBox(
+                              height: 230,
+                              width: 374,
+                              child: Card(
+                                elevation: 3.0,
+                                color: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusDirectional.only(
+                                    topStart: Radius.circular(16.0),
+                                    topEnd: Radius.circular(16.0),
+                                    bottomStart: Radius.circular(16.0),
+                                    bottomEnd: Radius.circular(16.0),
+                                  ),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Image.network(
+                                      urlImg +
+                                          lstDiaDanhs[index].hinhanh.hinhAnh,
+                                      width: 374,
+                                      height: 132,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    const SizedBox(
+                                      height: 15.0,
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.only(left: 20, bottom: 12),
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          lstDiaDanhs[index].tenDiaDanh,
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w700,
+                                            color: Color(0XFF000000),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          left: 15, bottom: 12),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.place,
+                                            color: Color(0XFF0869E1),
+                                          ),
+                                          Text(
+                                            " " +
+                                                lstDiaDanhs[index]
+                                                    .tinhthanh
+                                                    .tenTinhThanh,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0XFF050505),
+                                              fontFamily: 'Roboto',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 15, bottom: 12),
-                          child: Row(
-                            children: const [
-                              Icon(
-                                Icons.place,
-                                color: Color(0XFF0869E1),
+                      ),
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void loadListNhuCau() {
+    FutureBuilder a = FutureBuilder<List<DiaDanhObject>>(
+      future: lst,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List<DiaDanhObject> lstRs = snapshot.data!;
+          return ListView.builder(
+              itemCount: lstRs.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RestaurantDetail()));
+                  }, // Handle your callback
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 230,
+                        width: 374,
+                        child: Card(
+                          elevation: 3.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.only(
+                              topStart: Radius.circular(16.0),
+                              topEnd: Radius.circular(16.0),
+                              bottomStart: Radius.circular(16.0),
+                              bottomEnd: Radius.circular(16.0),
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(
+                                urlImg + lstDiaDanhs[index].hinhanh.hinhAnh,
+                                width: 374,
+                                height: 132,
+                                fit: BoxFit.cover,
                               ),
-                              Text(
-                                "  65, Huỳnh Thúc Kháng, P.Bến Nghé, Q.1, Tp.HCM",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFF050505),
-                                  fontFamily: 'Roboto',
+                              const SizedBox(
+                                height: 15.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(left: 20, bottom: 12),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    lstDiaDanhs[index].tenDiaDanh,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0XFF000000),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.only(left: 15, bottom: 12),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.place,
+                                      color: Color(0XFF0869E1),
+                                    ),
+                                    Text(
+                                      " " +
+                                          lstDiaDanhs[index]
+                                              .tinhthanh
+                                              .tenTinhThanh,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color(0XFF050505),
+                                        fontFamily: 'Roboto',
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 15.0,
-          ),
-        ],
-      ),
+                );
+              });
+        }
+        return Text("Không có dữ liệu");
+      },
     );
   }
 }
