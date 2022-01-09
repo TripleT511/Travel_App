@@ -42,7 +42,7 @@ class EditInforPageState extends State<EditInforPage> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF0869E1),
+              color: Color(0XFF0066FF),
             )),
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
@@ -52,7 +52,7 @@ class EditInforPageState extends State<EditInforPage> {
             fontSize: 22,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFF0869E1),
+            color: Color(0XFF0066FF),
           ),
         ),
       ),
@@ -72,7 +72,7 @@ class EditInforPageState extends State<EditInforPage> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: Color(0XFF050505),
+                        color: Color(0XFF242A37),
                       ),
                     ),
                     Container(
@@ -86,13 +86,13 @@ class EditInforPageState extends State<EditInforPage> {
                         value: dropdownValue,
                         icon: const FaIcon(
                           FontAwesomeIcons.chevronDown,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           size: 14,
                         ),
                         elevation: 3,
                         underline: const SizedBox(),
                         style: const TextStyle(
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           fontFamily: 'Roboto',
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -126,7 +126,7 @@ class EditInforPageState extends State<EditInforPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -150,7 +150,7 @@ class EditInforPageState extends State<EditInforPage> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: Color(0XFF050505),
+                        color: Color(0XFF242A37),
                       ),
                     ),
                     Container(
@@ -164,13 +164,13 @@ class EditInforPageState extends State<EditInforPage> {
                         value: dropdownValue,
                         icon: const FaIcon(
                           FontAwesomeIcons.chevronDown,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           size: 14,
                         ),
                         elevation: 3,
                         underline: const SizedBox(),
                         style: const TextStyle(
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           fontFamily: 'Roboto',
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -204,7 +204,7 @@ class EditInforPageState extends State<EditInforPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -228,7 +228,7 @@ class EditInforPageState extends State<EditInforPage> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
-                        color: Color(0XFF050505),
+                        color: Color(0XFF242A37),
                       ),
                     ),
                     Container(
@@ -242,13 +242,13 @@ class EditInforPageState extends State<EditInforPage> {
                         value: dropdownValue,
                         icon: const FaIcon(
                           FontAwesomeIcons.chevronDown,
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           size: 14,
                         ),
                         elevation: 3,
                         underline: const SizedBox(),
                         style: const TextStyle(
-                          color: Color(0XFF050505),
+                          color: Color(0XFF242A37),
                           fontFamily: 'Roboto',
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -283,7 +283,7 @@ class EditInforPageState extends State<EditInforPage> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                          const BorderSide(width: 1, color: Color(0XFF0066FF)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
@@ -302,7 +302,7 @@ class EditInforPageState extends State<EditInforPage> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0XFF0869E1)),
+                    color: const Color(0XFF0066FF)),
                 child: TextButton(
                   onPressed: () {},
                   child: const Text(
@@ -329,7 +329,7 @@ class EditInforPageState extends State<EditInforPage> {
                   child: const Text(
                     "Huỷ",
                     style: TextStyle(
-                        color: Color(0XFF050505),
+                        color: Color(0XFF242A37),
                         fontSize: 18,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700),

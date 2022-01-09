@@ -24,7 +24,7 @@ class SettingsPageState extends State<SettingsPage> {
               },
               icon: const FaIcon(
                 FontAwesomeIcons.arrowLeft,
-                color: Color(0XFF0869E1),
+                color: Color(0XFF0066FF),
               )),
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
@@ -34,7 +34,7 @@ class SettingsPageState extends State<SettingsPage> {
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'Roboto',
-                color: Color(0XFF0869E1)),
+                color: Color(0XFF0066FF)),
           ),
         ),
         body: Container(
@@ -71,7 +71,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: const FaIcon(
                                 FontAwesomeIcons.userEdit,
                                 size: 18,
-                                color: Color(0XFF050505),
+                                color: Color(0XFF242A37),
                               ),
                             ),
                             const Text(
@@ -80,7 +80,7 @@ class SettingsPageState extends State<SettingsPage> {
                                 fontFamily: 'Roboto',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0XFF050505),
+                                color: Color(0XFF242A37),
                               ),
                             ),
                           ],
@@ -124,7 +124,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: const FaIcon(
                                 FontAwesomeIcons.unlockAlt,
                                 size: 18,
-                                color: Color(0XFF050505),
+                                color: Color(0XFF242A37),
                               ),
                             ),
                             const Text(
@@ -133,7 +133,7 @@ class SettingsPageState extends State<SettingsPage> {
                                 fontFamily: 'Roboto',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0XFF050505),
+                                color: Color(0XFF242A37),
                               ),
                             ),
                           ],

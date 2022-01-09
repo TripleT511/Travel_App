@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
@@ -17,19 +18,23 @@ class SearchPage extends StatefulWidget {
 }
 
 class SearchPageState extends State<SearchPage> {
-  Icon cusIcon = const Icon(
-    Icons.search,
-    size: 30,
+  FaIcon cusIcon = const FaIcon(
+    FontAwesomeIcons.search,
     color: Color(0XFF0066FF),
   );
 
   Widget cusSearchBar = const Align(
-      alignment: Alignment(0.15, 10),
-      child: Text("ĐIỂM ĐẾN",
-          style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0XFF0066FF))));
+    alignment: Alignment(0.15, 10),
+    child: Text(
+      "Điểm đến",
+      style: TextStyle(
+        fontFamily: 'Roboto',
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+        color: Color(0XFF0066FF),
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +50,15 @@ class SearchPageState extends State<SearchPage> {
           IconButton(
             onPressed: () {
               setState(() {
-                if (this.cusIcon.icon == Icons.search && this.mounted) {
-                  this.cusIcon = const Icon(
-                    Icons.cancel,
-                    size: 30,
+                // ignore: unrelated_type_equality_checks
+                if (cusIcon.icon == const FaIcon(FontAwesomeIcons.search) &&
+                    mounted) {
+                  cusIcon = const FaIcon(
+                    FontAwesomeIcons.search,
                     color: Color(0XFF0066FF),
                   );
-                  this.cusSearchBar = Container(
-                    padding: EdgeInsets.only(left: 10),
+                  cusSearchBar = Container(
+                    padding: const EdgeInsets.only(left: 10),
                     child: const TextField(
                       textInputAction: TextInputAction.go,
                       // controller: txtSearch,
@@ -66,12 +72,11 @@ class SearchPageState extends State<SearchPage> {
                     ),
                   );
                 } else {
-                  this.cusIcon = const Icon(
-                    Icons.search,
-                    size: 30,
+                  cusIcon = const FaIcon(
+                    FontAwesomeIcons.search,
                     color: Color(0XFF0066FF),
                   );
-                  this.cusSearchBar = const Align(
+                  cusSearchBar = const Align(
                     alignment: Alignment(0.15, 10),
                     child: Text(
                       "ĐIỂM ĐẾN",
@@ -116,12 +121,12 @@ class SearchPageState extends State<SearchPage> {
       //   ),
       // ),
       body: Container(
-        padding: EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(top: 10),
         child: FutureBuilder(
           future: TinhThanhProvider.getAllTinhThanh(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasError) {
-              return Center(
+              return const Center(
                 child: Text('Có lỗi xảy ra!!!'),
               );
             } else if (snapshot.hasData) {
@@ -131,7 +136,6 @@ class SearchPageState extends State<SearchPage> {
                 shrinkWrap: true,
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) => Card(
-                  elevation: 3.0,
                   child: ListTile(
                     onTap: () {
                       Navigator.push(
@@ -145,7 +149,7 @@ class SearchPageState extends State<SearchPage> {
                     title: Text(
                       lstTinhThanh[index].tenTinhThanh,
                       textAlign: TextAlign.left,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -155,8 +159,11 @@ class SearchPageState extends State<SearchPage> {
                 ),
               );
             }
-            return Center(
-              child: CircularProgressIndicator(),
+            return const Center(
+              child: SpinKitFadingCircle(
+                color: Colors.white,
+                size: 50.0,
+              ),
             );
           },
         ),

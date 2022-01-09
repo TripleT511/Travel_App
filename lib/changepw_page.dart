@@ -70,7 +70,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF0869E1),
+              color: Color(0XFF0066FF),
             )),
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
@@ -80,7 +80,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             fontSize: 22,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFF0869E1),
+            color: Color(0XFF0066FF),
           ),
         ),
       ),
@@ -111,7 +111,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                        const BorderSide(width: 1, color: Color(0XFF0066FF)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   suffixIcon: IconButton(
@@ -163,7 +163,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                        const BorderSide(width: 1, color: Color(0XFF0066FF)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   suffixIcon: IconButton(
@@ -215,7 +215,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        const BorderSide(width: 1, color: Color(0XFF0869E1)),
+                        const BorderSide(width: 1, color: Color(0XFF0066FF)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   suffixIcon: IconButton(
@@ -245,7 +245,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
               height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: const Color(0XFF0869E1)),
+                  color: const Color(0XFF0066FF)),
               child: TextButton(
                 onPressed: () {
                   _changePassword();
@@ -274,7 +274,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 child: const Text(
                   "Huỷ",
                   style: TextStyle(
-                      color: Color(0XFF050505),
+                      color: Color(0XFF242A37),
                       fontSize: 18,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w700),
