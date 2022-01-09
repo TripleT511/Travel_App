@@ -23,12 +23,7 @@ class MapPageState extends State<MapPage> {
             alignment: Alignment.center,
             children: [
               TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PlaceDetail()));
-                },
+                onPressed: () {},
                 child: Card(
                   shape: const RoundedRectangleBorder(
                       borderRadius:

@@ -82,6 +82,31 @@ class UserProvider {
   }
   /* ==== End Register ==== */
 
+  static Future<bool> changePassword(
+      String oldPass, String newPass, String confirm) async {
+    var token = await getToken();
+    final response = await http.post(
+        Uri.parse(
+            'https://shielded-lowlands-87962.herokuapp.com/api/user/change-password'),
+        body: jsonEncode({
+          'password': oldPass,
+          'new_password': newPass,
+          'confirm_password': confirm,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    final jsonRespon = jsonDecode(response.body);
+    print(jsonRespon);
+    if (jsonRespon["status_code"] == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   /* ==== Start Logout ==== */
   static Future<bool> logout() async {
     var token = await getToken();

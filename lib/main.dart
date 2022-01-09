@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
+import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/map_page.dart';
 import 'package:vietnam_travel_app/search_page.dart';
@@ -27,82 +28,165 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _tabController.dispose();
-  }
+  int currentTab = 0;
+  final List<Widget> screens = const [
+    HomePage(),
+    SearchPage(),
+    MapPage(),
+    SeeMorePage(),
+  ];
+  final PageStorageBucket bucket = PageStorageBucket();
+  Widget currentSreen = const HomePage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        children: const [
-          HomePage(),
-          SearchPage(),
-          MapPage(),
-          SeeMorePage(),
-        ],
+      body: PageStorage(
+        child: currentSreen,
+        bucket: bucket,
       ),
-      bottomNavigationBar: Container(
-        height: 65,
-        decoration: const BoxDecoration(
-          border: Border(
-            top: BorderSide(color: Color(0XFF0869E1), width: 2),
+      floatingActionButton: FloatingActionButton(
+        elevation: 3.0,
+        onPressed: () {
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => const CreatePost()));
+        },
+        backgroundColor: const Color(0XFF0869E1),
+        child: Container(
+          width: 50,
+          height: 50,
+          child: const Align(
+            alignment: Alignment.center,
+            child: FaIcon(
+              FontAwesomeIcons.plus,
+              size: 20,
+              color: Colors.white,
+            ),
+          ),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0XFF0869E1),
           ),
         ),
-        child: TabBar(
-          labelStyle: const TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
-            color: Color(0XFF050505),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        color: Colors.white,
+        child: SizedBox(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const HomePage();
+                        currentTab = 0;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.home,
+                        color: currentTab == 0
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const SearchPage();
+                        currentTab = 1;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.search,
+                        color: currentTab == 1
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const MapPage();
+                        currentTab = 2;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.mapMarkedAlt,
+                        color: currentTab == 2
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        currentSreen = const SeeMorePage();
+                        currentTab = 3;
+                      });
+                    },
+                    minWidth: 40,
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: FaIcon(
+                        FontAwesomeIcons.bars,
+                        color: currentTab == 3
+                            ? const Color(0XFF0869E1)
+                            : const Color(0X73050505),
+                        size: 20,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
-          labelColor: const Color(0XFF0869E1),
-          controller: _tabController,
-          unselectedLabelColor: const Color(0XFF050505),
-          tabs: const [
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.home,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Trang chủ",
-            ),
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.search,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Tìm kiếm",
-            ),
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.mapMarkedAlt,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Bản đồ",
-            ),
-            Tab(
-              icon: FaIcon(
-                FontAwesomeIcons.bars,
-                color: Color(0XFF0869E1),
-                size: 18,
-              ),
-              text: "Xem thêm",
-            ),
-          ],
         ),
       ),
     );

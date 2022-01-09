@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 
+// ignore: must_be_immutable
 class PlaceDetail extends StatefulWidget {
-  const PlaceDetail({Key? key}) : super(key: key);
+  DiaDanhObject dd;
+  PlaceDetail(this.dd, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return PlaceDetailState();
+    // ignore: no_logic_in_create_state
+    return PlaceDetailState(dd);
   }
 }
 
 class PlaceDetailState extends State<PlaceDetail> {
+  DiaDanhObject dd;
+  PlaceDetailState(this.dd);
   final List<Column> imgListQuanAn = [];
   final List<Column> imgListLuuTru = [];
   final List<SizedBox> imgDiaDanh = [];
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   CarouselSlider slideShow(List<Column> lst) {
     return CarouselSlider(
       items: lst,
@@ -49,8 +56,8 @@ class PlaceDetailState extends State<PlaceDetail> {
       SizedBox a = SizedBox(
         width: double.infinity,
         height: 232,
-        child: Image.asset(
-          "images/slide_1.jpg",
+        child: Image.network(
+          urlImg + dd.hinhanh.hinhAnh,
           width: double.infinity,
           height: 232,
           fit: BoxFit.cover,
@@ -404,9 +411,9 @@ class PlaceDetailState extends State<PlaceDetail> {
             ]),
             Container(
               margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
-              child: const Text(
-                "InterCointinetal Residence Saigon",
-                style: TextStyle(
+              child: Text(
+                dd.tenDiaDanh,
+                style: const TextStyle(
                     fontFamily: 'Roboto',
                     height: 1.6,
                     fontSize: 22,
@@ -429,12 +436,12 @@ class PlaceDetailState extends State<PlaceDetail> {
                       color: Color(0XFFFF3535),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "Nguyen Du St. & Hai Ba Trung Le Van Huu St, Ho Chi Minh City, Vietnam",
+                      dd.tinhthanh.tenTinhThanh,
                       softWrap: true,
                       overflow: TextOverflow.clip,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
                           color: Color(0XFF050505),
@@ -459,9 +466,9 @@ class PlaceDetailState extends State<PlaceDetail> {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: const Flexible(
+              child: Flexible(
                 child: Text(
-                  "Intecontinental Residences Saigon tọa lạc tại vị trí thuận tiện tại Kumho Plaza, cách Tháp Sài Gòn, Trung tâm Thương mại Sài Gòn và các văn phòng lãnh sự nước ngoài một đoạn đi bộ. Chỉ mất 10 phút đi bộ nhàn nhã là đến công viên thành phố, sở thú và dinh Thống Nhất. InterContinental Residences Saigon cung cấp các dịch vụ và tiện ích dân cư cao cấp. Ngoài việc cung cấp tầm nhìn ra toàn cảnh thành phố từ các dinh thự, nó còn có câu lạc bộ sức khỏe và spa hạng nhất. Sống cuộc sống InterContinental tại địa chỉ hàng đầu Sài Gòn, nơi những cư dân quốc tế sành điệu có thể trải nghiệm cuộc sống đương đại đặc biệt trong khu phức hợp tích hợp tốt nhất thành phố.",
+                  dd.moTa,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16,
