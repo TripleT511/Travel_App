@@ -2,7 +2,7 @@ class HinhAnhObject {
   final int id;
   final int idDiaDanh;
   final String hinhAnh;
-  final int idBaiVietChiaSe;
+  final int? idBaiVietChiaSe;
   final int idLoai;
 
   HinhAnhObject(

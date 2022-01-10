@@ -57,7 +57,7 @@ class PlaceDetailState extends State<PlaceDetail> {
         width: double.infinity,
         height: 232,
         child: Image.network(
-          urlImg + dd.hinhanh.hinhAnh,
+          urlImg + dd.hinhanh!.hinhAnh,
           width: double.infinity,
           height: 232,
           fit: BoxFit.cover,
@@ -438,7 +438,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   ),
                   Flexible(
                     child: Text(
-                      dd.tinhthanh.tenTinhThanh,
+                      dd.tinhthanh!.tenTinhThanh,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(

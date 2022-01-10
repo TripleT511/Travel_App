@@ -7,10 +7,10 @@ class DiaDanhObject {
   final String moTa;
   final String kinhDo;
   final String viDo;
-  final HinhAnhObject hinhanh;
+  final HinhAnhObject? hinhanh;
   final int tinh_thanh_id;
   final int trangThai;
-  final TinhThanhObject tinhthanh;
+  final TinhThanhObject? tinhthanh;
 
   DiaDanhObject(this.id, this.tenDiaDanh, this.moTa, this.kinhDo, this.viDo,
       this.tinh_thanh_id, this.trangThai, this.tinhthanh, this.hinhanh);
@@ -25,4 +25,14 @@ class DiaDanhObject {
         trangThai = res["trangThai"],
         tinhthanh = TinhThanhObject.fromJson(res["tinhthanh"]),
         hinhanh = HinhAnhObject.fromJson(res["hinhanh"]);
+  DiaDanhObject.fromJson2(Map<String, dynamic> res)
+      : id = res["id"],
+        tenDiaDanh = res["tenDiaDanh"],
+        moTa = res["moTa"],
+        kinhDo = res["kinhDo"],
+        viDo = res["viDo"],
+        tinh_thanh_id = res["tinh_thanh_id"],
+        trangThai = res["trangThai"],
+        tinhthanh = null,
+        hinhanh = null;
 }

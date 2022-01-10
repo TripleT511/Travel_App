@@ -33,7 +33,7 @@ class SplashPageState extends State<SplashPage> {
   }
 
   startTimer() async {
-    var duration = const Duration(seconds: 6);
+    var duration = const Duration(seconds: 3);
     return Timer(duration, handleTimeout);
   }
 
@@ -69,7 +69,7 @@ class SplashPageState extends State<SplashPage> {
                   margin: const EdgeInsets.only(top: 190),
                   child: Image.asset(
                     'images/logo-light.png',
-                    width: 133,
+                    width: 110,
                     fit: BoxFit.cover,
                   )),
               Container(

@@ -96,9 +96,12 @@ class PersonalPageState extends State<PersonalPage> {
                           //     ),
                           //     fit: BoxFit.cover),
                           borderRadius: const BorderRadius.all(
-                            Radius.circular(50.0),
+                            Radius.circular(100),
                           ),
-                          border: Border.all(width: 5, color: Colors.white),
+                          border: Border.all(
+                            width: 7,
+                            color: const Color(0XFFECF8FF),
+                          ),
                         ),
                         child: CircleAvatar(
                           backgroundColor: _bnColor,
@@ -124,7 +127,7 @@ class PersonalPageState extends State<PersonalPage> {
                       height: 25,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0XFFE4E6EB),
+                        color: Color(0XFFB1BCD0),
                       ),
                       child: const Align(
                         alignment: Alignment.center,
@@ -141,7 +144,7 @@ class PersonalPageState extends State<PersonalPage> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 90),
+              padding: const EdgeInsets.only(top: 105),
               child: Text(
                 user.hoTen,
                 style: const TextStyle(
@@ -174,9 +177,9 @@ class PersonalPageState extends State<PersonalPage> {
                       'Bài viết',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         fontSize: 18,
-                        color: Color(0XFF8C939D),
+                        color: Color(0XFFB1BCD0),
                       ),
                     ),
                   ],
@@ -200,9 +203,9 @@ class PersonalPageState extends State<PersonalPage> {
                       'Tỉnh thành',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         fontSize: 18,
-                        color: Color(0XFF8C939D),
+                        color: Color(0XFFB1BCD0),
                       ),
                     ),
                   ],
@@ -221,7 +224,7 @@ class PersonalPageState extends State<PersonalPage> {
                     child: const FaIcon(
                       FontAwesomeIcons.phoneAlt,
                       size: 18,
-                      color: Color(0XFF8C939D),
+                      color: Color(0XFFB1BCD0),
                     ),
                   ),
                   Flexible(
@@ -251,7 +254,7 @@ class PersonalPageState extends State<PersonalPage> {
                     child: const FaIcon(
                       FontAwesomeIcons.solidEnvelope,
                       size: 18,
-                      color: Color(0XFF8C939D),
+                      color: Color(0XFFB1BCD0),
                     ),
                   ),
                   Flexible(

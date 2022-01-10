@@ -294,7 +294,7 @@ class RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
+                margin: const EdgeInsets.only(top: 10, left: 15, right: 15),
                 width: 374,
                 height: 50,
                 decoration: BoxDecoration(

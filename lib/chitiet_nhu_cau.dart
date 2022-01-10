@@ -49,7 +49,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: Image.network(
-                    urlImg + lstDD[i].hinhanh.hinhAnh,
+                    urlImg + lstDD[i].hinhanh!.hinhAnh,
                     /*a.image*/
                     width: double.maxFinite,
                     height: 210,

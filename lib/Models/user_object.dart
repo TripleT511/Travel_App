@@ -3,7 +3,7 @@ class UserObject {
   final int idPhanQuyen;
   final String hoTen;
   final String email;
-  final String password;
+  final String? password;
   final String soDienThoai;
   final int trangThaiHoTen;
   final int trangThaiEmail;
