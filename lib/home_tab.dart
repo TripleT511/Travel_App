@@ -16,7 +16,6 @@ import 'package:vietnam_travel_app/dia_danh.dart';
 import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
-import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
 class HomePage extends StatefulWidget {
@@ -34,6 +33,8 @@ class HomePageState extends State<HomePage> {
   List<NhuCauObject> lstNC = [];
   List<DiaDanhObject> lstDD = [];
   List<BaiVietChiaSeObject> lstBaiViet = [];
+  List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
+
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   final Color _userColor =
       Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
@@ -81,8 +82,10 @@ class HomePageState extends State<HomePage> {
 
   void loadListBaiViet() async {
     final data = await BaiVietProvider.getAllBaiViet();
+    final data2 = await BaiVietProvider.getAllBaiVietNoiBat();
     setState(() {});
     lstBaiViet = data;
+    lstBaiVietNoiBat = data2;
   }
 
   void loadListNhuCau() async {
@@ -152,7 +155,7 @@ class HomePageState extends State<HomePage> {
         height: 215,
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: lstBaiViet.length,
+          itemCount: lstBaiVietNoiBat.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => Container(
             padding: const EdgeInsets.only(left: 10),
@@ -180,7 +183,7 @@ class HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.network(
-                        urlImg + lstBaiViet[index].hinhanh.hinhAnh,
+                        urlImg + lstBaiVietNoiBat[index].hinhanh.hinhAnh,
                         width: 271,
                         height: 132,
                         fit: BoxFit.cover,
@@ -193,7 +196,7 @@ class HomePageState extends State<HomePage> {
                             left: 10, bottom: 10, right: 10),
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          lstBaiViet[index].noiDung,
+                          lstBaiVietNoiBat[index].noiDung,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           style: const TextStyle(
@@ -583,148 +586,204 @@ class HomePageState extends State<HomePage> {
         shrinkWrap: true,
         itemCount: lstBaiViet.length,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                height: 10,
-                width: double.infinity,
-                decoration: const BoxDecoration(color: Color(0XFFF0F2F5)),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              PersonalPage(user: lstBaiViet[index].user)));
-                },
-                leading: CircleAvatar(
-                  backgroundColor:
-                      Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                          .withOpacity(1.0),
-                  child: Text(
-                    lstBaiViet[index].user.hoTen.substring(0, 1).toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.bold,
+          return Container(
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Container(
+                  height: 10,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(color: Color(0XFFF0F2F5)),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PersonalPage(user: lstBaiViet[index].user)));
+                  },
+                  leading: Container(
+                    width: 40,
+                    height: 40,
+                    margin: const EdgeInsets.only(right: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            urlImg + lstBaiViet[index].user.hinhAnh),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                title: Text(
-                  lstBaiViet[index].user.hoTen,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontFamily: 'Roboto',
-                      fontSize: 16,
-                      color: Color(0XFF262626)),
-                ),
-                subtitle: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    lstBaiViet[index].thoiGian,
+                  title: Text(
+                    lstBaiViet[index].user.hoTen,
                     style: const TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        color: Color(0XFF242A37)),
+                  ),
+                  subtitle: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      lstBaiViet[index].thoiGian,
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 14,
+                        color: Color(0XFFB1BCD0),
+                      ),
+                    ),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: const FaIcon(
+                      FontAwesomeIcons.ellipsisV,
+                      size: 16,
                       color: Color(0XFFB1BCD0),
                     ),
                   ),
                 ),
-                trailing: IconButton(
-                  onPressed: () {},
-                  icon: const FaIcon(
-                    FontAwesomeIcons.ellipsisV,
-                    size: 16,
-                    color: Color(0XFFB1BCD0),
+                Image.network(
+                  urlImg + lstBaiViet[index].hinhanh.hinhAnh,
+                  height: 240,
+                  width: 392,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    lstBaiViet[index].noiDung,
+                    textAlign: TextAlign.justify,
+                    style: const TextStyle(
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFF242A37),
+                      height: 1.4,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
-              ),
-              Image.network(
-                urlImg + lstBaiViet[index].hinhanh.hinhAnh,
-                height: 240,
-                width: 392,
-                fit: BoxFit.cover,
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  lstBaiViet[index].noiDung,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                    color: Color(0XFF262626),
-                    height: 1.4,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 0),
-                child: TextButton(
-                  onPressed: () {},
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: const Color(0XFF0066FF),
+                Padding(
+                  padding: const EdgeInsets.only(left: 0),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: const Color(0XFF0066FF),
+                          ),
+                          borderRadius: BorderRadius.circular(5),
                         ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Text(
-                        lstBaiViet[index].diadanh.tenDiaDanh,
-                        style: const TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
-                          color: Color(0XFF0066FF),
+                        child: Text(
+                          lstBaiViet[index].diadanh.tenDiaDanh,
+                          style: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                            color: Color(0XFF0066FF),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 5),
-                    decoration: const BoxDecoration(
-                      border: Border.fromBorderSide(
-                        BorderSide(
-                          width: 0.5,
-                          color: Color(0XFFe4e6eb),
+                Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 5),
+                      decoration: const BoxDecoration(
+                        border: Border.fromBorderSide(
+                          BorderSide(
+                            width: 0.5,
+                            color: Color(0XFFe4e6eb),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _like();
-                                  },
-                                  icon: Icon(
-                                    like
-                                        ? Icons.thumb_up_alt
-                                        : Icons.thumb_up_alt_outlined,
-                                    color: like
-                                        ? const Color(0XFF0066FF)
-                                        : const Color(0XFFB1BCD0),
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      _like();
+                                    },
+                                    icon: Icon(
+                                      like
+                                          ? Icons.thumb_up_alt
+                                          : Icons.thumb_up_alt_outlined,
+                                      color: like
+                                          ? const Color(0XFF0066FF)
+                                          : const Color(0XFFB1BCD0),
+                                    ),
                                   ),
-                                ),
-                                Text(
+                                  Text(
+                                    math.Random().nextInt(1000).toString(),
+                                    style: const TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0XFFB1BCD0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      _dislike();
+                                    },
+                                    icon: Icon(
+                                      dislike
+                                          ? Icons.thumb_down_alt
+                                          : Icons.thumb_down_alt_outlined,
+                                      color: dislike == true
+                                          ? const Color(0XFF0066FF)
+                                          : const Color(0XFFB1BCD0),
+                                    ),
+                                  ),
+                                  Text(
+                                    math.Random().nextInt(1000).toString(),
+                                    style: const TextStyle(
+                                      color: Color(0XFFB1BCD0),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Roboto',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const FaIcon(
+                                FontAwesomeIcons.solidEye,
+                                color: Color(0XFFB1BCD0),
+                                size: 18,
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(left: 5, right: 10),
+                                child: Text(
                                   math.Random().nextInt(1000).toString(),
                                   style: const TextStyle(
                                     fontFamily: 'Roboto',
@@ -732,68 +791,17 @@ class HomePageState extends State<HomePage> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0XFFB1BCD0),
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _dislike();
-                                  },
-                                  icon: Icon(
-                                    dislike
-                                        ? Icons.thumb_down_alt
-                                        : Icons.thumb_down_alt_outlined,
-                                    color: dislike == true
-                                        ? const Color(0XFF0066FF)
-                                        : const Color(0XFFB1BCD0),
-                                  ),
-                                ),
-                                Text(
-                                  math.Random().nextInt(1000).toString(),
-                                  style: const TextStyle(
-                                    color: Color(0XFFB1BCD0),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Roboto',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const FaIcon(
-                              FontAwesomeIcons.solidEye,
-                              color: Color(0XFFB1BCD0),
-                              size: 18,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 5, right: 10),
-                              child: Text(
-                                math.Random().nextInt(1000).toString(),
-                                style: const TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0XFFB1BCD0),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ],
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           );
         },
       );
@@ -838,16 +846,11 @@ class HomePageState extends State<HomePage> {
                       width: 40,
                       height: 40,
                       margin: const EdgeInsets.only(right: 5),
-                      child: CircleAvatar(
-                        backgroundColor: _userColor,
-                        child: Text(
-                          user.hoTen.substring(0, 1).toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                          ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        image: DecorationImage(
+                          image: NetworkImage(urlImg + user.hinhAnh),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),

@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 import 'dart:math' as math;
+import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class PersonalPage extends StatefulWidget {
@@ -21,8 +27,62 @@ class PersonalPageState extends State<PersonalPage> {
   PersonalPageState({required this.user});
   bool checkLike = true;
   bool checkUnLike = false;
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   final Color _bnColor =
       Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
+
+  late File? _image;
+  final picker = ImagePicker();
+  int idUser = 0;
+  String hoTenUser = '';
+  Future pickerImage() async {
+    var pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {});
+      _image = File(pickedFile.path);
+      uploadImage();
+    } else {
+      print('No image selected.');
+    }
+    ;
+  }
+
+  Future<void> uploadImage() async {
+    if (_image == null) return;
+    var token = await UserProvider.getToken();
+    var stream = http.ByteStream(_image!.openRead());
+    stream.cast();
+    var length = await _image!.length();
+    Map<String, String> headers = {"Authorization": "Bearer $token"};
+
+    var uri = Uri.parse(
+        "https://shielded-lowlands-87962.herokuapp.com/api/user/avatar");
+    var request = http.MultipartRequest("POST", uri);
+    request.headers.addAll(headers);
+    var multiport =
+        http.MultipartFile("hinhAnh", stream, length, filename: _image!.path);
+
+    request.files.add(multiport);
+    var response = await request.send();
+
+    print(response.headers);
+    if (response.statusCode == 200) {
+      print("Upload success");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MyApp(),
+        ),
+      );
+    } else {
+      print("Failed");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +108,7 @@ class PersonalPageState extends State<PersonalPage> {
                 icon: const FaIcon(
                   FontAwesomeIcons.arrowLeft,
                   color: Color(0XFF242A37),
+                  size: 21,
                 ),
               ),
             ),
@@ -63,7 +124,7 @@ class PersonalPageState extends State<PersonalPage> {
                 icon: const FaIcon(
                   FontAwesomeIcons.cog,
                   color: Color(0XFF242A37),
-                  size: 25,
+                  size: 21,
                 ),
               ),
             )
@@ -90,11 +151,11 @@ class PersonalPageState extends State<PersonalPage> {
                         width: 110,
                         height: 110,
                         decoration: BoxDecoration(
-                          // image: const DecorationImage(
-                          //     image: AssetImage(
-                          //       "images/avatar.jpg",
-                          //     ),
-                          //     fit: BoxFit.cover),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                urlImg + user.hinhAnh,
+                              ),
+                              fit: BoxFit.cover),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(100),
                           ),
@@ -103,39 +164,26 @@ class PersonalPageState extends State<PersonalPage> {
                             color: const Color(0XFFECF8FF),
                           ),
                         ),
-                        child: CircleAvatar(
-                          backgroundColor: _bnColor,
-                          child: Text(
-                            user.hoTen.substring(0, 1).toUpperCase(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 35,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
                       ),
                     )),
-                Positioned(
-                  top: 150,
-                  left: (MediaQuery.of(context).size.width * 0.5) + 10,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Container(
-                      width: 25,
-                      height: 25,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0XFFB1BCD0),
-                      ),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: FaIcon(
-                          FontAwesomeIcons.camera,
-                          color: Color(0XFF242A37),
-                          size: 14,
-                        ),
+                GestureDetector(
+                  onTap: () {
+                    pickerImage();
+                  },
+                  child: Container(
+                    width: 25,
+                    height: 25,
+                    margin: const EdgeInsets.only(top: 160, left: 50),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0XFF0066FF),
+                    ),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: FaIcon(
+                        FontAwesomeIcons.pen,
+                        color: Color(0XFFFFFFFF),
+                        size: 12,
                       ),
                     ),
                   ),
@@ -144,7 +192,7 @@ class PersonalPageState extends State<PersonalPage> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 105),
+              padding: const EdgeInsets.only(top: 15),
               child: Text(
                 user.hoTen,
                 style: const TextStyle(

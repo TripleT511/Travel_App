@@ -65,22 +65,25 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF0066FF),
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.arrowLeft,
+            color: Color(0XFF242A37),
+            size: 21,
+          ),
+        ),
         backgroundColor: Colors.white,
         shadowColor: Colors.white,
+        centerTitle: true,
         title: const Text(
           "Đổi mật khẩu",
           style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Roboto',
-            color: Color(0XFF0066FF),
+            color: Color(0XFF242A37),
           ),
         ),
       ),

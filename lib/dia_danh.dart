@@ -208,7 +208,7 @@ class PlaceState extends State<Place> {
                         onPressed: () {},
                         child: SizedBox(
                           width: 95,
-                          child: Image.asset("images/logo-ver3.png"),
+                          child: Image.asset("images/j.jpg"),
                         ))
                   ],
                 ),

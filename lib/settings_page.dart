@@ -19,22 +19,26 @@ class SettingsPageState extends State<SettingsPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const FaIcon(
-                FontAwesomeIcons.arrowLeft,
-                color: Color(0XFF0066FF),
-              )),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+              color: Color(0XFF242A37),
+              size: 21,
+            ),
+          ),
           backgroundColor: Colors.white,
           shadowColor: Colors.white,
+          centerTitle: true,
           title: const Text(
             "Cài đặt",
             style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Roboto',
-                color: Color(0XFF0066FF)),
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Roboto',
+              color: Color(0XFF242A37),
+            ),
           ),
         ),
         body: Container(
@@ -71,7 +75,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: const FaIcon(
                                 FontAwesomeIcons.userEdit,
                                 size: 18,
-                                color: Color(0XFF242A37),
+                                color: Color(0XFF0066FF),
                               ),
                             ),
                             const Text(
@@ -124,7 +128,7 @@ class SettingsPageState extends State<SettingsPage> {
                               child: const FaIcon(
                                 FontAwesomeIcons.unlockAlt,
                                 size: 18,
-                                color: Color(0XFF242A37),
+                                color: Color(0XFF0066FF),
                               ),
                             ),
                             const Text(

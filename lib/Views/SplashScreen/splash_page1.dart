@@ -33,7 +33,7 @@ class SplashPageState extends State<SplashPage> {
   }
 
   startTimer() async {
-    var duration = const Duration(seconds: 3);
+    var duration = const Duration(milliseconds: 4500);
     return Timer(duration, handleTimeout);
   }
 

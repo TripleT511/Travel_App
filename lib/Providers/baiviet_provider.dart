@@ -27,7 +27,20 @@ class BaiVietProvider {
           'Authorization': 'Bearer $token',
         });
 
-    print(response.body);
+    return parseBaiViet(response.body);
+  }
+
+  static Future<List<BaiVietChiaSeObject>> getAllBaiVietNoiBat() async {
+    var token = await getToken();
+    final response = await http.get(
+        Uri.parse(
+            'https://shielded-lowlands-87962.herokuapp.com/api/baiviet/noibat'),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+
     return parseBaiViet(response.body);
   }
 }

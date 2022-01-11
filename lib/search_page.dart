@@ -161,7 +161,7 @@ class SearchPageState extends State<SearchPage> {
             }
             return const Center(
               child: SpinKitFadingCircle(
-                color: Colors.white,
+                color: Color(0XFF0066FF),
                 size: 50.0,
               ),
             );

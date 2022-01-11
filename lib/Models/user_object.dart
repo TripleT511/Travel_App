@@ -5,6 +5,7 @@ class UserObject {
   final String email;
   final String? password;
   final String soDienThoai;
+  final String hinhAnh;
   final int trangThaiHoTen;
   final int trangThaiEmail;
   final int trangThaiSDT;
@@ -17,6 +18,7 @@ class UserObject {
       this.email,
       this.password,
       this.soDienThoai,
+      this.hinhAnh,
       this.trangThaiHoTen,
       this.trangThaiEmail,
       this.trangThaiSDT,
@@ -27,20 +29,9 @@ class UserObject {
         idPhanQuyen = us["idPhanQuyen"],
         hoTen = us["hoTen"],
         email = us["email"],
-        password = us["password"],
-        soDienThoai = us["soDienThoai"],
-        trangThaiHoTen = us["trangThaiHoTen"],
-        trangThaiEmail = us["trangThaiEmail"],
-        trangThaiSDT = us["trangThaiSDT"],
-        trangThai = us["trangThai"];
-
-  UserObject.fromJson2(Map<String, dynamic> us)
-      : id = us["id"],
-        idPhanQuyen = us["idPhanQuyen"],
-        hoTen = us["hoTen"],
-        email = us["email"],
         password = "",
         soDienThoai = us["soDienThoai"],
+        hinhAnh = us["hinhAnh"],
         trangThaiHoTen = us["trangThaiHoTen"],
         trangThaiEmail = us["trangThaiEmail"],
         trangThaiSDT = us["trangThaiSDT"],

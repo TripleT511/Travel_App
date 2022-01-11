@@ -388,7 +388,9 @@ class PlaceDetailState extends State<PlaceDetail> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const CreatePost(),
+                      builder: (context) => CreatePost(
+                        diadanh: dd,
+                      ),
                     ),
                   );
                 },

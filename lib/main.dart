@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
-import 'package:vietnam_travel_app/create_post.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/map_page.dart';
 import 'package:vietnam_travel_app/search_page.dart';

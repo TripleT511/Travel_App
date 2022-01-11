@@ -8,7 +8,7 @@ const storage = FlutterSecureStorage();
 class UserProvider {
   static List<UserObject> parseUsers(String reponseBody) {
     final pased = jsonDecode(reponseBody).cast<Map<String, dynamic>>();
-    return pased.map<UserObject>((e) => UserObject.fromJson2(e)).toList();
+    return pased.map<UserObject>((e) => UserObject.fromJson(e)).toList();
   }
 
   static Future<UserObject> getUser() async {
@@ -22,7 +22,7 @@ class UserProvider {
         });
 
     // print(jsonDecode(response.body));
-    return UserObject.fromJson2(jsonDecode(response.body));
+    return UserObject.fromJson(jsonDecode(response.body));
   }
 
   static Future<bool> isLogged() async {
@@ -52,7 +52,7 @@ class UserProvider {
           'password': password,
         }));
     final jsonRespon = jsonDecode(response.body);
-
+    print(jsonRespon);
     if (jsonRespon["status_code"] == 200) {
       /* ==== Lưu trữ token vào Storage ==== */
       await storage.write(
@@ -82,6 +82,7 @@ class UserProvider {
           'email': email,
           'password': password,
           'soDienThoai': soDienThoai,
+          'hinhAnh': 'abc.jpg',
           'trangThaiHoTen': 1,
           'trangThaiSDT': 1,
           'trangThaiEmail': 1,
