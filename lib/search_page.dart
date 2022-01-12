@@ -28,10 +28,10 @@ class SearchPageState extends State<SearchPage> {
     child: Text(
       "Điểm đến",
       style: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w700,
         fontFamily: 'Roboto',
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-        color: Color(0XFF0066FF),
+        color: Color(0XFF242A37),
       ),
     ),
   );

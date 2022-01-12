@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +32,6 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   final List<Column> imgListBaiViet = [];
-
   List<NhuCauObject> lstNC = [];
   List<DiaDanhObject> lstDD = [];
   List<BaiVietChiaSeObject> lstBaiViet = [];
@@ -57,10 +59,8 @@ class HomePageState extends State<HomePage> {
   _loadUser() async {
     UserObject user = await UserProvider.getUser();
     SharedPreferences pres = await SharedPreferences.getInstance();
-    pres.setString('hoTen', user.hoTen);
-    pres.setString('soDienThoai', user.soDienThoai);
     pres.setInt('id', user.id);
-
+    pres.setString('hinhAnh', user.hinhAnh);
     setState(() {});
     nameUser = 'Chào, ' + user.hoTen + '! 👋';
   }
@@ -122,20 +122,19 @@ class HomePageState extends State<HomePage> {
                   shape: BeveledRectangleBorder(
                     borderRadius: BorderRadius.circular(7.0),
                   ),
+                  color: Colors.white,
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color:
-                          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                              .withOpacity(1.0),
-                      borderRadius: BorderRadius.circular(7),
+                      color: const Color(0X4D0066FF),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.only(
                         left: 22, top: 7, right: 22, bottom: 7),
                     child: Text(
                       lstNC[index].tenNhuCau,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: Color(0XE6242A37),
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                         fontSize: 16,
@@ -474,48 +473,60 @@ class HomePageState extends State<HomePage> {
                     top: 10,
                     right: 10,
                     child: Container(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 5, bottom: 5),
-                      decoration: const BoxDecoration(
-                        color: Color(0XFFFF2D55),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          topLeft: Radius.circular(5),
-                          bottomLeft: Radius.circular(5),
-                          bottomRight: Radius.circular(5),
-                        ),
-                      ),
-                      child: const Text(
-                        'Hot',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                          color: const Color(0XFFFFFFFF),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const Align(
+                        alignment: Alignment.center,
+                        child: FaIcon(
+                          FontAwesomeIcons.solidBookmark,
+                          color: Color(0XFF0066FF),
+                          size: 14,
                         ),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: 170,
+                    top: 150,
                     left: 20,
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const FaIcon(
-                          FontAwesomeIcons.mapMarkerAlt,
-                          color: Color(0XFFFF2D55),
-                          size: 18,
-                        ),
                         Container(
-                          padding: const EdgeInsets.only(left: 5),
+                          margin: const EdgeInsets.only(bottom: 5),
                           child: Text(
                             lstDD[index].tenDiaDanh,
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: 'Roboto',
                               fontWeight: FontWeight.w700,
-                              fontSize: 16,
+                              fontSize: 18,
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const FaIcon(
+                              FontAwesomeIcons.mapMarkerAlt,
+                              color: Color(0XFFFFFFFF),
+                              size: 13,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                lstDD[index].tinhthanh!.tenTinhThanh,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),
@@ -528,55 +539,18 @@ class HomePageState extends State<HomePage> {
       );
     }
 
-    Row sliderTitle(String title) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 10),
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Color(0XFF242A37),
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Roboto',
-              ),
-            ),
+    Container sliderTitle(String title) {
+      return Container(
+        margin: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Color(0XE6242A37),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Roboto',
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            child: TextButton(
-              onPressed: () {
-                if (title == "Nhu Cầu") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NhuCauPage()));
-                }
-                if (title == "Địa Danh Nổi Bật") {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Place()));
-                }
-                if (title == "Bài Viết Nổi Bật") {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const BaiVietNoiBatPage()));
-                }
-              },
-              child: const Text(
-                "Xem thêm",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Color(0XFF0066FF),
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       );
     }
 
@@ -608,14 +582,12 @@ class HomePageState extends State<HomePage> {
                   leading: Container(
                     width: 40,
                     height: 40,
-                    margin: const EdgeInsets.only(right: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            urlImg + lstBaiViet[index].user.hinhAnh),
-                        fit: BoxFit.cover,
-                      ),
+                    ),
+                    child: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(urlImg + lstBaiViet[index].user.hinhAnh),
                     ),
                   ),
                   title: Text(
@@ -646,11 +618,18 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Image.network(
-                  urlImg + lstBaiViet[index].hinhanh.hinhAnh,
-                  height: 240,
-                  width: 392,
-                  fit: BoxFit.cover,
+                Container(
+                  width: MediaQuery.of(context).size.width - 20,
+                  height: 300,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        urlImg + lstBaiViet[index].hinhanh.hinhAnh,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 10, left: 10, right: 10),

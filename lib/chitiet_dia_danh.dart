@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
@@ -23,10 +28,21 @@ class PlaceDetail extends StatefulWidget {
 class PlaceDetailState extends State<PlaceDetail> {
   DiaDanhObject dd;
   PlaceDetailState(this.dd);
+  late final UserObject user;
   final List<Column> imgListQuanAn = [];
   final List<Column> imgListLuuTru = [];
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+  _loadDiaDanh() async {
+    print(DiaDanhProvider.getDiaDanhById(1));
+  }
+
+  _loadUser() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    String us = pres.getString("user") ?? '';
+    user = UserObject.fromJson(jsonDecode(us));
+  }
+
   CarouselSlider slideShow(List<Column> lst) {
     return CarouselSlider(
       items: lst,
@@ -67,17 +83,23 @@ class PlaceDetailState extends State<PlaceDetail> {
     }
   }
 
-  void loadListQuanAn() {
-    int b = 5;
-    for (int i = 0; i < b; i++) {
-      Column a = Column(
-        children: [
-          GestureDetector(
+  SizedBox lstQuanAn() {
+    return SizedBox(
+      height: 212,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: 5,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => Container(
+          padding: const EdgeInsets.only(left: 10),
+          width: 271,
+          height: 210,
+          child: GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const RestaurantDetail()));
+                      builder: (context) => const ChiTietLuuTru()));
             },
             child: SizedBox(
               height: 215,
@@ -110,7 +132,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                           left: 10, bottom: 10, right: 10),
                       alignment: Alignment.centerLeft,
                       child: const Text(
-                        "Nhà hàng Baratie",
+                        "Khách sạn sunny",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(
@@ -178,18 +200,23 @@ class PlaceDetailState extends State<PlaceDetail> {
               ),
             ),
           ),
-        ],
-      );
-      imgListQuanAn.add(a);
-    }
+        ),
+      ),
+    );
   }
 
-  void loadListLuuTru() {
-    int b = 5;
-    for (int i = 0; i < b; i++) {
-      Column a = Column(
-        children: [
-          GestureDetector(
+  SizedBox lstLuuTru() {
+    return SizedBox(
+      height: 212,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: 5,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => Container(
+          padding: const EdgeInsets.only(left: 10),
+          width: 271,
+          height: 210,
+          child: GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
@@ -295,10 +322,9 @@ class PlaceDetailState extends State<PlaceDetail> {
               ),
             ),
           ),
-        ],
-      );
-      imgListLuuTru.add(a);
-    }
+        ),
+      ),
+    );
   }
 
   Row sliderTitle(String title) {
@@ -348,9 +374,9 @@ class PlaceDetailState extends State<PlaceDetail> {
   @override
   void initState() {
     super.initState();
+    _loadUser();
     loadImgDiaDanh();
-    loadListQuanAn();
-    loadListLuuTru();
+    _loadDiaDanh();
   }
 
   final scroll = ScrollController();
@@ -390,6 +416,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                     MaterialPageRoute(
                       builder: (context) => CreatePost(
                         diadanh: dd,
+                        user: user,
                       ),
                     ),
                   );
@@ -499,14 +526,11 @@ class PlaceDetailState extends State<PlaceDetail> {
               height: 15,
             ),
             sliderTitle("Quán ăn gần đây"),
-            slideShow(imgListQuanAn),
-            const SizedBox(
-              height: 20,
-            ),
+            lstQuanAn(),
             sliderTitle("Lưu trú gần đây"),
-            slideShow(imgListLuuTru),
+            lstLuuTru(),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
           ],
         ),

@@ -17,7 +17,6 @@ class SplashPageState extends State<SplashPage> {
 
   _checkLoggin() async {
     bool login = await UserProvider.isLogged();
-    print(login);
     if (login) {
       setState(() {
         isLogged = true;

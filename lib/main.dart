@@ -64,14 +64,14 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 minWidth: 40,
                 child: Container(
                   margin: const EdgeInsets.all(10),
-                  width: 25,
-                  height: 25,
+                  width: 22,
+                  height: 22,
                   child: FaIcon(
                     FontAwesomeIcons.home,
                     color: currentTab == 0
                         ? const Color(0XFF0066FF)
                         : const Color(0XFFB1BCD0),
-                    size: 25,
+                    size: 22,
                   ),
                 ),
               ),
@@ -85,14 +85,14 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 minWidth: 40,
                 child: Container(
                   margin: const EdgeInsets.all(10),
-                  width: 25,
-                  height: 25,
+                  width: 22,
+                  height: 22,
                   child: FaIcon(
                     FontAwesomeIcons.search,
                     color: currentTab == 1
                         ? const Color(0XFF0066FF)
                         : const Color(0XFFB1BCD0),
-                    size: 25,
+                    size: 22,
                   ),
                 ),
               ),
@@ -106,14 +106,14 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 minWidth: 40,
                 child: Container(
                   margin: const EdgeInsets.all(10),
-                  width: 25,
-                  height: 25,
+                  width: 22,
+                  height: 22,
                   child: FaIcon(
                     FontAwesomeIcons.mapMarkedAlt,
                     color: currentTab == 2
                         ? const Color(0XFF0066FF)
                         : const Color(0XFFB1BCD0),
-                    size: 25,
+                    size: 22,
                   ),
                 ),
               ),
@@ -127,14 +127,14 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                 minWidth: 40,
                 child: Container(
                   margin: const EdgeInsets.all(10),
-                  width: 25,
-                  height: 25,
+                  width: 22,
+                  height: 22,
                   child: FaIcon(
                     FontAwesomeIcons.bars,
                     color: currentTab == 3
                         ? const Color(0XFF0066FF)
                         : const Color(0XFFB1BCD0),
-                    size: 25,
+                    size: 22,
                   ),
                 ),
               ),

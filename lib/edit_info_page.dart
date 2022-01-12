@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vietnam_travel_app/Models/user_object.dart';
 
 class EditInforPage extends StatefulWidget {
   const EditInforPage({Key? key}) : super(key: key);
@@ -13,16 +16,19 @@ class EditInforPage extends StatefulWidget {
 
 class EditInforPageState extends State<EditInforPage> {
   String dropdownValue = 'Công khai';
+  late final UserObject user;
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtHoTen = TextEditingController();
   TextEditingController txtSoDienThoai = TextEditingController();
   final formKey = GlobalKey<FormState>();
   _loadData() async {
     SharedPreferences pres = await SharedPreferences.getInstance();
+    String us = pres.getString("user") ?? '';
+    user = UserObject.fromJson(jsonDecode(us));
     setState(() {});
-    txtEmail.text = (pres.getString('email') ?? '');
-    txtHoTen.text = (pres.getString('hoTen') ?? '');
-    txtSoDienThoai.text = (pres.getString('soDienThoai') ?? '');
+    txtEmail.text = user.email;
+    txtHoTen.text = user.hoTen;
+    txtSoDienThoai.text = user.soDienThoai;
   }
 
   @override

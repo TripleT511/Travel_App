@@ -1,53 +1,52 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/main.dart';
 
 class CreatePost extends StatefulWidget {
   final DiaDanhObject diadanh;
-  const CreatePost({Key? key, required this.diadanh}) : super(key: key);
+  final UserObject user;
+  const CreatePost({Key? key, required this.diadanh, required this.user})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return CreatePostState(diadanh: diadanh);
+    return CreatePostState(diadanh: diadanh, user: user);
   }
 }
 
 class CreatePostState extends State<CreatePost> {
   final DiaDanhObject diadanh;
-  CreatePostState({required this.diadanh});
+  final UserObject user;
+  CreatePostState({required this.diadanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
   late File? _image;
   final picker = ImagePicker();
   int idUser = 0;
+  bool isPost = false;
   String hoTenUser = '';
+  String hinhAnh = '';
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (pickedFile != null) {
-        setState(() {});
-        _image = File(pickedFile.path);
+        setState(() {
+          _image = File(pickedFile.path);
+          isPost = true;
+        });
       } else {
         print('No image selected.');
       }
     });
-  }
-
-  _loadUser() async {
-    SharedPreferences pres = await SharedPreferences.getInstance();
-    setState(() {
-      idUser = (pres.getInt('id') ?? 1);
-      hoTenUser = (pres.getString('hoTen') ?? "");
-    });
-
-    print(hoTenUser);
   }
 
   Future<void> uploadImage() async {
@@ -72,7 +71,6 @@ class CreatePostState extends State<CreatePost> {
     request.files.add(multiport);
     var response = await request.send();
 
-    print(response.headers);
     if (response.statusCode == 200) {
       print("Upload success");
       Navigator.push(
@@ -85,7 +83,6 @@ class CreatePostState extends State<CreatePost> {
   @override
   void initState() {
     super.initState();
-    _loadUser();
   }
 
   @override
@@ -120,19 +117,21 @@ class CreatePostState extends State<CreatePost> {
             alignment: Alignment.center,
             child: Padding(
               padding: const EdgeInsets.only(right: 15),
-              child: TextButton(
-                onPressed: () {
-                  uploadImage();
-                },
-                child: const Text(
-                  "Post",
-                  style: TextStyle(
-                      color: Color(0XFF0066FF),
-                      fontSize: 18,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
+              child: isPost
+                  ? TextButton(
+                      onPressed: () {
+                        uploadImage();
+                      },
+                      child: const Text(
+                        "Post",
+                        style: TextStyle(
+                            color: Color(0XFF0066FF),
+                            fontSize: 18,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w600),
+                      ),
+                    )
+                  : Container(),
             ),
           ),
         ],
@@ -144,21 +143,17 @@ class CreatePostState extends State<CreatePost> {
               leading: Container(
                 width: 45,
                 height: 45,
-                child: const CircleAvatar(
-                  backgroundColor: Color(0XFF0066FF),
-                  child: Text(
-                    "V",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.bold,
-                    ),
+                margin: const EdgeInsets.only(right: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  image: DecorationImage(
+                    image: NetworkImage(urlImg + user.hinhAnh),
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
               title: Text(
-                hoTenUser,
+                user.hoTen,
                 style: const TextStyle(
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Roboto',

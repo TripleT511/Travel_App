@@ -1,14 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 import 'dart:math' as math;
-import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class PersonalPage extends StatefulWidget {
@@ -28,9 +26,6 @@ class PersonalPageState extends State<PersonalPage> {
   bool checkLike = true;
   bool checkUnLike = false;
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  final Color _bnColor =
-      Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-
   late File? _image;
   final picker = ImagePicker();
   int idUser = 0;
@@ -40,48 +35,55 @@ class PersonalPageState extends State<PersonalPage> {
     if (pickedFile != null) {
       setState(() {});
       _image = File(pickedFile.path);
-      uploadImage();
+      bool isSuccess = await UserProvider.uploadImage(_image!);
+      // ignore: unrelated_type_equality_checks
+      if (isSuccess == true) {
+        Navigator.pop(context);
+        Future.delayed(const Duration(seconds: 1), () {
+          setState(() => {pickedFile.path});
+        });
+      }
     } else {
-      print('No image selected.');
+      const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-    ;
   }
 
-  Future<void> uploadImage() async {
-    if (_image == null) return;
-    var token = await UserProvider.getToken();
-    var stream = http.ByteStream(_image!.openRead());
-    stream.cast();
-    var length = await _image!.length();
-    Map<String, String> headers = {"Authorization": "Bearer $token"};
-
-    var uri = Uri.parse(
-        "https://shielded-lowlands-87962.herokuapp.com/api/user/avatar");
-    var request = http.MultipartRequest("POST", uri);
-    request.headers.addAll(headers);
-    var multiport =
-        http.MultipartFile("hinhAnh", stream, length, filename: _image!.path);
-
-    request.files.add(multiport);
-    var response = await request.send();
-
-    print(response.headers);
-    if (response.statusCode == 200) {
-      print("Upload success");
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MyApp(),
+  showModal() {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
         ),
-      );
-    } else {
-      print("Failed");
-    }
+        backgroundColor: Colors.white,
+        builder: (context) {
+          return ListTile(
+            leading: const FaIcon(
+              FontAwesomeIcons.images,
+              color: Color(0XFF242A37),
+            ),
+            title: const Text("Chọn từ thư viện"),
+            onTap: () {
+              pickerImage();
+            },
+          );
+        });
+  }
+
+  _loadUser() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    setState(() {});
+    idUser = pres.getInt('id') ?? 0;
   }
 
   @override
   void initState() {
     super.initState();
+    _loadUser();
   }
 
   @override
@@ -114,19 +116,21 @@ class PersonalPageState extends State<PersonalPage> {
             ),
             Container(
               margin: const EdgeInsets.only(right: 5),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SettingsPage()));
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.cog,
-                  color: Color(0XFF242A37),
-                  size: 21,
-                ),
-              ),
+              child: idUser == user.id
+                  ? IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SettingsPage()));
+                      },
+                      icon: const FaIcon(
+                        FontAwesomeIcons.cog,
+                        color: Color(0XFF242A37),
+                        size: 21,
+                      ),
+                    )
+                  : Container(),
             )
           ],
         ),
@@ -144,18 +148,18 @@ class PersonalPageState extends State<PersonalPage> {
                 ),
                 Positioned(
                     top: 80,
-                    left: (MediaQuery.of(context).size.width * 0.5) - 55,
+                    left: (MediaQuery.of(context).size.width * 0.5) - 60,
                     child: Align(
                       alignment: Alignment.center,
                       child: Container(
-                        width: 110,
-                        height: 110,
+                        width: 120,
+                        height: 120,
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            urlImg + user.hinhAnh,
+                          ),
+                        ),
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                urlImg + user.hinhAnh,
-                              ),
-                              fit: BoxFit.cover),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(100),
                           ),
@@ -168,21 +172,21 @@ class PersonalPageState extends State<PersonalPage> {
                     )),
                 GestureDetector(
                   onTap: () {
-                    pickerImage();
+                    showModal();
                   },
                   child: Container(
                     width: 25,
                     height: 25,
-                    margin: const EdgeInsets.only(top: 160, left: 50),
+                    margin: const EdgeInsets.only(top: 185),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Color(0XFF0066FF),
+                      color: Color(0XFFECF8FF),
                     ),
                     child: const Align(
                       alignment: Alignment.center,
                       child: FaIcon(
-                        FontAwesomeIcons.pen,
-                        color: Color(0XFFFFFFFF),
+                        FontAwesomeIcons.camera,
+                        color: Color(0XFF0066FF),
                         size: 12,
                       ),
                     ),
