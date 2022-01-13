@@ -219,7 +219,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
               child: Container(
                 margin: const EdgeInsets.only(left: 5),
                 width: 95,
-                child: Image.asset("images/logo-ver3.png"),
+                child: Image.asset("images/logo_02.png"),
               ),
             ),
             TextButton(

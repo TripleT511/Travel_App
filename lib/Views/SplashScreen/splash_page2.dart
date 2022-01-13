@@ -28,29 +28,10 @@ class SplashPage2State extends State<SplashPage2> {
                   Container(
                     margin: const EdgeInsets.only(top: 100, bottom: 5),
                     child: Image.asset(
-                      "images/logo.png",
-                      width: 110,
+                      "images/logo_03.png",
+                      width: 185,
                       fit: BoxFit.cover,
                     ),
-                  ),
-                  const Text(
-                    'T2P Travel',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Color(0XE6242A37),
-                        fontWeight: FontWeight.w900,
-                        fontSize: 25,
-                        letterSpacing: 1.5),
-                  ),
-                  const Text(
-                    'Du Lịch Cho Người Việt',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontFamily: 'Roboto',
-                        color: Color(0X80242A37),
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
                   ),
                 ],
               ),

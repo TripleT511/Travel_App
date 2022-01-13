@@ -62,7 +62,7 @@ class CreatePostState extends State<CreatePost> {
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
     request.fields["idDiaDanh"] = diadanh.id.toString();
-    request.fields["idUser"] = idUser.toString();
+    request.fields["idUser"] = user.id.toString();
     request.fields["noiDung"] = txtNoiDung.text;
 
     var multiport =
@@ -70,7 +70,6 @@ class CreatePostState extends State<CreatePost> {
 
     request.files.add(multiport);
     var response = await request.send();
-
     if (response.statusCode == 200) {
       print("Upload success");
       Navigator.push(

@@ -7,6 +7,7 @@ import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
+import 'package:vietnam_travel_app/settings_page.dart';
 
 class SeeMorePage extends StatefulWidget {
   const SeeMorePage({Key? key}) : super(key: key);
@@ -56,198 +57,192 @@ class SeeMorePageState extends State<SeeMorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const FaIcon(
-              FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF242A37),
-              size: 21,
-            ),
-          ),
-          backgroundColor: Colors.white,
-          shadowColor: Colors.white,
-          centerTitle: true,
-          title: const Text(
-            "Xem thêm",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'Roboto',
-              color: Color(0XFF242A37),
-            ),
+      backgroundColor: const Color(0XFFFFFFFF),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        leadingWidth: 0,
+        title: const Text(
+          "Tài khoản",
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Roboto',
+            color: Color(0XFFFFFFFF),
           ),
         ),
-        body: Container(
-          margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
-          child: Column(
+        centerTitle: true,
+        backgroundColor: const Color(0XFF0066FF),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 5),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsPage()));
+              },
+              icon: const FaIcon(
+                FontAwesomeIcons.cog,
+                color: Color(0XFFFFFFFF),
+                size: 21,
+              ),
+            ),
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          Stack(
             children: [
-              SizedBox(
+              Container(
                 width: double.infinity,
-                height: 65,
-                child: Card(
-                  elevation: 3.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SizedBox(
-                    width: 374,
-                    height: 60,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PersonalPage(user: user),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(hinhAnh),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  hoTen,
-                                  style: const TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0XFF0066FF),
-                                  ),
-                                ),
-                                const Text(
-                                  "Trang cá nhân",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0XE6242A37),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                height: 40,
+                decoration: const BoxDecoration(
+                  color: Color(0XFF0066FF),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: Card(
-                  elevation: 3.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SizedBox(
-                    width: 374,
-                    height: 50,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.solidPaperPlane,
-                              size: 18,
-                              color: Color(0XFF0066FF),
+              Container(
+                margin: const EdgeInsets.only(left: 10, right: 10),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 65,
+                  child: Card(
+                    elevation: 1.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: SizedBox(
+                      width: 374,
+                      height: 60,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PersonalPage(user: user),
                             ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              "Đề xuất địa danh lên hệ thống",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF242A37),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.only(left: 10),
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 20,
+                                backgroundImage: NetworkImage(hinhAnh),
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    hoTen,
+                                    style: const TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0XFF0066FF),
+                                    ),
+                                  ),
+                                  const Text(
+                                    "Trang cá nhân",
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0XE6242A37),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: Card(
-                  color: const Color(0XFFFFFFFF),
+              )
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              children: [
+                Card(
+                  elevation: 1.0,
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  elevation: 3.0,
-                  child: SizedBox(
-                    width: 374,
-                    height: 50,
-                    child: TextButton(
-                      onPressed: () {
-                        _logout();
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.signOutAlt,
-                              size: 18,
-                              color: Color(0XFF0066FF),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              "Đăng xuất",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF242A37),
-                              ),
-                            ),
-                          ],
-                        ),
+                  child: ListTile(
+                    onTap: () {},
+                    minLeadingWidth: 10,
+                    leading: const FaIcon(
+                      FontAwesomeIcons.solidPaperPlane,
+                      size: 18,
+                      color: Color(0XFF0066FF),
+                    ),
+                    title: const Text(
+                      "Đề xuất địa danh",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF242A37),
+                      ),
+                    ),
+                    trailing: const FaIcon(
+                      FontAwesomeIcons.chevronRight,
+                      size: 18,
+                      color: Color(0XFF0066FF),
+                    ),
+                  ),
+                ),
+                Card(
+                  elevation: 1.0,
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    onTap: () {
+                      _logout();
+                    },
+                    minLeadingWidth: 10,
+                    leading: const FaIcon(
+                      FontAwesomeIcons.signOutAlt,
+                      size: 18,
+                      color: Color(0XFF0066FF),
+                    ),
+                    title: const Text(
+                      "Đăng xuất",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF242A37),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }

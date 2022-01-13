@@ -54,7 +54,6 @@ class HomePageState extends State<HomePage> {
     like = false;
   }
 
-  String nameUser = '';
   int idUser = 0;
   _loadUser() async {
     UserObject user = await UserProvider.getUser();
@@ -62,7 +61,6 @@ class HomePageState extends State<HomePage> {
     pres.setInt('id', user.id);
     pres.setString('hinhAnh', user.hinhAnh);
     setState(() {});
-    nameUser = 'Chào, ' + user.hoTen + '! 👋';
   }
 
   @override
@@ -104,7 +102,7 @@ class HomePageState extends State<HomePage> {
           itemCount: lstNC.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => SizedBox(
-            width: 160,
+            width: 140,
             height: 40,
             child: GestureDetector(
               onTap: () {
@@ -117,28 +115,21 @@ class HomePageState extends State<HomePage> {
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 10),
-                child: Card(
-                  elevation: 3.0,
-                  shape: BeveledRectangleBorder(
-                    borderRadius: BorderRadius.circular(7.0),
+                child: Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: const Color(0X33B1BCD0),
+                    borderRadius: BorderRadius.circular(25),
                   ),
-                  color: Colors.white,
-                  child: Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: const Color(0X4D0066FF),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: const EdgeInsets.only(
-                        left: 22, top: 7, right: 22, bottom: 7),
-                    child: Text(
-                      lstNC[index].tenNhuCau,
-                      style: const TextStyle(
-                        color: Color(0XE6242A37),
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                      ),
+                  padding: const EdgeInsets.only(
+                      left: 22, top: 7, right: 22, bottom: 7),
+                  child: Text(
+                    lstNC[index].tenNhuCau,
+                    style: const TextStyle(
+                      color: Color(0XFFFF2D55),
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -164,10 +155,9 @@ class HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: SizedBox(
-                height: 215,
-                child: Card(
-                  elevation: 3.0,
+              child: Stack(children: [
+                Card(
+                  elevation: 1.0,
                   color: Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadiusDirectional.only(
@@ -284,7 +274,7 @@ class HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-              ),
+              ]),
             ),
           ),
         ),
@@ -309,7 +299,7 @@ class HomePageState extends State<HomePage> {
               child: SizedBox(
                 height: 215,
                 child: Card(
-                  elevation: 3.0,
+                  elevation: 1.0,
                   color: Colors.white,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadiusDirectional.only(
@@ -454,7 +444,7 @@ class HomePageState extends State<HomePage> {
                 alignment: Alignment.center,
                 children: [
                   Card(
-                    elevation: 3.0,
+                    elevation: 1.0,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadiusDirectional.all(
                         Radius.circular(16),
@@ -467,6 +457,23 @@ class HomePageState extends State<HomePage> {
                       width: double.maxFinite,
                       height: 210,
                       fit: BoxFit.cover,
+                    ),
+                  ),
+                  Positioned(
+                    top: 120,
+                    child: Container(
+                      width: 254,
+                      height: 90,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadiusDirectional.only(
+                              bottomEnd: Radius.circular(16),
+                              bottomStart: Radius.circular(16)),
+                          color: Color(0XFFFFFFFF),
+                          gradient: LinearGradient(
+                              colors: [Color(0X0D5E9EFF), Color(0XB30066FF)],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              tileMode: TileMode.clamp)),
                     ),
                   ),
                   Positioned(
@@ -483,7 +490,7 @@ class HomePageState extends State<HomePage> {
                         child: FaIcon(
                           FontAwesomeIcons.solidBookmark,
                           color: Color(0XFF0066FF),
-                          size: 14,
+                          size: 13,
                         ),
                       ),
                     ),
@@ -503,6 +510,13 @@ class HomePageState extends State<HomePage> {
                               fontFamily: 'Roboto',
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 5.0,
+                                  color: Color(0XFF0066FF),
+                                  offset: Offset(1.5, 0.5),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -523,6 +537,13 @@ class HomePageState extends State<HomePage> {
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w500,
                                   fontSize: 12,
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 5.0,
+                                      color: Color(0XFF0066FF),
+                                      offset: Offset(1.5, 0.5),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -793,48 +814,14 @@ class HomePageState extends State<HomePage> {
           UserObject user = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               leading: null,
               leadingWidth: 0,
-              titleSpacing: 0,
-              elevation: 1.5,
-              backgroundColor: Colors.white,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    width: 270,
-                    child: Text(
-                      nameUser,
-                      style: const TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0XE6242A37),
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PersonalPage(user: user)));
-                    },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      margin: const EdgeInsets.only(right: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        image: DecorationImage(
-                          image: NetworkImage(urlImg + user.hinhAnh),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              elevation: 0,
+              backgroundColor: const Color(0XFF0066FF),
+              title: Image.asset(
+                "images/logo_02.png",
+                width: 110,
               ),
             ),
             body: ListView(

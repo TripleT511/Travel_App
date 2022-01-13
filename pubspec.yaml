@@ -76,12 +76,10 @@ flutter:
     - images/j.jpg
     - images/z.jpg
     - images/i.jpg
-    - images/logo-small.png
     - images/map-hotel.jpg
     - images/map-hcm.jpg
     - images/slide_1.jpg
     - images/slide_2.jpg
-    - images/splash_logo.png
     - images/avatar.jpg
     - images/luutru.jpg
     - images/luutru1.jpg
@@ -95,6 +93,8 @@ flutter:
     - images/tambien.jpg
     - images/tambien1.jpg
     - images/banner-default.jpg
+    - images/logo_02.png
+    - images/logo_03.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

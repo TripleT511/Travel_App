@@ -130,7 +130,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                   width: 22,
                   height: 22,
                   child: FaIcon(
-                    FontAwesomeIcons.bars,
+                    FontAwesomeIcons.userAlt,
                     color: currentTab == 3
                         ? const Color(0XFF0066FF)
                         : const Color(0XFFB1BCD0),

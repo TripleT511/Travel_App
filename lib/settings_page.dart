@@ -16,134 +16,103 @@ class SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0XFFFFFFFF),
         appBar: AppBar(
+          elevation: 0,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
-              color: Color(0XFF242A37),
+              color: Color(0XFFFFFFFF),
               size: 21,
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: const Color(0XFF0066FF),
           shadowColor: Colors.white,
           centerTitle: true,
           title: const Text(
             "Cài đặt",
             style: TextStyle(
               fontSize: 20,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w500,
               fontFamily: 'Roboto',
-              color: Color(0XFF242A37),
+              color: Color(0XFFFFFFFF),
             ),
           ),
         ),
         body: Container(
-          margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
+          margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: Column(
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: Card(
-                  elevation: 3.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Card(
+                elevation: 1.0,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditInforPage()));
+                  },
+                  minLeadingWidth: 10,
+                  leading: const FaIcon(
+                    FontAwesomeIcons.userAlt,
+                    size: 18,
+                    color: Color(0XFF0066FF),
                   ),
-                  child: SizedBox(
-                    width: 374,
-                    height: 50,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EditInforPage()));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 25,
-                              margin: const EdgeInsets.only(right: 15),
-                              child: const FaIcon(
-                                FontAwesomeIcons.userEdit,
-                                size: 18,
-                                color: Color(0XFF0066FF),
-                              ),
-                            ),
-                            const Text(
-                              "Chỉnh sửa thông tin cá nhân",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF242A37),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  title: const Text(
+                    "Thông tin tài khoản",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFF242A37),
                     ),
+                  ),
+                  trailing: const FaIcon(
+                    FontAwesomeIcons.chevronRight,
+                    size: 18,
+                    color: Color(0XFF0066FF),
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: Card(
-                  elevation: 3.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+              Card(
+                elevation: 1.0,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePasswordPage()));
+                  },
+                  minLeadingWidth: 10,
+                  leading: const FaIcon(
+                    FontAwesomeIcons.unlockAlt,
+                    size: 18,
+                    color: Color(0XFF0066FF),
                   ),
-                  child: SizedBox(
-                    width: 374,
-                    height: 50,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const ChangePasswordPage()));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 25,
-                              margin: const EdgeInsets.only(right: 15),
-                              child: const FaIcon(
-                                FontAwesomeIcons.unlockAlt,
-                                size: 18,
-                                color: Color(0XFF0066FF),
-                              ),
-                            ),
-                            const Text(
-                              "Đổi mật khẩu",
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF242A37),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                  title: const Text(
+                    "Đổi mật khẩu",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFF242A37),
                     ),
+                  ),
+                  trailing: const FaIcon(
+                    FontAwesomeIcons.chevronRight,
+                    size: 18,
+                    color: Color(0XFF0066FF),
                   ),
                 ),
               ),
