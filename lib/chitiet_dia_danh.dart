@@ -5,8 +5,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/luutru_object.dart';
+import 'package:vietnam_travel_app/Models/quanan2_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
+import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
+import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
@@ -29,12 +33,22 @@ class PlaceDetailState extends State<PlaceDetail> {
   DiaDanhObject dd;
   PlaceDetailState(this.dd);
   late final UserObject user;
-  final List<Column> imgListQuanAn = [];
-  final List<Column> imgListLuuTru = [];
+  List<QuanAn2Object> lstQuan = [];
+  List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  _loadDiaDanh() async {
-    print(DiaDanhProvider.getDiaDanhById(1));
+  _loadDiaDanh() async {}
+
+  _loadQuanAn() async {
+    final data = await QuanAnProvider.getAllQuanAnByDiaDanh(dd.id.toString());
+    setState(() {});
+    lstQuan = data;
+  }
+
+  _loadLuuTru() async {
+    final data = await LuuTruProvider.getAllLuuTruByDiaDanh(dd.id.toString());
+    setState(() {});
+    lstLT = data;
   }
 
   _loadUser() async {
@@ -67,7 +81,7 @@ class PlaceDetailState extends State<PlaceDetail> {
   }
 
   void loadImgDiaDanh() {
-    int b = 5;
+    int b = dd.hinhanh!.hinhAnh.length;
     for (int i = 0; i < b; i++) {
       SizedBox a = SizedBox(
         width: double.infinity,
@@ -88,7 +102,7 @@ class PlaceDetailState extends State<PlaceDetail> {
       height: 212,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: 5,
+        itemCount: lstQuan.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => Container(
           padding: const EdgeInsets.only(left: 10),
@@ -118,8 +132,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      "images/quanan.jpg",
+                    Image.network(
+                      urlImg + lstQuan[index].hinhAnh,
                       width: 271,
                       height: 132,
                       fit: BoxFit.cover,
@@ -131,8 +145,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                       padding: const EdgeInsets.only(
                           left: 10, bottom: 10, right: 10),
                       alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Khách sạn sunny",
+                      child: Text(
+                        lstQuan[index].tenQuan,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(
@@ -159,8 +173,11 @@ class PlaceDetailState extends State<PlaceDetail> {
                                   size: 18,
                                 ),
                               ),
-                              const Text(
-                                " Hồ Chí Minh",
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                dd.tinhthanh!.tenTinhThanh,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
@@ -181,8 +198,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                                   size: 18,
                                 ),
                               ),
-                              const Text(
-                                " 12 a.m - 10 p.m",
+                              Text(
+                                lstQuan[index].thoiGianHoatDong,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
@@ -210,7 +227,7 @@ class PlaceDetailState extends State<PlaceDetail> {
       height: 212,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: 5,
+        itemCount: lstLT.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) => Container(
           padding: const EdgeInsets.only(left: 10),
@@ -240,8 +257,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      "images/luutru.jpg",
+                    Image.network(
+                      urlImg + lstLT[index].hinhAnh,
                       width: 271,
                       height: 132,
                       fit: BoxFit.cover,
@@ -253,8 +270,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                       padding: const EdgeInsets.only(
                           left: 10, bottom: 10, right: 10),
                       alignment: Alignment.centerLeft,
-                      child: const Text(
-                        "Khách sạn sunny",
+                      child: Text(
+                        lstLT[index].tenLuuTru,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: TextStyle(
@@ -281,8 +298,11 @@ class PlaceDetailState extends State<PlaceDetail> {
                                   size: 18,
                                 ),
                               ),
-                              const Text(
-                                " Hồ Chí Minh",
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                dd.tinhthanh!.tenTinhThanh,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
@@ -303,8 +323,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                                   size: 18,
                                 ),
                               ),
-                              const Text(
-                                " 12 a.m - 10 p.m",
+                              Text(
+                                lstLT[index].thoiGianHoatDong,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
@@ -377,6 +397,8 @@ class PlaceDetailState extends State<PlaceDetail> {
     _loadUser();
     loadImgDiaDanh();
     _loadDiaDanh();
+    _loadQuanAn();
+    _loadLuuTru();
   }
 
   final scroll = ScrollController();
