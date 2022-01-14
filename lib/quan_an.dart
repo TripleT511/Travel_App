@@ -75,12 +75,7 @@ class QuanAnState extends State<QuanAn> {
             ],
           ),
           InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RestaurantDetail()));
-            }, // Handle your callback
+            onTap: () {}, // Handle your callback
             child: Column(
               children: [
                 SizedBox(
@@ -176,12 +171,7 @@ class QuanAnState extends State<QuanAn> {
             height: 15.0,
           ),
           InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RestaurantDetail()));
-            }, // Handle your callback
+            onTap: () {}, // Handle your callback
             child: Column(
               children: [
                 SizedBox(

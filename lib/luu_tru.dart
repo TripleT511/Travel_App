@@ -77,12 +77,7 @@ class LuuTruState extends State<LuuTru> {
             ],
           ),
           InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
-            }, // Handle your callback
+            onTap: () {}, // Handle your callback
             child: Column(
               children: [
                 SizedBox(
@@ -178,12 +173,7 @@ class LuuTruState extends State<LuuTru> {
             height: 15.0,
           ),
           InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
-            }, // Handle your callback
+            onTap: () {}, // Handle your callback
             child: Column(
               children: [
                 SizedBox(

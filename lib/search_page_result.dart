@@ -84,12 +84,7 @@ class SearchResultState extends State<SearchResult> {
                 shrinkWrap: true,
                 itemCount: lstDiaDanhs.length,
                 itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RestaurantDetail()));
-                  }, // Handle your callback
+                  onTap: () {}, // Handle your callback
                   child: Column(
                     children: [
                       SizedBox(

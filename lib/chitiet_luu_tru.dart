@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/luutru_object.dart';
 
 class ChiTietLuuTru extends StatefulWidget {
-  const ChiTietLuuTru({Key? key}) : super(key: key);
+  LuuTruObject lt;
+  ChiTietLuuTru(this.lt);
 
   @override
   State<StatefulWidget> createState() {
-    return ChiTietLuuTruState();
+    return ChiTietLuuTruState(lt);
   }
 }
 
 class ChiTietLuuTruState extends State<ChiTietLuuTru> {
+  LuuTruObject lt;
+  ChiTietLuuTruState(this.lt);
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,16 +45,16 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              "images/luutru1.jpg",
+            Image.network(
+              urlImg + lt.hinhAnh,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
               height: 232,
             ),
             Container(
               margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
-              child: const Text(
-                "Hotel Continental Saigon",
+              child: Text(
+                lt.tenLuuTru,
                 style: TextStyle(
                     fontFamily: 'Roboto',
                     height: 1.6,
@@ -73,9 +78,9 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                       color: Color(0XFFFF3535),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "132 - 134 Đồng Khởi, Quận 1, Tp. Hồ Chí Minh",
+                      lt.diaChi,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -106,9 +111,9 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                       color: Color(0XFF3EFF7F),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "0 p.m - 0 p.m",
+                      lt.thoiGianHoatDong,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -136,9 +141,9 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                       color: Color(0XFF0066FF),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "02838299201",
+                      lt.sdt,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -166,9 +171,9 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
-              child: const Flexible(
+              child: Flexible(
                 child: Text(
-                  "Hotel Continental Saigon (tên tiếng Việt là Khách sạn Hoàn Cầu) có vị trí rất thuận tiện, tọa lạc ngay giữa trung tâm thành phố Hồ Chí Minh. Từ đây, du khách có thể đi bộ đến các điểm vui chơi giải trí, các điểm tổ chức lễ hội, sự kiện và các nơi giao dịch công việc như Nhà hát Thành Phố, Dinh Độc Lập, Nhà thờ Đức Bà, Chợ Bến Thành... Được xây dựng từ 1878, Hotel Continental ngày nay vẫn giữ được",
+                  lt.moTa,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16,

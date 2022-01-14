@@ -16,6 +16,7 @@ import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/create_post.dart';
+import 'package:vietnam_travel_app/settings_page.dart';
 
 // ignore: must_be_immutable
 class PlaceDetail extends StatefulWidget {
@@ -113,7 +114,7 @@ class PlaceDetailState extends State<PlaceDetail> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
+                      builder: (context) => RestaurantDetail(lstQuan[index])));
             },
             child: SizedBox(
               height: 215,
@@ -238,7 +239,7 @@ class PlaceDetailState extends State<PlaceDetail> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
+                      builder: (context) => ChiTietLuuTru(lstLT[0])));
             },
             child: SizedBox(
               height: 215,

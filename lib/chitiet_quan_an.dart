@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/quanan2_object.dart';
+import 'package:vietnam_travel_app/Models/quanan_object.dart';
+import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 
 class RestaurantDetail extends StatefulWidget {
-  const RestaurantDetail({Key? key}) : super(key: key);
+  QuanAn2Object qa;
+  RestaurantDetail(this.qa, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return RestaurantDetailState();
+    return RestaurantDetailState(qa);
   }
 }
 
 class RestaurantDetailState extends State<RestaurantDetail> {
+  QuanAn2Object qa;
+  RestaurantDetailState(this.qa);
+  List<QuanAnObject> lstQuan = [];
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+
+  _loadQA() async {
+    final data = await QuanAnProvider.getQuanAnByID(1.toString());
+    setState(() {});
+    lstQuan = data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadQA();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,18 +59,18 @@ class RestaurantDetailState extends State<RestaurantDetail> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              "images/chitietquanan.jpg",
+            Image.network(
+              urlImg + qa.hinhAnh,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
               height: 232,
             ),
             Container(
+              alignment: Alignment.centerLeft,
               margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
-              child: const Text(
-                "Nhà Hàng Cơm Niêu Thiên Lý",
+              child: Text(
+                qa.tenQuan,
                 style: TextStyle(
                     fontFamily: 'Roboto',
                     height: 1.6,
@@ -73,9 +94,9 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                       color: Color(0XFFFF3535),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "16 Nguyễn Đình Chiểu,  Quận 1, TP. HCM",
+                      qa.diaChi,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -103,9 +124,9 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                       color: Color(0XFF3EFF7F),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "10h00 – 21h00",
+                      qa.thoiGianHoatDong,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -133,9 +154,9 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                       color: Color(0XFF0066FF),
                     ),
                   ),
-                  const Flexible(
+                  Flexible(
                     child: Text(
-                      "10 a.m – 21 p.m",
+                      qa.sdt,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -149,6 +170,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
               ),
             ),
             Container(
+              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
               child: const Text(
                 "Mô tả",
@@ -162,10 +184,11 @@ class RestaurantDetailState extends State<RestaurantDetail> {
               ),
             ),
             Container(
+              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: const Flexible(
+              child: Flexible(
                 child: Text(
-                  "Cơm Niêu Thiên Lý - 74 Nguyễn Thị Thập nằm trong chuỗi nhà hàng chuyên Cơm Niêu nổi tiếng ở Sài Gòn, là điểm đến thú vị để thực khách có những bữa ăn ngon miệng cùng giây phút ấm cúng, quây quần bên nhau. Tại Cơm Niêu Thiên Lý, có những niêu cơm nhỏ xinh, cơm cháy vàng giòn mang phong vị Singapore đặc sắc, được dùng kèm với các món mặn truyền thống Việt Nam như cá kho, thịt heo luộc, cà pháo… đã chinh phục trái tim hàng nghìn thực khách.",
+                  qa.moTa,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     fontSize: 16,
@@ -198,60 +221,18 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            "images/monan.jpg",
-                            width: double.infinity,
-                            height: 132,
-                            fit: BoxFit.cover,
-                          ),
+                          lstQuan.isEmpty
+                              ? Image.asset("images/a.jpg")
+                              : Image.network(
+                                  urlImg + lstQuan[0].monan.hinhAnh,
+                                  width: double.infinity,
+                                  height: 132,
+                                  fit: BoxFit.cover,
+                                ),
                           Container(
                             padding: const EdgeInsets.all(15),
-                            child: const Text(
-                              "Tôm Khỏa Thân",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
-                                color: Color(0XFF242A37),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      top: 15, right: 10, left: 10, bottom: 20),
-                  child: SizedBox(
-                    height: 195,
-                    width: double.infinity,
-                    child: Card(
-                      elevation: 3.0,
-                      color: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(16.0),
-                          topEnd: Radius.circular(16.0),
-                          bottomStart: Radius.circular(16.0),
-                          bottomEnd: Radius.circular(16.0),
-                        ),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "images/monan2.jpg",
-                            width: double.infinity,
-                            height: 132,
-                            fit: BoxFit.cover,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(15),
-                            child: const Text(
-                              "Canh chua",
+                            child: Text(
+                              lstQuan.isEmpty ? "a" : lstQuan[0].monan.tenMon,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontFamily: 'Roboto',
@@ -266,7 +247,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),
