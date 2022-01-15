@@ -56,9 +56,10 @@ class DiaDanhObject {
         viDo = res["viDo"],
         tinh_thanh_id = res["tinh_thanh_id"],
         trangThai = res["trangThai"],
-        tinhthanh = res["tinhThanh"],
+        tinhthanh = TinhThanhObject.fromJson(res["tinhthanh"]),
         hinhanh = null,
-        hinhanhs = res['hinhanhs'].forEach((v) {
-          HinhAnhObject.fromJson(v);
-        });
+        // ignore: deprecated_member_use
+        hinhanhs = res["hinhanhs"]
+            .map<HinhAnhObject>((e) => HinhAnhObject.fromJson(e))
+            .toList();
 }

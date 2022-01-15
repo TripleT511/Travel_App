@@ -33,7 +33,7 @@ class PlaceState extends State<Place> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlaceDetail(lstDD[i])));
+                      builder: (context) => PlaceDetail(lstDD[i].id)));
             },
             child: Stack(
               alignment: Alignment.center,
