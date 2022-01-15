@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';

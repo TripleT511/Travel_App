@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Models/quanan_object.dart';
+import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 
+// ignore: must_be_immutable
 class RestaurantDetail extends StatefulWidget {
-  const RestaurantDetail({Key? key}) : super(key: key);
+  int id;
+  RestaurantDetail(this.id, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return RestaurantDetailState();
+    // ignore: no_logic_in_create_state
+    return RestaurantDetailState(id);
   }
 }
 
 class RestaurantDetailState extends State<RestaurantDetail> {
+  int id;
+  RestaurantDetailState(this.id);
+  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,239 +51,244 @@ class RestaurantDetailState extends State<RestaurantDetail> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              "images/chitietquanan.jpg",
-              fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width,
-              height: 232,
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
-              child: const Text(
-                "Nhà Hàng Cơm Niêu Thiên Lý",
-                style: TextStyle(
-                    fontFamily: 'Roboto',
-                    height: 1.6,
-                    fontSize: 22,
-                    color: Color(0XFF0066FF),
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 10, right: 50, bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+      body: FutureBuilder<QuanAnObject>(
+        future: QuanAnProvider.getQuanAnByID(id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            QuanAnObject quan = snapshot.data!;
+            return SingleChildScrollView(
+              child: Column(
                 children: [
+                  Image.network(
+                    urlImg + quan.hinhAnh,
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: 232,
+                  ),
                   Container(
-                    width: 18,
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(right: 10),
-                    child: const FaIcon(
-                      FontAwesomeIcons.mapMarkerAlt,
-                      size: 18,
-                      color: Color(0XFFFF3535),
-                    ),
-                  ),
-                  const Flexible(
+                    alignment: Alignment.centerLeft,
+                    margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
                     child: Text(
-                      "16 Nguyễn Đình Chiểu,  Quận 1, TP. HCM",
-                      softWrap: true,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
+                      quan.tenQuan,
+                      style: const TextStyle(
                           fontFamily: 'Roboto',
-                          fontWeight: FontWeight.normal,
-                          color: Color(0XFF242A37),
-                          height: 1.5),
+                          height: 1.6,
+                          fontSize: 22,
+                          color: Color(0XFF0066FF),
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 10, right: 50, bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
                   Container(
-                    width: 18,
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(right: 10),
-                    child: const FaIcon(
-                      FontAwesomeIcons.clock,
-                      size: 18,
-                      color: Color(0XFF3EFF7F),
-                    ),
-                  ),
-                  const Flexible(
-                    child: Text(
-                      "10h00 – 21h00",
-                      softWrap: true,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.normal,
-                          color: Color(0XFF242A37),
-                          height: 1.5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 10, right: 50, bottom: 10),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 18,
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(right: 10),
-                    child: const FaIcon(
-                      FontAwesomeIcons.phoneAlt,
-                      size: 18,
-                      color: Color(0XFF0066FF),
-                    ),
-                  ),
-                  const Flexible(
-                    child: Text(
-                      "10 a.m – 21 p.m",
-                      softWrap: true,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.normal,
-                          color: Color(0XFF242A37),
-                          height: 1.5),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-              child: const Text(
-                "Mô tả",
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  height: 1.5,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0XFF242A37),
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: const Flexible(
-                child: Text(
-                  "Cơm Niêu Thiên Lý - 74 Nguyễn Thị Thập nằm trong chuỗi nhà hàng chuyên Cơm Niêu nổi tiếng ở Sài Gòn, là điểm đến thú vị để thực khách có những bữa ăn ngon miệng cùng giây phút ấm cúng, quây quần bên nhau. Tại Cơm Niêu Thiên Lý, có những niêu cơm nhỏ xinh, cơm cháy vàng giòn mang phong vị Singapore đặc sắc, được dùng kèm với các món mặn truyền thống Việt Nam như cá kho, thịt heo luộc, cà pháo… đã chinh phục trái tim hàng nghìn thực khách.",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-            ),
-            Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(top: 15, right: 10, left: 10),
-                  child: SizedBox(
-                    height: 195,
-                    width: double.infinity,
-                    child: Card(
-                      elevation: 3.0,
-                      color: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(16.0),
-                          topEnd: Radius.circular(16.0),
-                          bottomStart: Radius.circular(16.0),
-                          bottomEnd: Radius.circular(16.0),
-                        ),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "images/monan.jpg",
-                            width: double.infinity,
-                            height: 132,
-                            fit: BoxFit.cover,
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 50, bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 18,
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(right: 10),
+                          child: const FaIcon(
+                            FontAwesomeIcons.mapMarkerAlt,
+                            size: 18,
+                            color: Color(0XFFFF2D55),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(15),
-                            child: const Text(
-                              "Tôm Khỏa Thân",
-                              style: TextStyle(
-                                fontSize: 18,
+                        ),
+                        Flexible(
+                          child: Text(
+                            quan.diaChi,
+                            softWrap: true,
+                            overflow: TextOverflow.clip,
+                            style: const TextStyle(
                                 fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.normal,
                                 color: Color(0XFF242A37),
-                              ),
+                                height: 1.5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 50, bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 18,
+                          height: 18,
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(right: 10),
+                          child: const FaIcon(
+                            FontAwesomeIcons.clock,
+                            size: 18,
+                            color: Color(0XFF3EFF7F),
+                          ),
+                        ),
+                        Flexible(
+                          child: Text(
+                            quan.thoiGianHoatDong,
+                            softWrap: true,
+                            overflow: TextOverflow.clip,
+                            style: const TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFF242A37),
+                                height: 1.5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 50, bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 18,
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(right: 10),
+                          child: const FaIcon(
+                            FontAwesomeIcons.phoneAlt,
+                            size: 18,
+                            color: Color(0XFF0066FF),
+                          ),
+                        ),
+                        Flexible(
+                          child: Text(
+                            quan.sdt,
+                            softWrap: true,
+                            overflow: TextOverflow.clip,
+                            style: const TextStyle(
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFF242A37),
+                                height: 1.5),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+                    child: const Text(
+                      "Mô tả",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        height: 1.5,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0XFF242A37),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: Text(
+                      quan.moTa,
+                      textAlign: TextAlign.justify,
+                      softWrap: true,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        height: 1.5,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Món ăn nổi bật",
+                      style: TextStyle(
+                        color: Color(0XFF242A37),
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Roboto',
+                      ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 250,
+                        margin: const EdgeInsets.only(bottom: 20),
+                        padding: const EdgeInsets.only(
+                          top: 15,
+                          right: 10,
+                          left: 10,
+                        ),
+                        child: Card(
+                          elevation: 1.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.only(
+                              topStart: Radius.circular(16.0),
+                              topEnd: Radius.circular(16.0),
+                              bottomStart: Radius.circular(16.0),
+                              bottomEnd: Radius.circular(16.0),
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      top: 15, right: 10, left: 10, bottom: 20),
-                  child: SizedBox(
-                    height: 195,
-                    width: double.infinity,
-                    child: Card(
-                      elevation: 3.0,
-                      color: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(16.0),
-                          topEnd: Radius.circular(16.0),
-                          bottomStart: Radius.circular(16.0),
-                          bottomEnd: Radius.circular(16.0),
+                          clipBehavior: Clip.antiAlias,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Card(
+                                elevation: 2.0,
+                                color: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadiusDirectional.only(
+                                    topStart: Radius.circular(16.0),
+                                    topEnd: Radius.circular(16.0),
+                                    bottomStart: Radius.circular(16.0),
+                                    bottomEnd: Radius.circular(16.0),
+                                  ),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: Image.network(
+                                  urlImg + quan.monan!.hinhAnh,
+                                  width: double.infinity,
+                                  height: 170,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                child: Text(
+                                  quan.monan!.tenMon,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0XE6242A37),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.asset(
-                            "images/monan2.jpg",
-                            width: double.infinity,
-                            height: 132,
-                            fit: BoxFit.cover,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(15),
-                            child: const Text(
-                              "Canh chua",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w700,
-                                color: Color(0XFF242A37),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                    ],
+                  )
+                ],
+              ),
+            );
+          }
+          return const Center(
+            child: SpinKitFadingCircle(
+              color: Color(0XFF0066FF),
+              size: 50.0,
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-import 'chitiet_dia_danh.dart';
-
 class MapPage extends StatefulWidget {
   const MapPage({Key? key}) : super(key: key);
 

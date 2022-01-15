@@ -109,67 +109,42 @@ class SeeMorePageState extends State<SeeMorePage> {
               ),
               Container(
                 margin: const EdgeInsets.only(left: 10, right: 10),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 65,
-                  child: Card(
-                    elevation: 1.0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: SizedBox(
-                      width: 374,
-                      height: 60,
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PersonalPage(user: user),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 10),
-                          alignment: Alignment.centerLeft,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                radius: 20,
-                                backgroundImage: NetworkImage(hinhAnh),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    hoTen,
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0XE6242A37),
-                                    ),
-                                  ),
-                                  const Text(
-                                    "Xem Trang cá nhân",
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0XFF0066FF),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                child: Card(
+                  elevation: 1.0,
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PersonalPage(user: user),
                         ),
+                      );
+                    },
+                    minLeadingWidth: 10,
+                    leading: CircleAvatar(
+                      radius: 22,
+                      backgroundImage: NetworkImage(hinhAnh),
+                    ),
+                    title: Text(
+                      hoTen,
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0XE6242A37),
+                      ),
+                    ),
+                    subtitle: const Text(
+                      "Xem Trang Cá Nhân",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF0066FF),
                       ),
                     ),
                   ),

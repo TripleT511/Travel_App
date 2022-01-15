@@ -36,7 +36,7 @@ class SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0XFFF0F2F5),
       appBar: AppBar(
         leading: null,
         leadingWidth: 0,

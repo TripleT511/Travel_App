@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class MonAnObject {
   final int id;
   final int quan_an_id;

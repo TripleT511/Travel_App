@@ -5,14 +5,14 @@ import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class SearchResult extends StatefulWidget {
   final TinhThanhObject tinhthanh;
-  SearchResult({Key? key, required this.tinhthanh}) : super(key: key);
+  const SearchResult({Key? key, required this.tinhthanh}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return SearchResultState(tinhthanh: tinhthanh);
   }
 }
@@ -25,7 +25,7 @@ class SearchResultState extends State<SearchResult> {
 
   SearchResultState({required this.tinhthanh});
 
-  void _LoadDiaDanh() async {
+  void _loadDiaDanh() async {
     final data = await DiaDanhProvider.getAllDiaDanh();
     setState(() {});
     for (var i = 0; i < data.length; i++) {
@@ -36,7 +36,7 @@ class SearchResultState extends State<SearchResult> {
   @override
   void initState() {
     super.initState();
-    _LoadDiaDanh();
+    _loadDiaDanh();
   }
 
   @override

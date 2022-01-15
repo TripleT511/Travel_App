@@ -6,15 +6,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
-import 'package:vietnam_travel_app/Models/quanan2_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
-import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/create_post.dart';
+
+import 'Models/quanan_object.dart';
+import 'chitiet_quan_an.dart';
 
 // ignore: must_be_immutable
 class PlaceDetail extends StatefulWidget {
@@ -32,12 +33,12 @@ class PlaceDetailState extends State<PlaceDetail> {
   DiaDanhObject dd;
   PlaceDetailState(this.dd);
   late final UserObject user;
-  List<QuanAn2Object> lstQuan = [];
+  List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   _loadDiaDanh() async {
-    print(DiaDanhProvider.getDiaDanhById(1));
+    // print(DiaDanhProvider.getDiaDanhById(1));
   }
 
   _loadQuanAn() async {
@@ -74,14 +75,14 @@ class PlaceDetailState extends State<PlaceDetail> {
       items: lst,
       options: CarouselOptions(
         viewportFraction: 1,
-        height: 230.0,
+        height: 240.0,
         autoPlay: true,
         enableInfiniteScroll: true,
       ),
     );
   }
 
-  void loadImgDiaDanh() {
+  loadImgDiaDanh() {
     int b = dd.hinhanh!.hinhAnh.length;
     for (int i = 0; i < b; i++) {
       SizedBox a = SizedBox(
@@ -112,14 +113,16 @@ class PlaceDetailState extends State<PlaceDetail> {
           child: GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RestaurantDetail(lstQuan[index].id),
+                ),
+              );
             },
             child: SizedBox(
               height: 215,
               child: Card(
-                elevation: 7.0,
+                elevation: 1.0,
                 color: Colors.white,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadiusDirectional.only(
@@ -159,20 +162,18 @@ class PlaceDetailState extends State<PlaceDetail> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(right: 10, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          right: 10, bottom: 10, left: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.mapMarkerAlt,
-                                  color: Color(0XFFFF3535),
-                                  size: 18,
-                                ),
+                              const FaIcon(
+                                FontAwesomeIcons.mapMarkerAlt,
+                                color: Color(0XFFFF2D55),
+                                size: 18,
                               ),
                               const SizedBox(
                                 width: 5,
@@ -191,13 +192,13 @@ class PlaceDetailState extends State<PlaceDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.clock,
-                                  color: Color(0XFF0869E1),
-                                  size: 18,
-                                ),
+                              const FaIcon(
+                                FontAwesomeIcons.clock,
+                                color: Color(0XFF0869E1),
+                                size: 18,
+                              ),
+                              const SizedBox(
+                                width: 5,
                               ),
                               Text(
                                 lstQuan[index].thoiGianHoatDong,
@@ -233,18 +234,18 @@ class PlaceDetailState extends State<PlaceDetail> {
         itemBuilder: (context, index) => Container(
           padding: const EdgeInsets.only(left: 10),
           width: 271,
-          height: 210,
+          height: 215,
           child: GestureDetector(
             onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
+                      builder: (context) => ChiTietLuuTru(lstLT[0])));
             },
             child: SizedBox(
               height: 215,
               child: Card(
-                elevation: 7.0,
+                elevation: 1.0,
                 color: Colors.white,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadiusDirectional.only(
@@ -275,36 +276,34 @@ class PlaceDetailState extends State<PlaceDetail> {
                         lstLT[index].tenLuuTru,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: Color(0XFF242A37),
                         ),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(right: 10, bottom: 10),
+                      padding: const EdgeInsets.only(
+                          right: 10, bottom: 10, left: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.mapMarkerAlt,
-                                  color: Color(0XFFFF3535),
-                                  size: 18,
-                                ),
+                              const FaIcon(
+                                FontAwesomeIcons.mapMarkerAlt,
+                                color: Color(0XFFFF2D55),
+                                size: 18,
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
                                 dd.tinhthanh!.tenTinhThanh,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
                                   color: Color(0XFF242A37),
@@ -316,17 +315,17 @@ class PlaceDetailState extends State<PlaceDetail> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Container(
-                                margin: const EdgeInsets.only(left: 10),
-                                child: const FaIcon(
-                                  FontAwesomeIcons.clock,
-                                  color: Color(0XFF0869E1),
-                                  size: 18,
-                                ),
+                              const FaIcon(
+                                FontAwesomeIcons.clock,
+                                color: Color(0XFF0869E1),
+                                size: 18,
+                              ),
+                              const SizedBox(
+                                width: 5,
                               ),
                               Text(
                                 lstLT[index].thoiGianHoatDong,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
                                   color: Color(0XFF242A37),
@@ -485,7 +484,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                     child: const FaIcon(
                       FontAwesomeIcons.mapMarkerAlt,
                       size: 18,
-                      color: Color(0XFFFF3535),
+                      color: Color(0XFFFF2D55),
                     ),
                   ),
                   Flexible(
@@ -518,16 +517,15 @@ class PlaceDetailState extends State<PlaceDetail> {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: Flexible(
-                child: Text(
-                  dd.moTa,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.normal,
-                  ),
+              child: Text(
+                dd.moTa,
+                textAlign: TextAlign.justify,
+                softWrap: true,
+                style: const TextStyle(
+                  fontSize: 16,
+                  height: 1.5,
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ),
@@ -553,7 +551,7 @@ class PlaceDetailState extends State<PlaceDetail> {
             sliderTitle("Lưu trú gần đây"),
             lstLuuTru(),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
           ],
         ),

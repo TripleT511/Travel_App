@@ -5,8 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/seemore_page.dart';
-import 'package:vietnam_travel_app/settings_page.dart';
 
 class EditInforPage extends StatefulWidget {
   const EditInforPage({Key? key}) : super(key: key);

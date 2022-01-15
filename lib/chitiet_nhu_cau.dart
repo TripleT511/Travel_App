@@ -5,7 +5,6 @@ import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/main.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
 
 class ChiTietNhuCau extends StatefulWidget {
   const ChiTietNhuCau({Key? key}) : super(key: key);

@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +10,7 @@ import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/baiviet_noibat.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/dia_danh.dart';
-import 'package:vietnam_travel_app/nhu_cau.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
 import 'dart:math' as math;

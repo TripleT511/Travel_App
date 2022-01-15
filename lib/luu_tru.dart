@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 
 class LuuTru extends StatefulWidget {
   const LuuTru({Key? key}) : super(key: key);
@@ -66,7 +65,7 @@ class LuuTruState extends State<LuuTru> {
               Container(
                 padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                 child: const Text(
-                  "Lưu Trú - " + "Hồ Chí Minh",
+                  "Lưu Trú - Hồ Chí Minh",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -77,12 +76,7 @@ class LuuTruState extends State<LuuTru> {
             ],
           ),
           InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
-            }, // Handle your callback
+            onTap: () {}, // Handle your callback
             child: Column(
               children: [
                 SizedBox(
@@ -178,12 +172,7 @@ class LuuTruState extends State<LuuTru> {
             height: 15.0,
           ),
           InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ChiTietLuuTru()));
-            }, // Handle your callback
+            onTap: () {}, // Handle your callback
             child: Column(
               children: [
                 SizedBox(
@@ -259,7 +248,7 @@ class LuuTruState extends State<LuuTru> {
                                 color: Color(0XFF0869E1),
                               ),
                               Text(
-                                " " + "12 a.m - 10 p.m",
+                                "12 a.m - 10 p.m",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
