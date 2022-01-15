@@ -30,7 +30,7 @@ class LuuTruState extends State<LuuTru> {
                             onPressed: () {},
                             child: SizedBox(
                               width: 95,
-                              child: Image.asset("images/logo-ver3.png"),
+                              child: Image.asset("images/logo.png"),
                             ))
                       ],
                     ),

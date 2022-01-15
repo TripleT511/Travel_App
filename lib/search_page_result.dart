@@ -101,7 +101,8 @@ class SearchResultState extends State<SearchResult> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PlaceDetail(lstDiaDanhs[index]),
+                        builder: (context) =>
+                            PlaceDetail(lstDiaDanhs[index].id),
                       ),
                     );
                   },

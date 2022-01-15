@@ -15,8 +15,7 @@ class QuanAnProvider {
     return token;
   }
 
-  static Future<List<QuanAnObject>> getAllQuanAnByDiaDanh(
-      String idDiaDanh) async {
+  static Future<List<QuanAnObject>> getAllQuanAnByDiaDanh(int idDiaDanh) async {
     var token = await getToken();
     final response = await http.get(
         Uri.parse(

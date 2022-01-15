@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
 
-import 'package:vietnam_travel_app/Models/nhucau_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 
 class LuuTruProvider {
@@ -17,8 +16,7 @@ class LuuTruProvider {
     return token;
   }
 
-  static Future<List<LuuTruObject>> getAllLuuTruByDiaDanh(
-      String idDiaDanh) async {
+  static Future<List<LuuTruObject>> getAllLuuTruByDiaDanh(int idDiaDanh) async {
     var token = await getToken();
     final response = await http.get(
         Uri.parse(

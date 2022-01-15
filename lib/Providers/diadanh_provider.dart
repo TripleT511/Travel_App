@@ -31,7 +31,7 @@ class DiaDanhProvider {
     return parseDiaDanh(response.body);
   }
 
-  static Future<void> getDiaDanhById(int id) async {
+  static Future<DiaDanhObject> getDiaDanhById(int id) async {
     var token = await getToken();
     final response = await http.get(
         Uri.parse(
@@ -42,7 +42,6 @@ class DiaDanhProvider {
           'Authorization': 'Bearer $token',
         });
     var respon = jsonDecode(response.body);
-    print(respon["diaDanh"]);
-    // return DiaDanhObject.fromJson(jsonDecode(response.body)["diaDanh"]);
+    return DiaDanhObject.fromJson3(respon["diaDanh"][0]);
   }
 }

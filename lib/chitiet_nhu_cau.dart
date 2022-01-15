@@ -34,7 +34,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlaceDetail(lstDD[i])));
+                      builder: (context) => PlaceDetail(lstDD[i].id)));
             },
             child: Stack(
               alignment: Alignment.center,
@@ -100,7 +100,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => PlaceDetail(lstDD[i])));
+                      builder: (context) => PlaceDetail(lstDD[i].id)));
             },
             child: Stack(
               alignment: Alignment.center,

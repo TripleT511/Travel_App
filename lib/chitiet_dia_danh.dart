@@ -2,11 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
@@ -19,36 +22,34 @@ import 'chitiet_quan_an.dart';
 
 // ignore: must_be_immutable
 class PlaceDetail extends StatefulWidget {
-  DiaDanhObject dd;
-  PlaceDetail(this.dd, {Key? key}) : super(key: key);
+  int id;
+  PlaceDetail(this.id, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return PlaceDetailState(dd);
+    return PlaceDetailState(id);
   }
 }
 
 class PlaceDetailState extends State<PlaceDetail> {
-  DiaDanhObject dd;
-  PlaceDetailState(this.dd);
+  int id;
+  PlaceDetailState(this.id);
   late final UserObject user;
+  String tenDiaDanh = '';
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  _loadDiaDanh() async {
-    // print(DiaDanhProvider.getDiaDanhById(1));
-  }
 
   _loadQuanAn() async {
-    final data = await QuanAnProvider.getAllQuanAnByDiaDanh(dd.id.toString());
+    final data = await QuanAnProvider.getAllQuanAnByDiaDanh(id);
     setState(() {});
     lstQuan = data;
   }
 
   _loadLuuTru() async {
-    final data = await LuuTruProvider.getAllLuuTruByDiaDanh(dd.id.toString());
+    final data = await LuuTruProvider.getAllLuuTruByDiaDanh(id);
     setState(() {});
     lstLT = data;
   }
@@ -57,17 +58,6 @@ class PlaceDetailState extends State<PlaceDetail> {
     SharedPreferences pres = await SharedPreferences.getInstance();
     String us = pres.getString("user") ?? '';
     user = UserObject.fromJson(jsonDecode(us));
-  }
-
-  CarouselSlider slideShow(List<Column> lst) {
-    return CarouselSlider(
-      items: lst,
-      options: CarouselOptions(
-          viewportFraction: 0.7,
-          height: 217.0,
-          autoPlay: false,
-          enableInfiniteScroll: true),
-    );
   }
 
   CarouselSlider slideImg(List<SizedBox> lst) {
@@ -82,24 +72,24 @@ class PlaceDetailState extends State<PlaceDetail> {
     );
   }
 
-  loadImgDiaDanh() {
-    int b = dd.hinhanh!.hinhAnh.length;
-    for (int i = 0; i < b; i++) {
-      SizedBox a = SizedBox(
+  loadImgDiaDanh(List<HinhAnhObject> lstHinhAnh) {
+    int len = lstHinhAnh.length;
+    for (int i = 0; i < len; i++) {
+      SizedBox item = SizedBox(
         width: double.infinity,
         height: 232,
         child: Image.network(
-          urlImg + dd.hinhanh!.hinhAnh,
+          urlImg + lstHinhAnh[i].hinhAnh,
           width: double.infinity,
           height: 232,
           fit: BoxFit.cover,
         ),
       );
-      imgDiaDanh.add(a);
+      imgDiaDanh.add(item);
     }
   }
 
-  SizedBox lstQuanAn() {
+  SizedBox lstQuanAn(String tenTinhThanh) {
     return SizedBox(
       height: 212,
       child: ListView.builder(
@@ -179,7 +169,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 width: 5,
                               ),
                               Text(
-                                dd.tinhthanh!.tenTinhThanh,
+                                tenTinhThanh,
                                 style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
@@ -224,7 +214,7 @@ class PlaceDetailState extends State<PlaceDetail> {
     );
   }
 
-  SizedBox lstLuuTru() {
+  SizedBox lstLuuTru(String tenTinhThanh) {
     return SizedBox(
       height: 212,
       child: ListView.builder(
@@ -302,7 +292,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 width: 5,
                               ),
                               Text(
-                                dd.tinhthanh!.tenTinhThanh,
+                                tenTinhThanh,
                                 style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
@@ -395,8 +385,6 @@ class PlaceDetailState extends State<PlaceDetail> {
   void initState() {
     super.initState();
     _loadUser();
-    loadImgDiaDanh();
-    _loadDiaDanh();
     _loadQuanAn();
     _loadLuuTru();
   }
@@ -437,7 +425,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CreatePost(
-                        diadanh: dd,
+                        idDiaDanh: id,
+                        tenDiaDanh: tenDiaDanh,
                         user: user,
                       ),
                     ),
@@ -453,109 +442,126 @@ class PlaceDetailState extends State<PlaceDetail> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(children: [
-              slideImg(imgDiaDanh),
-            ]),
-            Container(
-              margin: const EdgeInsets.fromLTRB(10, 10, 130, 10),
-              child: Text(
-                dd.tenDiaDanh,
-                style: const TextStyle(
-                    fontFamily: 'Roboto',
-                    height: 1.6,
-                    fontSize: 22,
-                    color: Color(0XFF0066FF),
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 10, right: 50),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 18,
-                    alignment: Alignment.center,
-                    margin: const EdgeInsets.only(right: 10),
-                    child: const FaIcon(
-                      FontAwesomeIcons.mapMarkerAlt,
-                      size: 18,
-                      color: Color(0XFFFF2D55),
+      body: FutureBuilder<DiaDanhObject>(
+          future: DiaDanhProvider.getDiaDanhById(id),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              DiaDanhObject diadanh = snapshot.data!;
+              List<HinhAnhObject> lstHinhAnh = diadanh.hinhanhs!;
+
+              loadImgDiaDanh(lstHinhAnh);
+              tenDiaDanh = diadanh.tenDiaDanh;
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(children: [
+                      slideImg(imgDiaDanh),
+                    ]),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(10, 10, 130, 5),
+                      child: Text(
+                        diadanh.tenDiaDanh,
+                        style: const TextStyle(
+                            fontFamily: 'Roboto',
+                            height: 1.6,
+                            fontSize: 22,
+                            color: Color(0XFF0066FF),
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      dd.tinhthanh!.tenTinhThanh,
-                      softWrap: true,
-                      overflow: TextOverflow.clip,
-                      style: const TextStyle(
+                    Container(
+                      padding: const EdgeInsets.only(left: 10, right: 50),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 18,
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(right: 10),
+                            child: const FaIcon(
+                              FontAwesomeIcons.mapMarkerAlt,
+                              size: 18,
+                              color: Color(0XFFFF2D55),
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              diadanh.tinhthanh!.tenTinhThanh,
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                              style: const TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.normal,
+                                  color: Color(0XFF242A37),
+                                  height: 1.5),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+                      child: const Text(
+                        "Mô tả",
+                        style: TextStyle(
+                          fontFamily: 'Roboto',
+                          height: 1.5,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0XFF242A37),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: Text(
+                        diadanh.moTa,
+                        textAlign: TextAlign.justify,
+                        softWrap: true,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          height: 1.5,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
-                          color: Color(0XFF242A37),
-                          height: 1.5),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-              child: const Text(
-                "Mô tả",
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  height: 1.5,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0XFF242A37),
+                    // Container(
+                    //   padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    //   child: const Text(
+                    //     "Vị trí",
+                    //     style: TextStyle(
+                    //       fontFamily: 'Roboto',
+                    //       height: 1.5,
+                    //       fontSize: 20,
+                    //       fontWeight: FontWeight.bold,
+                    //       color: Color(0XFF242A37),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Image.asset("images/map-hotel.jpg"),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    sliderTitle("Quán ăn gần đây"),
+                    lstQuanAn(diadanh.tinhthanh!.tenTinhThanh),
+                    sliderTitle("Lưu trú gần đây"),
+                    lstLuuTru(diadanh.tinhthanh!.tenTinhThanh),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
+              );
+            }
+            return const Center(
+              child: SpinKitFadingCircle(
+                color: Color(0XFF0066FF),
+                size: 50.0,
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: Text(
-                dd.moTa,
-                textAlign: TextAlign.justify,
-                softWrap: true,
-                style: const TextStyle(
-                  fontSize: 16,
-                  height: 1.5,
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-              child: const Text(
-                "Vị trí",
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  height: 1.5,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0XFF242A37),
-                ),
-              ),
-            ),
-            Image.asset("images/map-hotel.jpg"),
-            const SizedBox(
-              height: 15,
-            ),
-            sliderTitle("Quán ăn gần đây"),
-            lstQuanAn(),
-            sliderTitle("Lưu trú gần đây"),
-            lstLuuTru(),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 }

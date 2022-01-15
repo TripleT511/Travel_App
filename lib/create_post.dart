@@ -10,22 +10,30 @@ import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/main.dart';
 
 class CreatePost extends StatefulWidget {
-  final DiaDanhObject diadanh;
+  final int idDiaDanh;
+  final String tenDiaDanh;
   final UserObject user;
-  const CreatePost({Key? key, required this.diadanh, required this.user})
+  const CreatePost(
+      {Key? key,
+      required this.idDiaDanh,
+      required this.tenDiaDanh,
+      required this.user})
       : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return CreatePostState(diadanh: diadanh, user: user);
+    return CreatePostState(
+        idDiaDanh: idDiaDanh, tenDiaDanh: tenDiaDanh, user: user);
   }
 }
 
 class CreatePostState extends State<CreatePost> {
-  final DiaDanhObject diadanh;
+  final int idDiaDanh;
+  final String tenDiaDanh;
   final UserObject user;
-  CreatePostState({required this.diadanh, required this.user});
+  CreatePostState(
+      {required this.idDiaDanh, required this.tenDiaDanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
   late File _image;
   final picker = ImagePicker();
@@ -49,7 +57,7 @@ class CreatePostState extends State<CreatePost> {
 
   _createPost() async {
     bool isSuccess = await BaiVietProvider.createPost(
-        _image, diadanh.id.toString(), user.id.toString(), txtNoiDung.text);
+        _image, idDiaDanh.toString(), user.id.toString(), txtNoiDung.text);
 
     // ignore: unrelated_type_equality_checks
     if (isSuccess == true) {
@@ -140,7 +148,7 @@ class CreatePostState extends State<CreatePost> {
                 ),
               ),
               subtitle: Text(
-                diadanh.tenDiaDanh,
+                tenDiaDanh,
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,

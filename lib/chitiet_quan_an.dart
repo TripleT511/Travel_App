@@ -218,7 +218,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 250,
+                        height: 240,
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.only(
                           top: 15,
@@ -261,13 +261,13 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                               ),
                               Container(
                                 padding:
-                                    const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                                    const EdgeInsets.fromLTRB(15, 5, 15, 5),
                                 child: Text(
                                   quan.monan!.tenMon,
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w700,
                                     color: Color(0XE6242A37),
                                   ),
                                 ),

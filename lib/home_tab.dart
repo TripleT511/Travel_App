@@ -431,7 +431,7 @@ class HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PlaceDetail(lstDD[index]),
+                    builder: (context) => PlaceDetail(lstDD[index].id),
                   ),
                 );
               },
