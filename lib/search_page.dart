@@ -15,24 +15,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class SearchPageState extends State<SearchPage> {
-  FaIcon cusIcon = const FaIcon(
-    FontAwesomeIcons.search,
-    color: Color(0XFF0066FF),
-  );
-
-  Widget cusSearchBar = const Align(
-    alignment: Alignment(0.15, 10),
-    child: Text(
-      "Điểm đến",
-      style: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w700,
-        fontFamily: 'Roboto',
-        color: Color(0XFF242A37),
-      ),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,55 +24,36 @@ class SearchPageState extends State<SearchPage> {
         leadingWidth: 0,
         titleSpacing: 0,
         elevation: 1.5,
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                // ignore: unrelated_type_equality_checks
-                if (cusIcon.icon == const FaIcon(FontAwesomeIcons.search) &&
-                    mounted) {
-                  cusIcon = const FaIcon(
-                    FontAwesomeIcons.search,
-                    color: Color(0XFF0066FF),
-                  );
-                  cusSearchBar = Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: const TextField(
-                      textInputAction: TextInputAction.go,
-                      // controller: txtSearch,
-                      // onChanged: (String value) {
-                      //   _SearchTinhThanh();
-                      // },
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Nhập địa điểm cần đến",
-                      ),
+        automaticallyImplyLeading: false,
+        backgroundColor: Color(0XFF0066FF),
+        title: Container(
+          padding: EdgeInsets.only(left: 20, right: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: const TextField(
+                  textInputAction: TextInputAction.go,
+                  // controller: txtSearch,
+                  // onChanged: (String value) {
+                  //   _SearchTinhThanh();
+                  // },
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Nhập địa điểm cần đến...",
+                    hintStyle: TextStyle(
+                      color: Color(0XFFF0F2F5),
                     ),
-                  );
-                } else {
-                  cusIcon = const FaIcon(
-                    FontAwesomeIcons.search,
-                    color: Color(0XFF0066FF),
-                  );
-                  cusSearchBar = const Align(
-                    alignment: Alignment(0.15, 10),
-                    child: Text(
-                      "ĐIỂM ĐẾN",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0XFF0066FF),
-                      ),
-                    ),
-                  );
-                }
-              });
-            },
-            icon: cusIcon,
+                  ),
+                ),
+              ),
+              const FaIcon(
+                FontAwesomeIcons.search,
+                color: Color(0XFFF0F2F5),
+              ),
+            ],
           ),
-        ],
-        title: cusSearchBar,
+        ),
       ),
       // Padding(
       //   padding: const EdgeInsets.only(left: 10, right: 10),
