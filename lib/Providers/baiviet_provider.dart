@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
@@ -42,5 +43,34 @@ class BaiVietProvider {
         });
 
     return parseBaiViet(response.body);
+  }
+
+  static Future<bool> createPost(
+      File _image, String idDiaDanh, String idUser, String noiDung) async {
+    var token = await UserProvider.getToken();
+    var stream = http.ByteStream(_image.openRead());
+    stream.cast();
+    var length = await _image.length();
+    Map<String, String> headers = {"Authorization": "Bearer $token"};
+
+    var uri = Uri.parse(
+        "https://shielded-lowlands-87962.herokuapp.com/api/baiviet/create");
+    var request = http.MultipartRequest("POST", uri);
+    request.headers.addAll(headers);
+    request.fields["idDiaDanh"] = idDiaDanh;
+    request.fields["idUser"] = idUser;
+    request.fields["noiDung"] = noiDung;
+
+    var multiport =
+        http.MultipartFile("hinhAnh", stream, length, filename: _image.path);
+
+    request.files.add(multiport);
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -11,7 +11,7 @@ class DiaDanhObject {
   final int tinh_thanh_id;
   final int trangThai;
   final TinhThanhObject? tinhthanh;
-  final HinhAnhObject? hinhanhs;
+  final List<HinhAnhObject>? hinhanhs;
 
   DiaDanhObject(
       this.id,
@@ -58,5 +58,7 @@ class DiaDanhObject {
         trangThai = res["trangThai"],
         tinhthanh = res["tinhThanh"],
         hinhanh = null,
-        hinhanhs = HinhAnhObject.fromJson(res["hinhanhs"]);
+        hinhanhs = res['hinhanhs'].forEach((v) {
+          HinhAnhObject.fromJson(v);
+        });
 }

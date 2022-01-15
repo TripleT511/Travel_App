@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/seemore_page.dart';
+import 'package:vietnam_travel_app/settings_page.dart';
 
 class EditInforPage extends StatefulWidget {
   const EditInforPage({Key? key}) : super(key: key);
@@ -29,6 +32,24 @@ class EditInforPageState extends State<EditInforPage> {
     txtEmail.text = user.email;
     txtHoTen.text = user.hoTen;
     txtSoDienThoai.text = user.soDienThoai;
+  }
+
+  void _updateInfor() async {
+    if (formKey.currentState!.validate()) {
+      bool isSuccess = await UserProvider.updateInfor(
+          txtHoTen.text, txtEmail.text, txtSoDienThoai.text);
+      if (isSuccess) {
+        txtEmail.text = txtEmail.text;
+        txtHoTen.text = txtHoTen.text;
+        txtSoDienThoai.text = txtSoDienThoai.text;
+        const snackBar =
+            SnackBar(content: Text('Cập nhật thông tin thành công'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        const snackBar = SnackBar(content: Text('Cập nhật thông tin thất bại'));
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
   }
 
   @override
@@ -68,6 +89,7 @@ class EditInforPageState extends State<EditInforPage> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: formKey,
           child: Column(
             children: [
               Container(
@@ -285,7 +307,6 @@ class EditInforPageState extends State<EditInforPage> {
                 child: TextFormField(
                   controller: txtSoDienThoai,
                   decoration: InputDecoration(
-                    hintText: "0123456975",
                     enabledBorder: OutlineInputBorder(
                       borderSide:
                           const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
@@ -314,7 +335,9 @@ class EditInforPageState extends State<EditInforPage> {
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0XFF0066FF)),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _updateInfor();
+                  },
                   child: const Text(
                     "Cập nhật thông tin cá nhân",
                     style: TextStyle(

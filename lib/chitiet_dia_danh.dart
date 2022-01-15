@@ -12,7 +12,6 @@ import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
-import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/create_post.dart';
@@ -37,7 +36,9 @@ class PlaceDetailState extends State<PlaceDetail> {
   List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  _loadDiaDanh() async {}
+  _loadDiaDanh() async {
+    print(DiaDanhProvider.getDiaDanhById(1));
+  }
 
   _loadQuanAn() async {
     final data = await QuanAnProvider.getAllQuanAnByDiaDanh(dd.id.toString());
@@ -149,7 +150,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                         lstQuan[index].tenQuan,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
@@ -173,12 +174,12 @@ class PlaceDetailState extends State<PlaceDetail> {
                                   size: 18,
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 width: 5,
                               ),
                               Text(
                                 dd.tinhthanh!.tenTinhThanh,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
                                   color: Color(0XFF242A37),
@@ -200,7 +201,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                               ),
                               Text(
                                 lstQuan[index].thoiGianHoatDong,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 14,
                                   color: Color(0XFF242A37),

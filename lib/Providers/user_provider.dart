@@ -101,7 +101,34 @@ class UserProvider {
       return false;
     }
   }
-  /* ==== End Register ==== */
+
+  /* ==== Start Register ==== */
+  static Future<bool> updateInfor(
+      String hoTen, String email, String soDienThoai) async {
+    var token = await getToken();
+    final response = await http.post(
+        Uri.parse(
+            'https://shielded-lowlands-87962.herokuapp.com/api/user/update-infor'),
+        body: jsonEncode({
+          'hoTen': hoTen,
+          'email': email,
+          'soDienThoai': soDienThoai,
+          'trangThaiHoTen': 1,
+          'trangThaiSDT': 1,
+          'trangThaiEmail': 1,
+        }),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        });
+    final jsonRespon = jsonDecode(response.body);
+    if (jsonRespon["status_code"] == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   static Future<bool> changePassword(
       String oldPass, String newPass, String confirm) async {

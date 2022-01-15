@@ -3,10 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/search_page_result.dart';
-
-import 'main.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);

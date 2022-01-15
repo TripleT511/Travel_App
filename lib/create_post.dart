@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/main.dart';
@@ -28,7 +29,7 @@ class CreatePostState extends State<CreatePost> {
   final UserObject user;
   CreatePostState({required this.diadanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
-  late File? _image;
+  late File _image;
   final picker = ImagePicker();
   int idUser = 0;
   bool isPost = false;
@@ -37,45 +38,25 @@ class CreatePostState extends State<CreatePost> {
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        setState(() {
-          _image = File(pickedFile.path);
-          isPost = true;
-        });
-      } else {
-        print('No image selected.');
-      }
-    });
+
+    if (pickedFile != null) {
+      setState(() {});
+      _image = File(pickedFile.path);
+      isPost = true;
+    } else {
+      const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
-  Future<void> uploadImage() async {
-    if (_image == null) return;
-    var token = await UserProvider.getToken();
-    var stream = http.ByteStream(_image!.openRead());
-    stream.cast();
-    var length = await _image!.length();
-    Map<String, String> headers = {"Authorization": "Bearer $token"};
+  _createPost() async {
+    bool isSuccess = await BaiVietProvider.createPost(
+        _image, diadanh.id.toString(), user.id.toString(), txtNoiDung.text);
 
-    var uri = Uri.parse(
-        "https://shielded-lowlands-87962.herokuapp.com/api/baiviet/create");
-    var request = http.MultipartRequest("POST", uri);
-    request.headers.addAll(headers);
-    request.fields["idDiaDanh"] = diadanh.id.toString();
-    request.fields["idUser"] = user.id.toString();
-    request.fields["noiDung"] = txtNoiDung.text;
-
-    var multiport =
-        http.MultipartFile("hinhAnh", stream, length, filename: _image!.path);
-
-    request.files.add(multiport);
-    var response = await request.send();
-    if (response.statusCode == 200) {
-      print("Upload success");
+    // ignore: unrelated_type_equality_checks
+    if (isSuccess == true) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const MyApp()));
-    } else {
-      print("Failed");
     }
   }
 
@@ -119,7 +100,7 @@ class CreatePostState extends State<CreatePost> {
               child: isPost
                   ? TextButton(
                       onPressed: () {
-                        uploadImage();
+                        _createPost();
                       },
                       child: const Text(
                         "Post",

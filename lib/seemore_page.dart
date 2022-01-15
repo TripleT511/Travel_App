@@ -57,7 +57,7 @@ class SeeMorePageState extends State<SeeMorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFFFFFFFF),
+      backgroundColor: const Color(0XFFF0F2F5),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -153,16 +153,16 @@ class SeeMorePageState extends State<SeeMorePage> {
                                       fontFamily: 'Roboto',
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
-                                      color: Color(0XFF0066FF),
+                                      color: Color(0XE6242A37),
                                     ),
                                   ),
                                   const Text(
-                                    "Trang cá nhân",
+                                    "Xem Trang cá nhân",
                                     style: TextStyle(
                                       fontFamily: 'Roboto',
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
-                                      color: Color(0XE6242A37),
+                                      color: Color(0XFF0066FF),
                                     ),
                                   ),
                                 ],

@@ -81,9 +81,10 @@ class HomePageState extends State<HomePage> {
   void loadListBaiViet() async {
     final data = await BaiVietProvider.getAllBaiViet();
     final data2 = await BaiVietProvider.getAllBaiVietNoiBat();
-    setState(() {});
-    lstBaiViet = data;
-    lstBaiVietNoiBat = data2;
+    setState(() {
+      lstBaiViet = data;
+      lstBaiVietNoiBat = data2;
+    });
   }
 
   void loadListNhuCau() async {
@@ -460,7 +461,7 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   Positioned(
-                    top: 120,
+                    top: 116,
                     child: Container(
                       width: 254,
                       height: 90,
@@ -476,23 +477,13 @@ class HomePageState extends State<HomePage> {
                               tileMode: TileMode.clamp)),
                     ),
                   ),
-                  Positioned(
-                    top: 10,
-                    right: 10,
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      decoration: BoxDecoration(
-                          color: const Color(0XFFFFFFFF),
-                          borderRadius: BorderRadius.circular(100)),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: FaIcon(
-                          FontAwesomeIcons.solidBookmark,
-                          color: Color(0XFF0066FF),
-                          size: 13,
-                        ),
-                      ),
+                  const Positioned(
+                    top: 2,
+                    right: 20,
+                    child: FaIcon(
+                      FontAwesomeIcons.solidBookmark,
+                      color: Color(0X99FFFFFF),
+                      size: 22,
                     ),
                   ),
                   Positioned(
@@ -523,10 +514,21 @@ class HomePageState extends State<HomePage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const FaIcon(
-                              FontAwesomeIcons.mapMarkerAlt,
-                              color: Color(0XFFFFFFFF),
-                              size: 13,
+                            Container(
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0XFF0066FF),
+                                      offset: Offset(1.5, 0.5),
+                                      blurRadius: 5.0,
+                                    ),
+                                  ]),
+                              child: const FaIcon(
+                                FontAwesomeIcons.mapMarkerAlt,
+                                color: Color(0XFFFFFFFF),
+                                size: 13,
+                              ),
                             ),
                             Container(
                               padding: const EdgeInsets.only(left: 5),
@@ -821,7 +823,7 @@ class HomePageState extends State<HomePage> {
               backgroundColor: const Color(0XFF0066FF),
               title: Image.asset(
                 "images/logo_02.png",
-                width: 110,
+                width: 120,
               ),
             ),
             body: ListView(

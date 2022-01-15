@@ -39,9 +39,7 @@ class PersonalPageState extends State<PersonalPage> {
       // ignore: unrelated_type_equality_checks
       if (isSuccess == true) {
         Navigator.pop(context);
-        Future.delayed(const Duration(seconds: 1), () {
-          setState(() => {pickedFile.path});
-        });
+        setState(() => {pickedFile.path});
       }
     } else {
       const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));

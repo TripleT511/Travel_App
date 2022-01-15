@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
+import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class SearchResult extends StatefulWidget {
@@ -39,143 +42,190 @@ class SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0XFFF0F2F5),
       appBar: AppBar(
-        leading: null,
-        leadingWidth: 0,
-        titleSpacing: 0,
-        elevation: 1.5,
-        backgroundColor: Colors.white,
-        title: Align(
-          alignment: Alignment.center,
-          child: Text(
-            "Địa Danh - " + tinhthanh.tenTinhThanh,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0XFF0066FF),
-            ),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const FaIcon(
+            FontAwesomeIcons.arrowLeft,
+            color: Color(0XFFFFFFFF),
+            size: 21,
           ),
         ),
+        title: Text(
+          "Địa danh - ${tinhthanh.tenTinhThanh}",
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Roboto',
+            color: Color(0XFFFFFFFF),
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: const Color(0XFF0066FF),
       ),
-      body: Container(
-        child: FutureBuilder(
-          future: DiaDanhProvider.getAllDiaDanh(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            // if (lstDiaDanhs.length == 0) {
-            //   return Center(
-            //     child: Text(
-            //       'Hiên Tại Chưa Có Địa Danh Tại Tỉnh Thành Này',
-            //       style: TextStyle(
-            //         color: Colors.red,
-            //         fontSize: 20,
-            //       ),
-            //       textAlign: TextAlign.center,
-            //     ),
-            //   );
-            // }
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Có lỗi xảy ra!!!'),
-              );
-            } else if (snapshot.hasData) {
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                itemCount: lstDiaDanhs.length,
-                itemBuilder: (context, index) => InkWell(
+      body: FutureBuilder(
+        future: DiaDanhProvider.getAllDiaDanh(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          // if (lstDiaDanhs.length == 0) {
+          //   return Center(
+          //     child: Text(
+          //       'Hiên Tại Chưa Có Địa Danh Tại Tỉnh Thành Này',
+          //       style: TextStyle(
+          //         color: Colors.red,
+          //         fontSize: 20,
+          //       ),
+          //       textAlign: TextAlign.center,
+          //     ),
+          //   );
+          // }
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Có lỗi xảy ra!!!'),
+            );
+          } else if (snapshot.hasData) {
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: lstDiaDanhs.length,
+              itemBuilder: (context, index) => Container(
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                width: MediaQuery.of(context).size.width,
+                height: 210,
+                child: GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RestaurantDetail()));
-                  }, // Handle your callback
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 15,
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PlaceDetail(lstDiaDanhs[index]),
                       ),
-                      SizedBox(
-                        height: 230,
-                        width: 374,
-                        child: Card(
-                          elevation: 3.0,
-                          color: Colors.white,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadiusDirectional.only(
-                              topStart: Radius.circular(16.0),
-                              topEnd: Radius.circular(16.0),
-                              bottomStart: Radius.circular(16.0),
-                              bottomEnd: Radius.circular(16.0),
-                            ),
+                    );
+                  },
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Card(
+                        elevation: 1.0,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadiusDirectional.all(
+                            Radius.circular(16),
                           ),
-                          clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(
-                                urlImg + lstDiaDanhs[index].hinhanh!.hinhAnh,
-                                width: 374,
-                                height: 132,
-                                fit: BoxFit.cover,
-                              ),
-                              const SizedBox(
-                                height: 15.0,
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(left: 20, bottom: 12),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    lstDiaDanhs[index].tenDiaDanh,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0XFF242A37),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(left: 15, bottom: 12),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.place,
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.network(
+                          urlImg + lstDiaDanhs[index].hinhanh!.hinhAnh,
+                          /*a.image*/
+                          width: double.maxFinite,
+                          height: 210,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: 106,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width - 27,
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          height: 90,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadiusDirectional.only(
+                                  bottomEnd: Radius.circular(16),
+                                  bottomStart: Radius.circular(16)),
+                              color: Color(0XFFFFFFFF),
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Color(0X0D5E9EFF),
+                                    Color(0XB30066FF)
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  tileMode: TileMode.clamp)),
+                        ),
+                      ),
+                      Positioned(
+                        top: 140,
+                        left: 20,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              child: Text(
+                                lstDiaDanhs[index].tenDiaDanh,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20,
+                                  shadows: [
+                                    Shadow(
+                                      blurRadius: 5.0,
                                       color: Color(0XFF0066FF),
-                                    ),
-                                    Text(
-                                      " " +
-                                          lstDiaDanhs[index]
-                                              .tinhthanh!
-                                              .tenTinhThanh,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0XFF242A37),
-                                        fontFamily: 'Roboto',
-                                      ),
+                                      offset: Offset(1.5, 0.5),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0XFF0066FF),
+                                          offset: Offset(1.5, 0.5),
+                                          blurRadius: 5.0,
+                                        ),
+                                      ]),
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.mapMarkerAlt,
+                                    color: Color(0XFFFFFFFF),
+                                    size: 15,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    lstDiaDanhs[index].tinhthanh!.tenTinhThanh,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      shadows: [
+                                        Shadow(
+                                          blurRadius: 5.0,
+                                          color: Color(0XFF0066FF),
+                                          offset: Offset(1.5, 0.5),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              );
-            }
-            return Center(
-              child: CircularProgressIndicator(),
+              ),
             );
-          },
-        ),
+          }
+          return const Center(
+            child: SpinKitFadingCircle(
+              color: Color(0XFF0066FF),
+              size: 50.0,
+            ),
+          );
+        },
       ),
     );
   }

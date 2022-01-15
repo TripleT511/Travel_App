@@ -42,7 +42,7 @@ class DiaDanhProvider {
           'Authorization': 'Bearer $token',
         });
     var respon = jsonDecode(response.body);
-    print(respon["diaDanh"][0]["hinhanhs"]);
+    print(respon["diaDanh"]);
     // return DiaDanhObject.fromJson(jsonDecode(response.body)["diaDanh"]);
   }
 }

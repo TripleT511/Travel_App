@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/main.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
 
 class BaiVietNoiBatPage extends StatefulWidget {
   const BaiVietNoiBatPage({Key? key}) : super(key: key);
