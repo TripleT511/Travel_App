@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 import 'dart:math' as math;
 
@@ -27,7 +28,7 @@ class PersonalPageState extends State<PersonalPage> {
   bool checkLike = true;
   bool checkUnLike = false;
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  late File? _image;
+  var _image;
   final picker = ImagePicker();
 
   int idUser = 0;
@@ -44,7 +45,8 @@ class PersonalPageState extends State<PersonalPage> {
       // ignore: unrelated_type_equality_checks
       if (isSuccess == true) {
         Navigator.pop(context);
-        setState(() => {pickedFile.path});
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const MyApp()));
       }
     } else {
       const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));
@@ -157,11 +159,17 @@ class PersonalPageState extends State<PersonalPage> {
                       child: Container(
                         width: 120,
                         height: 120,
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            urlImg + user.hinhAnh,
-                          ),
-                        ),
+                        child: _image == null
+                            ? CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                  urlImg + user.hinhAnh,
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundImage: FileImage(
+                                  _image,
+                                ),
+                              ),
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(100),

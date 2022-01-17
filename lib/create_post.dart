@@ -2,10 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
-import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/main.dart';
 
@@ -35,6 +33,7 @@ class CreatePostState extends State<CreatePost> {
   CreatePostState(
       {required this.idDiaDanh, required this.tenDiaDanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
   var _image;
   final picker = ImagePicker();
   int idUser = 0;
@@ -178,7 +177,16 @@ class CreatePostState extends State<CreatePost> {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
                   child: _image == null
-                      ? Text("No image")
+                      ? GestureDetector(
+                          onTap: () {
+                            pickerImage();
+                          },
+                          child: Image.asset(
+                            'images/no-image-available.jpg',
+                            width: MediaQuery.of(context).size.width - 20,
+                            fit: BoxFit.cover,
+                          ),
+                        )
                       : Image.file(
                           _image,
                           width: MediaQuery.of(context).size.width - 20,
@@ -188,47 +196,6 @@ class CreatePostState extends State<CreatePost> {
               ],
             )
           ],
-        ),
-      ),
-      bottomSheet: TextButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        ),
-        onPressed: () {
-          pickerImage();
-        },
-        child: Container(
-          width: MediaQuery.of(context).size.width / 4,
-          margin:
-              const EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
-          padding:
-              const EdgeInsets.only(left: 20, right: 20, top: 7, bottom: 7),
-          decoration: BoxDecoration(
-              border: Border.all(color: const Color(0XFF242A37)),
-              borderRadius: BorderRadius.circular(5)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const FaIcon(
-                FontAwesomeIcons.image,
-                size: 18,
-                color: Color(0XFF242A37),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 10),
-                child: const Text(
-                  "Ảnh",
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                    color: Color(0XFF242A37),
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );

@@ -94,6 +94,7 @@ flutter:
     - images/tambien1.jpg
     - images/logo_02.png
     - images/logo_03.png
+    - images/no-image-available.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
