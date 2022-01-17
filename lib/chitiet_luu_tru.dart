@@ -39,6 +39,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
               color: Colors.white,
+              size: 20,
             ),
           ),
         ),
@@ -59,9 +60,9 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                 lt.tenLuuTru,
                 style: const TextStyle(
                     fontFamily: 'Roboto',
-                    height: 1.6,
-                    fontSize: 22,
-                    color: Color(0XFF0066FF),
+                    height: 1.5,
+                    fontSize: 24,
+                    color: Color(0XFF242A37),
                     fontWeight: FontWeight.bold),
               ),
             ),

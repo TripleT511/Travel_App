@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
-import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
-import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 
 class DiaDanhProvider {
@@ -27,7 +25,6 @@ class DiaDanhProvider {
           'Authorization': 'Bearer $token',
         });
 
-    // print(response.body);
     return parseDiaDanh(response.body);
   }
 
@@ -42,6 +39,6 @@ class DiaDanhProvider {
           'Authorization': 'Bearer $token',
         });
     var respon = jsonDecode(response.body);
-    return DiaDanhObject.fromJson3(respon["diaDanh"][0]);
+    return DiaDanhObject.fromJson3(respon["data"]);
   }
 }

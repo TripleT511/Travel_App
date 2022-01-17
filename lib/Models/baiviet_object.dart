@@ -11,9 +11,22 @@ class BaiVietChiaSeObject {
   final DiaDanhObject diadanh;
   final HinhAnhObject hinhanh;
   final UserObject user;
+  final int likes_count;
+  final int unlikes_count;
+  final int views_count;
 
-  BaiVietChiaSeObject(this.id, this.idDiaDanh, this.noiDung, this.thoiGian,
-      this.trangThai, this.diadanh, this.hinhanh, this.user);
+  BaiVietChiaSeObject(
+      this.id,
+      this.idDiaDanh,
+      this.noiDung,
+      this.thoiGian,
+      this.trangThai,
+      this.diadanh,
+      this.hinhanh,
+      this.user,
+      this.likes_count,
+      this.unlikes_count,
+      this.views_count);
 
   BaiVietChiaSeObject.fromJson(Map<String, dynamic> bv)
       : id = bv["id"],
@@ -23,5 +36,8 @@ class BaiVietChiaSeObject {
         trangThai = bv["trangThai"],
         diadanh = DiaDanhObject.fromJson2(bv["diadanh"]),
         hinhanh = HinhAnhObject.fromJson(bv["hinhanh"]),
-        user = UserObject.fromJson(bv["user"]);
+        user = UserObject.fromJson(bv["user"]),
+        likes_count = bv["likes_count"],
+        unlikes_count = bv["unlikes_count"],
+        views_count = bv["views_count"];
 }

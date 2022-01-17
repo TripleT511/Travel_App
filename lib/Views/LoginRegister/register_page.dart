@@ -44,20 +44,20 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0XFFFFFFFF),
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1.0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
             size: 21,
           ),
         ),
-        backgroundColor: const Color(0XFF0066FF),
+        backgroundColor: const Color(0XFFFFFFFF),
         centerTitle: true,
         title: const Text(
           "Đăng ký",
@@ -65,7 +65,7 @@ class RegisterPageState extends State<RegisterPage> {
             fontSize: 20,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
           ),
         ),
       ),
@@ -297,7 +297,7 @@ class RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 10, left: 15, right: 15),
+                margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
                 width: 374,
                 height: 50,
                 decoration: BoxDecoration(
@@ -318,7 +318,7 @@ class RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 25, bottom: 40),
+                margin: const EdgeInsets.only(top: 10, bottom: 40),
                 height: 48,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -64,18 +64,18 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1.0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
             size: 21,
           ),
         ),
-        backgroundColor: const Color(0XFF0066FF),
+        backgroundColor: const Color(0XFFFFFFFF),
         shadowColor: Colors.white,
         centerTitle: true,
         title: const Text(
@@ -84,7 +84,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
             fontSize: 20,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
           ),
         ),
       ),

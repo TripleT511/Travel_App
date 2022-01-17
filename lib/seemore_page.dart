@@ -60,7 +60,7 @@ class SeeMorePageState extends State<SeeMorePage> {
       backgroundColor: const Color(0XFFF0F2F5),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0,
+        elevation: 1.0,
         leadingWidth: 0,
         title: const Text(
           "Tài khoản",
@@ -68,11 +68,11 @@ class SeeMorePageState extends State<SeeMorePage> {
             fontSize: 20,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
           ),
         ),
         centerTitle: true,
-        backgroundColor: const Color(0XFF0066FF),
+        backgroundColor: const Color(0XFFFFFFFF),
         actions: [
           Container(
             margin: const EdgeInsets.only(right: 5),
@@ -85,8 +85,8 @@ class SeeMorePageState extends State<SeeMorePage> {
               },
               icon: const FaIcon(
                 FontAwesomeIcons.cog,
-                color: Color(0XFFFFFFFF),
-                size: 21,
+                color: Color(0XFF242A37),
+                size: 20,
               ),
             ),
           )
@@ -94,63 +94,48 @@ class SeeMorePageState extends State<SeeMorePage> {
       ),
       body: Column(
         children: [
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 40,
-                decoration: const BoxDecoration(
-                  color: Color(0XFF0066FF),
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(16),
-                    bottomRight: Radius.circular(16),
+          Container(
+            margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+            child: Card(
+              elevation: 1.0,
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: ListTile(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PersonalPage(user: user),
+                    ),
+                  );
+                },
+                minLeadingWidth: 10,
+                leading: CircleAvatar(
+                  radius: 22,
+                  backgroundImage: NetworkImage(hinhAnh),
+                ),
+                title: Text(
+                  hoTen,
+                  style: const TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0XE6242A37),
+                  ),
+                ),
+                subtitle: const Text(
+                  "Xem Trang Cá Nhân",
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0XFF0066FF),
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 10, right: 10),
-                child: Card(
-                  elevation: 1.0,
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PersonalPage(user: user),
-                        ),
-                      );
-                    },
-                    minLeadingWidth: 10,
-                    leading: CircleAvatar(
-                      radius: 22,
-                      backgroundImage: NetworkImage(hinhAnh),
-                    ),
-                    title: Text(
-                      hoTen,
-                      style: const TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0XE6242A37),
-                      ),
-                    ),
-                    subtitle: const Text(
-                      "Xem Trang Cá Nhân",
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0XFF0066FF),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(left: 10, right: 10),

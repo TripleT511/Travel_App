@@ -47,6 +47,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
               color: Colors.white,
+              size: 20,
             ),
           ),
         ),
@@ -72,9 +73,9 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                       quan.tenQuan,
                       style: const TextStyle(
                           fontFamily: 'Roboto',
-                          height: 1.6,
-                          fontSize: 22,
-                          color: Color(0XFF0066FF),
+                          height: 1.5,
+                          fontSize: 24,
+                          color: Color(0XFF242A37),
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -237,43 +238,46 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                             ),
                           ),
                           clipBehavior: Clip.antiAlias,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Card(
-                                elevation: 2.0,
-                                color: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusDirectional.only(
-                                    topStart: Radius.circular(16.0),
-                                    topEnd: Radius.circular(16.0),
-                                    bottomStart: Radius.circular(16.0),
-                                    bottomEnd: Radius.circular(16.0),
-                                  ),
-                                ),
-                                clipBehavior: Clip.antiAlias,
-                                child: Image.network(
-                                  urlImg + quan.monan!.hinhAnh,
-                                  width: double.infinity,
-                                  height: 170,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(15, 5, 15, 5),
-                                child: Text(
-                                  quan.monan!.tenMon,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Roboto',
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0XE6242A37),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          child: quan.monan != null
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Card(
+                                      elevation: 2.0,
+                                      color: Colors.white,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadiusDirectional.only(
+                                          topStart: Radius.circular(16.0),
+                                          topEnd: Radius.circular(16.0),
+                                          bottomStart: Radius.circular(16.0),
+                                          bottomEnd: Radius.circular(16.0),
+                                        ),
+                                      ),
+                                      clipBehavior: Clip.antiAlias,
+                                      child: Image.network(
+                                        urlImg + quan.monan!.hinhAnh,
+                                        width: double.infinity,
+                                        height: 170,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 5, 15, 5),
+                                      child: Text(
+                                        quan.monan!.tenMon,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0XE6242A37),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Text("Khong co du lieu"),
                         ),
                       ),
                     ],

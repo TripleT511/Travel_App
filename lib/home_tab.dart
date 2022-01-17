@@ -91,14 +91,13 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     SizedBox slideNhuCau() {
       return SizedBox(
-        height: 40,
+        height: 35,
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: lstNC.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => SizedBox(
-            width: 140,
-            height: 40,
+            width: 120,
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -117,13 +116,13 @@ class HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   padding: const EdgeInsets.only(
-                      left: 22, top: 7, right: 22, bottom: 7),
+                      left: 7, top: 5, right: 7, bottom: 5),
                   child: Text(
-                    lstNC[index].tenNhuCau,
+                    lstNC[index].tenNhuCau!,
                     style: const TextStyle(
                       color: Color(0XFFFF2D55),
                       fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       fontSize: 16,
                     ),
                   ),
@@ -206,15 +205,20 @@ class HomePageState extends State<HomePage> {
                                     size: 18,
                                   ),
                                 ),
-                                const Text(
-                                  " 5.6k",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    color: Color(0XFF242A37),
-                                    fontWeight: FontWeight.normal,
+                                Container(
+                                  margin: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    lstBaiVietNoiBat[index]
+                                        .likes_count
+                                        .toString(),
+                                    style: const TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      color: Color(0XFF242A37),
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                )
+                                ),
                               ],
                             ),
                             Row(
@@ -227,15 +231,20 @@ class HomePageState extends State<HomePage> {
                                     size: 18,
                                   ),
                                 ),
-                                const Text(
-                                  " 6.1k",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    color: Color(0XFF242A37),
-                                    fontWeight: FontWeight.normal,
+                                Container(
+                                  margin: const EdgeInsets.only(left: 5),
+                                  child: Text(
+                                    lstBaiVietNoiBat[index]
+                                        .views_count
+                                        .toString(),
+                                    style: const TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 14,
+                                      color: Color(0XFF242A37),
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                             Row(
@@ -563,7 +572,7 @@ class HomePageState extends State<HomePage> {
           title,
           style: const TextStyle(
             color: Color(0XE6242A37),
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             fontFamily: 'Roboto',
           ),
@@ -727,7 +736,7 @@ class HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Text(
-                                    math.Random().nextInt(1000).toString(),
+                                    lstBaiViet[index].likes_count.toString(),
                                     style: const TextStyle(
                                       fontFamily: 'Roboto',
                                       fontSize: 14,
@@ -756,7 +765,7 @@ class HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Text(
-                                    math.Random().nextInt(1000).toString(),
+                                    lstBaiViet[index].unlikes_count.toString(),
                                     style: const TextStyle(
                                       color: Color(0XFFB1BCD0),
                                       fontSize: 14,
@@ -780,7 +789,7 @@ class HomePageState extends State<HomePage> {
                                 margin:
                                     const EdgeInsets.only(left: 5, right: 10),
                                 child: Text(
-                                  math.Random().nextInt(1000).toString(),
+                                  lstBaiViet[index].views_count.toString(),
                                   style: const TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 14,
@@ -809,12 +818,13 @@ class HomePageState extends State<HomePage> {
         if (snapshot.hasData) {
           UserObject user = snapshot.data!;
           return Scaffold(
+            backgroundColor: const Color(0XFFFFFFFF),
             appBar: AppBar(
               automaticallyImplyLeading: false,
               leading: null,
               leadingWidth: 0,
-              elevation: 0,
-              backgroundColor: const Color(0XFF0066FF),
+              elevation: 1.0,
+              backgroundColor: const Color(0XFFFFFFFF),
               title: Image.asset(
                 "images/logo_02.png",
                 width: 120,

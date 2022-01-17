@@ -41,7 +41,7 @@ class BaiVietProvider {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
         });
-
+    print(response.body);
     return parseBaiViet(response.body);
   }
 

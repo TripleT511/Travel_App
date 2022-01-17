@@ -61,20 +61,20 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0XFFFFFFFF),
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1.0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
             size: 21,
           ),
         ),
-        backgroundColor: const Color(0XFF0066FF),
+        backgroundColor: const Color(0XFFFFFFFF),
         centerTitle: true,
         title: const Text(
           "Đăng nhập",
@@ -82,7 +82,7 @@ class LoginPageState extends State<LoginPage> {
             fontSize: 20,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
-            color: Color(0XFFFFFFFF),
+            color: Color(0XFF242A37),
           ),
         ),
       ),
@@ -141,7 +141,7 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
+                padding: const EdgeInsets.only(left: 15, bottom: 5, right: 15),
                 child: TextFormField(
                   controller: txtPassword,
                   obscureText: checkPass ? true : false,
@@ -229,7 +229,7 @@ class LoginPageState extends State<LoginPage> {
                 ],
               ),
               Container(
-                margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
+                margin: const EdgeInsets.only(left: 15, right: 15),
                 width: 374,
                 height: 50,
                 decoration: BoxDecoration(
@@ -250,7 +250,7 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 15),
+                margin: const EdgeInsets.only(top: 10),
                 height: 48,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

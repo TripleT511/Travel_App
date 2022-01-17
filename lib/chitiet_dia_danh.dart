@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
+import 'package:vietnam_travel_app/Models/nhucau_object.dart';
+import 'package:vietnam_travel_app/Models/nhucaudiadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
@@ -39,6 +41,7 @@ class PlaceDetailState extends State<PlaceDetail> {
   String tenDiaDanh = '';
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
+
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
 
@@ -347,8 +350,8 @@ class PlaceDetailState extends State<PlaceDetail> {
             title,
             style: const TextStyle(
               color: Color(0XFF242A37),
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
               fontFamily: 'Roboto',
             ),
           ),
@@ -369,7 +372,7 @@ class PlaceDetailState extends State<PlaceDetail> {
             child: const Text(
               "Xem thêm",
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 14,
                 color: Color(0XFF0066FF),
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.bold,
@@ -397,7 +400,7 @@ class PlaceDetailState extends State<PlaceDetail> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0X1A050505),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: null,
         leadingWidth: 0,
@@ -414,6 +417,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                 icon: const FaIcon(
                   FontAwesomeIcons.arrowLeft,
                   color: Colors.white,
+                  size: 20,
                 ),
               ),
             ),
@@ -433,9 +437,9 @@ class PlaceDetailState extends State<PlaceDetail> {
                   );
                 },
                 icon: const FaIcon(
-                  FontAwesomeIcons.shareAlt,
+                  FontAwesomeIcons.share,
                   color: Colors.white,
-                  size: 25,
+                  size: 20,
                 ),
               ),
             )
@@ -448,7 +452,7 @@ class PlaceDetailState extends State<PlaceDetail> {
             if (snapshot.hasData) {
               DiaDanhObject diadanh = snapshot.data!;
               List<HinhAnhObject> lstHinhAnh = diadanh.hinhanhs!;
-
+              List<NhuCauDiaDanhObject> lstNhuCau = diadanh.nhucaudiadanhs!;
               loadImgDiaDanh(lstHinhAnh);
               tenDiaDanh = diadanh.tenDiaDanh;
               return SingleChildScrollView(
@@ -458,20 +462,22 @@ class PlaceDetailState extends State<PlaceDetail> {
                     Column(children: [
                       slideImg(imgDiaDanh),
                     ]),
+
                     Container(
                       margin: const EdgeInsets.fromLTRB(10, 10, 130, 5),
                       child: Text(
                         diadanh.tenDiaDanh,
                         style: const TextStyle(
                             fontFamily: 'Roboto',
-                            height: 1.6,
-                            fontSize: 22,
-                            color: Color(0XFF0066FF),
+                            height: 1.5,
+                            fontSize: 24,
+                            color: Color(0XFF242A37),
                             fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 10, right: 50),
+                      padding:
+                          const EdgeInsets.only(top: 0, left: 10, right: 50),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -491,30 +497,94 @@ class PlaceDetailState extends State<PlaceDetail> {
                               softWrap: true,
                               overflow: TextOverflow.clip,
                               style: const TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0XFF242A37),
-                                  height: 1.5),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFF242A37),
+                                fontSize: 15,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
-                      child: const Text(
-                        "Mô tả",
-                        style: TextStyle(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 50, top: 10),
+                      child: Text(
+                        diadanh.shares_count.toString() + " lượt đánh giá",
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: const TextStyle(
                           fontFamily: 'Roboto',
-                          height: 1.5,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0XFF242A37),
+                          fontWeight: FontWeight.normal,
+                          color: Color(0XFFB1BCD0),
+                          fontSize: 14,
                         ),
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 50, bottom: 10),
+                      child: const Text(
+                        "Nhu Cầu",
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            color: Color(0XFF242A37),
+                            fontSize: 18),
+                      ),
+                    ),
+                    Container(
+                      height: 35,
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: lstNhuCau.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => SizedBox(
+                          width: 120,
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: const Color(0X33B1BCD0),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              padding: const EdgeInsets.only(
+                                  left: 7, top: 5, right: 7, bottom: 5),
+                              child: Text(
+                                lstNhuCau[index].nhucau!.tenNhuCau!,
+                                style: const TextStyle(
+                                  color: Color(0XFF0066FF),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 50),
+                      child: const Text(
+                        "Mô tả",
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.bold,
+                            color: Color(0XFF242A37),
+                            fontSize: 18),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
                       child: Text(
                         diadanh.moTa,
                         textAlign: TextAlign.justify,
@@ -522,6 +592,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                         style: const TextStyle(
                           fontSize: 16,
                           height: 1.5,
+                          color: Color(0XFF242A37),
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,
                         ),
@@ -541,9 +612,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                     //   ),
                     // ),
                     // Image.asset("images/map-hotel.jpg"),
-                    const SizedBox(
-                      height: 15,
-                    ),
+
                     sliderTitle("Quán ăn gần đây"),
                     lstQuanAn(diadanh.tinhthanh!.tenTinhThanh),
                     sliderTitle("Lưu trú gần đây"),

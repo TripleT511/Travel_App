@@ -18,18 +18,18 @@ class SettingsPageState extends State<SettingsPage> {
     return Scaffold(
         backgroundColor: const Color(0XFFF0F2F5),
         appBar: AppBar(
-          elevation: 0,
+          elevation: 1.0,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
-              color: Color(0XFFFFFFFF),
-              size: 21,
+              color: Color(0XFF242A37),
+              size: 20,
             ),
           ),
-          backgroundColor: const Color(0XFF0066FF),
+          backgroundColor: const Color(0XFFFFFFFF),
           shadowColor: Colors.white,
           centerTitle: true,
           title: const Text(
@@ -38,7 +38,7 @@ class SettingsPageState extends State<SettingsPage> {
               fontSize: 20,
               fontWeight: FontWeight.w500,
               fontFamily: 'Roboto',
-              color: Color(0XFFFFFFFF),
+              color: Color(0XFF242A37),
             ),
           ),
         ),

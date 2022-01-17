@@ -1,3 +1,5 @@
+import 'package:vietnam_travel_app/Models/nhucau_object.dart';
+import 'package:vietnam_travel_app/Models/nhucaudiadanh_object.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 
@@ -12,6 +14,8 @@ class DiaDanhObject {
   final int trangThai;
   final TinhThanhObject? tinhthanh;
   final List<HinhAnhObject>? hinhanhs;
+  final int? shares_count;
+  final List<NhuCauDiaDanhObject>? nhucaudiadanhs;
 
   DiaDanhObject(
       this.id,
@@ -23,7 +27,9 @@ class DiaDanhObject {
       this.trangThai,
       this.tinhthanh,
       this.hinhanh,
-      this.hinhanhs);
+      this.hinhanhs,
+      this.shares_count,
+      this.nhucaudiadanhs);
 
   DiaDanhObject.fromJson(Map<String, dynamic> res)
       : id = res["id"],
@@ -35,7 +41,9 @@ class DiaDanhObject {
         trangThai = res["trangThai"],
         tinhthanh = TinhThanhObject.fromJson(res["tinhthanh"]),
         hinhanh = HinhAnhObject.fromJson(res["hinhanh"]),
-        hinhanhs = null;
+        hinhanhs = null,
+        shares_count = null,
+        nhucaudiadanhs = null;
   DiaDanhObject.fromJson2(Map<String, dynamic> res)
       : id = res["id"],
         tenDiaDanh = res["tenDiaDanh"],
@@ -46,7 +54,9 @@ class DiaDanhObject {
         trangThai = res["trangThai"],
         tinhthanh = null,
         hinhanh = null,
-        hinhanhs = null;
+        hinhanhs = null,
+        shares_count = null,
+        nhucaudiadanhs = null;
 
   DiaDanhObject.fromJson3(Map<String, dynamic> res)
       : id = res["id"],
@@ -58,8 +68,11 @@ class DiaDanhObject {
         trangThai = res["trangThai"],
         tinhthanh = TinhThanhObject.fromJson(res["tinhthanh"]),
         hinhanh = null,
-        // ignore: deprecated_member_use
         hinhanhs = res["hinhanhs"]
             .map<HinhAnhObject>((e) => HinhAnhObject.fromJson(e))
+            .toList(),
+        shares_count = res["shares_count"],
+        nhucaudiadanhs = res["nhucaudiadanhs"]
+            .map<NhuCauDiaDanhObject>((e) => NhuCauDiaDanhObject.fromJson(e))
             .toList();
 }

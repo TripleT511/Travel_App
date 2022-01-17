@@ -23,16 +23,16 @@ class SearchPageState extends State<SearchPage> {
         leading: null,
         leadingWidth: 0,
         titleSpacing: 0,
-        elevation: 1.5,
+        elevation: 1.0,
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0XFF0066FF),
+        backgroundColor: const Color(0XFFFFFFFF),
         title: Container(
           padding: EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
+            children: const [
               Expanded(
-                child: const TextField(
+                child: TextField(
                   textInputAction: TextInputAction.go,
                   // controller: txtSearch,
                   // onChanged: (String value) {
@@ -42,14 +42,15 @@ class SearchPageState extends State<SearchPage> {
                     border: InputBorder.none,
                     hintText: "Nhập địa điểm cần đến...",
                     hintStyle: TextStyle(
-                      color: Color(0XFFF0F2F5),
+                      color: Color(0XFF242A37),
                     ),
                   ),
                 ),
               ),
-              const FaIcon(
+              FaIcon(
                 FontAwesomeIcons.search,
-                color: Color(0XFFF0F2F5),
+                color: Color(0XFF242A37),
+                size: 20,
               ),
             ],
           ),
