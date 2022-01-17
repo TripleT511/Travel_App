@@ -5,6 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
+import 'package:vietnam_travel_app/home_tab.dart';
+import 'package:vietnam_travel_app/main.dart';
 
 class EditInforPage extends StatefulWidget {
   const EditInforPage({Key? key}) : super(key: key);
@@ -16,8 +19,14 @@ class EditInforPage extends StatefulWidget {
 }
 
 class EditInforPageState extends State<EditInforPage> {
-  String dropdownValue = 'Công khai';
+  late int stateHoTen;
+  late int stateEmail;
+  late int stateSDT;
+  String dropdownValueHoTen = 'a';
+  String dropdownValueEmail = 'Chỉ mình tôi';
+  String dropdownValueSDT = 'Công khai';
   late final UserObject user;
+
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtHoTen = TextEditingController();
   TextEditingController txtSoDienThoai = TextEditingController();
@@ -30,19 +39,39 @@ class EditInforPageState extends State<EditInforPage> {
     txtEmail.text = user.email;
     txtHoTen.text = user.hoTen;
     txtSoDienThoai.text = user.soDienThoai;
+
+    stateHoTen = user.trangThaiHoTen;
+    stateEmail = user.trangThaiEmail;
+    stateSDT = user.trangThaiSDT;
+
+    stateHoTen == 1
+        ? dropdownValueHoTen = 'Công khai'
+        : dropdownValueHoTen = 'Chỉ mình tôi';
+    stateEmail == 1
+        ? dropdownValueEmail = 'Công khai'
+        : dropdownValueEmail = 'Chỉ mình tôi';
+    stateSDT == 1
+        ? dropdownValueSDT = 'Công khai'
+        : dropdownValueSDT = 'Chỉ mình tôi';
   }
 
   void _updateInfor() async {
     if (formKey.currentState!.validate()) {
-      bool isSuccess = await UserProvider.updateInfor(
-          txtHoTen.text, txtEmail.text, txtSoDienThoai.text);
+      bool isSuccess = await UserProvider.updateInfor(txtHoTen.text,
+          txtEmail.text, txtSoDienThoai.text, stateHoTen, stateSDT, stateEmail);
       if (isSuccess) {
         txtEmail.text = txtEmail.text;
         txtHoTen.text = txtHoTen.text;
         txtSoDienThoai.text = txtSoDienThoai.text;
+        stateHoTen = stateHoTen;
+        stateSDT = stateSDT;
+        stateEmail = stateEmail;
         const snackBar =
             SnackBar(content: Text('Cập nhật thông tin thành công'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => MyApp()), (route) => false);
+
       } else {
         const snackBar = SnackBar(content: Text('Cập nhật thông tin thất bại'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -113,7 +142,7 @@ class EditInforPageState extends State<EditInforPage> {
                         color: const Color(0XFFE4E6EB),
                       ),
                       child: DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueHoTen,
                         icon: const FaIcon(
                           FontAwesomeIcons.chevronDown,
                           color: Color(0XFF242A37),
@@ -129,7 +158,12 @@ class EditInforPageState extends State<EditInforPage> {
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
-                            dropdownValue = newValue!;
+                            dropdownValueHoTen = newValue!;
+                            if (newValue == 'Công khai') {
+                              stateHoTen = 1;
+                            } else {
+                              stateHoTen = 0;
+                            }
                           });
                         },
                         items: <String>['Công khai', 'Chỉ mình tôi']
@@ -191,7 +225,7 @@ class EditInforPageState extends State<EditInforPage> {
                         color: const Color(0XFFE4E6EB),
                       ),
                       child: DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueEmail,
                         icon: const FaIcon(
                           FontAwesomeIcons.chevronDown,
                           color: Color(0XFF242A37),
@@ -207,8 +241,13 @@ class EditInforPageState extends State<EditInforPage> {
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
-                            dropdownValue = newValue!;
+                            dropdownValueEmail = newValue!;
                           });
+                          if (newValue == 'Công khai') {
+                            stateEmail = 1;
+                          } else {
+                            stateEmail = 0;
+                          }
                         },
                         items: <String>['Công khai', 'Chỉ mình tôi']
                             .map<DropdownMenuItem<String>>((String value) {
@@ -269,7 +308,7 @@ class EditInforPageState extends State<EditInforPage> {
                         color: const Color(0XFFE4E6EB),
                       ),
                       child: DropdownButton<String>(
-                        value: dropdownValue,
+                        value: dropdownValueSDT,
                         icon: const FaIcon(
                           FontAwesomeIcons.chevronDown,
                           color: Color(0XFF242A37),
@@ -285,8 +324,13 @@ class EditInforPageState extends State<EditInforPage> {
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
-                            dropdownValue = newValue!;
+                            dropdownValueSDT = newValue!;
                           });
+                          if (newValue == 'Công khai') {
+                            stateSDT = 1;
+                          } else {
+                            stateSDT = 0;
+                          }
                         },
                         items: <String>['Công khai', 'Chỉ mình tôi']
                             .map<DropdownMenuItem<String>>((String value) {

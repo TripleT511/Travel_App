@@ -104,7 +104,12 @@ class UserProvider {
 
   /* ==== Start Register ==== */
   static Future<bool> updateInfor(
-      String hoTen, String email, String soDienThoai) async {
+      String hoTen,
+      String email,
+      String soDienThoai,
+      int trangThaiHoTen,
+      int trangThaiSDT,
+      int trangThaiEmail) async {
     var token = await getToken();
     final response = await http.post(
         Uri.parse(
@@ -113,9 +118,9 @@ class UserProvider {
           'hoTen': hoTen,
           'email': email,
           'soDienThoai': soDienThoai,
-          'trangThaiHoTen': 1,
-          'trangThaiSDT': 1,
-          'trangThaiEmail': 1,
+          'trangThaiHoTen': trangThaiHoTen,
+          'trangThaiSDT': trangThaiSDT,
+          'trangThaiEmail': trangThaiEmail,
         }),
         headers: {
           'Content-type': 'application/json',
