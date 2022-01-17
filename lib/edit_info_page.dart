@@ -22,7 +22,7 @@ class EditInforPageState extends State<EditInforPage> {
   late int stateHoTen;
   late int stateEmail;
   late int stateSDT;
-  String dropdownValueHoTen = 'a';
+  String dropdownValueHoTen = 'Công khai';
   String dropdownValueEmail = 'Chỉ mình tôi';
   String dropdownValueSDT = 'Công khai';
   late final UserObject user;
@@ -69,9 +69,8 @@ class EditInforPageState extends State<EditInforPage> {
         const snackBar =
             SnackBar(content: Text('Cập nhật thông tin thành công'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                Navigator.pushAndRemoveUntil(context,
+        Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(builder: (context) => MyApp()), (route) => false);
-
       } else {
         const snackBar = SnackBar(content: Text('Cập nhật thông tin thất bại'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);

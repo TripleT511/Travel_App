@@ -35,7 +35,7 @@ class CreatePostState extends State<CreatePost> {
   CreatePostState(
       {required this.idDiaDanh, required this.tenDiaDanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
-  late File _image;
+  var _image;
   final picker = ImagePicker();
   int idUser = 0;
   bool isPost = false;
@@ -172,21 +172,21 @@ class CreatePostState extends State<CreatePost> {
             const SizedBox(
               height: 50,
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     ClipRRect(
-            //       borderRadius: BorderRadius.circular(10.0),
-            //       child: _image == null
-            //           ? Text("No image")
-            //           : Image.file(
-            //               _image,
-            //               width: MediaQuery.of(context).size.width - 20,
-            //               fit: BoxFit.cover,
-            //             ),
-            //     ),
-            //   ],
-            // )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: _image == null
+                      ? Text("No image")
+                      : Image.file(
+                          _image,
+                          width: MediaQuery.of(context).size.width - 20,
+                          fit: BoxFit.cover,
+                        ),
+                ),
+              ],
+            )
           ],
         ),
       ),

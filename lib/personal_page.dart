@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,12 +29,16 @@ class PersonalPageState extends State<PersonalPage> {
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   late File? _image;
   final picker = ImagePicker();
+
   int idUser = 0;
   String hoTenUser = '';
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
     if (pickedFile != null) {
-      setState(() {});
+      setState(() {
+        _image = File(pickedFile.path);
+      });
       _image = File(pickedFile.path);
       bool isSuccess = await UserProvider.uploadImage(_image!);
       // ignore: unrelated_type_equality_checks
