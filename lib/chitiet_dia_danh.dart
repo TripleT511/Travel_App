@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
@@ -18,6 +19,7 @@ import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/create_post.dart';
+import 'package:url_launcher/link.dart';
 
 import 'Models/quanan_object.dart';
 import 'chitiet_quan_an.dart';
@@ -41,9 +43,16 @@ class PlaceDetailState extends State<PlaceDetail> {
   String tenDiaDanh = '';
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
-
+  late Future<void> _launched;
   final List<SizedBox> imgDiaDanh = [];
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+  Future<void> _launch(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false, forceWebView: false);
+    } else {
+      throw 'Failed';
+    }
+  }
 
   _loadQuanAn() async {
     final data = await QuanAnProvider.getAllQuanAnByDiaDanh(id);
@@ -614,6 +623,15 @@ class PlaceDetailState extends State<PlaceDetail> {
                     const SizedBox(
                       height: 20,
                     ),
+                    TextButton(
+                        onPressed: () {
+                          _launched = _launch(
+                              'https://www.google.com/maps/place/' +
+                                  diadanh.kinhDo +
+                                  ',' +
+                                  diadanh.viDo);
+                        },
+                        child: Text('test'))
                   ],
                 ),
               );
