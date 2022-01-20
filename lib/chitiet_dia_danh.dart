@@ -451,7 +451,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   size: 20,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -528,6 +528,35 @@ class PlaceDetailState extends State<PlaceDetail> {
                           fontWeight: FontWeight.normal,
                           color: Color(0XFFB1BCD0),
                           fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      child: TextButton(
+                        onPressed: () {
+                          _launched = _launch(
+                              'https://www.google.com/maps/place/' +
+                                  diadanh.kinhDo +
+                                  ',' +
+                                  diadanh.viDo);
+                        },
+                        child: Row(
+                          children: [
+                            FaIcon(
+                              FontAwesomeIcons.locationArrow,
+                              color: Color(0XFF0066FF),
+                              size: 18,
+                            ),
+                            Text(
+                              "   Xem vị trí",
+                              style: const TextStyle(
+                                color: Color(0XFF0066FF),
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                     ),
@@ -623,15 +652,6 @@ class PlaceDetailState extends State<PlaceDetail> {
                     const SizedBox(
                       height: 20,
                     ),
-                    TextButton(
-                        onPressed: () {
-                          _launched = _launch(
-                              'https://www.google.com/maps/place/' +
-                                  diadanh.kinhDo +
-                                  ',' +
-                                  diadanh.viDo);
-                        },
-                        child: Text('test'))
                   ],
                 ),
               );
