@@ -101,7 +101,7 @@ class HomePageState extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ChiTietNhuCau(),
+                  builder: (context) => ChiTietNhuCau(nhucau: lstNC[index]),
                 ),
               );
             },
@@ -680,7 +680,15 @@ class HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 0),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PlaceDetail(lstBaiViet[index].diadanh.id),
+                        ),
+                      );
+                    },
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Container(

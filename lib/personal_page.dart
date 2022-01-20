@@ -9,6 +9,7 @@ import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 import 'dart:math' as math;
@@ -500,7 +501,15 @@ class PersonalPageState extends State<PersonalPage> {
                             Padding(
                               padding: const EdgeInsets.only(left: 0),
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlaceDetail(
+                                          lstBaiViet[index].diadanh.id),
+                                    ),
+                                  );
+                                },
                                 child: Align(
                                   alignment: Alignment.centerLeft,
                                   child: Container(
