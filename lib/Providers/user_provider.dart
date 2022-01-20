@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -15,29 +16,24 @@ class UserProvider {
 
   static Future<UserObject> getUser() async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/user'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response = await http.get(Uri.parse(urlAPI + 'user'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
     SharedPreferences pres = await SharedPreferences.getInstance();
     String user = response.body;
     pres.setString('user', user);
-    // print(jsonDecode(response.body));
     return UserObject.fromJson(jsonDecode(response.body));
   }
 
   static Future<bool> isLogged() async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/user'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response = await http.get(Uri.parse(urlAPI + 'user'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
 
     final code = response.statusCode;
     if (code == 200) {
@@ -48,8 +44,7 @@ class UserProvider {
   }
 
   static Future<bool> login(String email, String password) async {
-    final response = await http.post(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/login'),
+    final response = await http.post(Uri.parse(urlAPI + 'login'),
         body: ({
           'email': email,
           'password': password,
@@ -75,8 +70,7 @@ class UserProvider {
   /* ==== Start Register ==== */
   static Future<bool> register(
       String hoTen, String email, String password, String soDienThoai) async {
-    final response = await http.post(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/register'),
+    final response = await http.post(Uri.parse(urlAPI + 'register'),
         body: jsonEncode({
           'idPhanQuyen': 1,
           'hoTen': hoTen,
@@ -111,9 +105,7 @@ class UserProvider {
       int trangThaiSDT,
       int trangThaiEmail) async {
     var token = await getToken();
-    final response = await http.post(
-        Uri.parse(
-            'https://shielded-lowlands-87962.herokuapp.com/api/user/update-infor'),
+    final response = await http.post(Uri.parse(urlAPI + 'user/update-infor'),
         body: jsonEncode({
           'hoTen': hoTen,
           'email': email,
@@ -138,15 +130,14 @@ class UserProvider {
   static Future<bool> changePassword(
       String oldPass, String newPass, String confirm) async {
     var token = await getToken();
-    final response = await http.post(
-        Uri.parse(
-            'https://shielded-lowlands-87962.herokuapp.com/api/user/change-password'),
-        body: jsonEncode({
-          'password': oldPass,
-          'new_password': newPass,
-          'confirm_password': confirm,
-        }),
-        headers: {
+    final response =
+        await http.post(Uri.parse(urlAPI + '/user/change-password'),
+            body: jsonEncode({
+              'password': oldPass,
+              'new_password': newPass,
+              'confirm_password': confirm,
+            }),
+            headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
@@ -162,13 +153,11 @@ class UserProvider {
   /* ==== Logout ==== */
   static Future<bool> logout() async {
     var token = await getToken();
-    final response = await http.post(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/logout'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response = await http.post(Uri.parse(urlAPI + '/logout'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
     final jsonRespon = jsonDecode(response.body);
     if (jsonRespon['status_code'] == 200) {
       await storage.delete(key: "access_token");
@@ -187,8 +176,7 @@ class UserProvider {
 
     Map<String, String> headers = {"Authorization": "Bearer $token"};
 
-    var uri = Uri.parse(
-        "https://shielded-lowlands-87962.herokuapp.com/api/user/avatar");
+    var uri = Uri.parse(urlAPI + "/user/avatar");
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
     var multiport =

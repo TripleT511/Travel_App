@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 
@@ -17,27 +18,24 @@ class DiaDanhProvider {
 
   static Future<List<DiaDanhObject>> getAllDiaDanh() async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/diadanh'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response =
+        await http.get(Uri.parse(urlAPI + 'diadanh/noibat'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
 
     return parseDiaDanh(response.body);
   }
 
   static Future<DiaDanhObject> getDiaDanhById(int id) async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse(
-            'https://shielded-lowlands-87962.herokuapp.com/api/diadanh/$id'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response =
+        await http.get(Uri.parse(urlAPI + 'diadanh/$id'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
     var respon = jsonDecode(response.body);
     return DiaDanhObject.fromJson3(respon["data"]);
   }

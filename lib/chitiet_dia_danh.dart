@@ -543,27 +543,21 @@ class PlaceDetailState extends State<PlaceDetail> {
                         shrinkWrap: true,
                         itemCount: lstNhuCau.length,
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => SizedBox(
-                          width: 120,
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: const Color(0X33B1BCD0),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              padding: const EdgeInsets.only(
-                                  left: 7, top: 5, right: 7, bottom: 5),
-                              child: Text(
-                                lstNhuCau[index].nhucau!.tenNhuCau!,
-                                style: const TextStyle(
-                                  color: Color(0XFF0066FF),
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
-                              ),
+                        itemBuilder: (context, index) => Container(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          margin: const EdgeInsets.only(right: 10),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: const Color(0X33B1BCD0),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Text(
+                            lstNhuCau[index].nhucau!.tenNhuCau!,
+                            style: const TextStyle(
+                              color: Color(0XFF0066FF),
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
                             ),
                           ),
                         ),

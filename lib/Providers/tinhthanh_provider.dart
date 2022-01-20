@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 
@@ -19,14 +20,11 @@ class TinhThanhProvider {
 
   static Future<List<TinhThanhObject>> getAllTinhThanh() async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse(
-            'https://shielded-lowlands-87962.herokuapp.com/api/tinhthanh'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response = await http.get(Uri.parse(urlAPI + 'tinhthanh'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
     // var data = jsonDecode(response.body)["data"].cast<Map<String, dynamic>>();
     // ;
     // print(data);
@@ -38,7 +36,8 @@ class TinhThanhProvider {
   }
 
   //  Tìm kiếm danh bạ
-  static Future<List<TinhThanhObject>> searchTinhThanh(String searchString) async {
+  static Future<List<TinhThanhObject>> searchTinhThanh(
+      String searchString) async {
     List<TinhThanhObject> lstResult = [];
     List<dynamic> data = await getAllTinhThanh();
 

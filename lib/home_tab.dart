@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/nhucau_object.dart';
@@ -31,9 +32,6 @@ class HomePageState extends State<HomePage> {
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
 
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
-  final Color _userColor =
-      Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   bool like = false;
   bool dislike = false;
   _like() {
@@ -89,43 +87,39 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SizedBox slideNhuCau() {
-      return SizedBox(
+    Container slideNhuCau() {
+      return Container(
+        width: MediaQuery.of(context).size.width - 20,
         height: 35,
+        margin: const EdgeInsets.only(left: 10, right: 10),
         child: ListView.builder(
           shrinkWrap: true,
           itemCount: lstNC.length,
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => SizedBox(
-            width: 120,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChiTietNhuCau(),
-                  ),
-                );
-              },
-              child: Container(
-                margin: const EdgeInsets.only(left: 10),
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: const Color(0X33B1BCD0),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  padding: const EdgeInsets.only(
-                      left: 7, top: 5, right: 7, bottom: 5),
-                  child: Text(
-                    lstNC[index].tenNhuCau!,
-                    style: const TextStyle(
-                      color: Color(0XFFFF2D55),
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                    ),
-                  ),
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChiTietNhuCau(),
+                ),
+              );
+            },
+            child: Container(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              margin: const EdgeInsets.only(right: 10),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: const Color(0X33B1BCD0),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: Text(
+                lstNC[index].tenNhuCau!,
+                style: const TextStyle(
+                  color: Color(0XFFFF2D55),
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16,
                 ),
               ),
             ),
@@ -166,7 +160,7 @@ class HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Image.network(
-                        urlImg + lstBaiVietNoiBat[index].hinhanh.hinhAnh,
+                        urlImage + lstBaiVietNoiBat[index].hinhanh.hinhAnh,
                         width: 271,
                         height: 132,
                         fit: BoxFit.cover,
@@ -456,7 +450,7 @@ class HomePageState extends State<HomePage> {
                     ),
                     clipBehavior: Clip.antiAlias,
                     child: Image.network(
-                      urlImg + lstDD[index].hinhanh!.hinhAnh,
+                      urlImage + lstDD[index].hinhanh!.hinhAnh,
                       /*a.image*/
                       width: double.maxFinite,
                       height: 210,
@@ -598,31 +592,42 @@ class HomePageState extends State<HomePage> {
                   decoration: const BoxDecoration(color: Color(0XFFF0F2F5)),
                 ),
                 ListTile(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PersonalPage(user: lstBaiViet[index].user)));
-                  },
-                  leading: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(urlImg + lstBaiViet[index].user.hinhAnh),
+                  leading: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PersonalPage(user: lstBaiViet[index].user)));
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            urlImage + lstBaiViet[index].user.hinhAnh),
+                      ),
                     ),
                   ),
-                  title: Text(
-                    lstBaiViet[index].user.hoTen,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Roboto',
-                        fontSize: 16,
-                        color: Color(0XFF242A37)),
+                  title: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PersonalPage(user: lstBaiViet[index].user)));
+                    },
+                    child: Text(
+                      lstBaiViet[index].user.hoTen,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          color: Color(0XFF242A37)),
+                    ),
                   ),
                   subtitle: Align(
                     alignment: Alignment.centerLeft,
@@ -651,7 +656,7 @@ class HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
                       image: NetworkImage(
-                        urlImg + lstBaiViet[index].hinhanh.hinhAnh,
+                        urlImage + lstBaiViet[index].hinhanh.hinhAnh,
                       ),
                       fit: BoxFit.cover,
                     ),

@@ -10,6 +10,7 @@ class UserObject {
   final int trangThaiEmail;
   final int trangThaiSDT;
   final int trangThai;
+  final int? baiviets_count;
 
   UserObject(
       this.id,
@@ -22,7 +23,8 @@ class UserObject {
       this.trangThaiHoTen,
       this.trangThaiEmail,
       this.trangThaiSDT,
-      this.trangThai);
+      this.trangThai,
+      this.baiviets_count);
 
   UserObject.fromJson(Map<String, dynamic> us)
       : id = us["id"],
@@ -35,5 +37,6 @@ class UserObject {
         trangThaiHoTen = us["trangThaiHoTen"],
         trangThaiEmail = us["trangThaiEmail"],
         trangThaiSDT = us["trangThaiSDT"],
-        trangThai = us["trangThai"];
+        trangThai = us["trangThai"],
+        baiviets_count = us["baiviets_count"];
 }

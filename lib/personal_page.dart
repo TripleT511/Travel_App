@@ -1,10 +1,13 @@
 import 'dart:io';
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
+import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
@@ -28,11 +31,26 @@ class PersonalPageState extends State<PersonalPage> {
   bool checkLike = true;
   bool checkUnLike = false;
   String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
+  List<BaiVietChiaSeObject> lstBaiViet = [];
+  // ignore: prefer_typing_uninitialized_variables
   var _image;
   final picker = ImagePicker();
+  bool like = false;
+  bool dislike = false;
+  _like() {
+    setState(() {});
+    like = !like;
+    dislike = false;
+  }
+
+  _dislike() {
+    setState(() {});
+    dislike = !dislike;
+    like = false;
+  }
 
   int idUser = 0;
-  String hoTenUser = '';
+  String countBaiViet = "0";
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -83,6 +101,9 @@ class PersonalPageState extends State<PersonalPage> {
     SharedPreferences pres = await SharedPreferences.getInstance();
     setState(() {});
     idUser = pres.getInt('id') ?? 0;
+    setState(() {
+      print(user.baiviets_count);
+    });
   }
 
   @override
@@ -95,7 +116,6 @@ class PersonalPageState extends State<PersonalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -226,17 +246,17 @@ class PersonalPageState extends State<PersonalPage> {
               children: [
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      '50',
-                      style: TextStyle(
+                      user.baiviets_count.toString(),
+                      style: const TextStyle(
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                         color: Color(0XFF0066FF),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Bài viết',
                       style: TextStyle(
                         fontFamily: 'Roboto',
@@ -365,6 +385,276 @@ class PersonalPageState extends State<PersonalPage> {
                   ),
                 ),
               ),
+            ),
+            FutureBuilder<List<BaiVietChiaSeObject>>(
+              future: BaiVietProvider.getAllBaiVietUser(user.id),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<BaiVietChiaSeObject> lstBaiViet = snapshot.data!;
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    itemCount: lstBaiViet.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: double.infinity,
+                              decoration:
+                                  const BoxDecoration(color: Color(0XFFF0F2F5)),
+                            ),
+                            ListTile(
+                              leading: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PersonalPage(
+                                              user: lstBaiViet[index].user)));
+                                },
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  child: CircleAvatar(
+                                    backgroundImage: NetworkImage(urlImage +
+                                        lstBaiViet[index].user.hinhAnh),
+                                  ),
+                                ),
+                              ),
+                              title: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PersonalPage(
+                                              user: lstBaiViet[index].user)));
+                                },
+                                child: Text(
+                                  lstBaiViet[index].user.hoTen,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16,
+                                      color: Color(0XFF242A37)),
+                                ),
+                              ),
+                              subtitle: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  lstBaiViet[index].thoiGian,
+                                  style: const TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 14,
+                                    color: Color(0XFFB1BCD0),
+                                  ),
+                                ),
+                              ),
+                              trailing: IconButton(
+                                onPressed: () {},
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.ellipsisV,
+                                  size: 16,
+                                  color: Color(0XFFB1BCD0),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width - 20,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                    urlImage +
+                                        lstBaiViet[index].hinhanh.hinhAnh,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  top: 10, left: 10, right: 10),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                lstBaiViet[index].noiDung,
+                                textAlign: TextAlign.justify,
+                                style: const TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0XFF242A37),
+                                  height: 1.4,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 0),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                        color: const Color(0XFF0066FF),
+                                      ),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Text(
+                                      lstBaiViet[index].diadanh.tenDiaDanh,
+                                      style: const TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                        color: Color(0XFF0066FF),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.only(top: 5),
+                                  decoration: const BoxDecoration(
+                                    border: Border.fromBorderSide(
+                                      BorderSide(
+                                        width: 0.5,
+                                        color: Color(0XFFe4e6eb),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  _like();
+                                                },
+                                                icon: Icon(
+                                                  like
+                                                      ? Icons.thumb_up_alt
+                                                      : Icons
+                                                          .thumb_up_alt_outlined,
+                                                  color: like
+                                                      ? const Color(0XFF0066FF)
+                                                      : const Color(0XFFB1BCD0),
+                                                ),
+                                              ),
+                                              Text(
+                                                lstBaiViet[index]
+                                                    .likes_count
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  fontFamily: 'Roboto',
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Color(0XFFB1BCD0),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {
+                                                  _dislike();
+                                                },
+                                                icon: Icon(
+                                                  dislike
+                                                      ? Icons.thumb_down_alt
+                                                      : Icons
+                                                          .thumb_down_alt_outlined,
+                                                  color: dislike == true
+                                                      ? const Color(0XFF0066FF)
+                                                      : const Color(0XFFB1BCD0),
+                                                ),
+                                              ),
+                                              Text(
+                                                lstBaiViet[index]
+                                                    .unlikes_count
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  color: Color(0XFFB1BCD0),
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontFamily: 'Roboto',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const FaIcon(
+                                            FontAwesomeIcons.solidEye,
+                                            color: Color(0XFFB1BCD0),
+                                            size: 18,
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                left: 5, right: 10),
+                                            child: Text(
+                                              lstBaiViet[index]
+                                                  .views_count
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                fontFamily: 'Roboto',
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400,
+                                                color: Color(0XFFB1BCD0),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }
+                return const Center(
+                  child: SpinKitFadingCircle(
+                    color: Color(0XFF0066FF),
+                    size: 50.0,
+                  ),
+                );
+              },
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 
@@ -20,28 +21,34 @@ class BaiVietProvider {
 
   static Future<List<BaiVietChiaSeObject>> getAllBaiViet() async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse('https://shielded-lowlands-87962.herokuapp.com/api/baiviet'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
+    final response = await http.get(Uri.parse(urlAPI + 'baiviet'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
 
     return parseBaiViet(response.body);
   }
 
   static Future<List<BaiVietChiaSeObject>> getAllBaiVietNoiBat() async {
     var token = await getToken();
-    final response = await http.get(
-        Uri.parse(
-            'https://shielded-lowlands-87962.herokuapp.com/api/baiviet/noibat'),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token',
-        });
-    print(response.body);
+    final response =
+        await http.get(Uri.parse(urlAPI + 'baiviet/noibat'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    return parseBaiViet(response.body);
+  }
+
+  static Future<List<BaiVietChiaSeObject>> getAllBaiVietUser(int idUser) async {
+    var token = await getToken();
+    final response =
+        await http.get(Uri.parse(urlAPI + 'user/$idUser/baiviet'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
     return parseBaiViet(response.body);
   }
 
@@ -53,8 +60,7 @@ class BaiVietProvider {
     var length = await _image.length();
     Map<String, String> headers = {"Authorization": "Bearer $token"};
 
-    var uri = Uri.parse(
-        "https://shielded-lowlands-87962.herokuapp.com/api/baiviet/create");
+    var uri = Uri.parse(urlAPI + "baiviet/create");
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
     request.fields["idDiaDanh"] = idDiaDanh;
