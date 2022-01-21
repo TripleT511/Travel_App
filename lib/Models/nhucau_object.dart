@@ -15,6 +15,6 @@ class NhuCauObject {
       : id = nc["id"],
         tenNhuCau = nc["tenNhuCau"],
         nhucaudiadanh = nc["nhucaudiadanh"]
-            .map<NhuCauDiaDanhObject>((e) => NhuCauDiaDanhObject.fromJson(e))
+            .map<NhuCauDiaDanhObject>((e) => NhuCauDiaDanhObject.fromJson2(e))
             .toList();
 }

@@ -26,4 +26,16 @@ class NhuCauProvider {
 
     return parseTinhThanh(response.body);
   }
+
+  static Future<NhuCauObject> getDiaDanhByIdNhuCau(int id) async {
+    var token = await getToken();
+    final response = await http.get(Uri.parse(urlAPI + 'nhucau/$id'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    var respon = jsonDecode(response.body);
+    return NhuCauObject.fromJson2(respon["data"]);
+  }
 }
