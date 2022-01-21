@@ -11,14 +11,8 @@ class LuuTruProvider {
     return pased.map<LuuTruObject>((e) => LuuTruObject.fromJson(e)).toList();
   }
 
-  static Future<dynamic> getToken() async {
-    /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
-    return token;
-  }
-
   static Future<List<LuuTruObject>> getAllLuuTruByDiaDanh(int idDiaDanh) async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response = await http
         .get(Uri.parse(urlAPI + 'diadanh/$idDiaDanh/luutru'), headers: {
       'Content-type': 'application/json',

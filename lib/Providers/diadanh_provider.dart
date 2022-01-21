@@ -10,14 +10,8 @@ class DiaDanhProvider {
     return pased.map<DiaDanhObject>((e) => DiaDanhObject.fromJson(e)).toList();
   }
 
-  static Future<dynamic> getToken() async {
-    /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
-    return token;
-  }
-
   static Future<List<DiaDanhObject>> getAllDiaDanh() async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response =
         await http.get(Uri.parse(urlAPI + 'diadanh/noibat'), headers: {
       'Content-type': 'application/json',
@@ -29,7 +23,7 @@ class DiaDanhProvider {
   }
 
   static Future<DiaDanhObject> getDiaDanhById(int id) async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response =
         await http.get(Uri.parse(urlAPI + 'diadanh/$id'), headers: {
       'Content-type': 'application/json',

@@ -13,14 +13,8 @@ class BaiVietProvider {
         .toList();
   }
 
-  static Future<dynamic> getToken() async {
-    /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
-    return token;
-  }
-
   static Future<List<BaiVietChiaSeObject>> getAllBaiViet() async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response = await http.get(Uri.parse(urlAPI + 'baiviet'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -31,7 +25,7 @@ class BaiVietProvider {
   }
 
   static Future<List<BaiVietChiaSeObject>> getAllBaiVietNoiBat() async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response =
         await http.get(Uri.parse(urlAPI + 'baiviet/noibat'), headers: {
       'Content-type': 'application/json',
@@ -42,7 +36,7 @@ class BaiVietProvider {
   }
 
   static Future<List<BaiVietChiaSeObject>> getAllBaiVietUser(int idUser) async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response =
         await http.get(Uri.parse(urlAPI + 'user/$idUser/baiviet'), headers: {
       'Content-type': 'application/json',

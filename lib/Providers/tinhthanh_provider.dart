@@ -12,14 +12,8 @@ class TinhThanhProvider {
         .toList();
   }
 
-  static Future<dynamic> getToken() async {
-    /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
-    return token;
-  }
-
   static Future<List<TinhThanhObject>> getAllTinhThanh() async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response = await http.get(Uri.parse(urlAPI + 'tinhthanh'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -43,12 +37,12 @@ class TinhThanhProvider {
 
     if (searchString == '') return lstResult = [];
 
-    data.forEach((e) {
+    for (var e in data) {
       TinhThanhObject co = TinhThanhObject.fromJson(e);
       if (co.tenTinhThanh.toUpperCase().contains(searchString.toUpperCase())) {
         lstResult.add(co);
       }
-    });
+    }
     return lstResult;
   }
 }

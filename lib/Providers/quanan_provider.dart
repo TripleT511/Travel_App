@@ -10,14 +10,8 @@ class QuanAnProvider {
     return pased.map<QuanAnObject>((e) => QuanAnObject.fromJson2(e)).toList();
   }
 
-  static Future<dynamic> getToken() async {
-    /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
-    return token;
-  }
-
   static Future<List<QuanAnObject>> getAllQuanAnByDiaDanh(int idDiaDanh) async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response = await http
         .get(Uri.parse(urlAPI + 'diadanh/$idDiaDanh/quanan'), headers: {
       'Content-type': 'application/json',
@@ -29,7 +23,7 @@ class QuanAnProvider {
   }
 
   static Future<QuanAnObject> getQuanAnByID(int idQuanAn) async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response =
         await http.get(Uri.parse(urlAPI + 'quanan/$idQuanAn'), headers: {
       'Content-type': 'application/json',

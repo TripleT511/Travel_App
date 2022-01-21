@@ -4,9 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-const storage = FlutterSecureStorage();
 
 class UserProvider {
   static List<UserObject> parseUsers(String reponseBody) {
@@ -52,8 +49,8 @@ class UserProvider {
     final jsonRespon = jsonDecode(response.body);
     if (jsonRespon["status_code"] == 200) {
       /* ==== Lưu trữ token vào Storage ==== */
-      await storage.write(
-          key: "access_token", value: jsonRespon["access_token"]);
+      SharedPreferences pres = await SharedPreferences.getInstance();
+      pres.setString('access_token', jsonRespon["access_token"]);
       /* ==== In ra token ==== */
       return true;
     } else {
@@ -63,7 +60,8 @@ class UserProvider {
 
   static Future<dynamic> getToken() async {
     /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    var token = pres.getString('access_token');
     return token;
   }
 
@@ -160,7 +158,8 @@ class UserProvider {
     });
     final jsonRespon = jsonDecode(response.body);
     if (jsonRespon['status_code'] == 200) {
-      await storage.delete(key: "access_token");
+      SharedPreferences pres = await SharedPreferences.getInstance();
+      pres.setString('access_token', '');
       return true;
     } else {
       return false;

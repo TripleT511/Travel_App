@@ -10,14 +10,8 @@ class NhuCauProvider {
     return pased.map<NhuCauObject>((e) => NhuCauObject.fromJson(e)).toList();
   }
 
-  static Future<dynamic> getToken() async {
-    /* ==== Lấy token từ Storage ==== */
-    var token = await storage.read(key: "access_token");
-    return token;
-  }
-
   static Future<List<NhuCauObject>> getAllNhuCau() async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response = await http.get(Uri.parse(urlAPI + 'nhucau'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -28,7 +22,7 @@ class NhuCauProvider {
   }
 
   static Future<NhuCauObject> getDiaDanhByIdNhuCau(int id) async {
-    var token = await getToken();
+    var token = await UserProvider.getToken();
     final response = await http.get(Uri.parse(urlAPI + 'nhucau/$id'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
