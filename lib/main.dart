@@ -11,7 +11,7 @@ void main() {
     MaterialApp(
       color: Colors.white,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Poppins'),
+      theme: ThemeData(fontFamily: 'Roboto'),
       //home: ChiTietQuanAn(),
       home: const SplashPage(),
     ),

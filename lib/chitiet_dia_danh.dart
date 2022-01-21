@@ -9,7 +9,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
-import 'package:vietnam_travel_app/Models/nhucau_object.dart';
 import 'package:vietnam_travel_app/Models/nhucaudiadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
@@ -531,33 +530,31 @@ class PlaceDetailState extends State<PlaceDetail> {
                         ),
                       ),
                     ),
-                    Container(
-                      child: TextButton(
-                        onPressed: () {
-                          _launched = _launch(
-                              'https://www.google.com/maps/place/' +
-                                  diadanh.kinhDo +
-                                  ',' +
-                                  diadanh.viDo);
-                        },
-                        child: Row(
-                          children: [
-                            FaIcon(
-                              FontAwesomeIcons.locationArrow,
+                    TextButton(
+                      onPressed: () {
+                        _launched = _launch(
+                            'https://www.google.com/maps/place/' +
+                                diadanh.kinhDo +
+                                ',' +
+                                diadanh.viDo);
+                      },
+                      child: Row(
+                        children: const [
+                          FaIcon(
+                            FontAwesomeIcons.locationArrow,
+                            color: Color(0XFF0066FF),
+                            size: 18,
+                          ),
+                          Text(
+                            "   Xem vị trí",
+                            style: TextStyle(
                               color: Color(0XFF0066FF),
-                              size: 18,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
                             ),
-                            Text(
-                              "   Xem vị trí",
-                              style: const TextStyle(
-                                color: Color(0XFF0066FF),
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
                     Container(
