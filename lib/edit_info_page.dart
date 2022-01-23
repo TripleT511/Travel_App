@@ -106,8 +106,8 @@ class EditInforPageState extends State<EditInforPage> {
         title: const Text(
           "Thông tin tài khoản",
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Roboto',
             color: Color(0XFF242A37),
           ),

@@ -26,9 +26,6 @@ class SeeMorePageState extends State<SeeMorePage> {
   void _logout() async {
     bool log = await UserProvider.logout();
     if (log) {
-      SharedPreferences pres = await SharedPreferences.getInstance();
-      pres.setString('email', '');
-      pres.setString('password', '');
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const SplashPage2()),
@@ -65,8 +62,8 @@ class SeeMorePageState extends State<SeeMorePage> {
         title: const Text(
           "Tài khoản",
           style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Roboto',
             color: Color(0XFF242A37),
           ),

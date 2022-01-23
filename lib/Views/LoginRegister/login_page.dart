@@ -63,34 +63,39 @@ class LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: const Color(0XFFFFFFFF),
       appBar: AppBar(
-        elevation: 1.0,
+        elevation: 0,
+        leadingWidth: 50,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
-            color: Color(0XFF242A37),
+            color: Color(0XFF0066FF),
             size: 21,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),
-        centerTitle: true,
-        title: const Text(
-          "Đăng nhập",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Roboto',
-            color: Color(0XFF242A37),
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: [
+              Container(
+                margin: const EdgeInsets.only(left: 15, top: 15, bottom: 10),
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  "Đăng nhập",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Roboto',
+                    height: 1.2,
+                    color: Color(0XFF0066FF),
+                  ),
+                ),
+              ),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.only(

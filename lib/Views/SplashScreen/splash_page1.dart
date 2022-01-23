@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
 import 'package:vietnam_travel_app/main.dart';
@@ -60,24 +59,12 @@ class SplashPageState extends State<SplashPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: const Color(0XFF0066FF),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(top: 190),
-                  child: Image.asset(
-                    'images/logo-light.png',
-                    width: 110,
-                    fit: BoxFit.cover,
-                  )),
-              Container(
-                  margin: const EdgeInsets.only(top: 100.0),
-                  child: const SpinKitFadingCircle(
-                    color: Colors.white,
-                    size: 50.0,
-                  )),
-            ],
+        body: Container(
+          alignment: Alignment.center,
+          child: Image.asset(
+            'images/logo-light.png',
+            width: 110,
+            fit: BoxFit.cover,
           ),
         ),
       ),

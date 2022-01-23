@@ -11,6 +11,7 @@ import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
@@ -141,7 +142,14 @@ class HomePageState extends State<HomePage> {
             height: 210,
             child: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChiTietBaiViet(
+                      baiviet: lstBaiViet[index],
+                    ),
+                  ),
+                );
               },
               child: Stack(children: [
                 Card(
@@ -451,7 +459,6 @@ class HomePageState extends State<HomePage> {
                     clipBehavior: Clip.antiAlias,
                     child: Image.network(
                       urlImage + lstDD[index].hinhanh!.hinhAnh,
-                      /*a.image*/
                       width: double.maxFinite,
                       height: 210,
                       fit: BoxFit.cover,
@@ -649,16 +656,28 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width - 20,
-                  height: 300,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        urlImage + lstBaiViet[index].hinhanh.hinhAnh,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChiTietBaiViet(
+                          baiviet: lstBaiViet[index],
+                        ),
                       ),
-                      fit: BoxFit.cover,
+                    );
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width - 20,
+                    height: 300,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          urlImage + lstBaiViet[index].hinhanh.hinhAnh,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -834,13 +853,14 @@ class HomePageState extends State<HomePage> {
             backgroundColor: const Color(0XFFFFFFFF),
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              leading: null,
-              leadingWidth: 0,
               elevation: 1.0,
+              leadingWidth: 180,
               backgroundColor: const Color(0XFFFFFFFF),
-              title: Image.asset(
-                "images/logo_02.png",
-                width: 120,
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Image.asset(
+                  "images/logo_04.png",
+                ),
               ),
             ),
             body: ListView(

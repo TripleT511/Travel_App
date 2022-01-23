@@ -42,6 +42,7 @@ dependencies:
   image_picker: ^0.8.4+4
   url_launcher: ^6.0.18
   mapbox_gl: ^0.15.0
+  location: ^4.3.0
 
 dev_dependencies:
   flutter_test:
@@ -68,34 +69,14 @@ flutter:
   assets:
     - images/logo.png
     - images/logo-light.png
-    - images/a.jpg
-    - images/b.jpg
-    - images/c.jpg
-    - images/e.jpg
-    - images/g.jpg
-    - images/h.jpg
-    - images/j.jpg
-    - images/z.jpg
-    - images/i.jpg
-    - images/map-hotel.jpg
-    - images/map-hcm.jpg
-    - images/slide_1.jpg
-    - images/slide_2.jpg
-    - images/avatar.jpg
-    - images/luutru.jpg
-    - images/luutru1.jpg
-    - images/quanan.jpg
-    - images/quanan2.jpg
-    - images/chitietquanan.jpg
-    - images/monan.jpg
-    - images/monan2.jpg
-    - images/phuot.jpg
-    - images/camtrai.jpg
-    - images/tambien.jpg
-    - images/tambien1.jpg
     - images/logo_02.png
     - images/logo_03.png
+    - images/no-image.jpg
     - images/no-image-available.jpg
+    - images/red_marker.png
+    - images/j.jpg
+    - images/logo_04.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

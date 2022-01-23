@@ -102,9 +102,6 @@ class PersonalPageState extends State<PersonalPage> {
     SharedPreferences pres = await SharedPreferences.getInstance();
     setState(() {});
     idUser = pres.getInt('id') ?? 0;
-    setState(() {
-      print(user.baiviets_count);
-    });
   }
 
   @override
@@ -117,6 +114,7 @@ class PersonalPageState extends State<PersonalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
@@ -313,7 +311,11 @@ class PersonalPageState extends State<PersonalPage> {
                   ),
                   Flexible(
                     child: Text(
-                      user.soDienThoai,
+                      idUser != user.id
+                          ? (user.trangThaiSDT == 1
+                              ? user.soDienThoai
+                              : "Không hiển thị")
+                          : user.soDienThoai,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(
@@ -343,7 +345,11 @@ class PersonalPageState extends State<PersonalPage> {
                   ),
                   Flexible(
                     child: Text(
-                      user.email,
+                      idUser != user.id
+                          ? (user.trangThaiEmail == 1
+                              ? user.email
+                              : "Không hiển thị")
+                          : user.email,
                       softWrap: true,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(
@@ -374,7 +380,7 @@ class PersonalPageState extends State<PersonalPage> {
                         size: 15,
                       ),
                       Text(
-                        " Bài viết đã chia sẻ",
+                        "  Bài viết đã chia sẻ",
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.normal,

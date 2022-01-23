@@ -151,15 +151,13 @@ class UserProvider {
   /* ==== Logout ==== */
   static Future<bool> logout() async {
     var token = await getToken();
-    final response = await http.post(Uri.parse(urlAPI + '/logout'), headers: {
+    final response = await http.post(Uri.parse(urlAPI + 'logout'), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'Authorization': 'Bearer $token',
     });
     final jsonRespon = jsonDecode(response.body);
     if (jsonRespon['status_code'] == 200) {
-      SharedPreferences pres = await SharedPreferences.getInstance();
-      pres.setString('access_token', '');
       return true;
     } else {
       return false;
