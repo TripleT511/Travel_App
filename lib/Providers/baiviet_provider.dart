@@ -103,4 +103,52 @@ class BaiVietProvider {
       return false;
     }
   }
+
+  static Future<bool> likePost(int postId) async {
+    var token = await UserProvider.getToken();
+    final response =
+        await http.patch(Uri.parse(urlAPI + 'baiviet/$postId/like'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> unLikePost(int postId) async {
+    var token = await UserProvider.getToken();
+    final response = await http
+        .patch(Uri.parse(urlAPI + 'baiviet/$postId/unlike'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> viewPost(int postId) async {
+    var token = await UserProvider.getToken();
+    final response =
+        await http.patch(Uri.parse(urlAPI + 'baiviet/$postId/view'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

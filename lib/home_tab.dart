@@ -34,18 +34,20 @@ class HomePageState extends State<HomePage> {
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
 
-  bool like = false;
-  bool dislike = false;
-  _like() {
+  late BaiVietChiaSeObject testbv;
+  late int isLike;
+  late int isUnLike;
+
+  _like(int id) async {
     setState(() {});
-    like = !like;
-    dislike = false;
+    bool boollike = await BaiVietProvider.likePost(id);
+    loadListBaiViet();
   }
 
-  _dislike() {
+  _dislike(int id) async {
     setState(() {});
-    dislike = !dislike;
-    like = false;
+    bool boolUnLike = await BaiVietProvider.unLikePost(id);
+    loadListBaiViet();
   }
 
   int idUser = 0;
@@ -85,6 +87,58 @@ class HomePageState extends State<HomePage> {
     final data = await NhuCauProvider.getAllNhuCau();
     setState(() {});
     lstNC = data;
+  }
+
+  InkWell kLike(int value, IconData icon, Color color, Function ontap) {
+    return InkWell(
+      onTap: () => ontap(),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            '$value',
+            style: const TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0XFFB1BCD0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  InkWell kUnLike(int value, IconData icon, Color color, Function ontap) {
+    return InkWell(
+      onTap: () => ontap(),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            '$value',
+            style: const TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0XFFB1BCD0),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -146,10 +200,8 @@ class HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChiTietBaiViet(
-                      baiviet: lstBaiViet[index],
-                    ),
-                  ),
+                      builder: (context) => ChiTietBaiViet(
+                          baiviet: lstBaiViet[index], index: index)),
                 );
               },
               child: Stack(children: [
@@ -588,6 +640,8 @@ class HomePageState extends State<HomePage> {
         shrinkWrap: true,
         itemCount: lstBaiViet.length,
         itemBuilder: (context, index) {
+          isLike = lstBaiViet[index].islike_count!;
+          isUnLike = lstBaiViet[index].isdislike_count!;
           return Container(
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -673,8 +727,7 @@ class HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChiTietBaiViet(
-                          baiviet: lstBaiViet[index],
-                        ),
+                            baiviet: lstBaiViet[index], index: index),
                       ),
                     );
                   },
@@ -757,65 +810,38 @@ class HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 10, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
-                              Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      _like();
-                                    },
-                                    icon: Icon(
-                                      like
-                                          ? Icons.thumb_up_alt
-                                          : Icons.thumb_up_alt_outlined,
-                                      color: like
-                                          ? const Color(0XFF0066FF)
-                                          : const Color(0XFFB1BCD0),
-                                    ),
-                                  ),
-                                  Text(
-                                    lstBaiViet[index].likes_count.toString(),
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color(0XFFB1BCD0),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              kLike(
+                                  lstBaiViet[index].likes_count,
+                                  isLike == 1
+                                      ? Icons.thumb_up_alt
+                                      : Icons.thumb_up_alt_outlined,
+                                  isLike == 1
+                                      ? const Color(0XFF0066FF)
+                                      : const Color(0XFFB1BCD0), () {
+                                _like(lstBaiViet[index].id);
+                              }),
                               const SizedBox(
-                                width: 10,
+                                width: 15,
                               ),
                               Row(
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      _dislike();
-                                    },
-                                    icon: Icon(
-                                      dislike
+                                  kUnLike(
+                                      lstBaiViet[index].unlikes_count,
+                                      isUnLike == 1
                                           ? Icons.thumb_down_alt
                                           : Icons.thumb_down_alt_outlined,
-                                      color: dislike == true
+                                      isUnLike == 1
                                           ? const Color(0XFF0066FF)
-                                          : const Color(0XFFB1BCD0),
-                                    ),
-                                  ),
-                                  Text(
-                                    lstBaiViet[index].unlikes_count.toString(),
-                                    style: const TextStyle(
-                                      color: Color(0XFFB1BCD0),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'Roboto',
-                                    ),
-                                  ),
+                                          : const Color(0XFFB1BCD0), () {
+                                    _dislike(lstBaiViet[index].id);
+                                  }),
                                 ],
                               ),
                             ],
