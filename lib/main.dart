@@ -29,10 +29,10 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int currentTab = 0;
   final List<Widget> screens = [
-    HomePage(),
-    SearchPage(),
+    const HomePage(),
+    const SearchPage(),
     MapPage(),
-    SeeMorePage(),
+    const SeeMorePage(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentSreen = const HomePage();

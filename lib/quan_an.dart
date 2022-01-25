@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class QuanAn extends StatefulWidget {
+  const QuanAn({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return QuanAnState();

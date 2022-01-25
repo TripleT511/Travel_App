@@ -201,7 +201,7 @@ class HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => ChiTietBaiViet(
-                          baiviet: lstBaiViet[index], index: index)),
+                          baiviet: lstBaiVietNoiBat[index], index: index)),
                 );
               },
               child: Stack(children: [

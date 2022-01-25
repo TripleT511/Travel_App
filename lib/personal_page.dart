@@ -12,7 +12,6 @@ import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
-import 'dart:math' as math;
 
 // ignore: must_be_immutable
 class PersonalPage extends StatefulWidget {

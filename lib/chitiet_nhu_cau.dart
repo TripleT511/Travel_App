@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
@@ -7,22 +6,14 @@ import 'package:vietnam_travel_app/Models/nhucau_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/home_tab.dart';
-import 'package:vietnam_travel_app/main.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
-
-import 'package:flutter/material.dart';
-import 'package:vietnam_travel_app/Models/diadanh_object.dart';
-import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
-import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
-import 'package:vietnam_travel_app/chitiet_quan_an.dart';
 
 class ChiTietNhuCau extends StatefulWidget {
   final NhuCauObject nhucau;
-  ChiTietNhuCau({Key? key, required this.nhucau}) : super(key: key);
+  const ChiTietNhuCau({Key? key, required this.nhucau}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return ChiTietNhuCauState(nhucau: nhucau);
   }
 }
@@ -36,7 +27,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
 
   ChiTietNhuCauState({required this.nhucau});
 
-  void _LoadDiaDanh() async {
+  void _loadDiaDanh() async {
     final data = await NhuCauProvider.getDiaDanhByIdNhuCau(nhucau.id);
     setState(() {});
     for (var i = 0; i < data.nhucaudiadanh!.length; i++) {
@@ -48,7 +39,7 @@ class ChiTietNhuCauState extends State<ChiTietNhuCau> {
   @override
   void initState() {
     super.initState();
-    _LoadDiaDanh();
+    _loadDiaDanh();
   }
 
   @override

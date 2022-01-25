@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
@@ -47,7 +48,6 @@ class EditPostState extends State<EditPost> {
   bool isPost = true;
   String hoTenUser = '';
   String hinhAnh = '';
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -143,7 +143,7 @@ class EditPostState extends State<EditPost> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   image: DecorationImage(
-                    image: NetworkImage(urlImg + user.hinhAnh),
+                    image: NetworkImage(urlImage + user.hinhAnh),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -192,7 +192,7 @@ class EditPostState extends State<EditPost> {
                             pickerImage();
                           },
                           child: Image.network(
-                            urlImg + post.hinhanh.hinhAnh,
+                            urlImage + post.hinhanh.hinhAnh,
                             width: MediaQuery.of(context).size.width - 20,
                             fit: BoxFit.cover,
                           ),
