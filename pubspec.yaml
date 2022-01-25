@@ -40,7 +40,6 @@ dependencies:
   shared_preferences: ^2.0.11
   shimmer: ^2.0.0
   image_picker: ^0.8.4+4
-  url_launcher: ^6.0.18
   mapbox_gl: ^0.15.0
   location: ^4.3.0
 

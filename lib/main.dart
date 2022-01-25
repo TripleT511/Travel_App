@@ -28,7 +28,7 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   int currentTab = 0;
-  final List<Widget> screens = const [
+  final List<Widget> screens = [
     HomePage(),
     SearchPage(),
     MapPage(),
@@ -99,7 +99,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
               MaterialButton(
                 onPressed: () {
                   setState(() {
-                    currentSreen = const MapPage();
+                    currentSreen = MapPage();
                     currentTab = 2;
                   });
                 },

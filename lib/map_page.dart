@@ -2,42 +2,67 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:location/location.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
+import 'package:vietnam_travel_app/Models/address_object.dart';
+import 'package:vietnam_travel_app/Providers/address_provider.dart';
+import 'package:vietnam_travel_app/Views/search_map.dart';
 
 class MapPage extends StatefulWidget {
-  const MapPage({Key? key}) : super(key: key);
+  late double? viDo;
+  late double? kinhDo;
+  MapPage({Key? key, this.viDo, this.kinhDo}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return MapPageState();
+    return MapPageState(viDo, kinhDo);
   }
 }
 
 class MapPageState extends State<MapPage> {
-  late MapboxMapController mapController;
-  final String lightMap =
-      "https://tiles.goong.io/assets/goong_light_v2.json?api_key=EGAzhmbOrycEXAWPWtOspStQSZKW2CACMtGM7cvm";
-  final String streetMap =
-      "https://tiles.goong.io/assets/goong_map_web.json?api_key=EGAzhmbOrycEXAWPWtOspStQSZKW2CACMtGM7cvm";
+  late double? viDo;
+  late double? kinhDo;
+  MapPageState(this.viDo, this.kinhDo);
 
+  late MapboxMapController mapController;
+  final LatLng center = const LatLng(10.5601935, 106.632571);
   String styleMap =
-      "https://tiles.goong.io/assets/goong_light_v2.json?api_key=EGAzhmbOrycEXAWPWtOspStQSZKW2CACMtGM7cvm";
+      "https://tiles.goong.io/assets/goong_light_v2.json?api_key=" + apiKeyMap;
 
   _onMapCreated(MapboxMapController controller) async {
     mapController = controller;
+
+    final result = await acquireCurrentLocation();
+    if (viDo != null) {
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(viDo!, kinhDo!), zoom: 14),
+        ),
+      );
+
+      controller.addSymbol(
+        SymbolOptions(
+          iconSize: 1,
+          draggable: true,
+          geometry: LatLng(viDo!, kinhDo!),
+          iconImage: 'images/red_marker.png',
+        ),
+      );
+    } else {
+      controller.animateCamera(
+        CameraUpdate.newLatLng(result),
+      );
+    }
+  }
+
+  _viTriCuaToi() async {
     final result = await acquireCurrentLocation();
 
-    controller.animateCamera(
-      CameraUpdate.newLatLng(result),
-    );
-
-    controller.addSymbol(
-      const SymbolOptions(
-        iconSize: 0.5,
-        draggable: true,
-        geometry: LatLng(9.994737, 104.0314351),
-        iconImage: 'images/red_marker.png',
-      ),
-    );
+    mapController
+        .animateCamera(
+          CameraUpdate.newLatLng(result),
+        )
+        .then((result) =>
+            print("mapController.animateCamera() returned $result"));
   }
 
   Future<LatLng> acquireCurrentLocation() async {
@@ -73,6 +98,25 @@ class MapPageState extends State<MapPage> {
     return LatLng(locationData.latitude!, locationData.longitude!);
   }
 
+  void onStyleLoaded(MapboxMapController controller) {
+    controller.addSymbol(
+      SymbolOptions(
+        geometry: LatLng(
+          center.latitude,
+          center.longitude,
+        ),
+        iconImage: "images/red_marker.png",
+        iconSize: 0.5,
+        draggable: true,
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,66 +126,88 @@ class MapPageState extends State<MapPage> {
           MapboxMap(
             styleString: styleMap,
             onMapCreated: _onMapCreated,
+            onStyleLoadedCallback: () => onStyleLoaded(mapController),
             initialCameraPosition: CameraPosition(
-              target: LatLng(10.5601935, 106.632571),
-              zoom: 12,
+              target: center,
+              zoom: 13,
             ),
             scrollGesturesEnabled: true,
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
             doubleClickZoomEnabled: true,
             myLocationEnabled: true,
+            annotationOrder: const [
+              AnnotationType.line,
+              AnnotationType.symbol,
+              AnnotationType.circle,
+              AnnotationType.fill,
+            ],
           ),
-          const Padding(
-              padding: EdgeInsets.symmetric(vertical: 35, horizontal: 15),
-              child: Card(
-                elevation: 3.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.all(
-                    Radius.circular(10),
-                  ),
-                ),
-                clipBehavior: Clip.antiAlias,
+          Padding(
+            padding: const EdgeInsets.only(top: 30.0, left: 10.0, right: 10.0),
+            child: Card(
+              elevation: 1.0,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusDirectional.circular(10)),
+              clipBehavior: Clip.antiAlias,
+              child: SizedBox(
+                height: 50.0,
+                width: double.infinity,
                 child: TextField(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SearchMap()),
+                    );
+                  },
+                  showCursor: true,
+                  readOnly: true,
+                  textInputAction: TextInputAction.search,
                   decoration: InputDecoration(
+                    hintText: "Tìm địa điểm mà bạn muốn",
+                    hintStyle: const TextStyle(color: Color(0XFF242A37)),
                     border: InputBorder.none,
-                    prefix: Padding(
-                      padding: EdgeInsets.only(right: 15),
-                      child: FaIcon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                        size: 18,
-                        color: Color(0XFF242A37),
-                      ),
+                    contentPadding:
+                        const EdgeInsets.only(left: 15.0, top: 15.0),
+                    prefixIcon: IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.mapMarkerAlt),
+                      onPressed: () {},
+                      iconSize: 20.0,
+                      color: const Color(0XFF0066FF),
                     ),
-                    hintStyle:
-                        TextStyle(fontSize: 16, color: Color(0XFF242A37)),
-                    hintText: "Tìm địa điểm mà bạn muốn ...",
-                    contentPadding: EdgeInsets.all(15),
+                    suffixIcon: IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.search),
+                      onPressed: () {},
+                      iconSize: 20.0,
+                      color: const Color(0XFF242A37),
+                    ),
                   ),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 150),
+        margin: const EdgeInsets.only(bottom: 130),
         child: GestureDetector(
           onTap: () {
-            mapController.animateCamera(
-              CameraUpdate.zoomIn(),
-            );
+            _viTriCuaToi();
           },
           child: Container(
             width: 50,
             height: 50,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-                color: const Color(0XFF0066FF),
+                color: const Color(0XFFFFFFFF),
                 borderRadius: BorderRadius.circular(100)),
-            child: const FaIcon(
-              FontAwesomeIcons.locationArrow,
-              color: Colors.white,
-              size: 14,
+            child: const Icon(
+              Icons.my_location_outlined,
+              size: 25,
+              color: Color(0XFF0066FF),
             ),
           ),
         ),
