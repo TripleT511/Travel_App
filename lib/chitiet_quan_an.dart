@@ -277,7 +277,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                                     ),
                                   ],
                                 )
-                              : Text("Khong co du lieu"),
+                              : const Text("Không có dữ liệu"),
                         ),
                       ),
                     ],

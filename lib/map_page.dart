@@ -3,10 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:location/location.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
-import 'package:vietnam_travel_app/Models/address_object.dart';
-import 'package:vietnam_travel_app/Providers/address_provider.dart';
 import 'package:vietnam_travel_app/Views/search_map.dart';
 
+// ignore: must_be_immutable
 class MapPage extends StatefulWidget {
   late double? viDo;
   late double? kinhDo;
@@ -14,6 +13,7 @@ class MapPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return MapPageState(viDo, kinhDo);
   }
 }

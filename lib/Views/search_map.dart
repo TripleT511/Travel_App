@@ -21,7 +21,7 @@ class SearchMapState extends State<SearchMap> {
   void _searchDiaDiem() async {
     if (txtSearch.text.isNotEmpty) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 300), () async {
+      _debounce = Timer(const Duration(milliseconds: 200), () async {
         setState(() {});
         data = await AddressProvider.getAllDiaDanh(txtSearch.text, null, null);
       });

@@ -134,157 +134,158 @@ class HomePageState extends State<HomePage> {
       return SizedBox(
         height: 215,
         child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: lstBaiVietNoiBat.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: 271,
-            height: 210,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChiTietBaiViet(
-                      baiviet: lstBaiViet[index],
-                    ),
-                  ),
-                );
-              },
-              child: Stack(children: [
-                Card(
-                  elevation: 1.0,
-                  color: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.only(
-                      topStart: Radius.circular(16.0),
-                      topEnd: Radius.circular(16.0),
-                      bottomStart: Radius.circular(16.0),
-                      bottomEnd: Radius.circular(16.0),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        urlImage + lstBaiVietNoiBat[index].hinhanh.hinhAnh,
-                        width: 271,
-                        height: 132,
-                        fit: BoxFit.cover,
+            shrinkWrap: true,
+            itemCount: lstBaiVietNoiBat.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.only(left: 10),
+                width: 271,
+                height: 210,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChiTietBaiViet(
+                          baiviet: lstBaiVietNoiBat[index],
+                        ),
                       ),
-                      const SizedBox(
-                        height: 10.0,
+                    );
+                  },
+                  child: Stack(children: [
+                    Card(
+                      elevation: 1.0,
+                      color: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(16.0),
+                          topEnd: Radius.circular(16.0),
+                          bottomStart: Radius.circular(16.0),
+                          bottomEnd: Radius.circular(16.0),
+                        ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, bottom: 10, right: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          lstBaiVietNoiBat[index].noiDung,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w400,
-                            color: Color(0XFF242A37),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(
+                            urlImage + lstBaiVietNoiBat[index].hinhanh.hinhAnh,
+                            width: 271,
+                            height: 132,
+                            fit: BoxFit.cover,
                           ),
-                        ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, bottom: 10, right: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              lstBaiVietNoiBat[index].noiDung,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                color: Color(0XFF242A37),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 10),
+                            child: Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 0),
+                                      child: const Icon(
+                                        Icons.thumb_up,
+                                        color: Color(0XFF0066FF),
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        lstBaiVietNoiBat[index]
+                                            .likes_count
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          color: Color(0XFF242A37),
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      child: const FaIcon(
+                                        FontAwesomeIcons.solidEye,
+                                        color: Color(0XFF3EFF7F),
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        lstBaiVietNoiBat[index]
+                                            .views_count
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          color: Color(0XFF242A37),
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      child: const FaIcon(
+                                        FontAwesomeIcons.mapMarkerAlt,
+                                        color: Color(0XFFFF2D55),
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        lstBaiViet[index].diadanh.tenDiaDanh,
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          color: Color(0XFF242A37),
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, bottom: 10),
-                        child: Row(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  child: const Icon(
-                                    Icons.thumb_up,
-                                    color: Color(0XFF0066FF),
-                                    size: 18,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    lstBaiVietNoiBat[index]
-                                        .likes_count
-                                        .toString(),
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      color: Color(0XFF242A37),
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.solidEye,
-                                    color: Color(0XFF3EFF7F),
-                                    size: 18,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    lstBaiVietNoiBat[index]
-                                        .views_count
-                                        .toString(),
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      color: Color(0XFF242A37),
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0XFFFF2D55),
-                                    size: 18,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    lstBaiViet[index].diadanh.tenDiaDanh,
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      color: Color(0XFF242A37),
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                  ]),
                 ),
-              ]),
-            ),
-          ),
-        ),
+              );
+            }),
       );
     }
 

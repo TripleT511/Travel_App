@@ -75,26 +75,29 @@ class BaiVietProvider {
   }
 
   //edit
-  static Future<bool> editPost(File _image, String idDiaDanh, String idUser,
+  static Future<bool> editPost(File? _image, String idDiaDanh, String idUser,
       String noiDung, String idPost) async {
     var token = await UserProvider.getToken();
-    var stream = http.ByteStream(_image.openRead());
-    stream.cast();
-    var length = await _image.length();
+
     Map<String, String> headers = {"Authorization": "Bearer $token"};
 
     var uri = Uri.parse(urlAPI + "baiviet/$idPost/update");
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
-    request.fields["idDiaDanh"] = idDiaDanh;
-    request.fields["idUser"] = idUser;
+    // request.fields["idDiaDanh"] = idDiaDanh;
+    // request.fields["idUser"] = idUser;
     request.fields["noiDung"] = noiDung;
     request.fields["_method"] = "PUT";
+    if (_image != null) {
+      var stream = http.ByteStream(_image.openRead());
+      stream.cast();
+      var length = await _image.length();
+      var multiport =
+          http.MultipartFile("hinhAnh", stream, length, filename: _image.path);
 
-    var multiport =
-        http.MultipartFile("hinhAnh", stream, length, filename: _image.path);
+      request.files.add(multiport);
+    }
 
-    request.files.add(multiport);
     var response = await request.send();
 
     if (response.statusCode == 200) {
