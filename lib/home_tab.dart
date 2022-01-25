@@ -13,6 +13,7 @@ import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/edit_post.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
 import 'dart:math' as math;
@@ -648,7 +649,17 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                   trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EditPost(
+                                  idDiaDanh: lstBaiViet[index].idDiaDanh,
+                                  tenDiaDanh:
+                                      lstBaiViet[index].diadanh.tenDiaDanh,
+                                  user: lstBaiViet[index].user,
+                                  post: lstBaiViet[index])));
+                    },
                     icon: const FaIcon(
                       FontAwesomeIcons.ellipsisV,
                       size: 16,
