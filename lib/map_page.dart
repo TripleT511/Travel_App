@@ -98,20 +98,6 @@ class MapPageState extends State<MapPage> {
     return LatLng(locationData.latitude!, locationData.longitude!);
   }
 
-  void onStyleLoaded(MapboxMapController controller) {
-    controller.addSymbol(
-      SymbolOptions(
-        geometry: LatLng(
-          center.latitude,
-          center.longitude,
-        ),
-        iconImage: "images/red_marker.png",
-        iconSize: 0.5,
-        draggable: true,
-      ),
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -126,7 +112,6 @@ class MapPageState extends State<MapPage> {
           MapboxMap(
             styleString: styleMap,
             onMapCreated: _onMapCreated,
-            onStyleLoadedCallback: () => onStyleLoaded(mapController),
             initialCameraPosition: CameraPosition(
               target: center,
               zoom: 13,

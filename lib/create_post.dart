@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
-import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/main.dart';
 
 class CreatePost extends StatefulWidget {

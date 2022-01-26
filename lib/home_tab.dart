@@ -16,7 +16,6 @@ import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/edit_post.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
-import 'dart:math' as math;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,6 +32,7 @@ class HomePageState extends State<HomePage> {
   List<DiaDanhObject> lstDD = [];
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
+  ScrollController _scrollController = ScrollController();
 
   late int isLike;
   late int isUnLike;
@@ -58,34 +58,34 @@ class HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  void _scrollListener() {
+    print(_scrollController.position.extentAfter);
+    if (_scrollController.position.extentAfter < 500) {
+      // setState(() {
+      //   items.addAll(List.generate(42, (index) => 'Inserted $index'));
+      // });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    loadListDiaDanh();
-    loadListNhuCau();
     loadListBaiViet();
     _loadUser();
+    _scrollController = ScrollController()..addListener(_scrollListener);
   }
 
-  void loadListDiaDanh() async {
-    final data = await DiaDanhProvider.getAllDiaDanh();
-    setState(() {});
-    lstDD = data;
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    super.dispose();
   }
 
   void loadListBaiViet() async {
     final data = await BaiVietProvider.getAllBaiViet();
-    final data2 = await BaiVietProvider.getAllBaiVietNoiBat();
     setState(() {
       lstBaiViet = data;
-      lstBaiVietNoiBat = data2;
     });
-  }
-
-  void loadListNhuCau() async {
-    final data = await NhuCauProvider.getAllNhuCau();
-    setState(() {});
-    lstNC = data;
   }
 
   InkWell kLike(int value, IconData icon, Color color, Function ontap) {
@@ -142,205 +142,6 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Container slideNhuCau() {
-      return Container(
-        width: MediaQuery.of(context).size.width - 20,
-        height: 35,
-        margin: const EdgeInsets.only(left: 10, right: 10),
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: lstNC.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChiTietNhuCau(nhucau: lstNC[index]),
-                ),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              margin: const EdgeInsets.only(right: 10),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: const Color(0X33B1BCD0),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Text(
-                lstNC[index].tenNhuCau!,
-                style: const TextStyle(
-                  color: Color(0XFFFF2D55),
-                  fontFamily: 'Roboto',
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    SizedBox slideBaiViet() {
-      return SizedBox(
-        height: 215,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: lstBaiVietNoiBat.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: 271,
-            height: 210,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChiTietBaiViet(
-                          baiviet: lstBaiVietNoiBat[index],
-                          index: index,
-                          loaibaiviet: 0)),
-                );
-              },
-              child: Stack(children: [
-                Card(
-                  elevation: 1.0,
-                  color: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.only(
-                      topStart: Radius.circular(16.0),
-                      topEnd: Radius.circular(16.0),
-                      bottomStart: Radius.circular(16.0),
-                      bottomEnd: Radius.circular(16.0),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        urlImage + lstBaiVietNoiBat[index].hinhanh.hinhAnh,
-                        width: 271,
-                        height: 132,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, bottom: 10, right: 10),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          lstBaiVietNoiBat[index].noiDung,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w400,
-                            color: Color(0XFF242A37),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, bottom: 10),
-                        child: Row(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  child: const Icon(
-                                    Icons.thumb_up,
-                                    color: Color(0XFF0066FF),
-                                    size: 18,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    lstBaiVietNoiBat[index]
-                                        .likes_count
-                                        .toString(),
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      color: Color(0XFF242A37),
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.solidEye,
-                                    color: Color(0XFF3EFF7F),
-                                    size: 18,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    lstBaiVietNoiBat[index]
-                                        .views_count
-                                        .toString(),
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      color: Color(0XFF242A37),
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0XFFFF2D55),
-                                    size: 18,
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  child: Text(
-                                    lstBaiViet[index].diadanh.tenDiaDanh,
-                                    style: const TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      color: Color(0XFF242A37),
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ]),
-            ),
-          ),
-        ),
-      );
-    }
-
     SizedBox slideShimmer() {
       return SizedBox(
         height: 215,
@@ -351,7 +152,7 @@ class HomePageState extends State<HomePage> {
           itemBuilder: (context, index) => Container(
             padding: const EdgeInsets.only(left: 10),
             width: 271,
-            height: 210,
+            height: 215,
             child: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -480,142 +281,407 @@ class HomePageState extends State<HomePage> {
       );
     }
 
-    SizedBox slideDiaDanh() {
+    SizedBox slideNhuCauShimmer() {
       return SizedBox(
-        height: 210,
+        height: 35,
         child: ListView.builder(
           shrinkWrap: true,
-          itemCount: lstDD.length,
+          itemCount: 5,
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: 271,
-            height: 210,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PlaceDetail(lstDD[index].id),
-                  ),
-                );
-              },
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Card(
-                    elevation: 1.0,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadiusDirectional.all(
-                        Radius.circular(16),
-                      ),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Image.network(
-                      urlImage + lstDD[index].hinhanh!.hinhAnh,
-                      width: double.maxFinite,
-                      height: 210,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    top: 116,
-                    child: Container(
-                      width: 254,
-                      height: 90,
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadiusDirectional.only(
-                              bottomEnd: Radius.circular(16),
-                              bottomStart: Radius.circular(16)),
-                          color: Color(0XFFFFFFFF),
-                          gradient: LinearGradient(
-                              colors: [Color(0X0D5E9EFF), Color(0XB30066FF)],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              tileMode: TileMode.clamp)),
-                    ),
-                  ),
-                  const Positioned(
-                    top: 2,
-                    right: 20,
-                    child: FaIcon(
-                      FontAwesomeIcons.solidBookmark,
-                      color: Color(0X99FFFFFF),
-                      size: 22,
-                    ),
-                  ),
-                  Positioned(
-                    top: 150,
-                    left: 20,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          child: Text(
-                            lstDD[index].tenDiaDanh,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              shadows: [
-                                Shadow(
-                                  blurRadius: 5.0,
-                                  color: Color(0XFF0066FF),
-                                  offset: Offset(1.5, 0.5),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0XFF0066FF),
-                                      offset: Offset(1.5, 0.5),
-                                      blurRadius: 5.0,
-                                    ),
-                                  ]),
-                              child: const FaIcon(
-                                FontAwesomeIcons.mapMarkerAlt,
-                                color: Color(0XFFFFFFFF),
-                                size: 13,
-                              ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Text(
-                                lstDD[index].tinhthanh!.tenTinhThanh,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 12,
-                                  shadows: [
-                                    Shadow(
-                                      blurRadius: 5.0,
-                                      color: Color(0XFF0066FF),
-                                      offset: Offset(1.5, 0.5),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ],
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {},
+            child: Container(
+              width: 100,
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              margin: const EdgeInsets.only(right: 10),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: const Color(0X33B1BCD0),
+                borderRadius: BorderRadius.circular(25),
               ),
             ),
           ),
+        ),
+      );
+    }
+
+    Container slideNhuCau() {
+      return Container(
+        width: MediaQuery.of(context).size.width - 20,
+        height: 35,
+        margin: const EdgeInsets.only(left: 10, right: 10),
+        child: FutureBuilder<List<NhuCauObject>>(
+          future: NhuCauProvider.getAllNhuCau(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<NhuCauObject> lstNC = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: lstNC.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ChiTietNhuCau(nhucau: lstNC[index]),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    margin: const EdgeInsets.only(right: 10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: const Color(0X33B1BCD0),
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Text(
+                      lstNC[index].tenNhuCau!,
+                      style: const TextStyle(
+                        color: Color(0XFFFF2D55),
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            }
+            return Shimmer.fromColors(
+                child: slideNhuCauShimmer(),
+                baseColor: const Color(0X1A242A37),
+                highlightColor: const Color(0X33050505));
+          },
+        ),
+      );
+    }
+
+    SizedBox slideBaiViet() {
+      return SizedBox(
+        height: 215,
+        child: FutureBuilder<List<BaiVietChiaSeObject>>(
+          future: BaiVietProvider.getAllBaiVietNoiBat(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<BaiVietChiaSeObject> lstBaiVietNoiBat = snapshot.data!;
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: lstBaiVietNoiBat.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  width: 271,
+                  height: 210,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChiTietBaiViet(
+                                baiviet: lstBaiVietNoiBat[index],
+                                index: index,
+                                loaibaiviet: 0)),
+                      );
+                    },
+                    child: Stack(children: [
+                      Card(
+                        elevation: 1.0,
+                        color: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadiusDirectional.only(
+                            topStart: Radius.circular(16.0),
+                            topEnd: Radius.circular(16.0),
+                            bottomStart: Radius.circular(16.0),
+                            bottomEnd: Radius.circular(16.0),
+                          ),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.network(
+                              urlImage +
+                                  lstBaiVietNoiBat[index].hinhanh.hinhAnh,
+                              width: 271,
+                              height: 132,
+                              fit: BoxFit.cover,
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 10, bottom: 10, right: 10),
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                lstBaiVietNoiBat[index].noiDung,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0XFF242A37),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 10),
+                              child: Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 0),
+                                        child: const Icon(
+                                          Icons.thumb_up,
+                                          color: Color(0XFF0066FF),
+                                          size: 18,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          lstBaiVietNoiBat[index]
+                                              .likes_count
+                                              .toString(),
+                                          style: const TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 14,
+                                            color: Color(0XFF242A37),
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.solidEye,
+                                          color: Color(0XFF3EFF7F),
+                                          size: 18,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          lstBaiVietNoiBat[index]
+                                              .views_count
+                                              .toString(),
+                                          style: const TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 14,
+                                            color: Color(0XFF242A37),
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 10),
+                                        child: const FaIcon(
+                                          FontAwesomeIcons.mapMarkerAlt,
+                                          color: Color(0XFFFF2D55),
+                                          size: 18,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 5),
+                                        child: Text(
+                                          lstBaiViet[index].diadanh.tenDiaDanh,
+                                          style: const TextStyle(
+                                            fontFamily: 'Roboto',
+                                            fontSize: 14,
+                                            color: Color(0XFF242A37),
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+              );
+            }
+            return Shimmer.fromColors(
+                child: slideShimmer(),
+                baseColor: const Color(0X1AC5B5D4),
+                highlightColor: const Color(0X1A050505));
+          },
+        ),
+      );
+    }
+
+    SizedBox slideDiaDanh() {
+      return SizedBox(
+        height: 211,
+        child: FutureBuilder<List<DiaDanhObject>>(
+          future: DiaDanhProvider.getAllDiaDanh(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              List<DiaDanhObject> lstDD = snapshot.data!;
+
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: lstDD.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => Container(
+                  padding: const EdgeInsets.only(left: 10),
+                  width: 271,
+                  height: 211,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PlaceDetail(lstDD[index].id),
+                        ),
+                      );
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Card(
+                          elevation: 1.0,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadiusDirectional.all(
+                              Radius.circular(16),
+                            ),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.network(
+                            urlImage + lstDD[index].hinhanh!.hinhAnh,
+                            width: double.maxFinite,
+                            height: 210,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Positioned(
+                          top: 117,
+                          child: Container(
+                            width: 254,
+                            height: 90,
+                            decoration: const BoxDecoration(
+                                borderRadius: BorderRadiusDirectional.only(
+                                    bottomEnd: Radius.circular(16),
+                                    bottomStart: Radius.circular(16)),
+                                color: Color(0XFFFFFFFF),
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Color(0X0D5E9EFF),
+                                      Color(0XB30066FF)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    tileMode: TileMode.clamp)),
+                          ),
+                        ),
+                        const Positioned(
+                          top: 2,
+                          right: 20,
+                          child: FaIcon(
+                            FontAwesomeIcons.solidBookmark,
+                            color: Color(0X99FFFFFF),
+                            size: 22,
+                          ),
+                        ),
+                        Positioned(
+                          top: 150,
+                          left: 20,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 5),
+                                child: Text(
+                                  lstDD[index].tenDiaDanh,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Roboto',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 5.0,
+                                        color: Color(0XFF0066FF),
+                                        offset: Offset(1.5, 0.5),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0XFF0066FF),
+                                            offset: Offset(1.5, 0.5),
+                                            blurRadius: 5.0,
+                                          ),
+                                        ]),
+                                    child: const FaIcon(
+                                      FontAwesomeIcons.mapMarkerAlt,
+                                      color: Color(0XFFFFFFFF),
+                                      size: 13,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.only(left: 5),
+                                    child: Text(
+                                      lstDD[index].tinhthanh!.tenTinhThanh,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Roboto',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 12,
+                                        shadows: [
+                                          Shadow(
+                                            blurRadius: 5.0,
+                                            color: Color(0XFF0066FF),
+                                            offset: Offset(1.5, 0.5),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+            return Shimmer.fromColors(
+                child: slideShimmer(),
+                baseColor: const Color(0X1AC5B5D4),
+                highlightColor: const Color(0X1A050505));
+          },
         ),
       );
     }
@@ -884,68 +950,43 @@ class HomePageState extends State<HomePage> {
       );
     }
 
-    return FutureBuilder<UserObject>(
-      future: UserProvider.getUser(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          UserObject user = snapshot.data!;
-          return Scaffold(
-            backgroundColor: const Color(0XFFFFFFFF),
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              elevation: 1.0,
-              leadingWidth: 180,
-              backgroundColor: const Color(0XFFFFFFFF),
-              leading: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: Image.asset(
-                  "images/logo_04.png",
-                ),
-              ),
-            ),
-            body: ListView(
-              children: [
-                Column(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        sliderTitle("Địa Danh Nổi Bật"),
-                        slideDiaDanh(),
-                        sliderTitle("Bài Viết Nổi Bật"),
-                        slideBaiViet(),
-                        sliderTitle("Nhu Cầu"),
-                        slideNhuCau(),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    _loadPost(),
-                  ],
-                )
-              ],
-            ),
-          );
-        }
-        return Shimmer.fromColors(
-            child: SingleChildScrollView(
-              child: Column(
+    return Scaffold(
+      backgroundColor: const Color(0XFFFFFFFF),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 1.0,
+        leadingWidth: 180,
+        backgroundColor: const Color(0XFFFFFFFF),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Image.asset(
+            "images/logo_04.png",
+          ),
+        ),
+      ),
+      body: ListView(
+        children: [
+          Column(
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
-                    height: 80,
-                  ),
                   sliderTitle("Địa Danh Nổi Bật"),
-                  slideShimmer(),
+                  slideDiaDanh(),
                   sliderTitle("Bài Viết Nổi Bật"),
-                  slideShimmer(),
+                  slideBaiViet(),
+                  sliderTitle("Nhu Cầu"),
+                  slideNhuCau(),
                 ],
               ),
-            ),
-            baseColor: const Color(0X1A050505),
-            highlightColor: Colors.white);
-      },
+              const SizedBox(
+                height: 10,
+              ),
+              _loadPost(),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

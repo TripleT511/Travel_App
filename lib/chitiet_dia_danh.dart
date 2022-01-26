@@ -354,11 +354,19 @@ class PlaceDetailState extends State<PlaceDetail> {
             onPressed: () {
               if (title == "Quán ăn gần đây") {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => QuanAn()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QuanAn(),
+                  ),
+                );
               }
               if (title == "Lưu trú gần đây") {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LuuTru()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LuuTru(),
+                  ),
+                );
               }
             },
             child: const Text(

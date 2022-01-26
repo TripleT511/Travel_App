@@ -5,8 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
-import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/main.dart';
 
 class EditInforPage extends StatefulWidget {
@@ -69,8 +67,12 @@ class EditInforPageState extends State<EditInforPage> {
         const snackBar =
             SnackBar(content: Text('Cập nhật thông tin thành công'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.pushAndRemoveUntil(context,
-            MaterialPageRoute(builder: (context) => MyApp()), (route) => false);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MyApp(),
+            ),
+            (route) => false);
       } else {
         const snackBar = SnackBar(content: Text('Cập nhật thông tin thất bại'));
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
