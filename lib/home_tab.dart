@@ -34,7 +34,6 @@ class HomePageState extends State<HomePage> {
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
 
-  late BaiVietChiaSeObject testbv;
   late int isLike;
   late int isUnLike;
 
@@ -200,8 +199,10 @@ class HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          ChiTietBaiViet(baiviet: lstBaiVietNoiBat[index])),
+                      builder: (context) => ChiTietBaiViet(
+                          baiviet: lstBaiVietNoiBat[index],
+                          index: index,
+                          loaibaiviet: 0)),
                 );
               },
               child: Stack(children: [
@@ -726,8 +727,10 @@ class HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            ChiTietBaiViet(baiviet: lstBaiViet[index]),
+                        builder: (context) => ChiTietBaiViet(
+                            baiviet: lstBaiViet[index],
+                            index: index,
+                            loaibaiviet: 1),
                       ),
                     );
                   },

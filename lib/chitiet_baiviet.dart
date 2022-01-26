@@ -9,21 +9,29 @@ import 'package:vietnam_travel_app/personal_page.dart';
 // ignore: must_be_immutable
 class ChiTietBaiViet extends StatefulWidget {
   BaiVietChiaSeObject baiviet;
-  ChiTietBaiViet({Key? key, required this.baiviet}) : super(key: key);
+  int index;
+  int loaibaiviet;
+  ChiTietBaiViet(
+      {Key? key,
+      required this.baiviet,
+      required this.index,
+      required this.loaibaiviet})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return ChiTietBaiVietState(baiviet);
+    return ChiTietBaiVietState(baiviet, index, loaibaiviet);
   }
 }
 
 class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   BaiVietChiaSeObject baiviet;
+  int loaibaiviet;
+  int index;
   List<BaiVietChiaSeObject> lstBaiViet = [];
-  ChiTietBaiVietState(
-    this.baiviet,
-  );
+  List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
+  ChiTietBaiVietState(this.baiviet, this.index, this.loaibaiviet);
 
   _like(int id) async {
     setState(() {});
@@ -38,15 +46,24 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   }
 
   _loadBaiViet() async {
-    final data = await BaiVietProvider.getAllBaiViet();
+    var baivietdata = await BaiVietProvider.getAllBaiViet();
+    var baivietnoibatdata = await BaiVietProvider.getAllBaiVietNoiBat();
+
     setState(() {
-      lstBaiViet = data;
+      if (loaibaiviet == 0) {
+        lstBaiVietNoiBat = baivietnoibatdata;
+        baiviet = lstBaiVietNoiBat[index];
+      } else {
+        lstBaiViet = baivietdata;
+        baiviet = lstBaiViet[index];
+      }
     });
   }
 
   _addViewPost() async {
     bool view = await BaiVietProvider.viewPost(baiviet.id);
-    setState(() {});
+    _loadBaiViet();
+    // setState(() {});
   }
 
   @override
