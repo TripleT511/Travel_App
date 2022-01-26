@@ -9,22 +9,21 @@ import 'package:vietnam_travel_app/personal_page.dart';
 // ignore: must_be_immutable
 class ChiTietBaiViet extends StatefulWidget {
   BaiVietChiaSeObject baiviet;
-  int index;
-  ChiTietBaiViet({Key? key, required this.baiviet, required this.index})
-      : super(key: key);
+  ChiTietBaiViet({Key? key, required this.baiviet}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return ChiTietBaiVietState(baiviet, index);
+    return ChiTietBaiVietState(baiviet);
   }
 }
 
 class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   BaiVietChiaSeObject baiviet;
-  int index;
   List<BaiVietChiaSeObject> lstBaiViet = [];
-  ChiTietBaiVietState(this.baiviet, this.index);
+  ChiTietBaiVietState(
+    this.baiviet,
+  );
 
   _like(int id) async {
     setState(() {});
@@ -42,21 +41,18 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
     final data = await BaiVietProvider.getAllBaiViet();
     setState(() {
       lstBaiViet = data;
-      baiviet = lstBaiViet[index];
     });
   }
 
   _addViewPost() async {
-    setState(() {});
     bool view = await BaiVietProvider.viewPost(baiviet.id);
-    _loadBaiViet();
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
     _addViewPost();
-    _loadBaiViet();
   }
 
   InkWell kLike(int value, IconData icon, Color color, Function ontap) {

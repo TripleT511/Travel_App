@@ -200,8 +200,8 @@ class HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => ChiTietBaiViet(
-                          baiviet: lstBaiVietNoiBat[index], index: index)),
+                      builder: (context) =>
+                          ChiTietBaiViet(baiviet: lstBaiVietNoiBat[index])),
                 );
               },
               child: Stack(children: [
@@ -726,8 +726,8 @@ class HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChiTietBaiViet(
-                            baiviet: lstBaiViet[index], index: index),
+                        builder: (context) =>
+                            ChiTietBaiViet(baiviet: lstBaiViet[index]),
                       ),
                     );
                   },

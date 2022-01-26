@@ -30,7 +30,6 @@ class PersonalPageState extends State<PersonalPage> {
   PersonalPageState({required this.user});
   bool checkLike = true;
   bool checkUnLike = false;
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   List<BaiVietChiaSeObject> lstBaiViet = [];
   // ignore: prefer_typing_uninitialized_variables
   var _image;
@@ -231,7 +230,7 @@ class PersonalPageState extends State<PersonalPage> {
                         child: _image == null
                             ? CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                  urlImg + user.hinhAnh,
+                                  urlImage + user.hinhAnh,
                                 ),
                               )
                             : CircleAvatar(

@@ -204,7 +204,10 @@ class EditPostState extends State<EditPost> {
                         ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       ),
