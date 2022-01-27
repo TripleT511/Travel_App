@@ -320,17 +320,17 @@ class PersonalPageState extends State<PersonalPage> {
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      '12',
-                      style: TextStyle(
+                      user.tinhthanhs_count.toString(),
+                      style: const TextStyle(
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w700,
                         fontSize: 18,
                         color: Color(0XFF0066FF),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Tỉnh thành',
                       style: TextStyle(
                         fontFamily: 'Roboto',
@@ -466,42 +466,24 @@ class PersonalPageState extends State<PersonalPage> {
                                   const BoxDecoration(color: Color(0XFFF0F2F5)),
                             ),
                             ListTile(
-                              leading: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PersonalPage(
-                                              user: lstBaiViet[index].user)));
-                                },
-                                child: Container(
-                                  width: 40,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  child: CircleAvatar(
-                                    backgroundImage: NetworkImage(urlImage +
-                                        lstBaiViet[index].user.hinhAnh),
-                                  ),
+                              leading: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: CircleAvatar(
+                                  backgroundImage: NetworkImage(urlImage +
+                                      lstBaiViet[index].user.hinhAnh),
                                 ),
                               ),
-                              title: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PersonalPage(
-                                              user: lstBaiViet[index].user)));
-                                },
-                                child: Text(
-                                  lstBaiViet[index].user.hoTen,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 16,
-                                      color: Color(0XFF242A37)),
-                                ),
+                              title: Text(
+                                lstBaiViet[index].user.hoTen,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16,
+                                    color: Color(0XFF242A37)),
                               ),
                               subtitle: Align(
                                 alignment: Alignment.centerLeft,
