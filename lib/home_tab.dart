@@ -499,7 +499,9 @@ class HomePageState extends State<HomePage> {
                                       Container(
                                         margin: const EdgeInsets.only(left: 5),
                                         child: Text(
-                                          lstBaiViet[index].diadanh.tenDiaDanh,
+                                          lstBaiVietNoiBat[index]
+                                              .diadanh
+                                              .tenDiaDanh,
                                           style: const TextStyle(
                                             fontFamily: 'Roboto',
                                             fontSize: 14,
