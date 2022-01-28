@@ -16,6 +16,7 @@ import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/edit_post.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
+import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,10 +28,13 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  ScrollController _scrollPost = ScrollController();
+  int currentLoad = 1;
   final List<Column> imgListBaiViet = [];
   List<NhuCauObject> lstNC = [];
   List<DiaDanhObject> lstDD = [];
   List<BaiVietChiaSeObject> lstBaiViet = [];
+  List<BaiVietChiaSeObject> lstBaiViet1 = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
   ScrollController _scrollController = ScrollController();
 
@@ -58,34 +62,37 @@ class HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-  void _scrollListener() {
-    print(_scrollController.position.extentAfter);
-    if (_scrollController.position.extentAfter < 500) {
-      // setState(() {
-      //   items.addAll(List.generate(42, (index) => 'Inserted $index'));
-      // });
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     loadListBaiViet();
     _loadUser();
-    _scrollController = ScrollController()..addListener(_scrollListener);
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getData();
+      }
+    });
   }
 
-  @override
-  void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    super.dispose();
+  _getData() {
+    if (currentLoad + 1 <= lstBaiViet1.length) {
+      for (int i = currentLoad; i < currentLoad + 1; i++) {
+        lstBaiViet.add(lstBaiViet1[i]);
+      }
+      currentLoad++;
+    }
+    setState(() {});
   }
 
   void loadListBaiViet() async {
     final data = await BaiVietProvider.getAllBaiViet();
     setState(() {
-      lstBaiViet = data;
+      lstBaiViet1 = data;
     });
+    for (int i = 0; i < currentLoad; i++) {
+      lstBaiViet.add(lstBaiViet1[i]);
+    }
   }
 
   InkWell kLike(int value, IconData icon, Color color, Function ontap) {
@@ -967,6 +974,7 @@ class HomePageState extends State<HomePage> {
         ),
       ),
       body: ListView(
+        controller: _scrollController,
         children: [
           Column(
             children: [
