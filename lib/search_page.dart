@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +16,46 @@ class SearchPage extends StatefulWidget {
 }
 
 class SearchPageState extends State<SearchPage> {
+  List<TinhThanhObject> lstTinhThanh = [];
+  List<TinhThanhObject> lstTinhThanhTemp = [];
+  ScrollController _scrollController = ScrollController();
+  int _currentMax = 10;
+
+  _loadTinhThanh() async {
+    final data = await TinhThanhProvider.getAllTinhThanh();
+    setState(() {
+      lstTinhThanhTemp = data;
+    });
+    for (int i = 0; i < _currentMax; i++) {
+      lstTinhThanh.add(lstTinhThanhTemp[i]);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTinhThanh();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getData();
+      }
+    });
+  }
+
+  _getData() {
+    if (_currentMax + 2 <= lstTinhThanhTemp.length) {
+      for (int i = _currentMax; i < _currentMax + 2; i++) {
+        // if (_currentMax < lstTinhThanhTemp.length) {
+        lstTinhThanh.add(lstTinhThanhTemp[i]);
+        // }
+      }
+      _currentMax += 2;
+    }
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,33 +132,40 @@ class SearchPageState extends State<SearchPage> {
                 child: Text('Có lỗi xảy ra!!!'),
               );
             } else if (snapshot.hasData) {
-              List<TinhThanhObject> lstTinhThanh = snapshot.data!;
               return ListView.builder(
+                controller: _scrollController,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) => Card(
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              SearchResult(tinhthanh: lstTinhThanh[index]),
+                itemCount: lstTinhThanh.length + 1,
+                itemBuilder: (context, index) {
+                  // if (index < lstTinhThanhTemp.length) {
+                  if (index == lstTinhThanh.length) {
+                    return CupertinoActivityIndicator();
+                  }
+                  // }
+                  return Card(
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SearchResult(tinhthanh: lstTinhThanh[index]),
+                          ),
+                        );
+                      },
+                      title: Text(
+                        lstTinhThanh[index].tenTinhThanh,
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    },
-                    title: Text(
-                      lstTinhThanh[index].tenTinhThanh,
-                      textAlign: TextAlign.left,
-                      style: const TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
             }
             return const Center(
@@ -129,6 +177,42 @@ class SearchPageState extends State<SearchPage> {
           },
         ),
       ),
+      // body:
+
+      //     // List<TinhThanhObject> lstTinhThanh = snapshot.data!;
+      //     ListView.builder(
+      //   controller: _scrollController,
+      //   scrollDirection: Axis.vertical,
+      //   shrinkWrap: true,
+      //   itemCount: lstTinhThanh.length + 1,
+      //   itemBuilder: (context, index) {
+      //     if (index == lstTinhThanh.length) {
+      //       return CupertinoActivityIndicator();
+      //     }
+      //     return Card(
+      //       child: ListTile(
+      //         onTap: () {
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //               builder: (context) =>
+      //                   SearchResult(tinhthanh: lstTinhThanh[index]),
+      //             ),
+      //           );
+      //         },
+      //         title: Text(
+      //           lstTinhThanh[index].tenTinhThanh,
+      //           textAlign: TextAlign.left,
+      //           style: const TextStyle(
+      //             fontFamily: 'Roboto',
+      //             fontSize: 16,
+      //             fontWeight: FontWeight.bold,
+      //           ),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 }
