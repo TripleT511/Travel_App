@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -17,6 +19,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class SearchPageState extends State<SearchPage> {
+  TextEditingController txtSearch = TextEditingController();
   List<TinhThanhObject> lstTinhThanh = [];
   List<TinhThanhObject> lstTinhThanhTemp = [];
   ScrollController _scrollController = ScrollController();
@@ -29,6 +32,22 @@ class SearchPageState extends State<SearchPage> {
     });
     for (int i = 0; i < _currentMax; i++) {
       lstTinhThanh.add(lstTinhThanhTemp[i]);
+    }
+  }
+
+  void _SearchTinhThanh() async {
+    setState(() {});
+    if (txtSearch.text.isEmpty) {
+      lstTinhThanh = lstTinhThanhTemp;
+    } else {
+      lstTinhThanh = [];
+      for (var item in lstTinhThanhTemp) {
+        if (item.tenTinhThanh
+            .toUpperCase()
+            .contains(txtSearch.text.toUpperCase())) {
+          lstTinhThanh.add(item);
+        }
+      }
     }
   }
 
@@ -72,14 +91,14 @@ class SearchPageState extends State<SearchPage> {
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               Expanded(
                 child: TextField(
                   textInputAction: TextInputAction.go,
-                  // controller: txtSearch,
-                  // onChanged: (String value) {
-                  //   _SearchTinhThanh();
-                  // },
+                  controller: txtSearch,
+                  onChanged: (String value) {
+                    _SearchTinhThanh();
+                  },
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Nhập địa điểm cần đến...",
@@ -89,11 +108,11 @@ class SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              FaIcon(
-                FontAwesomeIcons.search,
-                color: Color(0XFF242A37),
-                size: 20,
-              ),
+              // FaIcon(
+              //   FontAwesomeIcons.search,
+              //   color: Color(0XFF242A37),
+              //   size: 20,
+              // ),
             ],
           ),
         ),
@@ -139,8 +158,10 @@ class SearchPageState extends State<SearchPage> {
                 shrinkWrap: true,
                 itemCount: lstTinhThanh.length,
                 itemBuilder: (context, index) {
-                  if (index == lstTinhThanh.length - 1) {
-                    if (index != lstTinhThanhTemp.length - 1) {
+                  if (index == lstTinhThanh.length - 1 &&
+                      lstTinhThanh.length > 9) {
+                    if (index != lstTinhThanhTemp.length - 1 &&
+                        lstTinhThanh.length > 9) {
                       // return CupertinoActivityIndicator();
                       return Shimmer.fromColors(
                           child: const Card(

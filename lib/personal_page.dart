@@ -9,6 +9,7 @@ import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
+import 'package:vietnam_travel_app/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
@@ -505,7 +506,19 @@ class PersonalPageState extends State<PersonalPage> {
                                 ),
                               ),
                             ),
-                            Container(
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChiTietBaiViet(
+                                        baiviet: lstBaiViet[index],
+                                        index: index,
+                                        loaibaiviet: 2),
+                                  ),
+                                );
+                              },
+                              child: Container(
                               width: MediaQuery.of(context).size.width - 20,
                               height: 300,
                               decoration: BoxDecoration(
@@ -519,6 +532,8 @@ class PersonalPageState extends State<PersonalPage> {
                                 ),
                               ),
                             ),
+                            ),
+                            
                             Container(
                               padding: const EdgeInsets.only(
                                   top: 10, left: 10, right: 10),

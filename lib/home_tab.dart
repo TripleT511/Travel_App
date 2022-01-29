@@ -44,13 +44,13 @@ class HomePageState extends State<HomePage> {
   _like(int id) async {
     setState(() {});
     bool boollike = await BaiVietProvider.likePost(id);
-    loadListBaiViet();
+    loadListBaiVietKhiLike();
   }
 
   _dislike(int id) async {
     setState(() {});
     bool boolUnLike = await BaiVietProvider.unLikePost(id);
-    loadListBaiViet();
+    loadListBaiVietKhiLike();
   }
 
   int idUser = 0;
@@ -83,6 +83,15 @@ class HomePageState extends State<HomePage> {
       currentLoad++;
     }
     setState(() {});
+  }
+
+    void loadListBaiVietKhiLike() async {
+  final data = await BaiVietProvider.getAllBaiViet();
+    final data2 = await BaiVietProvider.getAllBaiVietNoiBat();
+    setState(() {
+      lstBaiViet = data;
+      lstBaiVietNoiBat = data2;
+    });
   }
 
   void loadListBaiViet() async {

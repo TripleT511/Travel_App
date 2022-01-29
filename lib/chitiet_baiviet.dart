@@ -31,6 +31,7 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   int index;
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
+  List<BaiVietChiaSeObject> lstBaiVietUser = [];
   ChiTietBaiVietState(this.baiviet, this.index, this.loaibaiviet);
 
   _like(int id) async {
@@ -48,14 +49,18 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   _loadBaiViet() async {
     var baivietdata = await BaiVietProvider.getAllBaiViet();
     var baivietnoibatdata = await BaiVietProvider.getAllBaiVietNoiBat();
-
+    var baivietuserdata =
+        await BaiVietProvider.getAllBaiVietUser(baiviet.user.id.toInt());
     setState(() {
       if (loaibaiviet == 0) {
         lstBaiVietNoiBat = baivietnoibatdata;
         baiviet = lstBaiVietNoiBat[index];
-      } else {
+      } else if (loaibaiviet == 1) {
         lstBaiViet = baivietdata;
         baiviet = lstBaiViet[index];
+      } else {
+        lstBaiVietUser = baivietuserdata;
+        baiviet = lstBaiVietUser[index];
       }
     });
   }
