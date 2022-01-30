@@ -128,14 +128,13 @@ class UserProvider {
   static Future<bool> changePassword(
       String oldPass, String newPass, String confirm) async {
     var token = await getToken();
-    final response =
-        await http.post(Uri.parse(urlAPI + '/user/change-password'),
-            body: jsonEncode({
-              'password': oldPass,
-              'new_password': newPass,
-              'confirm_password': confirm,
-            }),
-            headers: {
+    final response = await http.post(Uri.parse(urlAPI + 'user/change-password'),
+        body: jsonEncode({
+          'password': oldPass,
+          'new_password': newPass,
+          'confirm_password': confirm,
+        }),
+        headers: {
           'Content-type': 'application/json',
           'Accept': 'application/json',
           'Authorization': 'Bearer $token',
@@ -173,7 +172,7 @@ class UserProvider {
 
     Map<String, String> headers = {"Authorization": "Bearer $token"};
 
-    var uri = Uri.parse(urlAPI + "/user/avatar");
+    var uri = Uri.parse(urlAPI + "user/avatar");
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
     var multiport =
@@ -182,6 +181,41 @@ class UserProvider {
     request.files.add(multiport);
     var response = await request.send();
 
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> sendEmail(String email) async {
+    final response = await http.post(Uri.parse(urlAPI + 'forgot'),
+        body: ({
+          'email': email,
+        }));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> confirmToken(String token) async {
+    final response = await http.post(Uri.parse(urlAPI + 'check-token'),
+        body: ({
+          'token': token,
+        }));
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> resetPassword(
+      String password, String confirmPassword, String token) async {
+    final response = await http.post(Uri.parse(urlAPI + 'reset/$token'),
+        body: ({'password': password, 'confirm-password': confirmPassword}));
     if (response.statusCode == 200) {
       return true;
     } else {

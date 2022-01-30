@@ -16,7 +16,6 @@ import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/edit_post.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
-import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,7 +27,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  ScrollController _scrollPost = ScrollController();
   int currentLoad = 1;
   final List<Column> imgListBaiViet = [];
   List<NhuCauObject> lstNC = [];
@@ -85,8 +83,8 @@ class HomePageState extends State<HomePage> {
     setState(() {});
   }
 
-    void loadListBaiVietKhiLike() async {
-  final data = await BaiVietProvider.getAllBaiViet();
+  void loadListBaiVietKhiLike() async {
+    final data = await BaiVietProvider.getAllBaiViet();
     final data2 = await BaiVietProvider.getAllBaiVietNoiBat();
     setState(() {
       lstBaiViet = data;

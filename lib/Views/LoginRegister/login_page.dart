@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/register_page.dart';
+import 'package:vietnam_travel_app/Views/ResetPassword/check_email.dart';
 import 'package:vietnam_travel_app/main.dart';
 
 class LoginPage extends StatefulWidget {
@@ -221,16 +222,24 @@ class LoginPageState extends State<LoginPage> {
                   Container(
                     margin: const EdgeInsets.only(right: 15),
                     child: TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          "Quên tài khoản ?",
-                          style: TextStyle(
-                              color: Color(0XFF0066FF),
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
-                        )),
-                  )
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CheckEmailPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Quên tài khoản ?",
+                        style: TextStyle(
+                            color: Color(0XFF0066FF),
+                            fontFamily: 'Roboto',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Container(

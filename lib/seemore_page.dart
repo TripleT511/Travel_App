@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
@@ -20,8 +21,7 @@ class SeeMorePage extends StatefulWidget {
 
 class SeeMorePageState extends State<SeeMorePage> {
   late final UserObject user;
-  String hinhAnh =
-      'https://shielded-lowlands-87962.herokuapp.com/images/user-default.jpg';
+  String hinhAnh = urlImage + 'images/user-default.jpg';
   String hoTen = '';
   void _logout() async {
     bool log = await UserProvider.logout();
@@ -41,7 +41,7 @@ class SeeMorePageState extends State<SeeMorePage> {
     user = UserObject.fromJson(jsonDecode(us));
     setState(() {
       hoTen = user.hoTen;
-      hinhAnh = 'https://shielded-lowlands-87962.herokuapp.com/' + img;
+      hinhAnh = urlImage + img;
     });
   }
 
