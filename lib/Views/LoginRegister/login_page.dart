@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/register_page.dart';
 import 'package:vietnam_travel_app/Views/ResetPassword/check_email.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:vietnam_travel_app/main.dart';
 
 class LoginPage extends StatefulWidget {
@@ -37,15 +38,19 @@ class LoginPageState extends State<LoginPage> {
 
   void _login() async {
     if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
       bool isSuccess =
           await UserProvider.login(txtEmail.text, txtPassword.text);
 
       if (isSuccess) {
+        EasyLoading.showSuccess('Đăng nhập thành công!');
         if (check) {
           SharedPreferences pres = await SharedPreferences.getInstance();
           pres.setString('email', txtEmail.text);
           pres.setString('password', txtPassword.text);
         }
+        EasyLoading.dismiss();
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -53,8 +58,8 @@ class LoginPageState extends State<LoginPage> {
           ),
         );
       } else {
-        const snackBar = SnackBar(content: Text('Đăng nhập thất bại'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showError('Đăng nhập thất bại!');
+        EasyLoading.dismiss();
       }
     }
   }

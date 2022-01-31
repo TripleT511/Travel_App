@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vietnam_travel_app/Views/LoginRegister/login_page.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/map_page.dart';
@@ -15,8 +15,26 @@ void main() {
       theme: ThemeData(fontFamily: 'Roboto'),
       //home: ChiTietQuanAn(),
       home: const SplashPage(),
+      builder: EasyLoading.init(),
     ),
   );
+  configLoading();
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatefulWidget {

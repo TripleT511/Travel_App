@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,12 +39,14 @@ class PersonalPageState extends State<PersonalPage> {
 
   _like(int id) async {
     setState(() {});
+    // ignore: unused_local_variable
     bool boollike = await BaiVietProvider.likePost(id);
     // _loadBaiViet();
   }
 
   _dislike(int id) async {
     setState(() {});
+    // ignore: unused_local_variable
     bool boolUnLike = await BaiVietProvider.unLikePost(id);
     // _loadBaiViet();
   }
@@ -58,16 +61,23 @@ class PersonalPageState extends State<PersonalPage> {
         _image = File(pickedFile.path);
       });
       _image = File(pickedFile.path);
+      EasyLoading.show(status: 'Vui lòng đợi...');
       bool isSuccess = await UserProvider.uploadImage(_image!);
       // ignore: unrelated_type_equality_checks
       if (isSuccess == true) {
+        EasyLoading.showSuccess('Cập nhật ảnh đại diện thành công');
+        EasyLoading.dismiss();
         Navigator.pop(context);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => const MyApp()));
+      } else {
+        EasyLoading.showError('Cập nhật ảnh đại diện thất bại');
+        EasyLoading.dismiss();
+        Navigator.pop(context);
       }
     } else {
-      const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      EasyLoading.showToast('Chưa chọn ảnh');
+      EasyLoading.dismiss();
     }
   }
 
@@ -84,11 +94,22 @@ class PersonalPageState extends State<PersonalPage> {
         backgroundColor: Colors.white,
         builder: (context) {
           return ListTile(
-            leading: const FaIcon(
-              FontAwesomeIcons.images,
-              color: Color(0XFF242A37),
+            leading: const CircleAvatar(
+              backgroundColor: Color(0X1A242A37),
+              child: FaIcon(
+                FontAwesomeIcons.images,
+                color: Color(0XFF242A37),
+                size: 16,
+              ),
             ),
-            title: const Text("Chọn từ thư viện"),
+            title: const Text(
+              "Chọn từ thư viện",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Color(0XFF242A37),
+              ),
+            ),
             onTap: () {
               pickerImage();
             },
@@ -519,21 +540,20 @@ class PersonalPageState extends State<PersonalPage> {
                                 );
                               },
                               child: Container(
-                              width: MediaQuery.of(context).size.width - 20,
-                              height: 300,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    urlImage +
-                                        lstBaiViet[index].hinhanh.hinhAnh,
+                                width: MediaQuery.of(context).size.width - 20,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      urlImage +
+                                          lstBaiViet[index].hinhanh.hinhAnh,
+                                    ),
+                                    fit: BoxFit.cover,
                                   ),
-                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                            ),
-                            
                             Container(
                               padding: const EdgeInsets.only(
                                   top: 10, left: 10, right: 10),

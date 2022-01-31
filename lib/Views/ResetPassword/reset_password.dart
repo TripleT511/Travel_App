@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/login_page.dart';
@@ -27,10 +28,13 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
 
   void _resetPassword() async {
     if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
       bool isSuccess = await UserProvider.resetPassword(
           txtPassword.text, txtPassword2.text, token);
 
       if (isSuccess) {
+        EasyLoading.showSuccess('Đổi mật khẩu thành công\nVui lòng đăng nhập');
+        EasyLoading.dismiss();
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -38,10 +42,8 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
             ),
             (route) => false);
       } else {
-        const snackBar = SnackBar(
-            content: Text(
-                'Có lỗi xảy ra, vui lòng kiểm tra lại toàn bộ thông tin.'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showError('Đổi mật khẩu thất bại');
+        EasyLoading.dismiss();
       }
     }
   }
@@ -115,6 +117,8 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Mật khẩu không được bỏ trống";
+                    } else if (value.length < 6) {
+                      return "Mật khẩu tối thiểu 6 ký tự";
                     } else {
                       return null;
                     }
@@ -169,6 +173,8 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Xác nhận mật khẩu không được bỏ trống";
+                    } else if (value != txtPassword.text) {
+                      return "Mật khẩu không trùng khớp";
                     } else {
                       return null;
                     }

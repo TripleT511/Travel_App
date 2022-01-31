@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
@@ -29,25 +30,19 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
 
   void _changePassword() async {
     if (formKey.currentState!.validate()) {
-      if (txtnewPass.text == txtconfirmPass.text) {
-        bool isChange = await UserProvider.changePassword(
-            txtCurrent.text, txtnewPass.text, txtconfirmPass.text);
+      EasyLoading.show(status: 'Vui lòng đợi...');
+      bool isChange = await UserProvider.changePassword(
+          txtCurrent.text, txtnewPass.text, txtconfirmPass.text);
 
-        if (isChange) {
-          SharedPreferences pres = await SharedPreferences.getInstance();
-          pres.setString('password', txtnewPass.text);
-          const snackBar =
-              SnackBar(content: Text('Thay đổi mật khẩu thành công'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          Navigator.pop(context);
-        } else {
-          const snackBar =
-              SnackBar(content: Text('Thay đổi mật khẩu không thành công'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
+      if (isChange) {
+        SharedPreferences pres = await SharedPreferences.getInstance();
+        pres.setString('password', txtnewPass.text);
+        EasyLoading.showSuccess('Đổi mật khẩu thành công');
+        EasyLoading.dismiss();
+        Navigator.pop(context);
       } else {
-        const snackBar = SnackBar(content: Text('Mật khẩu không trùng khớp'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showError('Đổi mật khẩu thất bại');
+        EasyLoading.dismiss();
       }
     }
   }
@@ -155,6 +150,8 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Mật khẩu mới không được bỏ trống";
+                  } else if (value.length < 6) {
+                    return "Mật khẩu tối thiểu 6 ký tự";
                   } else {
                     return null;
                   }
@@ -207,6 +204,8 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Xác nhận mật khẩu không được bỏ trống";
+                  } else if (value != txtnewPass.text) {
+                    return "Mật khẩu không trùng khớp";
                   } else {
                     return null;
                   }

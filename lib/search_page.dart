@@ -1,9 +1,5 @@
-import 'dart:collection';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
@@ -99,7 +95,7 @@ class SearchPageState extends State<SearchPage> {
                   onChanged: (String value) {
                     _SearchTinhThanh();
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: "Nhập địa điểm cần đến...",
                     hintStyle: TextStyle(

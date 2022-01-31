@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/LoginRegister/login_page.dart';
@@ -24,19 +25,18 @@ class RegisterPageState extends State<RegisterPage> {
 
   void _register() async {
     if (formKey.currentState!.validate()) {
-      if (txtPassword.text == txtPassword2.text) {
-        bool isRegister = await UserProvider.register(txtHoTen.text,
-            txtEmail.text, txtPassword.text, txtSoDienThoai.text);
+      EasyLoading.show(status: 'Vui lòng đợi...');
+      bool isRegister = await UserProvider.register(
+          txtHoTen.text, txtEmail.text, txtPassword.text, txtSoDienThoai.text);
 
-        if (isRegister) {
-          Navigator.pop(context);
-        } else {
-          const snackBar = SnackBar(content: Text('Đăng ký thất bại'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        }
+      if (isRegister) {
+        EasyLoading.showSuccess('Đăng ký thành công!\nVui lòng đăng nhập');
+        EasyLoading.dismiss();
+        Navigator.pop(context);
       } else {
-        const snackBar = SnackBar(content: Text('Mật khẩu không trùng khớp'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showError(
+            'Đăng ký thất bại!\nVui lòng kiểm tra lại thông tin');
+        EasyLoading.dismiss();
       }
     }
   }
@@ -148,6 +148,10 @@ class RegisterPageState extends State<RegisterPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Email không được bỏ trống";
+                    } else if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return "Email không hợp lệ";
                     } else {
                       return null;
                     }
@@ -210,6 +214,8 @@ class RegisterPageState extends State<RegisterPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Mật khẩu không được bỏ trống";
+                    } else if (value.length < 6) {
+                      return "Mật khẩu tối thiểu 6 ký tự";
                     } else {
                       return null;
                     }
@@ -265,6 +271,10 @@ class RegisterPageState extends State<RegisterPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Xác nhận mật khẩu không được bỏ trống";
+                    } else if (value.length < 6) {
+                      return "Mật khẩu tối thiểu 6 ký tự";
+                    } else if (value != txtPassword.text) {
+                      return "Mật khẩu không trùng khớp";
                     } else {
                       return null;
                     }

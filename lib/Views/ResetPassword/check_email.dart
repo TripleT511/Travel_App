@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/ResetPassword/confirm_token.dart';
@@ -18,9 +19,12 @@ class CheckEmailPageState extends State<CheckEmailPage> {
 
   void _sendEmail() async {
     if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
       bool isSuccess = await UserProvider.sendEmail(txtEmail.text);
 
       if (isSuccess) {
+        EasyLoading.showSuccess('Vui lòng kiểm tra email để lấy mã xác minh');
+        EasyLoading.dismiss();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -30,10 +34,9 @@ class CheckEmailPageState extends State<CheckEmailPage> {
           ),
         );
       } else {
-        const snackBar = SnackBar(
-            content: Text(
-                'Có lỗi xảy ra, vui lòng kiểm tra lại toàn bộ thông tin.'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showInfo(
+            'Email không tồn tại trên hệ thống. Vui lòng kiểm tra lại');
+        EasyLoading.dismiss();
       }
     }
   }
@@ -90,7 +93,11 @@ class CheckEmailPageState extends State<CheckEmailPage> {
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                padding: const EdgeInsets.only(
+                  left: 15,
+                  right: 15,
+                  bottom: 10,
+                ),
                 child: const Text(
                   "Email",
                   style: TextStyle(
@@ -119,6 +126,10 @@ class CheckEmailPageState extends State<CheckEmailPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Email không được bỏ trống";
+                    } else if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return "Email không hợp lệ";
                     } else {
                       return null;
                     }

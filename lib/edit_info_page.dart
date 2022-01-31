@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
@@ -55,6 +56,7 @@ class EditInforPageState extends State<EditInforPage> {
 
   void _updateInfor() async {
     if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
       bool isSuccess = await UserProvider.updateInfor(txtHoTen.text,
           txtEmail.text, txtSoDienThoai.text, stateHoTen, stateSDT, stateEmail);
       if (isSuccess) {
@@ -64,9 +66,8 @@ class EditInforPageState extends State<EditInforPage> {
         stateHoTen = stateHoTen;
         stateSDT = stateSDT;
         stateEmail = stateEmail;
-        const snackBar =
-            SnackBar(content: Text('Cập nhật thông tin thành công'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showSuccess('Cập nhật thành công');
+        EasyLoading.dismiss();
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -74,8 +75,8 @@ class EditInforPageState extends State<EditInforPage> {
             ),
             (route) => false);
       } else {
-        const snackBar = SnackBar(content: Text('Cập nhật thông tin thất bại'));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        EasyLoading.showError('Cập nhật thất bại');
+        EasyLoading.dismiss();
       }
     }
   }
@@ -281,6 +282,10 @@ class EditInforPageState extends State<EditInforPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Email không được bỏ trống";
+                    } else if (!RegExp(
+                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                        .hasMatch(value)) {
+                      return "Email không hợp lệ";
                     } else {
                       return null;
                     }
@@ -364,6 +369,8 @@ class EditInforPageState extends State<EditInforPage> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Số điện thoại không được bỏ trống";
+                    } else if (value.length < 10) {
+                      return "Số điện thoại không hợp lệ";
                     } else {
                       return null;
                     }
