@@ -55,7 +55,7 @@ class RegisterPageState extends State<RegisterPage> {
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF0066FF),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),
@@ -99,7 +99,7 @@ class RegisterPageState extends State<RegisterPage> {
                     hintText: "Nhập họ tên",
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -136,7 +136,7 @@ class RegisterPageState extends State<RegisterPage> {
                     hintText: "Nhập email",
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -177,7 +177,7 @@ class RegisterPageState extends State<RegisterPage> {
                     hintText: "Nhập số điện thoại",
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -223,7 +223,7 @@ class RegisterPageState extends State<RegisterPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -282,7 +282,7 @@ class RegisterPageState extends State<RegisterPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(

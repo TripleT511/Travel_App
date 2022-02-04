@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,25 +28,67 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int currentLoad = 1;
-  final List<Column> imgListBaiViet = [];
-  List<NhuCauObject> lstNC = [];
-  List<DiaDanhObject> lstDD = [];
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiViet1 = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
+  List<DiaDanhObject> lstDD = [];
+  List<NhuCauObject> lstNC = [];
   ScrollController _scrollController = ScrollController();
+  bool isLoadingNhuCau = false;
+  bool isLoadingDiaDanh = false;
+  bool isLoadingBaiVietNB = false;
 
   late int isLike;
   late int isUnLike;
+  _loadNhuCau() async {
+    setState(() {
+      isLoadingNhuCau = true;
+    });
+    final data = await NhuCauProvider.getAllNhuCau();
+    if (mounted) {
+      setState(() {
+        lstNC = data;
+        isLoadingNhuCau = false;
+      });
+    }
+  }
+
+  _loadDiaDanhNoiBat() async {
+    setState(() {
+      isLoadingDiaDanh = true;
+    });
+    final data = await DiaDanhProvider.getAllDiaDanh();
+    if (mounted) {
+      setState(() {
+        lstDD = data;
+        isLoadingDiaDanh = false;
+      });
+    }
+  }
+
+  _loadBaiVietNoiBat() async {
+    setState(() {
+      isLoadingBaiVietNB = true;
+    });
+    final data = await BaiVietProvider.getAllBaiVietNoiBat();
+    if (mounted) {
+      setState(() {
+        lstBaiVietNoiBat = data;
+        isLoadingBaiVietNB = false;
+      });
+    }
+  }
 
   _like(int id) async {
     setState(() {});
+    // ignore: unused_local_variable
     bool boollike = await BaiVietProvider.likePost(id);
     loadListBaiVietKhiLike();
   }
 
   _dislike(int id) async {
     setState(() {});
+    // ignore: unused_local_variable
     bool boolUnLike = await BaiVietProvider.unLikePost(id);
     loadListBaiVietKhiLike();
   }
@@ -54,10 +96,10 @@ class HomePageState extends State<HomePage> {
   int idUser = 0;
   _loadUser() async {
     UserObject user = await UserProvider.getUser();
-    SharedPreferences pres = await SharedPreferences.getInstance();
-    pres.setInt('id', user.id);
-    pres.setString('hinhAnh', user.hinhAnh);
-    setState(() {});
+
+    setState(() {
+      idUser = user.id;
+    });
   }
 
   @override
@@ -65,6 +107,9 @@ class HomePageState extends State<HomePage> {
     super.initState();
     loadListBaiViet();
     _loadUser();
+    _loadNhuCau();
+    _loadDiaDanhNoiBat();
+    _loadBaiVietNoiBat();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -154,186 +199,241 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    SizedBox slideShimmer() {
-      return SizedBox(
-        height: 215,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: 2,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => Container(
-            padding: const EdgeInsets.only(left: 10),
-            width: 271,
-            height: 215,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SizedBox(
-                height: 215,
-                child: Card(
-                  elevation: 1.0,
-                  color: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadiusDirectional.only(
-                      topStart: Radius.circular(16.0),
-                      topEnd: Radius.circular(16.0),
-                      bottomStart: Radius.circular(16.0),
-                      bottomEnd: Radius.circular(16.0),
-                    ),
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        "images/j.jpg",
-                        width: 271,
-                        height: 132,
-                        fit: BoxFit.cover,
+  _deletePost(int id) async {
+    EasyLoading.show(status: 'Vui lòng đợi...');
+    bool isSuccess = await BaiVietProvider.deletePost(id);
+    if (isSuccess == true) {
+      List<BaiVietChiaSeObject> newBaiViet =
+          await BaiVietProvider.getAllBaiViet();
+      List<BaiVietChiaSeObject> newBaiVietNoiBat =
+          await BaiVietProvider.getAllBaiVietNoiBat();
+      await UserProvider.getUser();
+      setState(() {
+        lstBaiViet = newBaiViet;
+        lstBaiVietNoiBat = newBaiVietNoiBat;
+      });
+
+      EasyLoading.showSuccess('Xóa bài viết thành công');
+      EasyLoading.dismiss();
+      Navigator.pop(context);
+    } else {
+      EasyLoading.showError('Xóa bài viết thất bại');
+      EasyLoading.dismiss();
+    }
+  }
+
+  Dialog dialog(String title, String des, int id) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 15),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0XFF242A37),
+            ),
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Text(
+              des,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0XFF242A37),
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Divider(
+            height: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15.0),
+                        bottomRight: Radius.circular(15.0),
                       ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, bottom: 10, right: 10),
-                        alignment: Alignment.centerLeft,
-                        child: const Text(
-                          "Check-in điểm du lịch ",
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Hủy",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w400,
-                            color: Color(0XFF242A37),
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal,
+                            color: Color(0XFFB1BCD0),
                           ),
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            left: 10, right: 10, bottom: 10),
-                        child: Row(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  child: const Icon(
-                                    Icons.thumb_up,
-                                    color: Color(0XFF0066FF),
-                                    size: 18,
-                                  ),
-                                ),
-                                const Text(
-                                  " 5.6k",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    color: Color(0XFF242A37),
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.solidEye,
-                                    color: Color(0XFF3EFF7F),
-                                    size: 18,
-                                  ),
-                                ),
-                                const Text(
-                                  " 6.1k",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    color: Color(0XFF242A37),
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  child: const FaIcon(
-                                    FontAwesomeIcons.mapMarkerAlt,
-                                    color: Color(0XFFFF2D55),
-                                    size: 18,
-                                  ),
-                                ),
-                                const Text(
-                                  " Nha Trang",
-                                  style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 14,
-                                    color: Color(0XFF242A37),
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        _deletePost(id);
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Xoá",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color(0XFFFF2D55),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )
-                    ],
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  showModalEdit(BaiVietChiaSeObject baiviet) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 7),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0X1A242A37),
+                    borderRadius: BorderRadius.circular(25),
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
-      );
-    }
-
-    SizedBox slideNhuCauShimmer() {
-      return SizedBox(
-        height: 35,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: 5,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => GestureDetector(
-            onTap: () {},
-            child: Container(
-              width: 100,
-              padding: const EdgeInsets.only(left: 15, right: 15),
-              margin: const EdgeInsets.only(right: 10),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: const Color(0X33B1BCD0),
-                borderRadius: BorderRadius.circular(25),
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.pen,
+                    color: Color(0XFF242A37),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Chỉnh sửa bài viết",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFF242A37),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditPost(
+                          tenDiaDanh: baiviet.diadanh.tenDiaDanh,
+                          user: baiviet.user,
+                          post: baiviet),
+                    ),
+                  );
+                },
               ),
-            ),
-          ),
-        ),
-      );
-    }
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.solidTrashAlt,
+                    color: Color(0XFFFF2D55),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Xoá bài viết",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFFFF2D55),
+                  ),
+                ),
+                onTap: () {
+                  showDialog(
+                    barrierColor: Colors.black26,
+                    context: context,
+                    builder: (context) {
+                      return dialog(
+                          "Xoá bài viết",
+                          "Bạn có chắc chắn muốn xoá bài viết này?",
+                          baiviet.id);
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+            ],
+          );
+        });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     Container slideNhuCau() {
       return Container(
         width: MediaQuery.of(context).size.width - 20,
         height: 35,
         margin: const EdgeInsets.only(left: 10, right: 10),
-        child: FutureBuilder<List<NhuCauObject>>(
-          future: NhuCauProvider.getAllNhuCau(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<NhuCauObject> lstNC = snapshot.data!;
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: lstNC.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => GestureDetector(
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: isLoadingNhuCau ? 2 : lstNC.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => isLoadingNhuCau
+              ? Shimmer.fromColors(
+                  child: slideNhuCauShimmer(),
+                  baseColor: const Color(0X1A242A37),
+                  highlightColor: const Color(0X33050505))
+              : GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -362,13 +462,6 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-              );
-            }
-            return Shimmer.fromColors(
-                child: slideNhuCauShimmer(),
-                baseColor: const Color(0X1A242A37),
-                highlightColor: const Color(0X33050505));
-          },
         ),
       );
     }
@@ -376,16 +469,17 @@ class HomePageState extends State<HomePage> {
     SizedBox slideBaiViet() {
       return SizedBox(
         height: 215,
-        child: FutureBuilder<List<BaiVietChiaSeObject>>(
-          future: BaiVietProvider.getAllBaiVietNoiBat(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<BaiVietChiaSeObject> lstBaiVietNoiBat = snapshot.data!;
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: lstBaiVietNoiBat.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Container(
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: isLoadingBaiVietNB ? 2 : lstBaiVietNoiBat.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => isLoadingBaiVietNB
+              ? Shimmer.fromColors(
+                  child: slideShimmer(),
+                  baseColor: const Color(0X1AC5B5D4),
+                  highlightColor: const Color(0X1A050505))
+              : Container(
                   padding: const EdgeInsets.only(left: 10),
                   width: 271,
                   height: 210,
@@ -535,13 +629,6 @@ class HomePageState extends State<HomePage> {
                     ]),
                   ),
                 ),
-              );
-            }
-            return Shimmer.fromColors(
-                child: slideShimmer(),
-                baseColor: const Color(0X1AC5B5D4),
-                highlightColor: const Color(0X1A050505));
-          },
         ),
       );
     }
@@ -549,17 +636,17 @@ class HomePageState extends State<HomePage> {
     SizedBox slideDiaDanh() {
       return SizedBox(
         height: 211,
-        child: FutureBuilder<List<DiaDanhObject>>(
-          future: DiaDanhProvider.getAllDiaDanh(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<DiaDanhObject> lstDD = snapshot.data!;
-
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: lstDD.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) => Container(
+        child: ListView.builder(
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: isLoadingDiaDanh ? 2 : lstDD.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) => isLoadingDiaDanh
+              ? Shimmer.fromColors(
+                  child: slideShimmer(),
+                  baseColor: const Color(0X1AC5B5D4),
+                  highlightColor: const Color(0X1A050505))
+              : Container(
                   padding: const EdgeInsets.only(left: 10),
                   width: 271,
                   height: 211,
@@ -691,28 +778,6 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-              );
-            }
-            return Shimmer.fromColors(
-                child: slideShimmer(),
-                baseColor: const Color(0X1AC5B5D4),
-                highlightColor: const Color(0X1A050505));
-          },
-        ),
-      );
-    }
-
-    Container sliderTitle(String title) {
-      return Container(
-        margin: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
-        child: Text(
-          title,
-          style: const TextStyle(
-            color: Color(0XE6242A37),
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
-          ),
         ),
       );
     }
@@ -787,15 +852,11 @@ class HomePageState extends State<HomePage> {
                   ),
                   trailing: IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditPost(
-                                  idDiaDanh: lstBaiViet[index].idDiaDanh,
-                                  tenDiaDanh:
-                                      lstBaiViet[index].diadanh.tenDiaDanh,
-                                  user: lstBaiViet[index].user,
-                                  post: lstBaiViet[index])));
+                      if (idUser == lstBaiViet[index].user.id) {
+                        showModalEdit(lstBaiViet[index]);
+                      } else {
+                        return;
+                      }
                     },
                     icon: const FaIcon(
                       FontAwesomeIcons.ellipsisV,
@@ -830,18 +891,32 @@ class HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    lstBaiViet[index].noiDung,
-                    textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w400,
-                      color: Color(0XFF242A37),
-                      height: 1.4,
-                      fontSize: 16,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChiTietBaiViet(
+                            baiviet: lstBaiViet[index],
+                            index: index,
+                            loaibaiviet: 1),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 10, right: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      lstBaiViet[index].noiDung,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF242A37),
+                        height: 1.4,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),

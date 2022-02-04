@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
@@ -10,21 +11,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 
+// ignore: must_be_immutable
 class SeeMorePage extends StatefulWidget {
   const SeeMorePage({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return SeeMorePageState();
   }
 }
 
 class SeeMorePageState extends State<SeeMorePage> {
-  late final UserObject user;
+  late UserObject user;
   String hinhAnh = urlImage + 'images/user-default.jpg';
   String hoTen = '';
   void _logout() async {
     bool log = await UserProvider.logout();
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    pres.setString('user', "");
     if (log) {
       Navigator.pushAndRemoveUntil(
           context,
@@ -37,12 +42,110 @@ class SeeMorePageState extends State<SeeMorePage> {
     SharedPreferences pres = await SharedPreferences.getInstance();
     setState(() {});
     String us = pres.getString("user") ?? '';
-    String img = pres.getString("hinhAnh") ?? '';
     user = UserObject.fromJson(jsonDecode(us));
     setState(() {
       hoTen = user.hoTen;
-      hinhAnh = urlImage + img;
+      hinhAnh = urlImage + user.hinhAnh;
     });
+  }
+
+  Dialog dialog(String title, String des) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 15),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0XFF242A37),
+            ),
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Text(
+              des,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0XFF242A37),
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Divider(
+            height: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15.0),
+                        bottomRight: Radius.circular(15.0),
+                      ),
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Hủy",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal,
+                            color: Color(0XFFB1BCD0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        _logout();
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Đăng xuất",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color(0XFF0066FF),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -76,9 +179,21 @@ class SeeMorePageState extends State<SeeMorePage> {
             child: IconButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SettingsPage()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ),
+                ).then((value) => setState(() async {
+                      SharedPreferences pres =
+                          await SharedPreferences.getInstance();
+                      String us = pres.getString("user") ?? '';
+                      UserObject newUser = UserObject.fromJson(jsonDecode(us));
+                      setState(() {
+                        hoTen = newUser.hoTen;
+                        user = newUser;
+                        hinhAnh = urlImage + newUser.hinhAnh;
+                      });
+                    }));
               },
               icon: const FaIcon(
                 FontAwesomeIcons.cog,
@@ -106,7 +221,18 @@ class SeeMorePageState extends State<SeeMorePage> {
                     MaterialPageRoute(
                       builder: (context) => PersonalPage(user: user),
                     ),
-                  );
+                  ).then((value) => setState(() async {
+                        SharedPreferences pres =
+                            await SharedPreferences.getInstance();
+                        String us = pres.getString("user") ?? '';
+                        UserObject newUser =
+                            UserObject.fromJson(jsonDecode(us));
+                        setState(() {
+                          hoTen = newUser.hoTen;
+                          user = newUser;
+                          hinhAnh = urlImage + newUser.hinhAnh;
+                        });
+                      }));
                 },
                 minLeadingWidth: 10,
                 leading: CircleAvatar(
@@ -176,7 +302,14 @@ class SeeMorePageState extends State<SeeMorePage> {
                   ),
                   child: ListTile(
                     onTap: () {
-                      _logout();
+                      showDialog(
+                        barrierColor: Colors.black26,
+                        context: context,
+                        builder: (context) {
+                          return dialog("Đăng xuất",
+                              "Bạn muốn đăng xuất khỏi tài khoản này");
+                        },
+                      );
                     },
                     minLeadingWidth: 10,
                     leading: const FaIcon(

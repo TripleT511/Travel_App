@@ -59,7 +59,7 @@ class SearchResultState extends State<SearchResult> {
         title: Text(
           "Địa danh - ${tinhthanh.tenTinhThanh}",
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
             fontFamily: 'Roboto',
             color: Color(0XFF242A37),

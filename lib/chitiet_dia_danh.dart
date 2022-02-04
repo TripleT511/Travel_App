@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
@@ -15,7 +15,7 @@ import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
-import 'package:vietnam_travel_app/map_page.dart';
+import 'package:vietnam_travel_app/Views/Map/map_page.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/create_post.dart';
 
@@ -42,7 +42,6 @@ class PlaceDetailState extends State<PlaceDetail> {
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
 
   _loadQuanAn() async {
     final data = await QuanAnProvider.getAllQuanAnByDiaDanh(id);
@@ -81,7 +80,7 @@ class PlaceDetailState extends State<PlaceDetail> {
         width: double.infinity,
         height: 232,
         child: Image.network(
-          urlImg + lstHinhAnh[i].hinhAnh,
+          urlImage + lstHinhAnh[i].hinhAnh,
           width: double.infinity,
           height: 232,
           fit: BoxFit.cover,
@@ -129,7 +128,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      urlImg + lstQuan[index].hinhAnh,
+                      urlImage + lstQuan[index].hinhAnh,
                       width: 271,
                       height: 132,
                       fit: BoxFit.cover,
@@ -249,7 +248,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      urlImg + lstLT[index].hinhAnh,
+                      urlImage + lstLT[index].hinhAnh,
                       width: 271,
                       height: 132,
                       fit: BoxFit.cover,
@@ -374,7 +373,7 @@ class PlaceDetailState extends State<PlaceDetail> {
               style: TextStyle(
                 fontSize: 14,
                 color: Color(0XFF0066FF),
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -527,7 +526,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                               color: Color(0XFF242A37),
                               fontSize: 18),
                         ),
@@ -566,7 +565,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                               color: Color(0XFF242A37),
                               fontSize: 18),
                         ),
@@ -603,8 +602,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => MapPage(
-                              viDo: double.parse(diadanh.viDo),
-                              kinhDo: double.parse(diadanh.kinhDo),
+                              diadanh: diadanh,
                             ),
                           ),
                         );
@@ -613,13 +611,18 @@ class PlaceDetailState extends State<PlaceDetail> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 15, vertical: 7),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: const Color(0XFF0066FF)),
+                          color: const Color(0XFFFFFFFF),
+                          borderRadius: BorderRadius.circular(25),
+                          border: Border.all(
+                            color: const Color(0XFFB1BCD0),
+                            width: 0.5,
+                          ),
+                        ),
                         child: Row(
                           children: const [
                             FaIcon(
                               FontAwesomeIcons.locationArrow,
-                              color: Color(0XFFFFFFFF),
+                              color: Color(0XFF0066FF),
                               size: 14,
                             ),
                             SizedBox(
@@ -628,8 +631,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                             Text(
                               "Xem bản đồ",
                               style: TextStyle(
-                                color: Color(0XFFFFFFFF),
-                                fontWeight: FontWeight.w400,
+                                color: Color(0XFF0066FF),
+                                fontWeight: FontWeight.w500,
                                 fontSize: 16,
                               ),
                             )
@@ -641,12 +644,52 @@ class PlaceDetailState extends State<PlaceDetail> {
                 ],
               ));
             }
-            return const Center(
-              child: SpinKitFadingCircle(
-                color: Color(0XFF0066FF),
-                size: 50.0,
-              ),
-            );
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "images/plane.png",
+                  width: 300,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 30, bottom: 20, left: 15, right: 15),
+                  child: const Text(
+                    "Đang lấy dữ liệu địa danh...",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0XFF242A37),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin:
+                      const EdgeInsets.only(bottom: 50, left: 50, right: 50),
+                  alignment: Alignment.center,
+                  child: const Text(
+                    "Những địa điểm du lịch hấp dẫn đang chờ bạn khám phá.",
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      height: 1.5,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFFB1BCD0),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  height: 7,
+                  child: const LinearProgressIndicator(
+                    color: Color(0XFF0066FF),
+                    backgroundColor: Color(0XFFB1BCD0),
+                  ),
+                ),
+              ],
+            ));
           }),
     );
   }

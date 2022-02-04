@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
+import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/edit_post.dart';
+import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 
 // ignore: must_be_immutable
@@ -29,6 +35,7 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   BaiVietChiaSeObject baiviet;
   int loaibaiviet;
   int index;
+  int idUser = 0;
   List<BaiVietChiaSeObject> lstBaiViet = [];
   List<BaiVietChiaSeObject> lstBaiVietNoiBat = [];
   List<BaiVietChiaSeObject> lstBaiVietUser = [];
@@ -36,12 +43,14 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
 
   _like(int id) async {
     setState(() {});
+    // ignore: unused_local_variable
     bool boollike = await BaiVietProvider.likePost(id);
     _loadBaiViet();
   }
 
   _dislike(int id) async {
     setState(() {});
+    // ignore: unused_local_variable
     bool boolUnLike = await BaiVietProvider.unLikePost(id);
     _loadBaiViet();
   }
@@ -51,18 +60,145 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
     var baivietnoibatdata = await BaiVietProvider.getAllBaiVietNoiBat();
     var baivietuserdata =
         await BaiVietProvider.getAllBaiVietUser(baiviet.user.id.toInt());
-    setState(() {
-      if (loaibaiviet == 0) {
-        lstBaiVietNoiBat = baivietnoibatdata;
-        baiviet = lstBaiVietNoiBat[index];
-      } else if (loaibaiviet == 1) {
-        lstBaiViet = baivietdata;
-        baiviet = lstBaiViet[index];
-      } else {
-        lstBaiVietUser = baivietuserdata;
-        baiviet = lstBaiVietUser[index];
-      }
-    });
+    if (mounted) {
+      setState(() {
+        setState(() {
+          if (loaibaiviet == 0) {
+            lstBaiVietNoiBat = baivietnoibatdata;
+            baiviet = lstBaiVietNoiBat[index];
+          } else if (loaibaiviet == 1) {
+            lstBaiViet = baivietdata;
+            baiviet = lstBaiViet[index];
+          } else {
+            lstBaiVietUser = baivietuserdata;
+            baiviet = lstBaiVietUser[index];
+          }
+        });
+      });
+    }
+  }
+
+  _deletePost(int id) async {
+    EasyLoading.show(status: 'Vui lòng đợi...');
+    bool isSuccess = await BaiVietProvider.deletePost(id);
+    if (isSuccess == true) {
+      List<BaiVietChiaSeObject> newBaiViet =
+          await BaiVietProvider.getAllBaiViet();
+      await UserProvider.getUser();
+      setState(() {
+        lstBaiViet = newBaiViet;
+      });
+
+      EasyLoading.showSuccess('Xóa bài viết thành công');
+      EasyLoading.dismiss();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const MyApp()),
+          (route) => false);
+    } else {
+      EasyLoading.showError('Xóa bài viết thất bại');
+      EasyLoading.dismiss();
+    }
+  }
+
+  Dialog dialog(String title, String des, int id) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 15),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0XFF242A37),
+            ),
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Text(
+              des,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0XFF242A37),
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Divider(
+            height: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15.0),
+                        bottomRight: Radius.circular(15.0),
+                      ),
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Hủy",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal,
+                            color: Color(0XFFB1BCD0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        _deletePost(id);
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Xoá",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color(0XFFFF2D55),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 
   _addViewPost() async {
@@ -71,10 +207,114 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
     // setState(() {});
   }
 
+  _loadUser() async {
+    UserObject user = await UserProvider.getUser();
+    if (mounted) {
+      setState(() {
+        idUser = user.id;
+      });
+    }
+  }
+
+  showModalEdit(BaiVietChiaSeObject baiviet) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 7),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0X1A242A37),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.pen,
+                    color: Color(0XFF242A37),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Chỉnh sửa bài viết",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFF242A37),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditPost(
+                          tenDiaDanh: baiviet.diadanh.tenDiaDanh,
+                          user: baiviet.user,
+                          post: baiviet),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.solidTrashAlt,
+                    color: Color(0XFFFF2D55),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Xoá bài viết",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFFFF2D55),
+                  ),
+                ),
+                onTap: () {
+                  showDialog(
+                    barrierColor: Colors.black26,
+                    context: context,
+                    builder: (context) {
+                      return dialog(
+                          "Xoá bài viết",
+                          "Bạn có chắc chắn muốn xoá bài viết này?",
+                          baiviet.id);
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   void initState() {
     super.initState();
     _addViewPost();
+    _loadUser();
   }
 
   InkWell kLike(int value, IconData icon, Color color, Function ontap) {
@@ -138,7 +378,7 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
         elevation: 1.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
@@ -216,7 +456,14 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
                   ),
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (idUser == baiviet.user.id) {
+                      showModalEdit(baiviet);
+                    } else {
+                      print("Không được phép sửa");
+                      return;
+                    }
+                  },
                   icon: const FaIcon(
                     FontAwesomeIcons.ellipsisV,
                     size: 16,

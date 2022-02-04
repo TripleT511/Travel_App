@@ -42,4 +42,20 @@ class UserObject {
         trangThai = us["trangThai"],
         baiviets_count = us["baiviets_count"],
         tinhthanhs_count = us["tinhthanhs_count"];
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "idPhanQuyen": idPhanQuyen,
+      "hoTen": hoTen,
+      "email": email,
+      "soDienThoai": soDienThoai,
+      "hinhAnh": hinhAnh,
+      "trangThaiHoTen": trangThaiHoTen,
+      "trangThaiEmail": trangThaiEmail,
+      "trangThaiSDT": trangThaiSDT,
+      "trangThai": trangThai,
+      "baiviets_count": baiviets_count,
+      "tinhthanhs_count": tinhthanhs_count,
+    };
+  }
 }

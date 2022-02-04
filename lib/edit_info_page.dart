@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/main.dart';
 
 class EditInforPage extends StatefulWidget {
   const EditInforPage({Key? key}) : super(key: key);
@@ -66,14 +65,12 @@ class EditInforPageState extends State<EditInforPage> {
         stateHoTen = stateHoTen;
         stateSDT = stateSDT;
         stateEmail = stateEmail;
+        SharedPreferences pres = await SharedPreferences.getInstance();
+        UserObject newUser = await UserProvider.getUser();
+        String user = jsonEncode(newUser.toJson());
+        pres.setString('user', user);
         EasyLoading.showSuccess('Cập nhật thành công');
         EasyLoading.dismiss();
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MyApp(),
-            ),
-            (route) => false);
       } else {
         EasyLoading.showError('Cập nhật thất bại');
         EasyLoading.dismiss();
@@ -95,12 +92,12 @@ class EditInforPageState extends State<EditInforPage> {
         elevation: 1.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF242A37),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),
@@ -187,7 +184,7 @@ class EditInforPageState extends State<EditInforPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -266,11 +263,14 @@ class EditInforPageState extends State<EditInforPage> {
               Container(
                 padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
                 child: TextFormField(
+                  readOnly: true,
                   controller: txtEmail,
                   decoration: InputDecoration(
+                    fillColor: Color(0X1A242A37),
+                    filled: true,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFF1F2F6)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -279,17 +279,6 @@ class EditInforPageState extends State<EditInforPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Email không được bỏ trống";
-                    } else if (!RegExp(
-                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(value)) {
-                      return "Email không hợp lệ";
-                    } else {
-                      return null;
-                    }
-                  },
                 ),
               ),
               Container(
@@ -357,7 +346,7 @@ class EditInforPageState extends State<EditInforPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(

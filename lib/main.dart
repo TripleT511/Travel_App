@@ -3,7 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
-import 'package:vietnam_travel_app/map_page.dart';
+import 'package:vietnam_travel_app/Views/Map/map_page.dart';
 import 'package:vietnam_travel_app/search_page.dart';
 import 'package:vietnam_travel_app/seemore_page.dart';
 
@@ -25,14 +25,33 @@ void configLoading() {
   EasyLoading.instance
     ..displayDuration = const Duration(milliseconds: 2000)
     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
+    ..loadingStyle = EasyLoadingStyle.light
     ..indicatorSize = 45.0
     ..radius = 10.0
     ..progressColor = Colors.yellow
     ..backgroundColor = Colors.green
-    ..indicatorColor = Colors.yellow
+    ..indicatorColor = const Color(0XFF0066FF)
     ..textColor = Colors.yellow
     ..maskColor = Colors.blue.withOpacity(0.5)
+    ..textStyle = const TextStyle(
+      color: Color(0XFF242A37),
+      fontSize: 14.0,
+    )
+    ..successWidget = const FaIcon(
+      FontAwesomeIcons.solidCheckCircle,
+      color: Color(0XFF0066FF),
+      size: 22,
+    )
+    ..errorWidget = const FaIcon(
+      FontAwesomeIcons.solidTimesCircle,
+      color: Color(0XFFFF2D55),
+      size: 22,
+    )
+    ..infoWidget = const FaIcon(
+      FontAwesomeIcons.infoCircle,
+      color: Color(0XFF0066FF),
+      size: 22,
+    )
     ..userInteractions = true
     ..dismissOnTap = false;
 }
@@ -139,7 +158,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
               MaterialButton(
                 onPressed: () {
                   setState(() {
-                    currentSreen = const SeeMorePage();
+                    currentSreen = SeeMorePage();
                     currentTab = 3;
                   });
                 },

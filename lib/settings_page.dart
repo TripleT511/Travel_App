@@ -21,7 +21,7 @@ class SettingsPageState extends State<SettingsPage> {
           elevation: 1.0,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pop(context, true);
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,

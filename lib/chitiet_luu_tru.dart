@@ -166,8 +166,8 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   height: 1.5,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
                   color: Color(0XFF242a37),
                 ),
               ),

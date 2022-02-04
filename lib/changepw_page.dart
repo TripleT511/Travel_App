@@ -39,7 +39,6 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
         pres.setString('password', txtnewPass.text);
         EasyLoading.showSuccess('Đổi mật khẩu thành công');
         EasyLoading.dismiss();
-        Navigator.pop(context);
       } else {
         EasyLoading.showError('Đổi mật khẩu thất bại');
         EasyLoading.dismiss();
@@ -62,12 +61,12 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
         elevation: 1.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF242A37),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),
@@ -105,7 +104,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide:
-                        const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                        const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -159,7 +158,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide:
-                        const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                        const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -213,7 +212,7 @@ class ChangePasswordPageState extends State<ChangePasswordPage> {
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide:
-                        const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                        const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(

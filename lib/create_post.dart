@@ -1,9 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
+import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/main.dart';
 
 class CreatePost extends StatefulWidget {
@@ -33,13 +38,13 @@ class CreatePostState extends State<CreatePost> {
       {required this.idDiaDanh, required this.tenDiaDanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables
+  final formKey = GlobalKey<FormState>();
   var _image;
   final picker = ImagePicker();
   int idUser = 0;
   bool isPost = false;
-  String hoTenUser = '';
+  String toaDo = '';
   String hinhAnh = '';
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -48,20 +53,71 @@ class CreatePostState extends State<CreatePost> {
       _image = File(pickedFile.path);
       isPost = true;
     } else {
-      const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      EasyLoading.showInfo('Chưa chọn ảnh');
+      EasyLoading.dismiss();
     }
   }
 
   _createPost() async {
-    bool isSuccess = await BaiVietProvider.createPost(
-        _image, idDiaDanh.toString(), user.id.toString(), txtNoiDung.text);
-
-    // ignore: unrelated_type_equality_checks
-    if (isSuccess == true) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MyApp()));
+    if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
+      bool isSuccess = await BaiVietProvider.createPost(
+          _image, idDiaDanh.toString(), user.id.toString(), txtNoiDung.text);
+      await UserProvider.getUser();
+      // ignore: unrelated_type_equality_checks
+      if (isSuccess == true) {
+        EasyLoading.showSuccess('Đăng bài viết thành công');
+        EasyLoading.dismiss();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const MyApp()));
+      }
     }
+  }
+
+  _checkIn() async {
+    final result = await acquireCurrentLocation();
+
+    if (result != null) {
+      if (mounted) {
+        setState(() {
+          toaDo =
+              result.latitude.toString() + ", " + result.longitude.toString();
+        });
+      }
+    }
+  }
+
+  Future<LatLng> acquireCurrentLocation() async {
+    // Initializes the plugin and starts listening for potential platform events
+    Location location = Location();
+
+    // Whether or not the location service is enabled
+    bool serviceEnabled;
+
+    // Status of a permission request to use location services
+    PermissionStatus permissionGranted;
+
+    // Check if the location service is enabled, and if not, then request it. In
+    // case the user refuses to do it, return immediately with a null result
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {}
+    }
+
+    // Check for location permissions; similar to the workflow in Android apps,
+    // so check whether the permissions is granted, if not, first you need to
+    // request it, and then read the result of the request, and only proceed if
+    // the permission was granted by the user
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {}
+    }
+
+    // Gets the current location of the user
+    final locationData = await location.getLocation();
+    return LatLng(locationData.latitude!, locationData.longitude!);
   }
 
   @override
@@ -74,6 +130,7 @@ class CreatePostState extends State<CreatePost> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 1.0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -81,7 +138,7 @@ class CreatePostState extends State<CreatePost> {
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF242A37),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: Colors.white,
@@ -90,7 +147,7 @@ class CreatePostState extends State<CreatePost> {
         title: const Text(
           "Bài viết",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'Roboto',
             color: Color(0XFF242A37),
@@ -107,12 +164,12 @@ class CreatePostState extends State<CreatePost> {
                         _createPost();
                       },
                       child: const Text(
-                        "Post",
+                        "Chia sẻ",
                         style: TextStyle(
                             color: Color(0XFF0066FF),
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w700),
                       ),
                     )
                   : Container(),
@@ -131,7 +188,7 @@ class CreatePostState extends State<CreatePost> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
                   image: DecorationImage(
-                    image: NetworkImage(urlImg + user.hinhAnh),
+                    image: NetworkImage(urlImage + user.hinhAnh),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -146,7 +203,7 @@ class CreatePostState extends State<CreatePost> {
                 ),
               ),
               subtitle: Text(
-                tenDiaDanh,
+                toaDo == "" ? tenDiaDanh : toaDo,
                 style: const TextStyle(
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,
@@ -157,18 +214,67 @@ class CreatePostState extends State<CreatePost> {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-              child: TextField(
-                controller: txtNoiDung,
-                cursorColor: const Color(0XFF0066FF),
-                cursorWidth: 1.5,
-                decoration: const InputDecoration(
-                    hintText: "Bạn đang nghĩ gì...", border: InputBorder.none),
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
+              child: Form(
+                key: formKey,
+                child: TextFormField(
+                  controller: txtNoiDung,
+                  cursorColor: const Color(0XFF0066FF),
+                  cursorWidth: 1.5,
+                  decoration: const InputDecoration(
+                      hintText: "Bạn đang nghĩ gì...",
+                      border: InputBorder.none),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  onChanged: (value) {
+                    formKey.currentState!.validate();
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Nội dung không được bỏ trống";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 10,
+              child: Card(
+                elevation: 1.0,
+                color: const Color(0XFFF3F3F3),
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  onTap: () {
+                    _checkIn();
+                  },
+                  minLeadingWidth: 10,
+                  leading: const CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Color(0X1AFF2D55),
+                    child: FaIcon(
+                      FontAwesomeIcons.mapMarkerAlt,
+                      size: 16,
+                      color: Color(0XFFFF2D55),
+                    ),
+                  ),
+                  title: const Text(
+                    "Vị trí của tôi",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0XFF242A37),
+                    ),
+                  ),
+                ),
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 5,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -186,14 +292,22 @@ class CreatePostState extends State<CreatePost> {
                             fit: BoxFit.cover,
                           ),
                         )
-                      : Image.file(
-                          _image,
-                          width: MediaQuery.of(context).size.width - 20,
-                          fit: BoxFit.cover,
+                      : GestureDetector(
+                          onTap: () {
+                            pickerImage();
+                          },
+                          child: Image.file(
+                            _image,
+                            width: MediaQuery.of(context).size.width - 20,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(
+              height: 20,
+            ),
           ],
         ),
       ),

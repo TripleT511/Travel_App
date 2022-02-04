@@ -41,9 +41,8 @@ class LoginPageState extends State<LoginPage> {
       EasyLoading.show(status: 'Vui lòng đợi...');
       bool isSuccess =
           await UserProvider.login(txtEmail.text, txtPassword.text);
-
+      EasyLoading.showSuccess('Đăng nhập thành công!');
       if (isSuccess) {
-        EasyLoading.showSuccess('Đăng nhập thành công!');
         if (check) {
           SharedPreferences pres = await SharedPreferences.getInstance();
           pres.setString('email', txtEmail.text);
@@ -78,7 +77,7 @@ class LoginPageState extends State<LoginPage> {
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF0066FF),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),
@@ -122,7 +121,7 @@ class LoginPageState extends State<LoginPage> {
                     hintText: "Nhập email",
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -166,7 +165,7 @@ class LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(

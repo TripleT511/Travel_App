@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/address_object.dart';
 import 'package:vietnam_travel_app/Providers/address_provider.dart';
-import 'package:vietnam_travel_app/map_page.dart';
+import 'package:vietnam_travel_app/Views/Map/map_page.dart';
 import 'dart:async';
 
 class SearchMap extends StatefulWidget {
@@ -21,9 +21,12 @@ class SearchMapState extends State<SearchMap> {
   void _searchDiaDiem() async {
     if (txtSearch.text.isNotEmpty) {
       if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 200), () async {
-        setState(() {});
-        data = await AddressProvider.getAllDiaDanh(txtSearch.text, null, null);
+      _debounce = Timer(const Duration(milliseconds: 100), () async {
+        if (mounted) {
+          setState(() {});
+          data =
+              await AddressProvider.getAllDiaDanh(txtSearch.text, null, null);
+        }
       });
     }
   }
@@ -34,8 +37,7 @@ class SearchMapState extends State<SearchMap> {
       context,
       MaterialPageRoute(
         builder: (context) => MapPage(
-          viDo: place.geometry.location.lat,
-          kinhDo: place.geometry.location.lng,
+          placeDetail: place,
         ),
       ),
     );
@@ -91,6 +93,7 @@ class SearchMapState extends State<SearchMap> {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           padding: EdgeInsets.zero,
+          physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {

@@ -75,8 +75,7 @@ class BaiVietProvider {
   }
 
   //edit
-  static Future<bool> editPost(File? _image, String idDiaDanh, String idUser,
-      String noiDung, String idPost) async {
+  static Future<bool> editPost(File? _image, String noiDung, int idPost) async {
     var token = await UserProvider.getToken();
 
     Map<String, String> headers = {"Authorization": "Bearer $token"};
@@ -84,8 +83,6 @@ class BaiVietProvider {
     var uri = Uri.parse(urlAPI + "baiviet/$idPost/update");
     var request = http.MultipartRequest("POST", uri);
     request.headers.addAll(headers);
-    // request.fields["idDiaDanh"] = idDiaDanh;
-    // request.fields["idUser"] = idUser;
     request.fields["noiDung"] = noiDung;
     request.fields["_method"] = "PUT";
     if (_image != null) {
@@ -99,6 +96,22 @@ class BaiVietProvider {
     }
 
     var response = await request.send();
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<bool> deletePost(int postId) async {
+    var token = await UserProvider.getToken();
+    final response = await http
+        .delete(Uri.parse(urlAPI + 'baiviet/$postId/delete'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
 
     if (response.statusCode == 200) {
       return true;

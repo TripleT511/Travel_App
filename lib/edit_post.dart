@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
@@ -9,13 +10,11 @@ import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/main.dart';
 
 class EditPost extends StatefulWidget {
-  final int idDiaDanh;
   final String tenDiaDanh;
   final BaiVietChiaSeObject post;
   final UserObject user;
   const EditPost(
       {Key? key,
-      required this.idDiaDanh,
       required this.tenDiaDanh,
       required this.user,
       required this.post})
@@ -24,23 +23,19 @@ class EditPost extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return EditPostState(
-        idDiaDanh: idDiaDanh, tenDiaDanh: tenDiaDanh, post: post, user: user);
+    return EditPostState(tenDiaDanh: tenDiaDanh, post: post, user: user);
   }
 }
 
 class EditPostState extends State<EditPost> {
-  final int idDiaDanh;
   final String tenDiaDanh;
   final BaiVietChiaSeObject post;
   final UserObject user;
   EditPostState(
-      {required this.idDiaDanh,
-      required this.tenDiaDanh,
-      required this.post,
-      required this.user});
+      {required this.tenDiaDanh, required this.post, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables
+  final formKey = GlobalKey<FormState>();
   var _image;
   final picker = ImagePicker();
   int idUser = 0;
@@ -55,29 +50,39 @@ class EditPostState extends State<EditPost> {
       _image = File(pickedFile.path);
       isPost = true;
     } else {
-      const snackBar = SnackBar(content: Text('Chưa chọn ảnh'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      EasyLoading.showSuccess('Chưa chọn ảnh');
+      EasyLoading.dismiss();
     }
   }
 
   _editPost() async {
-    bool isSuccess = await BaiVietProvider.editPost(
-        _image,
-        idDiaDanh.toString(),
-        user.id.toString(),
-        txtNoiDung.text,
-        post.id.toString());
+    if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Đang cập nhật bài viết...');
+      bool isSuccess =
+          await BaiVietProvider.editPost(_image, txtNoiDung.text, post.id);
 
-    // ignore: unrelated_type_equality_checks
-    if (isSuccess == true) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const MyApp()));
+      // ignore: unrelated_type_equality_checks
+      if (isSuccess == true) {
+        EasyLoading.showSuccess('Cập nhật bài viết thành công');
+        EasyLoading.dismiss();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const MyApp()));
+      }
+    }
+  }
+
+  _loadPost() {
+    if (mounted) {
+      setState(() {
+        txtNoiDung.text = post.noiDung;
+      });
     }
   }
 
   @override
   void initState() {
     super.initState();
+    _loadPost();
   }
 
   @override
@@ -85,6 +90,7 @@ class EditPostState extends State<EditPost> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 1.0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -92,7 +98,7 @@ class EditPostState extends State<EditPost> {
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF242A37),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: Colors.white,
@@ -101,7 +107,7 @@ class EditPostState extends State<EditPost> {
         title: const Text(
           "Bài viết",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'Roboto',
             color: Color(0XFF242A37),
@@ -118,12 +124,12 @@ class EditPostState extends State<EditPost> {
                         _editPost();
                       },
                       child: const Text(
-                        "Update",
+                        "Cập nhật",
                         style: TextStyle(
                             color: Color(0XFF0066FF),
-                            fontSize: 18,
+                            fontSize: 16,
                             fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w700),
                       ),
                     )
                   : Container(),
@@ -168,13 +174,26 @@ class EditPostState extends State<EditPost> {
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-              child: TextField(
-                controller: txtNoiDung,
-                cursorColor: const Color(0XFF0066FF),
-                cursorWidth: 1.5,
-                decoration: const InputDecoration(border: InputBorder.none),
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
+              child: Form(
+                key: formKey,
+                child: TextFormField(
+                  controller: txtNoiDung,
+                  cursorColor: const Color(0XFF0066FF),
+                  cursorWidth: 1.5,
+                  decoration: const InputDecoration(border: InputBorder.none),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  onChanged: (value) {
+                    formKey.currentState!.validate();
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Nội dung không được bỏ trống";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
               ),
             ),
             const SizedBox(

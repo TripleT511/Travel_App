@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -12,7 +13,7 @@ import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/main.dart';
+import 'package:vietnam_travel_app/edit_post.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 
 // ignore: must_be_immutable
@@ -36,6 +37,7 @@ class PersonalPageState extends State<PersonalPage> {
   // ignore: prefer_typing_uninitialized_variables
   var _image;
   final picker = ImagePicker();
+  String avatar = "";
 
   _like(int id) async {
     setState(() {});
@@ -67,9 +69,11 @@ class PersonalPageState extends State<PersonalPage> {
       if (isSuccess == true) {
         EasyLoading.showSuccess('Cập nhật ảnh đại diện thành công');
         EasyLoading.dismiss();
+        UserObject newUser = await UserProvider.getUser();
+        setState(() {
+          avatar = newUser.hinhAnh;
+        });
         Navigator.pop(context);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MyApp()));
       } else {
         EasyLoading.showError('Cập nhật ảnh đại diện thất bại');
         EasyLoading.dismiss();
@@ -81,52 +85,291 @@ class PersonalPageState extends State<PersonalPage> {
     }
   }
 
+  _deletePost(int id) async {
+    EasyLoading.show(status: 'Vui lòng đợi...');
+    bool isSuccess = await BaiVietProvider.deletePost(id);
+    if (isSuccess == true) {
+      List<BaiVietChiaSeObject> newBaiViet =
+          await BaiVietProvider.getAllBaiVietUser(idUser);
+      UserObject newUser = await UserProvider.getUser();
+      setState(() {
+        lstBaiViet = newBaiViet;
+        user = newUser;
+      });
+      Navigator.pop(context, true);
+
+      EasyLoading.showSuccess('Xóa bài viết thành công');
+      EasyLoading.dismiss();
+    } else {
+      EasyLoading.showError('Xóa bài viết thất bại');
+      EasyLoading.dismiss();
+    }
+  }
+
+  Dialog dialog(String title, String des, int id) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      elevation: 0.0,
+      backgroundColor: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const SizedBox(height: 15),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Color(0XFF242A37),
+            ),
+          ),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            child: Text(
+              des,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0XFF242A37),
+                fontSize: 14,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Divider(
+            height: 1,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15.0),
+                        bottomRight: Radius.circular(15.0),
+                      ),
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Hủy",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal,
+                            color: Color(0XFFB1BCD0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.5 - 10,
+                    height: 50,
+                    child: InkWell(
+                      highlightColor: Colors.grey[200],
+                      onTap: () {
+                        _deletePost(id);
+                        Navigator.pop(context);
+                      },
+                      child: const Center(
+                        child: Text(
+                          "Xoá",
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color(0XFFFF2D55),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
   showModal() {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
           ),
         ),
         backgroundColor: Colors.white,
         builder: (context) {
-          return ListTile(
-            leading: const CircleAvatar(
-              backgroundColor: Color(0X1A242A37),
-              child: FaIcon(
-                FontAwesomeIcons.images,
-                color: Color(0XFF242A37),
-                size: 16,
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 7),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0X1A242A37),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
               ),
-            ),
-            title: const Text(
-              "Chọn từ thư viện",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Color(0XFF242A37),
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.images,
+                    color: Color(0XFF242A37),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Chọn từ thư viện",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFF242A37),
+                  ),
+                ),
+                onTap: () {
+                  pickerImage();
+                },
               ),
-            ),
-            onTap: () {
-              pickerImage();
-            },
+              const SizedBox(
+                height: 5,
+              ),
+            ],
+          );
+        });
+  }
+
+  showModalEdit(BaiVietChiaSeObject baiviet) {
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 7),
+                  width: 40,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: const Color(0X1A242A37),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.pen,
+                    color: Color(0XFF242A37),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Chỉnh sửa bài viết",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFF242A37),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditPost(
+                          tenDiaDanh: baiviet.diadanh.tenDiaDanh,
+                          user: baiviet.user,
+                          post: baiviet),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const CircleAvatar(
+                  backgroundColor: Color(0X1A242A37),
+                  child: FaIcon(
+                    FontAwesomeIcons.solidTrashAlt,
+                    color: Color(0XFFFF2D55),
+                    size: 18,
+                  ),
+                ),
+                title: const Text(
+                  "Xoá bài viết",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0XFFFF2D55),
+                  ),
+                ),
+                onTap: () {
+                  showDialog(
+                    barrierColor: Colors.black26,
+                    context: context,
+                    builder: (context) {
+                      return dialog(
+                          "Xoá bài viết",
+                          "Bạn có chắc chắn muốn xoá bài viết này?",
+                          baiviet.id);
+                    },
+                  );
+                },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+            ],
           );
         });
   }
 
   _loadUser() async {
     SharedPreferences pres = await SharedPreferences.getInstance();
-    setState(() {});
-    idUser = pres.getInt('id') ?? 0;
+    String us = pres.getString("user") ?? '';
+    UserObject user = UserObject.fromJson(jsonDecode(us));
+    setState(() {
+      idUser = user.id;
+    });
   }
 
   @override
   void initState() {
     super.initState();
     _loadUser();
+    avatar = user.hinhAnh;
   }
 
   InkWell kLike(int value, IconData icon, Color color, Function ontap) {
@@ -200,7 +443,7 @@ class PersonalPageState extends State<PersonalPage> {
               onPressed: () {},
               child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, true);
                 },
                 icon: const FaIcon(
                   FontAwesomeIcons.arrowLeft,
@@ -252,7 +495,7 @@ class PersonalPageState extends State<PersonalPage> {
                         child: _image == null
                             ? CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                  urlImage + user.hinhAnh,
+                                  urlImage + avatar,
                                 ),
                               )
                             : CircleAvatar(
@@ -273,24 +516,32 @@ class PersonalPageState extends State<PersonalPage> {
                     )),
                 GestureDetector(
                   onTap: () {
-                    showModal();
+                    if (idUser == user.id) {
+                      showModal();
+                    } else {
+                      return;
+                    }
                   },
                   child: Container(
                     width: 25,
                     height: 25,
                     margin: const EdgeInsets.only(top: 185),
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0XFFECF8FF),
-                    ),
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: FaIcon(
-                        FontAwesomeIcons.camera,
-                        color: Color(0XFF0066FF),
-                        size: 12,
-                      ),
-                    ),
+                    decoration: idUser == user.id
+                        ? const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0XFFECF8FF),
+                          )
+                        : const BoxDecoration(),
+                    child: idUser == user.id
+                        ? const Align(
+                            alignment: Alignment.center,
+                            child: FaIcon(
+                              FontAwesomeIcons.camera,
+                              color: Color(0XFF0066FF),
+                              size: 12,
+                            ),
+                          )
+                        : Container(),
                   ),
                 ),
               ],
@@ -519,7 +770,13 @@ class PersonalPageState extends State<PersonalPage> {
                                 ),
                               ),
                               trailing: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  if (idUser == user.id) {
+                                    showModalEdit(lstBaiViet[index]);
+                                  } else {
+                                    return;
+                                  }
+                                },
                                 icon: const FaIcon(
                                   FontAwesomeIcons.ellipsisV,
                                   size: 16,

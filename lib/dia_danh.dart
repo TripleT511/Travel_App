@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
@@ -17,7 +18,6 @@ class Place extends StatefulWidget {
 class PlaceState extends State<Place> {
   final List<Column> imgListDiaDanh = [];
   final List<Column> imgListDiaDanhLongAn = [];
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   List<DiaDanhObject> lstDD = [];
   void loadListDiaDanh() async {
     final data = await DiaDanhProvider.getAllDiaDanh();
@@ -47,7 +47,7 @@ class PlaceState extends State<Place> {
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: Image.network(
-                    urlImg + lstDD[i].hinhanh!.hinhAnh,
+                    urlImage + lstDD[i].hinhanh!.hinhAnh,
                     /*a.image*/
                     width: double.maxFinite,
                     height: 210,

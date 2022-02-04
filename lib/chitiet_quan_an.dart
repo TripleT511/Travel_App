@@ -182,7 +182,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                         fontFamily: 'Roboto',
                         height: 1.5,
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         color: Color(0XFF242A37),
                       ),
                     ),
@@ -210,7 +210,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                       style: TextStyle(
                         color: Color(0XFF242A37),
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         fontFamily: 'Roboto',
                       ),
                     ),

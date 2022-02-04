@@ -88,7 +88,7 @@ class ConfirmTokenPageState extends State<ConfirmTokenPage> {
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF0066FF),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),

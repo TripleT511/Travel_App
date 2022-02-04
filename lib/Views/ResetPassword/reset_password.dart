@@ -62,7 +62,7 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,
             color: Color(0XFF0066FF),
-            size: 21,
+            size: 20,
           ),
         ),
         backgroundColor: const Color(0XFFFFFFFF),
@@ -126,7 +126,7 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -183,7 +183,7 @@ class ResetPasswordPageState extends State<ResetPasswordPage> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
-                          const BorderSide(width: 1, color: Color(0XFFB9B9B9)),
+                          const BorderSide(width: 1, color: Color(0XFFB1BCD0)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     focusedBorder: OutlineInputBorder(
