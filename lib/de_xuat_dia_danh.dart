@@ -1,7 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
+import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/address_provider.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
+import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
+import 'package:vietnam_travel_app/home_tab.dart';
 
 class DeXuatDiaDanh extends StatefulWidget {
   const DeXuatDiaDanh({Key? key}) : super(key: key);
@@ -17,6 +25,10 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
   TextEditingController txtMoTa = TextEditingController();
   TextEditingController txtViDo = TextEditingController();
   TextEditingController txtKinhDo = TextEditingController();
+  List<TinhThanhObject> lstTinhThanh = [];
+  String tinhThanhID = "";
+  var _image;
+  final picker = ImagePicker();
   final formKey = GlobalKey<FormState>();
 
   _checkIn() async {
@@ -30,6 +42,65 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
           txtViDo.text = geoCoding.geometry.location.lat.toString();
           txtKinhDo.text = geoCoding.geometry.location.lng.toString();
         });
+      }
+    }
+  }
+
+  Future pickerImage() async {
+    var pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {});
+      _image = File(pickedFile.path);
+    } else {
+      EasyLoading.showInfo('Chưa chọn ảnh');
+      EasyLoading.dismiss();
+    }
+  }
+
+  _loadTinhThanh() async {
+    var data = await TinhThanhProvider.getAllTinhThanh();
+    setState(() {});
+    lstTinhThanh = data;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {});
+    _loadTinhThanh();
+  }
+
+  String _checkTinhThanh(String diaChi) {
+    List<String> a = diaChi.split(',');
+    for (int i = 0; i < lstTinhThanh.length; i++) {
+      if (lstTinhThanh[i].tenTinhThanh == a[a.length - 1]) {
+        tinhThanhID = lstTinhThanh[i].id.toString();
+      }
+    }
+    if (tinhThanhID != "") {
+      return tinhThanhID;
+    }
+    return '1';
+  }
+
+  _deXuatDiaDanh() async {
+    if (formKey.currentState!.validate()) {
+      EasyLoading.show(status: 'Vui lòng đợi...');
+      bool isSuccess = await DiaDanhProvider.deXuatDiaDanh(
+          txtTenDiaDanh.text,
+          txtMoTa.text,
+          txtKinhDo.text,
+          txtViDo.text,
+          _checkTinhThanh(txtTenDiaDanh.text),
+          _image);
+
+      // ignore: unrelated_type_equality_checks
+      if (isSuccess == true) {
+        EasyLoading.showSuccess('Đề xuất địa danh thành công');
+        EasyLoading.dismiss();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
       }
     }
   }
@@ -232,6 +303,39 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                       color: Color(0XFF242A37)),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(10.0),
+                        child: _image == null
+                            ? GestureDetector(
+                                onTap: () {
+                                  pickerImage();
+                                },
+                                child: Image.asset(
+                                  'images/no-image-available.jpg',
+                                  width: MediaQuery.of(context).size.width - 10,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  pickerImage();
+                                },
+                                child: Image.file(
+                                  _image,
+                                  width: MediaQuery.of(context).size.width - 20,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width - 20,
                 child: Card(
@@ -275,7 +379,9 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                     borderRadius: BorderRadius.circular(10),
                     color: const Color(0XFF0066FF)),
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _deXuatDiaDanh();
+                  },
                   child: const Text(
                     "Đề xuất",
                     style: TextStyle(
