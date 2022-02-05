@@ -7,7 +7,6 @@ class BaiVietChiaSeObject {
   final int idDiaDanh;
   final String noiDung;
   final String thoiGian;
-  final int trangThai;
   final DiaDanhObject diadanh;
   final HinhAnhObject hinhanh;
   final UserObject user;
@@ -22,7 +21,6 @@ class BaiVietChiaSeObject {
       this.idDiaDanh,
       this.noiDung,
       this.thoiGian,
-      this.trangThai,
       this.diadanh,
       this.hinhanh,
       this.user,
@@ -37,7 +35,6 @@ class BaiVietChiaSeObject {
         idDiaDanh = bv["idDiaDanh"],
         noiDung = bv["noiDung"],
         thoiGian = bv["thoiGian"],
-        trangThai = bv["trangThai"],
         diadanh = DiaDanhObject.fromJson2(bv["diadanh"]),
         hinhanh = HinhAnhObject.fromJson(bv["hinhanh"]),
         user = UserObject.fromJson(bv["user"]),

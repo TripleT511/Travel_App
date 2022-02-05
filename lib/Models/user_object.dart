@@ -9,7 +9,6 @@ class UserObject {
   final int trangThaiHoTen;
   final int trangThaiEmail;
   final int trangThaiSDT;
-  final int trangThai;
   final int? baiviets_count;
   final int? tinhthanhs_count;
 
@@ -24,7 +23,6 @@ class UserObject {
       this.trangThaiHoTen,
       this.trangThaiEmail,
       this.trangThaiSDT,
-      this.trangThai,
       this.baiviets_count,
       this.tinhthanhs_count);
 
@@ -39,7 +37,6 @@ class UserObject {
         trangThaiHoTen = us["trangThaiHoTen"],
         trangThaiEmail = us["trangThaiEmail"],
         trangThaiSDT = us["trangThaiSDT"],
-        trangThai = us["trangThai"],
         baiviets_count = us["baiviets_count"],
         tinhthanhs_count = us["tinhthanhs_count"];
   Map<String, dynamic> toJson() {
@@ -53,7 +50,6 @@ class UserObject {
       "trangThaiHoTen": trangThaiHoTen,
       "trangThaiEmail": trangThaiEmail,
       "trangThaiSDT": trangThaiSDT,
-      "trangThai": trangThai,
       "baiviets_count": baiviets_count,
       "tinhthanhs_count": tinhthanhs_count,
     };

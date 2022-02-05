@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:location/location.dart';
-import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/address_provider.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/main.dart';
@@ -43,7 +42,7 @@ class CreatePostState extends State<CreatePost> {
   final picker = ImagePicker();
   int idUser = 0;
   bool isPost = false;
-  String toaDo = '';
+  String viTriCuaToi = '';
   String hinhAnh = '';
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -76,48 +75,15 @@ class CreatePostState extends State<CreatePost> {
 
   _checkIn() async {
     final result = await acquireCurrentLocation();
-
+    final geoCoding = await AddressProvider.getNameCurrentLocation(
+        result.latitude, result.longitude);
     if (result != null) {
       if (mounted) {
         setState(() {
-          toaDo =
-              result.latitude.toString() + ", " + result.longitude.toString();
+          viTriCuaToi = geoCoding.formatted_address;
         });
       }
     }
-  }
-
-  Future<LatLng> acquireCurrentLocation() async {
-    // Initializes the plugin and starts listening for potential platform events
-    Location location = Location();
-
-    // Whether or not the location service is enabled
-    bool serviceEnabled;
-
-    // Status of a permission request to use location services
-    PermissionStatus permissionGranted;
-
-    // Check if the location service is enabled, and if not, then request it. In
-    // case the user refuses to do it, return immediately with a null result
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {}
-    }
-
-    // Check for location permissions; similar to the workflow in Android apps,
-    // so check whether the permissions is granted, if not, first you need to
-    // request it, and then read the result of the request, and only proceed if
-    // the permission was granted by the user
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {}
-    }
-
-    // Gets the current location of the user
-    final locationData = await location.getLocation();
-    return LatLng(locationData.latitude!, locationData.longitude!);
   }
 
   @override
@@ -203,8 +169,9 @@ class CreatePostState extends State<CreatePost> {
                 ),
               ),
               subtitle: Text(
-                toaDo == "" ? tenDiaDanh : toaDo,
+                viTriCuaToi == "" ? tenDiaDanh : viTriCuaToi,
                 style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
                   fontFamily: 'Roboto',
                   fontWeight: FontWeight.w400,
                   fontSize: 12,
@@ -241,7 +208,7 @@ class CreatePostState extends State<CreatePost> {
             SizedBox(
               width: MediaQuery.of(context).size.width - 10,
               child: Card(
-                elevation: 1.0,
+                elevation: 0,
                 color: const Color(0XFFF3F3F3),
                 clipBehavior: Clip.antiAlias,
                 shape: RoundedRectangleBorder(
@@ -266,7 +233,7 @@ class CreatePostState extends State<CreatePost> {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       color: Color(0XFF242A37),
                     ),
                   ),

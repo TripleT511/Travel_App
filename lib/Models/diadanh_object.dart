@@ -11,7 +11,6 @@ class DiaDanhObject {
   final String viDo;
   final HinhAnhObject? hinhanh;
   final int tinh_thanh_id;
-  final int trangThai;
   final TinhThanhObject? tinhthanh;
   final List<HinhAnhObject>? hinhanhs;
   final int? shares_count;
@@ -24,7 +23,6 @@ class DiaDanhObject {
       this.kinhDo,
       this.viDo,
       this.tinh_thanh_id,
-      this.trangThai,
       this.tinhthanh,
       this.hinhanh,
       this.hinhanhs,
@@ -38,7 +36,6 @@ class DiaDanhObject {
         kinhDo = res["kinhDo"],
         viDo = res["viDo"],
         tinh_thanh_id = res["tinh_thanh_id"],
-        trangThai = res["trangThai"],
         tinhthanh = TinhThanhObject.fromJson(res["tinhthanh"]),
         hinhanh = HinhAnhObject.fromJson(res["hinhanh"]),
         hinhanhs = null,
@@ -51,7 +48,6 @@ class DiaDanhObject {
         kinhDo = res["kinhDo"],
         viDo = res["viDo"],
         tinh_thanh_id = res["tinh_thanh_id"],
-        trangThai = res["trangThai"],
         tinhthanh = null,
         hinhanh = null,
         hinhanhs = null,
@@ -65,7 +61,6 @@ class DiaDanhObject {
         kinhDo = res["kinhDo"],
         viDo = res["viDo"],
         tinh_thanh_id = res["tinh_thanh_id"],
-        trangThai = res["trangThai"],
         tinhthanh = TinhThanhObject.fromJson(res["tinhthanh"]),
         hinhanh = null,
         hinhanhs = res["hinhanhs"]

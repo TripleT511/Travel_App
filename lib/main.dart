@@ -83,100 +83,106 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         child: currentSreen,
         bucket: bucket,
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 5,
-        color: Colors.white,
-        child: SizedBox(
-          height: 50,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    currentSreen = const HomePage();
-                    currentTab = 0;
-                  });
-                },
-                minWidth: 40,
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  width: 22,
-                  height: 22,
-                  child: FaIcon(
-                    FontAwesomeIcons.home,
-                    color: currentTab == 0
-                        ? const Color(0XFF0066FF)
-                        : const Color(0XFFB1BCD0),
-                    size: 22,
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(10),
+          topLeft: Radius.circular(10),
+        ),
+        child: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 5,
+          color: Colors.white,
+          child: SizedBox(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      currentSreen = const HomePage();
+                      currentTab = 0;
+                    });
+                  },
+                  minWidth: 40,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    width: 22,
+                    height: 22,
+                    child: FaIcon(
+                      FontAwesomeIcons.home,
+                      color: currentTab == 0
+                          ? const Color(0XFF0066FF)
+                          : const Color(0XFFB1BCD0),
+                      size: 22,
+                    ),
                   ),
                 ),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    currentSreen = const SearchPage();
-                    currentTab = 1;
-                  });
-                },
-                minWidth: 40,
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  width: 22,
-                  height: 22,
-                  child: FaIcon(
-                    FontAwesomeIcons.search,
-                    color: currentTab == 1
-                        ? const Color(0XFF0066FF)
-                        : const Color(0XFFB1BCD0),
-                    size: 22,
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      currentSreen = const SearchPage();
+                      currentTab = 1;
+                    });
+                  },
+                  minWidth: 40,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    width: 22,
+                    height: 22,
+                    child: FaIcon(
+                      FontAwesomeIcons.search,
+                      color: currentTab == 1
+                          ? const Color(0XFF0066FF)
+                          : const Color(0XFFB1BCD0),
+                      size: 22,
+                    ),
                   ),
                 ),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    currentSreen = MapPage();
-                    currentTab = 2;
-                  });
-                },
-                minWidth: 40,
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  width: 22,
-                  height: 22,
-                  child: FaIcon(
-                    FontAwesomeIcons.mapMarkedAlt,
-                    color: currentTab == 2
-                        ? const Color(0XFF0066FF)
-                        : const Color(0XFFB1BCD0),
-                    size: 22,
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      currentSreen = MapPage();
+                      currentTab = 2;
+                    });
+                  },
+                  minWidth: 40,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    width: 22,
+                    height: 22,
+                    child: FaIcon(
+                      FontAwesomeIcons.mapMarkedAlt,
+                      color: currentTab == 2
+                          ? const Color(0XFF0066FF)
+                          : const Color(0XFFB1BCD0),
+                      size: 22,
+                    ),
                   ),
                 ),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    currentSreen = SeeMorePage();
-                    currentTab = 3;
-                  });
-                },
-                minWidth: 40,
-                child: Container(
-                  margin: const EdgeInsets.all(10),
-                  width: 22,
-                  height: 22,
-                  child: FaIcon(
-                    FontAwesomeIcons.userAlt,
-                    color: currentTab == 3
-                        ? const Color(0XFF0066FF)
-                        : const Color(0XFFB1BCD0),
-                    size: 22,
+                MaterialButton(
+                  onPressed: () {
+                    setState(() {
+                      currentSreen = const SeeMorePage();
+                      currentTab = 3;
+                    });
+                  },
+                  minWidth: 40,
+                  child: Container(
+                    margin: const EdgeInsets.all(10),
+                    width: 22,
+                    height: 22,
+                    child: FaIcon(
+                      FontAwesomeIcons.userAlt,
+                      color: currentTab == 3
+                          ? const Color(0XFF0066FF)
+                          : const Color(0XFFB1BCD0),
+                      size: 22,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

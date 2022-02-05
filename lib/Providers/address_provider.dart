@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/address_object.dart';
+import 'package:vietnam_travel_app/Models/geocoding_object.dart';
 
 class AddressProvider {
   static List<AddressObject> parseDiaDanh(String reponseBody) {
@@ -25,5 +26,14 @@ class AddressProvider {
     final response = await http.get(Uri.parse(
         "https://rsapi.goong.io/Place/Detail?place_id=$placeId&api_key=$key"));
     return PlaceDetailObject.fromJson(jsonDecode(response.body)["result"]);
+  }
+
+  static Future<ReverseGeoObject> getNameCurrentLocation(
+      double lat, double lng) async {
+    String key = apiKeyMaHoa;
+    final response = await http.get(Uri.parse(
+        "https://rsapi.goong.io/Geocode?latlng=$lat,$lng&api_key=$key"));
+    final data = response.body;
+    return ReverseGeoObject.fromJson(jsonDecode(data)["results"][0]);
   }
 }

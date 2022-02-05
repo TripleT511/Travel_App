@@ -64,9 +64,7 @@ class SearchMapState extends State<SearchMap> {
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: TextField(
             controller: txtSearch,
-            onChanged: (value) {
-              _searchDiaDiem();
-            },
+            onChanged: (value) => {_searchDiaDiem()},
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: "Nhập địa điểm bạn muốn tìm kiếm...",
@@ -81,6 +79,18 @@ class SearchMapState extends State<SearchMap> {
                 },
                 iconSize: 20.0,
                 color: const Color(0XFF242A37),
+              ),
+              suffixIcon: IconButton(
+                icon: const FaIcon(FontAwesomeIcons.times),
+                onPressed: () {
+                  setState(() {
+                    txtSearch.clear();
+                  });
+                },
+                iconSize: 20.0,
+                color: txtSearch.text.isNotEmpty
+                    ? const Color(0XFF242A37)
+                    : const Color(0XFFFFFFFF),
               ),
             ),
           ),

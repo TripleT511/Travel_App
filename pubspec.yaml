@@ -44,6 +44,7 @@ dependencies:
   location: ^4.3.0
   pin_code_fields: ^7.3.0
   flutter_easyloading: ^3.0.3
+  sliding_up_panel: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:

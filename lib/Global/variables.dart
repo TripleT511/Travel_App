@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:location/location.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
 
 const urlAPI = "https://shielded-lowlands-87962.herokuapp.com/api/";
 const urlImage = "https://shielded-lowlands-87962.herokuapp.com/";
@@ -181,4 +183,37 @@ Container sliderTitle(String title) {
       ),
     ),
   );
+}
+
+Future<LatLng> acquireCurrentLocation() async {
+  // Initializes the plugin and starts listening for potential platform events
+  Location location = Location();
+
+  // Whether or not the location service is enabled
+  bool serviceEnabled;
+
+  // Status of a permission request to use location services
+  PermissionStatus permissionGranted;
+
+  // Check if the location service is enabled, and if not, then request it. In
+  // case the user refuses to do it, return immediately with a null result
+  serviceEnabled = await location.serviceEnabled();
+  if (!serviceEnabled) {
+    serviceEnabled = await location.requestService();
+    if (!serviceEnabled) {}
+  }
+
+  // Check for location permissions; similar to the workflow in Android apps,
+  // so check whether the permissions is granted, if not, first you need to
+  // request it, and then read the result of the request, and only proceed if
+  // the permission was granted by the user
+  permissionGranted = await location.hasPermission();
+  if (permissionGranted == PermissionStatus.denied) {
+    permissionGranted = await location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) {}
+  }
+
+  // Gets the current location of the user
+  final locationData = await location.getLocation();
+  return LatLng(locationData.latitude!, locationData.longitude!);
 }

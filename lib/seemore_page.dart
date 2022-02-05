@@ -8,6 +8,7 @@ import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
 import 'package:vietnam_travel_app/personal_page.dart';
 import 'package:vietnam_travel_app/settings_page.dart';
 
@@ -271,12 +272,23 @@ class SeeMorePageState extends State<SeeMorePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DeXuatDiaDanh(),
+                        ),
+                      );
+                    },
                     minLeadingWidth: 10,
-                    leading: const FaIcon(
-                      FontAwesomeIcons.solidPaperPlane,
-                      size: 18,
-                      color: Color(0XFF0066FF),
+                    leading: const CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.transparent,
+                      child: FaIcon(
+                        FontAwesomeIcons.solidPaperPlane,
+                        size: 18,
+                        color: Color(0XFF0066FF),
+                      ),
                     ),
                     title: const Text(
                       "Đề xuất địa danh",
@@ -312,10 +324,14 @@ class SeeMorePageState extends State<SeeMorePage> {
                       );
                     },
                     minLeadingWidth: 10,
-                    leading: const FaIcon(
-                      FontAwesomeIcons.signOutAlt,
-                      size: 18,
-                      color: Color(0XFF0066FF),
+                    leading: const CircleAvatar(
+                      radius: 18,
+                      backgroundColor: Colors.transparent,
+                      child: FaIcon(
+                        FontAwesomeIcons.signOutAlt,
+                        size: 18,
+                        color: Color(0XFF0066FF),
+                      ),
                     ),
                     title: const Text(
                       "Đăng xuất",
