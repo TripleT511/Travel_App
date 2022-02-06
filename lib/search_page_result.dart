@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
@@ -21,7 +22,6 @@ class SearchResultState extends State<SearchResult> {
   final TinhThanhObject tinhthanh;
   Future<List<DiaDanhObject>> lst = DiaDanhProvider.getAllDiaDanh();
   List<DiaDanhObject> lstDiaDanhs = [];
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
 
   SearchResultState({required this.tinhthanh});
 
@@ -118,7 +118,7 @@ class SearchResultState extends State<SearchResult> {
                         ),
                         clipBehavior: Clip.antiAlias,
                         child: Image.network(
-                          urlImg + lstDiaDanhs[index].hinhanh!.hinhAnh,
+                          urlImage + lstDiaDanhs[index].hinhanh!.hinhAnh,
                           /*a.image*/
                           width: double.maxFinite,
                           height: 210,
