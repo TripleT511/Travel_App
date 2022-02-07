@@ -7,6 +7,7 @@ import 'package:vietnam_travel_app/Models/address_object.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Views/Map/search_map.dart';
+import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
 
 // ignore: must_be_immutable
 class MapPage extends StatefulWidget {
@@ -161,39 +162,51 @@ class MapPageState extends State<MapPage> {
         Row(
           children: [
             diadanh == null && placeDetail != null
-                ? Container(
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, top: 7, bottom: 7),
-                    margin: const EdgeInsets.only(right: 10, left: 15),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: const Color(0XFFFFFFFF),
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(
-                        color: const Color(0XFFB1BCD0),
-                        width: 0.5,
-                      ),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        FaIcon(
-                          FontAwesomeIcons.buffer,
-                          color: Color(0XFF0066FF),
-                          size: 14,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Đề xuất địa danh",
-                          style: TextStyle(
-                            color: Color(0XFF0066FF),
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
+                ? GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DeXuatDiaDanh(
+                            placeDetail: placeDetail,
                           ),
                         ),
-                      ],
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 15, right: 15, top: 7, bottom: 7),
+                      margin: const EdgeInsets.only(right: 10, left: 15),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: const Color(0XFFFFFFFF),
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(
+                          color: const Color(0XFFB1BCD0),
+                          width: 0.5,
+                        ),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          FaIcon(
+                            FontAwesomeIcons.buffer,
+                            color: Color(0XFF0066FF),
+                            size: 14,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Đề xuất địa danh",
+                            style: TextStyle(
+                              color: Color(0XFF0066FF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 : Container(),

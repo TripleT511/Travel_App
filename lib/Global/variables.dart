@@ -217,3 +217,17 @@ Future<LatLng> acquireCurrentLocation() async {
   final locationData = await location.getLocation();
   return LatLng(locationData.latitude!, locationData.longitude!);
 }
+
+Widget noData() {
+  return Container(
+    margin: const EdgeInsets.only(left: 10),
+    child: const Text(
+      "Chưa có dữ liệu",
+      style: TextStyle(
+        fontSize: 16,
+        color: Color(0XFFB1BCD0),
+        fontWeight: FontWeight.normal,
+      ),
+    ),
+  );
+}

@@ -167,6 +167,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                             style: TextStyle(
                               fontSize: 12,
                               height: 1.5,
+                              fontWeight: FontWeight.w400,
                               color: currentTab == 0
                                   ? const Color(0XFF0066FF)
                                   : const Color(0XFFB1BCD0),
@@ -204,6 +205,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                             style: TextStyle(
                               fontSize: 12,
                               height: 1.5,
+                              fontWeight: FontWeight.w400,
                               color: currentTab == 1
                                   ? const Color(0XFF0066FF)
                                   : const Color(0XFFB1BCD0),
@@ -244,6 +246,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                             style: TextStyle(
                               fontSize: 12,
                               height: 1.5,
+                              fontWeight: FontWeight.w400,
                               color: currentTab == 2
                                   ? const Color(0XFF0066FF)
                                   : const Color(0XFFB1BCD0),
@@ -281,6 +284,7 @@ class MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
                             style: TextStyle(
                               fontSize: 12,
                               height: 1.5,
+                              fontWeight: FontWeight.w400,
                               color: currentTab == 3
                                   ? const Color(0XFF0066FF)
                                   : const Color(0XFFB1BCD0),

@@ -329,11 +329,10 @@ class CreatePostState extends State<CreatePost> {
               width: MediaQuery.of(context).size.width - 10,
               child: Card(
                 elevation: 0,
-                color: const Color(0XFFFFFFFF),
+                color: const Color(0X1AB1BCD0),
                 clipBehavior: Clip.antiAlias,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(color: Color(0XFF0066FF)),
                 ),
                 child: ListTile(
                   onTap: () {
@@ -359,25 +358,21 @@ class CreatePostState extends State<CreatePost> {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0XFF0066FF),
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFF242A37),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
             SizedBox(
               width: MediaQuery.of(context).size.width - 10,
               child: Card(
                 elevation: 0,
-                color: const Color(0XFFFFFFFF),
+                color: const Color(0X1AB1BCD0),
                 clipBehavior: Clip.antiAlias,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(color: Color(0XFF0066FF)),
                 ),
                 child: ListTile(
                   onTap: () {
@@ -398,8 +393,8 @@ class CreatePostState extends State<CreatePost> {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0XFF0066FF),
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFF242A37),
                     ),
                   ),
                 ),

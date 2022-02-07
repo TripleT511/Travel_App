@@ -323,7 +323,7 @@ class RegisterPageState extends State<RegisterPage> {
                     _register();
                   },
                   child: const Text(
-                    "Đăng ký",
+                    "Tạo tài khoản",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,

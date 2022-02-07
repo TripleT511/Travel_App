@@ -276,7 +276,7 @@ class SeeMorePageState extends State<SeeMorePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DeXuatDiaDanh(),
+                          builder: (context) => DeXuatDiaDanh(),
                         ),
                       );
                     },

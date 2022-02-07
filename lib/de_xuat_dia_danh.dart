@@ -6,22 +6,28 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
+import 'package:vietnam_travel_app/Models/address_object.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/address_provider.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/tinhthanh_provider.dart';
-import 'package:vietnam_travel_app/home_tab.dart';
+import 'package:vietnam_travel_app/main.dart';
 
+// ignore: must_be_immutable
 class DeXuatDiaDanh extends StatefulWidget {
-  const DeXuatDiaDanh({Key? key}) : super(key: key);
+  PlaceDetailObject? placeDetail;
+  DeXuatDiaDanh({Key? key, this.placeDetail}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return DeXuatDiaDanhState();
+    // ignore: no_logic_in_create_state
+    return DeXuatDiaDanhState(placeDetail: placeDetail);
   }
 }
 
 class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
+  PlaceDetailObject? placeDetail;
+  DeXuatDiaDanhState({this.placeDetail});
   TextEditingController txtTenDiaDanh = TextEditingController();
   TextEditingController txtMoTa = TextEditingController();
   TextEditingController txtViDo = TextEditingController();
@@ -29,9 +35,9 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
   TextEditingController txtSearch = TextEditingController();
   List<TinhThanhObject> lstTinhThanh = [];
   List<TinhThanhObject> lstTinhThanhSearch = [];
-  List<TinhThanhObject> lstSearch = [];
   String tinhThanhID = "";
   String tenTinhThanh = "";
+  bool checkImage = false;
   var _image;
   final picker = ImagePicker();
   final formKey = GlobalKey<FormState>();
@@ -46,6 +52,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
     if (result != null) {
       if (mounted) {
         setState(() {
+          tinhThanhID = "0";
           txtTenDiaDanh.text = geoCoding.address_components![0].short_name;
           tenTinhThanh = tenTinh;
           txtViDo.text = geoCoding.geometry.location.lat.toString();
@@ -55,24 +62,14 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
     }
   }
 
-  void _Search() async {
-    setState(() {});
-    if (txtSearch.text.isEmpty) {
-      lstTinhThanhSearch = lstTinhThanh;
-    } else {
-      lstTinhThanhSearch = [];
-      for (var item in lstTinhThanh) {
-        if (item.tenTinhThanh
-            .toUpperCase()
-            .contains(txtSearch.text.toUpperCase())) {
-          lstTinhThanhSearch.add(item);
-        }
-      }
+  _handleClickTinhThanh(TinhThanhObject tinhthanh) {
+    if (mounted) {
+      setState(() {
+        tenTinhThanh = tinhthanh.tenTinhThanh.toString();
+        tinhThanhID = tinhthanh.id.toString();
+      });
     }
-
-    _showBottomSheet().runtimeType;
-
-    print(lstTinhThanhSearch.length.toString());
+    Navigator.pop(context);
   }
 
   _showBottomSheet() {
@@ -81,98 +78,116 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
       minChildSize: 0.1,
       maxChildSize: 0.9,
       builder: (BuildContext context, ScrollController scrollController) {
-        return Container(
-            padding: const EdgeInsets.only(top: 10),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+          return Container(
+              padding: const EdgeInsets.only(top: 10),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
               ),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                  child: TextField(
-                    onChanged: (String value) {
-                      _Search();
-                    },
-                    showCursor: true,
-                    controller: txtSearch,
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                      hintText: "Tìm tỉnh thành mà bạn muốn...",
-                      hintStyle: const TextStyle(color: Color(0XFF242A37)),
-                      border: InputBorder.none,
-                      contentPadding:
-                          const EdgeInsets.only(left: 15.0, top: 15.0),
-                      prefixIcon: IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.city),
-                        onPressed: () {},
-                        iconSize: 20.0,
-                        color: const Color(0XFF0066FF),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.search),
-                        onPressed: () {},
-                        iconSize: 20.0,
-                        color: const Color(0XFF242A37),
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: TextField(
+                      onChanged: (String value) {
+                        if (txtSearch.text.isEmpty) {
+                          lstTinhThanhSearch = lstTinhThanh;
+                        } else {
+                          lstTinhThanhSearch = [];
+                          for (var item in lstTinhThanh) {
+                            if (item.tenTinhThanh
+                                .toUpperCase()
+                                .contains(txtSearch.text.toUpperCase())) {
+                              lstTinhThanhSearch.add(item);
+                            }
+                          }
+                        }
+                        setState(() {});
+                      },
+                      showCursor: true,
+                      controller: txtSearch,
+                      textInputAction: TextInputAction.search,
+                      decoration: InputDecoration(
+                        hintText: "Tìm tỉnh thành mà bạn muốn...",
+                        hintStyle: const TextStyle(color: Color(0XFF242A37)),
+                        border: InputBorder.none,
+                        contentPadding:
+                            const EdgeInsets.only(left: 15.0, top: 15.0),
+                        prefixIcon: IconButton(
+                          icon: const FaIcon(FontAwesomeIcons.city),
+                          onPressed: () {},
+                          iconSize: 20.0,
+                          color: const Color(0XFF0066FF),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: const FaIcon(FontAwesomeIcons.search),
+                          onPressed: () {},
+                          iconSize: 20.0,
+                          color: const Color(0XFF242A37),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const Divider(
-                  color: Color(0XFFB1BCD0),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: lstTinhThanhSearch.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      if (index == lstTinhThanhSearch.length - 1 &&
-                          lstTinhThanhSearch.length > 9) {
-                        if (index != lstTinhThanh.length - 1 &&
+                  const Divider(
+                    color: Color(0XFFB1BCD0),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: lstTinhThanhSearch.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == lstTinhThanhSearch.length - 1 &&
                             lstTinhThanhSearch.length > 9) {
-                          // return CupertinoActivityIndicator();
-                          return Shimmer.fromColors(
-                              child: const Card(
-                                child: ListTile(
-                                  title: Text(
-                                    "",
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                          if (index != lstTinhThanh.length - 1 &&
+                              lstTinhThanhSearch.length > 9) {
+                            // return CupertinoActivityIndicator();
+                            return Shimmer.fromColors(
+                                child: const Card(
+                                  child: ListTile(
+                                    title: Text(
+                                      "",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              baseColor: const Color(0X1A242A37),
-                              highlightColor: const Color(0X33050505));
+                                baseColor: const Color(0X1A242A37),
+                                highlightColor: const Color(0X33050505));
+                          }
                         }
-                      }
-                      return Card(
-                        child: ListTile(
-                          onTap: () {},
-                          title: Text(
-                            lstTinhThanhSearch[index].tenTinhThanh,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                        return Card(
+                          child: ListTile(
+                            onTap: () {
+                              _handleClickTinhThanh(lstTinhThanhSearch[index]);
+                            },
+                            title: Text(
+                              lstTinhThanhSearch[index].tenTinhThanh,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ));
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ));
+        });
       },
     );
   }
@@ -183,9 +198,30 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
     if (pickedFile != null) {
       setState(() {});
       _image = File(pickedFile.path);
+      checkImage = true;
     } else {
       EasyLoading.showInfo('Chưa chọn ảnh');
       EasyLoading.dismiss();
+    }
+  }
+
+  _loadDiaDanh() async {
+    if (placeDetail != null) {
+      final data = placeDetail;
+      final geoCoding = await AddressProvider.getNameCurrentLocation(
+          data!.geometry.location.lat, data.geometry.location.lng);
+      String tenTinh = geoCoding
+          .address_components![geoCoding.address_components!.length - 1]
+          .short_name;
+      if (mounted) {
+        setState(() {
+          tinhThanhID = "0";
+          txtTenDiaDanh.text = placeDetail!.name;
+          tenTinhThanh = tenTinh;
+          txtViDo.text = geoCoding.geometry.location.lat.toString();
+          txtKinhDo.text = geoCoding.geometry.location.lng.toString();
+        });
+      }
     }
   }
 
@@ -193,8 +229,8 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
     var data = await TinhThanhProvider.getAllTinhThanh();
     setState(() {
       lstTinhThanh = data;
+      lstTinhThanhSearch = lstTinhThanh;
     });
-    lstTinhThanhSearch = lstTinhThanh;
   }
 
   @override
@@ -202,40 +238,50 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
     super.initState();
     setState(() {});
     _loadTinhThanh();
-  }
-
-  String _checkTinhThanh(String diaChi) {
-    for (int i = 0; i < lstTinhThanh.length; i++) {
-      if (lstTinhThanh[i].tenTinhThanh == tenTinhThanh) {
-        setState(() {
-          tinhThanhID = lstTinhThanh[i].id.toString();
-        });
-      }
+    if (placeDetail != null) {
+      _loadDiaDanh();
     }
-    if (tinhThanhID != "") {
-      return tinhThanhID;
-    }
-    return '1';
   }
 
   _deXuatDiaDanh() async {
-    print(tinhThanhID);
+    if (tinhThanhID == "") {
+      EasyLoading.showError('Vui lòng chọn tỉnh thành');
+      return;
+    }
+
     if (formKey.currentState!.validate()) {
       EasyLoading.show(status: 'Vui lòng đợi...');
-      bool isSuccess = await DiaDanhProvider.deXuatDiaDanh(
-          txtTenDiaDanh.text,
-          txtMoTa.text,
-          txtKinhDo.text,
-          txtViDo.text,
-          _checkTinhThanh(tenTinhThanh),
-          _image);
+      bool isSuccess = false;
+      if (tinhThanhID == "0" && tenTinhThanh != "") {
+        isSuccess = await DiaDanhProvider.deXuatDiaDanh(
+            txtTenDiaDanh.text,
+            txtMoTa.text,
+            txtKinhDo.text,
+            txtViDo.text,
+            tinhThanhID,
+            _image,
+            tenTinhThanh);
+      } else {
+        isSuccess = await DiaDanhProvider.deXuatDiaDanh(
+            txtTenDiaDanh.text,
+            txtMoTa.text,
+            txtKinhDo.text,
+            txtViDo.text,
+            tinhThanhID,
+            _image,
+            null);
+      }
 
       // ignore: unrelated_type_equality_checks
       if (isSuccess == true) {
         EasyLoading.showSuccess('Đề xuất địa danh thành công');
         EasyLoading.dismiss();
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyApp(),
+          ),
+        );
       }
     }
   }
@@ -453,6 +499,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                                 child: Image.asset(
                                   'images/no-image-available.jpg',
                                   width: MediaQuery.of(context).size.width - 30,
+                                  height: 300,
                                   fit: BoxFit.cover,
                                 ),
                               )
@@ -460,12 +507,18 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                                 onTap: () {
                                   pickerImage();
                                 },
-                                child: Image.file(
-                                  _image,
-                                  width: MediaQuery.of(context).size.width - 20,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width - 32,
+                                  height: 300,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: FileImage(
+                                        _image,
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                )),
                       ),
                     ],
                   )
@@ -482,7 +535,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Color(0XFF0066FF)),
+                    side: const BorderSide(color: Color(0XFFB1BCD0)),
                   ),
                   child: ListTile(
                     onTap: () {
@@ -508,8 +561,8 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                       style: const TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0XFF0066FF),
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF242A37),
                       ),
                     ),
                   ),
@@ -526,7 +579,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                   clipBehavior: Clip.antiAlias,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
-                    side: const BorderSide(color: Color(0XFF0066FF)),
+                    side: const BorderSide(color: Color(0XFFB1BCD0)),
                   ),
                   child: ListTile(
                     onTap: () {
@@ -547,8 +600,8 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0XFF0066FF),
+                        fontWeight: FontWeight.w400,
+                        color: Color(0XFF242A37),
                       ),
                     ),
                   ),
@@ -561,10 +614,16 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: const Color(0XFF0066FF)),
+                    color: checkImage
+                        ? const Color(0XFF0066FF)
+                        : const Color(0XFFB1BCD0)),
                 child: TextButton(
                   onPressed: () {
-                    _deXuatDiaDanh();
+                    if (checkImage) {
+                      _deXuatDiaDanh();
+                    } else {
+                      return null;
+                    }
                   },
                   child: const Text(
                     "Đề xuất",

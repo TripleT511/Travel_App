@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
@@ -41,17 +42,30 @@ class PlaceDetailState extends State<PlaceDetail> {
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
+  bool isLoadingQuanAn = false;
+  bool isLoadingLuuTru = false;
+
   DiaDanhObject? diaDanh;
   _loadQuanAn() async {
+    setState(() {
+      isLoadingQuanAn = true;
+    });
     final data = await QuanAnProvider.getAllQuanAnByDiaDanh(id);
-    setState(() {});
-    lstQuan = data;
+    setState(() {
+      lstQuan = data;
+      isLoadingQuanAn = false;
+    });
   }
 
   _loadLuuTru() async {
+    setState(() {
+      isLoadingLuuTru = true;
+    });
     final data = await LuuTruProvider.getAllLuuTruByDiaDanh(id);
-    setState(() {});
-    lstLT = data;
+    setState(() {
+      isLoadingLuuTru = false;
+      lstLT = data;
+    });
   }
 
   _loadUser() async {
@@ -94,119 +108,125 @@ class PlaceDetailState extends State<PlaceDetail> {
       height: 212,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: lstQuan.length,
+        itemCount: isLoadingQuanAn ? 2 : lstQuan.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Container(
-          padding: const EdgeInsets.only(left: 10),
-          width: 271,
-          height: 210,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RestaurantDetail(lstQuan[index].id),
-                ),
-              );
-            },
-            child: SizedBox(
-              height: 215,
-              child: Card(
-                elevation: 1.0,
-                color: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.only(
-                    topStart: Radius.circular(16.0),
-                    topEnd: Radius.circular(16.0),
-                    bottomStart: Radius.circular(16.0),
-                    bottomEnd: Radius.circular(16.0),
-                  ),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      urlImage + lstQuan[index].hinhAnh,
-                      width: 271,
-                      height: 132,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          left: 10, bottom: 10, right: 10),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        lstQuan[index].tenQuan,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0XFF242A37),
+        itemBuilder: (context, index) => isLoadingQuanAn
+            ? Shimmer.fromColors(
+                child: slideNhuCauShimmer(),
+                baseColor: const Color(0X1A242A37),
+                highlightColor: const Color(0X33050505))
+            : Container(
+                padding: const EdgeInsets.only(left: 10),
+                width: 271,
+                height: 210,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            RestaurantDetail(lstQuan[index].id),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    height: 215,
+                    child: Card(
+                      elevation: 1.0,
+                      color: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(16.0),
+                          topEnd: Radius.circular(16.0),
+                          bottomStart: Radius.circular(16.0),
+                          bottomEnd: Radius.circular(16.0),
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          right: 10, bottom: 10, left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.mapMarkerAlt,
-                                color: Color(0XFFFF2D55),
-                                size: 18,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                tenTinhThanh,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0XFF242A37),
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
+                          Image.network(
+                            urlImage + lstQuan[index].hinhAnh,
+                            width: 271,
+                            height: 132,
+                            fit: BoxFit.cover,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.clock,
-                                color: Color(0XFF0869E1),
-                                size: 18,
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, bottom: 10, right: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              lstQuan[index].tenQuan,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0XFF242A37),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                lstQuan[index].thoiGianHoatDong ?? "",
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0XFF242A37),
-                                  fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                right: 10, bottom: 10, left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.mapMarkerAlt,
+                                      color: Color(0XFFFF2D55),
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      tenTinhThanh,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0XFF242A37),
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.clock,
+                                      color: Color(0XFF0869E1),
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      lstQuan[index].thoiGianHoatDong ?? "",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0XFF242A37),
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -216,117 +236,122 @@ class PlaceDetailState extends State<PlaceDetail> {
       height: 212,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: lstLT.length,
+        itemCount: isLoadingLuuTru ? 2 : lstLT.length,
         scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => Container(
-          padding: const EdgeInsets.only(left: 10),
-          width: 271,
-          height: 215,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChiTietLuuTru(lstLT[0])));
-            },
-            child: SizedBox(
-              height: 215,
-              child: Card(
-                elevation: 1.0,
-                color: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.only(
-                    topStart: Radius.circular(16.0),
-                    topEnd: Radius.circular(16.0),
-                    bottomStart: Radius.circular(16.0),
-                    bottomEnd: Radius.circular(16.0),
-                  ),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      urlImage + lstLT[index].hinhAnh,
-                      width: 271,
-                      height: 132,
-                      fit: BoxFit.cover,
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          left: 10, bottom: 10, right: 10),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        lstLT[index].tenLuuTru,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0XFF242A37),
+        itemBuilder: (context, index) => isLoadingLuuTru
+            ? Shimmer.fromColors(
+                child: slideNhuCauShimmer(),
+                baseColor: const Color(0X1A242A37),
+                highlightColor: const Color(0X33050505))
+            : Container(
+                padding: const EdgeInsets.only(left: 10),
+                width: 271,
+                height: 215,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChiTietLuuTru(lstLT[0])));
+                  },
+                  child: SizedBox(
+                    height: 215,
+                    child: Card(
+                      elevation: 1.0,
+                      color: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(16.0),
+                          topEnd: Radius.circular(16.0),
+                          bottomStart: Radius.circular(16.0),
+                          bottomEnd: Radius.circular(16.0),
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          right: 10, bottom: 10, left: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.mapMarkerAlt,
-                                color: Color(0XFFFF2D55),
-                                size: 18,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                tenTinhThanh,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0XFF242A37),
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ],
+                          Image.network(
+                            urlImage + lstLT[index].hinhAnh,
+                            width: 271,
+                            height: 132,
+                            fit: BoxFit.cover,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const FaIcon(
-                                FontAwesomeIcons.clock,
-                                color: Color(0XFF0869E1),
-                                size: 18,
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, bottom: 10, right: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              lstLT[index].tenLuuTru,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Color(0XFF242A37),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                lstLT[index].thoiGianHoatDong,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0XFF242A37),
-                                  fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                right: 10, bottom: 10, left: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.mapMarkerAlt,
+                                      color: Color(0XFFFF2D55),
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      tenTinhThanh,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0XFF242A37),
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.clock,
+                                      color: Color(0XFF0869E1),
+                                      size: 18,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      lstLT[index].thoiGianHoatDong,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0XFF242A37),
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -587,7 +612,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                       sliderTitle("Lưu trú gần đây"),
                       lstLuuTru(diadanh.tinhthanh!.tenTinhThanh),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                     ],
                   ),

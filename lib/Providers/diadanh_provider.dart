@@ -36,8 +36,14 @@ class DiaDanhProvider {
     return DiaDanhObject.fromJson3(respon["data"]);
   }
 
-  static Future<bool> deXuatDiaDanh(String tenDiaDanh, String moTa,
-      String kinhDo, String viDo, String tinhThanhId, File _image) async {
+  static Future<bool> deXuatDiaDanh(
+      String tenDiaDanh,
+      String moTa,
+      String kinhDo,
+      String viDo,
+      String tinhThanhId,
+      File _image,
+      String? tenTinhThanh) async {
     var token = await UserProvider.getToken();
     var stream = http.ByteStream(_image.openRead());
     stream.cast();
@@ -52,6 +58,9 @@ class DiaDanhProvider {
     request.fields["kinhDo"] = kinhDo;
     request.fields["viDo"] = viDo;
     request.fields["tinh_thanh_id"] = tinhThanhId;
+    if (tenTinhThanh != null) {
+      request.fields["tenTinhThanh"] = tenTinhThanh;
+    }
 
     var multiport =
         http.MultipartFile("hinhAnh", stream, length, filename: _image.path);

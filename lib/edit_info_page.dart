@@ -147,7 +147,8 @@ class EditInforPageState extends State<EditInforPage> {
                           color: Color(0XFF242A37),
                           size: 14,
                         ),
-                        elevation: 3,
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(10),
                         underline: const SizedBox(),
                         style: const TextStyle(
                           color: Color(0XFF242A37),
@@ -230,7 +231,8 @@ class EditInforPageState extends State<EditInforPage> {
                           color: Color(0XFF242A37),
                           size: 14,
                         ),
-                        elevation: 3,
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(10),
                         underline: const SizedBox(),
                         style: const TextStyle(
                           color: Color(0XFF242A37),
@@ -266,7 +268,7 @@ class EditInforPageState extends State<EditInforPage> {
                   readOnly: true,
                   controller: txtEmail,
                   decoration: InputDecoration(
-                    fillColor: Color(0X1A242A37),
+                    fillColor: const Color(0X1A242A37),
                     filled: true,
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -309,7 +311,8 @@ class EditInforPageState extends State<EditInforPage> {
                           color: Color(0XFF242A37),
                           size: 14,
                         ),
-                        elevation: 3,
+                        elevation: 1,
+                        borderRadius: BorderRadius.circular(10),
                         underline: const SizedBox(),
                         style: const TextStyle(
                           color: Color(0XFF242A37),

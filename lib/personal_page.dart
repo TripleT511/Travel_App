@@ -581,7 +581,7 @@ class PersonalPageState extends State<PersonalPage> {
                       'Bài viết',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         fontSize: 18,
                         color: Color(0XFFB1BCD0),
                       ),
@@ -607,7 +607,7 @@ class PersonalPageState extends State<PersonalPage> {
                       'Tỉnh thành',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         fontSize: 18,
                         color: Color(0XFFB1BCD0),
                       ),
