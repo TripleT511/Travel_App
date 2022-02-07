@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/address_provider.dart';
@@ -27,6 +28,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
   TextEditingController txtKinhDo = TextEditingController();
   TextEditingController txtSearch = TextEditingController();
   List<TinhThanhObject> lstTinhThanh = [];
+  List<TinhThanhObject> lstTinhThanhSearch = [];
   List<TinhThanhObject> lstSearch = [];
   String tinhThanhID = "";
   String tenTinhThanh = "";
@@ -53,6 +55,26 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
     }
   }
 
+  void _Search() async {
+    setState(() {});
+    if (txtSearch.text.isEmpty) {
+      lstTinhThanhSearch = lstTinhThanh;
+    } else {
+      lstTinhThanhSearch = [];
+      for (var item in lstTinhThanh) {
+        if (item.tenTinhThanh
+            .toUpperCase()
+            .contains(txtSearch.text.toUpperCase())) {
+          lstTinhThanhSearch.add(item);
+        }
+      }
+    }
+
+    _showBottomSheet().runtimeType;
+
+    print(lstTinhThanhSearch.length.toString());
+  }
+
   _showBottomSheet() {
     return DraggableScrollableSheet(
       initialChildSize: 0.9,
@@ -73,7 +95,9 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                   child: TextField(
-                    onChanged: (value) {},
+                    onChanged: (String value) {
+                      _Search();
+                    },
                     showCursor: true,
                     controller: txtSearch,
                     textInputAction: TextInputAction.search,
@@ -105,18 +129,43 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                   child: ListView.builder(
                     controller: scrollController,
                     physics: const BouncingScrollPhysics(),
-                    itemCount: lstTinhThanh.length,
+                    itemCount: lstTinhThanhSearch.length,
                     itemBuilder: (BuildContext context, int index) {
+                      if (index == lstTinhThanhSearch.length - 1 &&
+                          lstTinhThanhSearch.length > 9) {
+                        if (index != lstTinhThanh.length - 1 &&
+                            lstTinhThanhSearch.length > 9) {
+                          // return CupertinoActivityIndicator();
+                          return Shimmer.fromColors(
+                              child: const Card(
+                                child: ListTile(
+                                  title: Text(
+                                    "",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              baseColor: const Color(0X1A242A37),
+                              highlightColor: const Color(0X33050505));
+                        }
+                      }
                       return Card(
                         child: ListTile(
-                          onTap: () {
-                            setState(() {
-                              tinhThanhID = lstTinhThanh[index].id.toString();
-                              tenTinhThanh = lstTinhThanh[index].tenTinhThanh;
-                            });
-                            Navigator.pop(context);
-                          },
-                          title: Text(lstTinhThanh[index].tenTinhThanh),
+                          onTap: () {},
+                          title: Text(
+                            lstTinhThanhSearch[index].tenTinhThanh,
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -142,8 +191,10 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
 
   _loadTinhThanh() async {
     var data = await TinhThanhProvider.getAllTinhThanh();
-    setState(() {});
-    lstTinhThanh = data;
+    setState(() {
+      lstTinhThanh = data;
+    });
+    lstTinhThanhSearch = lstTinhThanh;
   }
 
   @override
