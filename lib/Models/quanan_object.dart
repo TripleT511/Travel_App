@@ -7,7 +7,7 @@ class QuanAnObject {
   final String moTa;
   final String diaChi;
   final String sdt;
-  final String thoiGianHoatDong;
+  final String? thoiGianHoatDong;
   final String hinhAnh;
   final MonAnObject? monan;
 
@@ -30,7 +30,7 @@ class QuanAnObject {
         moTa = quan["moTa"],
         diaChi = quan["diaChi"],
         sdt = quan["sdt"],
-        thoiGianHoatDong = quan["thoiGianHoatDong"],
+        thoiGianHoatDong = quan["thoiGianHoatDong"] ?? "",
         hinhAnh = quan["hinhAnh"],
         monan = null;
 }

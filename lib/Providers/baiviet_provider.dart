@@ -47,7 +47,15 @@ class BaiVietProvider {
   }
 
   static Future<bool> createPost(
-      File _image, String idDiaDanh, String idUser, String noiDung) async {
+    File _image,
+    String idDiaDanh,
+    String idUser,
+    String noiDung,
+    String? tenDiaDanh,
+    String? tenTinhThanh,
+    String? viDo,
+    String? kinhDo,
+  ) async {
     var token = await UserProvider.getToken();
     var stream = http.ByteStream(_image.openRead());
     stream.cast();
@@ -60,6 +68,12 @@ class BaiVietProvider {
     request.fields["idDiaDanh"] = idDiaDanh;
     request.fields["idUser"] = idUser;
     request.fields["noiDung"] = noiDung;
+    if (idDiaDanh == "0") {
+      request.fields["tenDiaDanh"] = tenDiaDanh!;
+      request.fields["tenTinhThanh"] = tenTinhThanh!;
+      request.fields["viDo"] = viDo!;
+      request.fields["kinhDo"] = kinhDo!;
+    }
 
     var multiport =
         http.MultipartFile("hinhAnh", stream, length, filename: _image.path);

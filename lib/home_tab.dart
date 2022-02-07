@@ -605,11 +605,13 @@ class HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       Container(
+                                        width: 120,
                                         margin: const EdgeInsets.only(left: 5),
                                         child: Text(
                                           lstBaiVietNoiBat[index]
                                               .diadanh
                                               .tenDiaDanh,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                             fontFamily: 'Roboto',
                                             fontSize: 14,
@@ -713,9 +715,12 @@ class HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
+                                width: 200,
                                 margin: const EdgeInsets.only(bottom: 5),
                                 child: Text(
                                   lstDD[index].tenDiaDanh,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Roboto',
@@ -945,6 +950,8 @@ class HomePageState extends State<HomePage> {
                         ),
                         child: Text(
                           lstBaiViet[index].diadanh.tenDiaDanh,
+                          overflow: TextOverflow.fade,
+                          softWrap: false,
                           style: const TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w400,

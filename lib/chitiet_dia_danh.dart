@@ -38,11 +38,10 @@ class PlaceDetailState extends State<PlaceDetail> {
   int id;
   PlaceDetailState(this.id);
   late final UserObject user;
-  String tenDiaDanh = '';
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
   final List<SizedBox> imgDiaDanh = [];
-
+  DiaDanhObject? diaDanh;
   _loadQuanAn() async {
     final data = await QuanAnProvider.getAllQuanAnByDiaDanh(id);
     setState(() {});
@@ -190,7 +189,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 width: 5,
                               ),
                               Text(
-                                lstQuan[index].thoiGianHoatDong,
+                                lstQuan[index].thoiGianHoatDong ?? "",
                                 style: const TextStyle(
                                   fontSize: 14,
                                   color: Color(0XFF242A37),
@@ -427,8 +426,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => CreatePost(
-                        idDiaDanh: id,
-                        tenDiaDanh: tenDiaDanh,
+                        diadanh: diaDanh,
                         user: user,
                       ),
                     ),
@@ -449,10 +447,10 @@ class PlaceDetailState extends State<PlaceDetail> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               DiaDanhObject diadanh = snapshot.data!;
+              diaDanh = diadanh;
               List<HinhAnhObject> lstHinhAnh = diadanh.hinhanhs!;
               List<NhuCauDiaDanhObject> lstNhuCau = diadanh.nhucaudiadanhs!;
               loadImgDiaDanh(lstHinhAnh);
-              tenDiaDanh = diadanh.tenDiaDanh;
               return SingleChildScrollView(
                   child: Stack(
                 children: [

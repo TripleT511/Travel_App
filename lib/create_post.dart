@@ -4,46 +4,47 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
+import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/address_provider.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/main.dart';
 
+// ignore: must_be_immutable
 class CreatePost extends StatefulWidget {
-  final int idDiaDanh;
-  final String tenDiaDanh;
+  DiaDanhObject? diadanh;
   final UserObject user;
-  const CreatePost(
-      {Key? key,
-      required this.idDiaDanh,
-      required this.tenDiaDanh,
-      required this.user})
-      : super(key: key);
+  CreatePost({Key? key, this.diadanh, required this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return CreatePostState(
-        idDiaDanh: idDiaDanh, tenDiaDanh: tenDiaDanh, user: user);
+    return CreatePostState(diadanh: diadanh, user: user);
   }
 }
 
 class CreatePostState extends State<CreatePost> {
-  final int idDiaDanh;
-  final String tenDiaDanh;
+  DiaDanhObject? diadanh;
   final UserObject user;
-  CreatePostState(
-      {required this.idDiaDanh, required this.tenDiaDanh, required this.user});
+  CreatePostState({this.diadanh, required this.user});
   final TextEditingController txtNoiDung = TextEditingController();
+  final TextEditingController txtSearch = TextEditingController();
   // ignore: prefer_typing_uninitialized_variables
   final formKey = GlobalKey<FormState>();
   var _image;
   final picker = ImagePicker();
   int idUser = 0;
+  String idDiaDanh = "0";
+  String tenDiaDanhCheckIn = "";
+  String tenTinhThanhCheckIn = "";
+  String kinhDo = "";
+  String viDo = "";
   bool isPost = false;
   String viTriCuaToi = '';
   String hinhAnh = '';
+  List<DiaDanhObject> lstDiaDanh = [];
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -57,12 +58,36 @@ class CreatePostState extends State<CreatePost> {
     }
   }
 
+  _loadDiaDanh() async {
+    var data = await DiaDanhProvider.getAllDiaDanh();
+    setState(() {});
+    lstDiaDanh = data;
+  }
+
   _createPost() async {
+    if (idDiaDanh == "0" && tenDiaDanhCheckIn == "") {
+      EasyLoading.showError('Chưa chọn địa danh');
+      return;
+    }
     if (formKey.currentState!.validate()) {
       EasyLoading.show(status: 'Vui lòng đợi...');
-      bool isSuccess = await BaiVietProvider.createPost(
-          _image, idDiaDanh.toString(), user.id.toString(), txtNoiDung.text);
+      bool isSuccess = false;
+      if (idDiaDanh != "0") {
+        isSuccess = await BaiVietProvider.createPost(_image, idDiaDanh,
+            user.id.toString(), txtNoiDung.text, null, null, null, null);
+      } else {
+        isSuccess = await BaiVietProvider.createPost(
+            _image,
+            idDiaDanh,
+            user.id.toString(),
+            txtNoiDung.text,
+            tenDiaDanhCheckIn,
+            tenTinhThanhCheckIn,
+            viDo,
+            kinhDo);
+      }
       await UserProvider.getUser();
+
       // ignore: unrelated_type_equality_checks
       if (isSuccess == true) {
         EasyLoading.showSuccess('Đăng bài viết thành công');
@@ -77,18 +102,108 @@ class CreatePostState extends State<CreatePost> {
     final result = await acquireCurrentLocation();
     final geoCoding = await AddressProvider.getNameCurrentLocation(
         result.latitude, result.longitude);
+    String tenDiaDiem = geoCoding.address_components![0].short_name;
+    String tenTinhThanh = geoCoding
+        .address_components![geoCoding.address_components!.length - 1]
+        .short_name;
     if (result != null) {
       if (mounted) {
         setState(() {
           viTriCuaToi = geoCoding.formatted_address;
+          tenDiaDanhCheckIn = tenDiaDiem;
+          tenTinhThanhCheckIn = tenTinhThanh;
+          viDo = result.latitude.toString();
+          kinhDo = result.longitude.toString();
+          idDiaDanh = "0";
         });
       }
     }
   }
 
+  _showBottomSheet() {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.9,
+      minChildSize: 0.1,
+      maxChildSize: 0.9,
+      builder: (BuildContext context, ScrollController scrollController) {
+        return Container(
+            padding: const EdgeInsets.only(top: 10),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  child: TextField(
+                    onChanged: (value) {},
+                    showCursor: true,
+                    controller: txtSearch,
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      hintText: "Tìm địa danh mà bạn muốn...",
+                      hintStyle: const TextStyle(color: Color(0XFF242A37)),
+                      border: InputBorder.none,
+                      contentPadding:
+                          const EdgeInsets.only(left: 15.0, top: 15.0),
+                      prefixIcon: IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.city),
+                        onPressed: () {},
+                        iconSize: 20.0,
+                        color: const Color(0XFF0066FF),
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const FaIcon(FontAwesomeIcons.search),
+                        onPressed: () {},
+                        iconSize: 20.0,
+                        color: const Color(0XFF242A37),
+                      ),
+                    ),
+                  ),
+                ),
+                const Divider(
+                  color: Color(0XFFB1BCD0),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    controller: scrollController,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: lstDiaDanh.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Card(
+                        child: ListTile(
+                          onTap: () {
+                            setState(() {
+                              idDiaDanh = lstDiaDanh[index].id.toString();
+                              tenDiaDanhCheckIn = lstDiaDanh[index].tenDiaDanh;
+                              viTriCuaToi = "";
+                            });
+                            Navigator.pop(context);
+                          },
+                          title: Text(lstDiaDanh[index].tenDiaDanh),
+                        ),
+                      );
+                    },
+                  ),
+                )
+              ],
+            ));
+      },
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    _loadDiaDanh();
+    if (diadanh != null) {
+      idDiaDanh = diadanh!.id.toString();
+      tenDiaDanhCheckIn = diadanh!.tenDiaDanh;
+    }
   }
 
   @override
@@ -169,7 +284,9 @@ class CreatePostState extends State<CreatePost> {
                 ),
               ),
               subtitle: Text(
-                viTriCuaToi == "" ? tenDiaDanh : viTriCuaToi,
+                diadanh == null && tenDiaDanhCheckIn == ""
+                    ? ""
+                    : tenDiaDanhCheckIn,
                 style: const TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontFamily: 'Roboto',
@@ -205,14 +322,62 @@ class CreatePostState extends State<CreatePost> {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
             SizedBox(
               width: MediaQuery.of(context).size.width - 10,
               child: Card(
                 elevation: 0,
-                color: const Color(0XFFF3F3F3),
+                color: const Color(0XFFFFFFFF),
                 clipBehavior: Clip.antiAlias,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(color: Color(0XFF0066FF)),
+                ),
+                child: ListTile(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return _showBottomSheet();
+                      },
+                    );
+                  },
+                  minLeadingWidth: 10,
+                  leading: const CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Color(0X1A0066FF),
+                    child: FaIcon(
+                      FontAwesomeIcons.city,
+                      size: 16,
+                      color: Color(0XFF0066FF),
+                    ),
+                  ),
+                  title: const Text(
+                    "Địa danh",
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0XFF0066FF),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width - 10,
+              child: Card(
+                elevation: 0,
+                color: const Color(0XFFFFFFFF),
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(color: Color(0XFF0066FF)),
                 ),
                 child: ListTile(
                   onTap: () {
@@ -221,11 +386,11 @@ class CreatePostState extends State<CreatePost> {
                   minLeadingWidth: 10,
                   leading: const CircleAvatar(
                     radius: 18,
-                    backgroundColor: Color(0X1AFF2D55),
+                    backgroundColor: Color(0X1A0066FF),
                     child: FaIcon(
                       FontAwesomeIcons.mapMarkerAlt,
                       size: 16,
-                      color: Color(0XFFFF2D55),
+                      color: Color(0XFF0066FF),
                     ),
                   ),
                   title: const Text(
@@ -233,8 +398,8 @@ class CreatePostState extends State<CreatePost> {
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0XFF242A37),
+                      fontWeight: FontWeight.w500,
+                      color: Color(0XFF0066FF),
                     ),
                   ),
                 ),

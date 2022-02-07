@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/quanan_object.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 
@@ -19,7 +20,6 @@ class RestaurantDetail extends StatefulWidget {
 class RestaurantDetailState extends State<RestaurantDetail> {
   int id;
   RestaurantDetailState(this.id);
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0X1A050505),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: null,
         leadingWidth: 0,
@@ -61,7 +61,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
               child: Column(
                 children: [
                   Image.network(
-                    urlImg + quan.hinhAnh,
+                    urlImage + quan.hinhAnh,
                     fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width,
                     height: 232,
@@ -129,7 +129,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                         ),
                         Flexible(
                           child: Text(
-                            quan.thoiGianHoatDong,
+                            quan.thoiGianHoatDong ?? "",
                             softWrap: true,
                             overflow: TextOverflow.clip,
                             style: const TextStyle(
@@ -256,7 +256,7 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                                       ),
                                       clipBehavior: Clip.antiAlias,
                                       child: Image.network(
-                                        urlImg + quan.monan!.hinhAnh,
+                                        urlImage + quan.monan!.hinhAnh,
                                         width: double.infinity,
                                         height: 170,
                                         fit: BoxFit.cover,
@@ -286,12 +286,47 @@ class RestaurantDetailState extends State<RestaurantDetail> {
               ),
             );
           }
-          return const Center(
-            child: SpinKitFadingCircle(
-              color: Color(0XFF0066FF),
-              size: 50.0,
-            ),
-          );
+          return Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 30, bottom: 20, left: 15, right: 15),
+                child: const Text(
+                  "Đang lấy dữ liệu quán ăn...",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0XFF242A37),
+                  ),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 50, left: 50, right: 50),
+                alignment: Alignment.center,
+                child: const Text(
+                  "Những địa điểm du lịch hấp dẫn đang chờ bạn khám phá.",
+                  softWrap: true,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    height: 1.5,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0XFFB1BCD0),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 1.5,
+                height: 7,
+                child: const LinearProgressIndicator(
+                  color: Color(0XFF0066FF),
+                  backgroundColor: Color(0XFFB1BCD0),
+                ),
+              ),
+            ],
+          ));
         },
       ),
     );

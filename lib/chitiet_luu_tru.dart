@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
 
 // ignore: must_be_immutable
@@ -17,7 +18,6 @@ class ChiTietLuuTru extends StatefulWidget {
 class ChiTietLuuTruState extends State<ChiTietLuuTru> {
   LuuTruObject lt;
   ChiTietLuuTruState(this.lt);
-  String urlImg = 'https://shielded-lowlands-87962.herokuapp.com/';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: const Color(0X1A050505),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: null,
         leadingWidth: 0,
@@ -49,7 +49,7 @@ class ChiTietLuuTruState extends State<ChiTietLuuTru> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
-              urlImg + lt.hinhAnh,
+              urlImage + lt.hinhAnh,
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
               height: 232,
