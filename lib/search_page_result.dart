@@ -5,7 +5,7 @@ import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/tinhthanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
 
 class SearchResult extends StatefulWidget {
   final TinhThanhObject tinhthanh;

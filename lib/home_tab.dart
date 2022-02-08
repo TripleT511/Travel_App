@@ -11,10 +11,10 @@ import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/chitiet_baiviet.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/edit_post.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
+import 'package:vietnam_travel_app/Views/baiviet/chitiet_baiviet.dart';
+import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/Views/baiviet/edit_post.dart';
+import 'package:vietnam_travel_app/Views/User/personal_page.dart';
 import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
 
 class HomePage extends StatefulWidget {
@@ -492,7 +492,13 @@ class HomePageState extends State<HomePage> {
                                 baiviet: lstBaiVietNoiBat[index],
                                 index: index,
                                 loaibaiviet: 0)),
-                      );
+                      ).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            loadListBaiVietKhiLike();
+                          });
+                        }
+                      });
                     },
                     child: Stack(children: [
                       Card(
@@ -880,7 +886,13 @@ class HomePageState extends State<HomePage> {
                             index: index,
                             loaibaiviet: 1),
                       ),
-                    );
+                    ).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          loadListBaiVietKhiLike();
+                        });
+                      }
+                    });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width - 20,
@@ -909,12 +921,15 @@ class HomePageState extends State<HomePage> {
                     );
                   },
                   child: Container(
+                    width: MediaQuery.of(context).size.width,
                     padding:
                         const EdgeInsets.only(top: 10, left: 10, right: 10),
                     alignment: Alignment.centerLeft,
                     child: Text(
                       lstBaiViet[index].noiDung,
-                      textAlign: TextAlign.justify,
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w400,

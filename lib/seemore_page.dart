@@ -9,8 +9,8 @@ import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page2.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
-import 'package:vietnam_travel_app/settings_page.dart';
+import 'package:vietnam_travel_app/Views/User/personal_page.dart';
+import 'package:vietnam_travel_app/Views/User/settings_page.dart';
 
 // ignore: must_be_immutable
 class SeeMorePage extends StatefulWidget {

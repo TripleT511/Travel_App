@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/edit_post.dart';
+import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/Views/baiviet/edit_post.dart';
 import 'package:vietnam_travel_app/main.dart';
-import 'package:vietnam_travel_app/personal_page.dart';
+import 'package:vietnam_travel_app/Views/User/personal_page.dart';
 
 // ignore: must_be_immutable
 class ChiTietBaiViet extends StatefulWidget {
@@ -487,7 +486,7 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   baiviet.noiDung,
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.start,
                   style: const TextStyle(
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w400,

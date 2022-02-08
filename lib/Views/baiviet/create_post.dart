@@ -92,8 +92,10 @@ class CreatePostState extends State<CreatePost> {
       if (isSuccess == true) {
         EasyLoading.showSuccess('Đăng bài viết thành công');
         EasyLoading.dismiss();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MyApp()));
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const MyApp()),
+            (route) => false);
       }
     }
   }

@@ -14,13 +14,13 @@ import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
-import 'package:vietnam_travel_app/chitiet_luu_tru.dart';
+import 'package:vietnam_travel_app/Views/diadanh/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/Views/Map/map_page.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
-import 'package:vietnam_travel_app/create_post.dart';
+import 'package:vietnam_travel_app/Views/baiviet/create_post.dart';
 
-import 'Models/quanan_object.dart';
+import '../../Models/quanan_object.dart';
 import 'chitiet_quan_an.dart';
 
 // ignore: must_be_immutable
@@ -597,7 +597,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                         padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
                         child: Text(
                           diadanh.moTa,
-                          textAlign: TextAlign.justify,
+                          textAlign: TextAlign.start,
                           softWrap: true,
                           style: const TextStyle(
                             fontSize: 16,

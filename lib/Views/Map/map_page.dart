@@ -6,6 +6,7 @@ import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/address_object.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
+import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Views/Map/search_map.dart';
 import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
 

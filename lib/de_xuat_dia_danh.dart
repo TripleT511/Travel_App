@@ -54,7 +54,11 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
         setState(() {
           tinhThanhID = "0";
           txtTenDiaDanh.text = geoCoding.address_components![0].short_name;
-          tenTinhThanh = tenTinh;
+          tenTinhThanh = tenTinh == "Việt Nam"
+              ? geoCoding
+                  .address_components![geoCoding.address_components!.length - 2]
+                  .short_name
+              : tenTinh;
           txtViDo.text = geoCoding.geometry.location.lat.toString();
           txtKinhDo.text = geoCoding.geometry.location.lng.toString();
         });
@@ -147,7 +151,6 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                             lstTinhThanhSearch.length > 9) {
                           if (index != lstTinhThanh.length - 1 &&
                               lstTinhThanhSearch.length > 9) {
-                            // return CupertinoActivityIndicator();
                             return Shimmer.fromColors(
                                 child: const Card(
                                   child: ListTile(
@@ -217,7 +220,11 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
         setState(() {
           tinhThanhID = "0";
           txtTenDiaDanh.text = placeDetail!.name;
-          tenTinhThanh = tenTinh;
+          tenTinhThanh = tenTinh == "Việt Nam"
+              ? geoCoding
+                  .address_components![geoCoding.address_components!.length - 2]
+                  .short_name
+              : tenTinh;
           txtViDo.text = geoCoding.geometry.location.lat.toString();
           txtKinhDo.text = geoCoding.geometry.location.lng.toString();
         });

@@ -6,15 +6,16 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
-import 'package:vietnam_travel_app/chitiet_baiviet.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
-import 'package:vietnam_travel_app/edit_post.dart';
-import 'package:vietnam_travel_app/settings_page.dart';
+import 'package:vietnam_travel_app/Views/baiviet/chitiet_baiviet.dart';
+import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/Views/baiviet/edit_post.dart';
+import 'package:vietnam_travel_app/Views/User/settings_page.dart';
 
 // ignore: must_be_immutable
 class PersonalPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class PersonalPageState extends State<PersonalPage> {
   // ignore: prefer_typing_uninitialized_variables
   var _image;
   final picker = ImagePicker();
-  String avatar = "";
+  String avatar = "images/user-default.jpg";
 
   _like(int id) async {
     setState(() {});
@@ -433,44 +434,18 @@ class PersonalPageState extends State<PersonalPage> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: null,
-        leadingWidth: 0,
-        titleSpacing: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              onPressed: () {},
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context, true);
-                },
-                icon: const FaIcon(
-                  FontAwesomeIcons.arrowLeft,
-                  color: Color(0XFF242A37),
-                  size: 21,
-                ),
-              ),
+        leading: TextButton(
+          onPressed: () {},
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+            icon: const FaIcon(
+              FontAwesomeIcons.arrowLeft,
+              color: Color(0XFF242A37),
+              size: 21,
             ),
-            Container(
-              margin: const EdgeInsets.only(right: 5),
-              child: idUser == user.id
-                  ? IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SettingsPage()));
-                      },
-                      icon: const FaIcon(
-                        FontAwesomeIcons.cog,
-                        color: Color(0XFF242A37),
-                        size: 21,
-                      ),
-                    )
-                  : Container(),
-            )
-          ],
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -794,7 +769,13 @@ class PersonalPageState extends State<PersonalPage> {
                                         index: index,
                                         loaibaiviet: 2),
                                   ),
-                                );
+                                ).then((value) {
+                                  setState(() {
+                                    if (mounted) {
+                                      _loadUser();
+                                    }
+                                  });
+                                });
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width - 20,
@@ -817,7 +798,7 @@ class PersonalPageState extends State<PersonalPage> {
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 lstBaiViet[index].noiDung,
-                                textAlign: TextAlign.justify,
+                                textAlign: TextAlign.start,
                                 style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,
@@ -967,12 +948,7 @@ class PersonalPageState extends State<PersonalPage> {
                     },
                   );
                 }
-                return const Center(
-                  child: SpinKitFadingCircle(
-                    color: Color(0XFF0066FF),
-                    size: 50.0,
-                  ),
-                );
+                return shimmerBaiViet(context);
               },
             ),
           ],

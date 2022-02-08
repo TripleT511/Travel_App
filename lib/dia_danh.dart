@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
-import 'package:vietnam_travel_app/chitiet_dia_danh.dart';
+import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
 
 class Place extends StatefulWidget {
   const Place({Key? key}) : super(key: key);

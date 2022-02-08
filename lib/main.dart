@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/SplashScreen/splash_page1.dart';
-import 'package:vietnam_travel_app/create_post.dart';
+import 'package:vietnam_travel_app/Views/baiviet/create_post.dart';
 import 'package:vietnam_travel_app/home_tab.dart';
 import 'package:vietnam_travel_app/Views/Map/map_page.dart';
 import 'package:vietnam_travel_app/search_page.dart';

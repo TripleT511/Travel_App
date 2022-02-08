@@ -65,8 +65,7 @@ class EditPostState extends State<EditPost> {
       if (isSuccess == true) {
         EasyLoading.showSuccess('Cập nhật bài viết thành công');
         EasyLoading.dismiss();
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MyApp()));
+        Navigator.pop(context, true);
       }
     }
   }
@@ -93,7 +92,7 @@ class EditPostState extends State<EditPost> {
         elevation: 1.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,

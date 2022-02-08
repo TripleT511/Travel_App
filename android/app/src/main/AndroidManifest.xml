@@ -7,8 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
    <application
-        android:label="vietnam_travel_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Strawhat"
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoidHJpcGxldDUxMSIsImEiOiJja3ltZTZ3ZWowMXM4MnFyaGY1aGF3aTM3In0.p1DNU34E8UVaXrDkdg7BhA" />
         <activity
             android:name=".MainActivity"

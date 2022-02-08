@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+import 'package:shimmer/shimmer.dart';
 
 const urlAPI = "https://shielded-lowlands-87962.herokuapp.com/api/";
 const urlImage = "https://shielded-lowlands-87962.herokuapp.com/";
@@ -168,6 +169,178 @@ SizedBox slideNhuCauShimmer() {
       ),
     ),
   );
+}
+
+Widget shimmerBaiViet(BuildContext context) {
+  return Container(
+    decoration: const BoxDecoration(
+      color: Colors.white,
+    ),
+    child: Column(
+      children: [
+        Container(
+          height: 10,
+          width: double.infinity,
+          decoration: const BoxDecoration(color: Color(0XFFF0F2F5)),
+        ),
+        ListTile(
+          leading: GestureDetector(
+            onTap: () {},
+            child: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+              ),
+              child: Shimmer.fromColors(
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage("images/no-image.jpg"),
+                  ),
+                  baseColor: const Color(0X1AC5B5D4),
+                  highlightColor: const Color(0X1A050505)),
+            ),
+          ),
+          title: GestureDetector(
+            onTap: () {},
+            child: Shimmer.fromColors(
+                child: Container(
+                  width: 60,
+                  height: 15,
+                  color: const Color(0XFFF0F2F5),
+                ),
+                baseColor: const Color(0X1AC5B5D4),
+                highlightColor: const Color(0X1A050505)),
+          ),
+          subtitle: Align(
+            alignment: Alignment.centerLeft,
+            child: Shimmer.fromColors(
+                child: Container(
+                  width: 40,
+                  height: 10,
+                  color: const Color(0XFFF0F2F5),
+                ),
+                baseColor: const Color(0X1AC5B5D4),
+                highlightColor: const Color(0X1A050505)),
+          ),
+          trailing: IconButton(
+            onPressed: () {},
+            icon: Shimmer.fromColors(
+                child: const FaIcon(
+                  FontAwesomeIcons.ellipsisV,
+                  size: 16,
+                  color: Color(0XFFB1BCD0),
+                ),
+                baseColor: const Color(0X1AC5B5D4),
+                highlightColor: const Color(0X1A050505)),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Shimmer.fromColors(
+              child: Container(
+                width: MediaQuery.of(context).size.width - 20,
+                height: 300,
+                color: const Color(0XFFF0F2F5),
+              ),
+              baseColor: const Color(0X1AC5B5D4),
+              highlightColor: const Color(0X1A050505)),
+        ),
+        GestureDetector(
+          onTap: () {},
+          child: Shimmer.fromColors(
+              child: Container(
+                margin: const EdgeInsets.only(top: 10),
+                width: MediaQuery.of(context).size.width - 20,
+                height: 30,
+                color: const Color(0XFFF0F2F5),
+              ),
+              baseColor: const Color(0X1AC5B5D4),
+              highlightColor: const Color(0X1A050505)),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 0),
+          child: TextButton(
+            onPressed: () {},
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Shimmer.fromColors(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: 20,
+                    color: const Color(0XFFF0F2F5),
+                  ),
+                  baseColor: const Color(0X1AC5B5D4),
+                  highlightColor: const Color(0X1A050505)),
+            ),
+          ),
+        ),
+        Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 5),
+              decoration: const BoxDecoration(
+                border: Border.fromBorderSide(
+                  BorderSide(
+                    width: 0.5,
+                    color: Color(0XFFe4e6eb),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 10, bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: const [
+                      Icon(
+                        Icons.thumb_up_alt,
+                        size: 16,
+                        color: Color(0XFFB1BCD0),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Icon(
+                        Icons.thumb_down_alt,
+                        size: 16,
+                        color: Color(0XFFB1BCD0),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const FaIcon(
+                        FontAwesomeIcons.solidEye,
+                        color: Color(0XFFB1BCD0),
+                        size: 18,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 5, right: 10),
+                        child: const Text(
+                          "",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0XFFB1BCD0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ],
+    ),
+  );
+  ;
 }
 
 Container sliderTitle(String title) {

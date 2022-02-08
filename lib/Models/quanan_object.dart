@@ -22,7 +22,8 @@ class QuanAnObject {
         sdt = quan["sdt"],
         thoiGianHoatDong = quan["thoiGianHoatDong"],
         hinhAnh = quan["hinhAnh"],
-        monan = MonAnObject.fromJson(quan["monan"]);
+        monan =
+            quan["monan"] == null ? null : MonAnObject.fromJson(quan["monan"]);
   QuanAnObject.fromJson2(Map<String, dynamic> quan)
       : id = quan["id"],
         dia_danh_id = quan["dia_danh_id"],
