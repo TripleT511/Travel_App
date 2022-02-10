@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
@@ -45,6 +46,7 @@ class CreatePostState extends State<CreatePost> {
   String viTriCuaToi = '';
   String hinhAnh = '';
   List<DiaDanhObject> lstDiaDanh = [];
+  List<DiaDanhObject> lstDiaDanhSearch = [];
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -62,6 +64,7 @@ class CreatePostState extends State<CreatePost> {
     var data = await DiaDanhProvider.getAllDiaDanh();
     setState(() {});
     lstDiaDanh = data;
+    lstDiaDanhSearch = lstDiaDanh;
   }
 
   _createPost() async {
@@ -128,72 +131,122 @@ class CreatePostState extends State<CreatePost> {
       minChildSize: 0.1,
       maxChildSize: 0.9,
       builder: (BuildContext context, ScrollController scrollController) {
-        return Container(
-            padding: const EdgeInsets.only(top: 10),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+          return Container(
+              padding: const EdgeInsets.only(top: 10),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
               ),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-                  child: TextField(
-                    onChanged: (value) {},
-                    showCursor: true,
-                    controller: txtSearch,
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                      hintText: "Tìm địa danh mà bạn muốn...",
-                      hintStyle: const TextStyle(color: Color(0XFF242A37)),
-                      border: InputBorder.none,
-                      contentPadding:
-                          const EdgeInsets.only(left: 15.0, top: 15.0),
-                      prefixIcon: IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.city),
-                        onPressed: () {},
-                        iconSize: 20.0,
-                        color: const Color(0XFF0066FF),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const FaIcon(FontAwesomeIcons.search),
-                        onPressed: () {},
-                        iconSize: 20.0,
-                        color: const Color(0XFF242A37),
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 10),
+                    child: TextField(
+                      onChanged: (String value) {
+                        if (txtSearch.text.isEmpty) {
+                          lstDiaDanhSearch = lstDiaDanh;
+                        } else {
+                          lstDiaDanhSearch = [];
+                          for (var item in lstDiaDanh) {
+                            if (item.tenDiaDanh
+                                .toUpperCase()
+                                .contains(txtSearch.text.toUpperCase())) {
+                              lstDiaDanhSearch.add(item);
+                            }
+                          }
+                        }
+                        setState(() {});
+                      },
+                      showCursor: true,
+                      controller: txtSearch,
+                      textInputAction: TextInputAction.search,
+                      decoration: InputDecoration(
+                        hintText: "Tìm tỉnh thành mà bạn muốn...",
+                        hintStyle: const TextStyle(color: Color(0XFF242A37)),
+                        border: InputBorder.none,
+                        contentPadding:
+                            const EdgeInsets.only(left: 15.0, top: 15.0),
+                        prefixIcon: IconButton(
+                          icon: const FaIcon(FontAwesomeIcons.city),
+                          onPressed: () {},
+                          iconSize: 20.0,
+                          color: const Color(0XFF0066FF),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: const FaIcon(FontAwesomeIcons.search),
+                          onPressed: () {},
+                          iconSize: 20.0,
+                          color: const Color(0XFF242A37),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const Divider(
-                  color: Color(0XFFB1BCD0),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: lstDiaDanh.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: ListTile(
-                          onTap: () {
-                            setState(() {
-                              idDiaDanh = lstDiaDanh[index].id.toString();
-                              tenDiaDanhCheckIn = lstDiaDanh[index].tenDiaDanh;
-                              viTriCuaToi = "";
-                            });
-                            Navigator.pop(context);
-                          },
-                          title: Text(lstDiaDanh[index].tenDiaDanh),
-                        ),
-                      );
-                    },
+                  const Divider(
+                    color: Color(0XFFB1BCD0),
                   ),
-                )
-              ],
-            ));
+                  Expanded(
+                    child: ListView.builder(
+                      controller: scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: lstDiaDanhSearch.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == lstDiaDanhSearch.length - 1 &&
+                            lstDiaDanhSearch.length > 9) {
+                          if (index != lstDiaDanh.length - 1 &&
+                              lstDiaDanhSearch.length > 9) {
+                            return Shimmer.fromColors(
+                                child: const Card(
+                                  child: ListTile(
+                                    title: Text(
+                                      "",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                baseColor: const Color(0X1A242A37),
+                                highlightColor: const Color(0X33050505));
+                          }
+                        }
+                        return Card(
+                          child: ListTile(
+                            onTap: () {
+                              setState(() {
+                                idDiaDanh =
+                                    lstDiaDanhSearch[index].id.toString();
+                                tenDiaDanhCheckIn =
+                                    lstDiaDanhSearch[index].tenDiaDanh;
+                                viTriCuaToi = "";
+                              });
+                              Navigator.pop(context);
+                            },
+                            title: Text(
+                              lstDiaDanhSearch[index].tenDiaDanh,
+                              textAlign: TextAlign.left,
+                              style: const TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                ],
+              ));
+        });
       },
     );
   }

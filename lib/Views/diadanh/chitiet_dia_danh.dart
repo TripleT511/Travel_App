@@ -15,6 +15,8 @@ import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_luu_tru.dart';
+import 'package:vietnam_travel_app/danh_sach_luu_tru.dart';
+import 'package:vietnam_travel_app/danh_sach_quan_an.dart';
 import 'package:vietnam_travel_app/luu_tru.dart';
 import 'package:vietnam_travel_app/Views/Map/map_page.dart';
 import 'package:vietnam_travel_app/quan_an.dart';
@@ -44,6 +46,7 @@ class PlaceDetailState extends State<PlaceDetail> {
   final List<SizedBox> imgDiaDanh = [];
   bool isLoadingQuanAn = false;
   bool isLoadingLuuTru = false;
+  String xemThem = "Xem thêm";
 
   DiaDanhObject? diaDanh;
   _loadQuanAn() async {
@@ -105,254 +108,282 @@ class PlaceDetailState extends State<PlaceDetail> {
 
   SizedBox lstQuanAn(String tenTinhThanh) {
     return SizedBox(
-      height: 212,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: isLoadingQuanAn ? 2 : lstQuan.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => isLoadingQuanAn
-            ? Shimmer.fromColors(
-                child: slideNhuCauShimmer(),
-                baseColor: const Color(0X1A242A37),
-                highlightColor: const Color(0X33050505))
-            : Container(
-                padding: const EdgeInsets.only(left: 10),
-                width: 271,
-                height: 210,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            RestaurantDetail(lstQuan[index].id),
-                      ),
-                    );
-                  },
-                  child: SizedBox(
-                    height: 215,
-                    child: Card(
-                      elevation: 1.0,
-                      color: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(16.0),
-                          topEnd: Radius.circular(16.0),
-                          bottomStart: Radius.circular(16.0),
-                          bottomEnd: Radius.circular(16.0),
-                        ),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.network(
-                            urlImage + lstQuan[index].hinhAnh,
-                            width: 271,
-                            height: 132,
-                            fit: BoxFit.cover,
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 10, bottom: 10, right: 10),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              lstQuan[index].tenQuan,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0XFF242A37),
+      height: (lstLT.length > 0)? 212 : 20,
+      child: lstQuan.length > 0
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemCount: isLoadingQuanAn ? 2 : lstQuan.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => isLoadingQuanAn
+                  ? Shimmer.fromColors(
+                      child: slideNhuCauShimmer(),
+                      baseColor: const Color(0X1A242A37),
+                      highlightColor: const Color(0X33050505))
+                  : Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      width: 271,
+                      height: 210,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  RestaurantDetail(lstQuan[index].id),
+                            ),
+                          );
+                        },
+                        child: SizedBox(
+                          height: 215,
+                          child: Card(
+                            elevation: 1.0,
+                            color: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadiusDirectional.only(
+                                topStart: Radius.circular(16.0),
+                                topEnd: Radius.circular(16.0),
+                                bottomStart: Radius.circular(16.0),
+                                bottomEnd: Radius.circular(16.0),
                               ),
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                right: 10, bottom: 10, left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.mapMarkerAlt,
-                                      color: Color(0XFFFF2D55),
-                                      size: 18,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      tenTinhThanh,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Color(0XFF242A37),
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ],
+                                Image.network(
+                                  urlImage + lstQuan[index].hinhAnh,
+                                  width: 271,
+                                  height: 132,
+                                  fit: BoxFit.cover,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.clock,
-                                      color: Color(0XFF0869E1),
-                                      size: 18,
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, bottom: 10, right: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    lstQuan[index].tenQuan,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0XFF242A37),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      lstQuan[index].thoiGianHoatDong ?? "",
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Color(0XFF242A37),
-                                        fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: 10, bottom: 10, left: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const FaIcon(
+                                            FontAwesomeIcons.mapMarkerAlt,
+                                            color: Color(0XFFFF2D55),
+                                            size: 18,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            tenTinhThanh,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0XFF242A37),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const FaIcon(
+                                            FontAwesomeIcons.clock,
+                                            color: Color(0XFF0869E1),
+                                            size: 18,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            lstQuan[index].thoiGianHoatDong ??
+                                                "",
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0XFF242A37),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+            )
+          : Container(
+              padding: const EdgeInsets.only(left: 15),
+              child: const Text(
+                "Không có dữ liệu",
+                style: TextStyle(
+                  color: Colors.red,
                 ),
               ),
-      ),
+            ),
     );
   }
 
   SizedBox lstLuuTru(String tenTinhThanh) {
     return SizedBox(
       height: 212,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: isLoadingLuuTru ? 2 : lstLT.length,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) => isLoadingLuuTru
-            ? Shimmer.fromColors(
-                child: slideNhuCauShimmer(),
-                baseColor: const Color(0X1A242A37),
-                highlightColor: const Color(0X33050505))
-            : Container(
-                padding: const EdgeInsets.only(left: 10),
-                width: 271,
-                height: 215,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChiTietLuuTru(lstLT[0])));
-                  },
-                  child: SizedBox(
-                    height: 215,
-                    child: Card(
-                      elevation: 1.0,
-                      color: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadiusDirectional.only(
-                          topStart: Radius.circular(16.0),
-                          topEnd: Radius.circular(16.0),
-                          bottomStart: Radius.circular(16.0),
-                          bottomEnd: Radius.circular(16.0),
-                        ),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.network(
-                            urlImage + lstLT[index].hinhAnh,
-                            width: 271,
-                            height: 132,
-                            fit: BoxFit.cover,
-                          ),
-                          const SizedBox(
-                            height: 10.0,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 10, bottom: 10, right: 10),
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              lstLT[index].tenLuuTru,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0XFF242A37),
+      child: lstLT.length > 0
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemCount: isLoadingLuuTru ? 2 : lstLT.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) => isLoadingLuuTru
+                  ? Shimmer.fromColors(
+                      child: slideNhuCauShimmer(),
+                      baseColor: const Color(0X1A242A37),
+                      highlightColor: const Color(0X33050505))
+                  : Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      width: 271,
+                      height: 215,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ChiTietLuuTru(lstLT[0])));
+                        },
+                        child: SizedBox(
+                          height: 215,
+                          child: Card(
+                            elevation: 1.0,
+                            color: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadiusDirectional.only(
+                                topStart: Radius.circular(16.0),
+                                topEnd: Radius.circular(16.0),
+                                bottomStart: Radius.circular(16.0),
+                                bottomEnd: Radius.circular(16.0),
                               ),
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                right: 10, bottom: 10, left: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            clipBehavior: Clip.antiAlias,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.mapMarkerAlt,
-                                      color: Color(0XFFFF2D55),
-                                      size: 18,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      tenTinhThanh,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Color(0XFF242A37),
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                    ),
-                                  ],
+                                Image.network(
+                                  urlImage + lstLT[index].hinhAnh,
+                                  width: 271,
+                                  height: 132,
+                                  fit: BoxFit.cover,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.clock,
-                                      color: Color(0XFF0869E1),
-                                      size: 18,
+                                const SizedBox(
+                                  height: 10.0,
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, bottom: 10, right: 10),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    lstLT[index].tenLuuTru,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Color(0XFF242A37),
                                     ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      lstLT[index].thoiGianHoatDong,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        color: Color(0XFF242A37),
-                                        fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      right: 10, bottom: 10, left: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const FaIcon(
+                                            FontAwesomeIcons.mapMarkerAlt,
+                                            color: Color(0XFFFF2D55),
+                                            size: 18,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            tenTinhThanh,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0XFF242A37),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const FaIcon(
+                                            FontAwesomeIcons.clock,
+                                            color: Color(0XFF0869E1),
+                                            size: 18,
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            lstLT[index].thoiGianHoatDong,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Color(0XFF242A37),
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+            )
+          : Container(
+              padding: const EdgeInsets.only(left: 15),
+              child: const Text(
+                "Không có dữ liệu",
+                style: TextStyle(
+                  color: Colors.red,
                 ),
               ),
-      ),
+            ),
     );
   }
 
@@ -375,7 +406,7 @@ class PlaceDetailState extends State<PlaceDetail> {
           margin: const EdgeInsets.only(right: 10),
           child: TextButton(
             onPressed: () {
-              if (title == "Quán ăn gần đây") {
+              if (title == "Quán ăn gần đây" && lstQuan.length > 0) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -383,7 +414,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                   ),
                 );
               }
-              if (title == "Lưu trú gần đây") {
+              if (title == "Lưu trú gần đây" && lstLT.length > 0) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -392,14 +423,18 @@ class PlaceDetailState extends State<PlaceDetail> {
                 );
               }
             },
-            child: const Text(
-              "Xem thêm",
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0XFF0066FF),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            child: (lstQuan.length < 1)
+                ? Text("")
+                : (lstLT.length < 1)
+                    ? Text("")
+                    : Text(
+                        "Xem thêm",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0XFF0066FF),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
           ),
         ),
       ],
@@ -468,207 +503,207 @@ class PlaceDetailState extends State<PlaceDetail> {
         ),
       ),
       body: FutureBuilder<DiaDanhObject>(
-          future: DiaDanhProvider.getDiaDanhById(id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              DiaDanhObject diadanh = snapshot.data!;
-              diaDanh = diadanh;
-              List<HinhAnhObject> lstHinhAnh = diadanh.hinhanhs!;
-              List<NhuCauDiaDanhObject> lstNhuCau = diadanh.nhucaudiadanhs!;
-              loadImgDiaDanh(lstHinhAnh);
-              return SingleChildScrollView(
-                  child: Stack(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(children: [
-                        slideImg(imgDiaDanh),
-                      ]),
-                      Container(
-                        margin: const EdgeInsets.fromLTRB(10, 10, 130, 5),
-                        child: Text(
-                          diadanh.tenDiaDanh,
-                          style: const TextStyle(
-                              height: 1.5,
-                              fontSize: 24,
-                              color: Color(0XFF242A37),
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Container(
-                        padding:
-                            const EdgeInsets.only(top: 0, left: 10, right: 50),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 18,
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 10),
-                              child: const FaIcon(
-                                FontAwesomeIcons.mapMarkerAlt,
-                                size: 18,
-                                color: Color(0XFFFF2D55),
-                              ),
-                            ),
-                            Flexible(
-                              child: Text(
-                                diadanh.tinhthanh!.tenTinhThanh,
-                                softWrap: true,
-                                overflow: TextOverflow.clip,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  color: Color(0XFF242A37),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding:
-                            const EdgeInsets.only(left: 10, right: 50, top: 10),
-                        child: Text(
-                          diadanh.shares_count.toString() + " lượt đánh giá",
-                          softWrap: true,
-                          overflow: TextOverflow.clip,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: Color(0XFFB1BCD0),
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.only(
-                            top: 10, left: 10, right: 50, bottom: 10),
-                        child: const Text(
-                          "Nhu Cầu",
-                          softWrap: true,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Color(0XFF242A37),
-                              fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        height: 35,
-                        margin: const EdgeInsets.only(left: 10, right: 10),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: lstNhuCau.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Container(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            margin: const EdgeInsets.only(right: 10),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: const Color(0X33B1BCD0),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Text(
-                              lstNhuCau[index].nhucau!.tenNhuCau!,
-                              style: const TextStyle(
-                                color: Color(0XFF0066FF),
-                                fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding:
-                            const EdgeInsets.only(top: 10, left: 10, right: 50),
-                        child: const Text(
-                          "Mô tả",
-                          softWrap: true,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: Color(0XFF242A37),
-                              fontSize: 18),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-                        child: Text(
-                          diadanh.moTa,
-                          textAlign: TextAlign.start,
-                          softWrap: true,
-                          style: const TextStyle(
-                            fontSize: 16,
+        future: DiaDanhProvider.getDiaDanhById(id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            DiaDanhObject diadanh = snapshot.data!;
+            diaDanh = diadanh;
+            List<HinhAnhObject> lstHinhAnh = diadanh.hinhanhs!;
+            List<NhuCauDiaDanhObject> lstNhuCau = diadanh.nhucaudiadanhs!;
+            loadImgDiaDanh(lstHinhAnh);
+            return SingleChildScrollView(
+                child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(children: [
+                      slideImg(imgDiaDanh),
+                    ]),
+                    Container(
+                      margin: const EdgeInsets.fromLTRB(10, 10, 130, 5),
+                      child: Text(
+                        diadanh.tenDiaDanh,
+                        style: const TextStyle(
                             height: 1.5,
+                            fontSize: 24,
                             color: Color(0XFF242A37),
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+                            fontWeight: FontWeight.bold),
                       ),
-                      sliderTitle("Quán ăn gần đây"),
-                      lstQuanAn(diadanh.tinhthanh!.tenTinhThanh),
-                      sliderTitle("Lưu trú gần đây"),
-                      lstLuuTru(diadanh.tinhthanh!.tenTinhThanh),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    top: 248,
-                    right: 5,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MapPage(
-                              diadanh: diadanh,
+                    ),
+                    Container(
+                      padding:
+                          const EdgeInsets.only(top: 0, left: 10, right: 50),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 18,
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(right: 10),
+                            child: const FaIcon(
+                              FontAwesomeIcons.mapMarkerAlt,
+                              size: 18,
+                              color: Color(0XFFFF2D55),
                             ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 7),
-                        decoration: BoxDecoration(
-                          color: const Color(0XFFFFFFFF),
-                          borderRadius: BorderRadius.circular(25),
-                          border: Border.all(
-                            color: const Color(0XFFB1BCD0),
-                            width: 0.5,
-                          ),
-                        ),
-                        child: Row(
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.locationArrow,
-                              color: Color(0XFF0066FF),
-                              size: 14,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Xem bản đồ",
-                              style: TextStyle(
-                                color: Color(0XFF0066FF),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
+                          Flexible(
+                            child: Text(
+                              diadanh.tinhthanh!.tenTinhThanh,
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFF242A37),
+                                fontSize: 15,
                               ),
-                            )
-                          ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 50, top: 10),
+                      child: Text(
+                        diadanh.shares_count.toString() + " lượt đánh giá",
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color: Color(0XFFB1BCD0),
+                          fontSize: 14,
                         ),
                       ),
                     ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                          top: 10, left: 10, right: 50, bottom: 10),
+                      child: const Text(
+                        "Nhu Cầu",
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Color(0XFF242A37),
+                            fontSize: 18),
+                      ),
+                    ),
+                    Container(
+                      height: 35,
+                      margin: const EdgeInsets.only(left: 10, right: 10),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: lstNhuCau.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) => Container(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          margin: const EdgeInsets.only(right: 10),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: const Color(0X33B1BCD0),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Text(
+                            lstNhuCau[index].nhucau!.tenNhuCau!,
+                            style: const TextStyle(
+                              color: Color(0XFF0066FF),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 50),
+                      child: const Text(
+                        "Mô tả",
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: Color(0XFF242A37),
+                            fontSize: 18),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
+                      child: Text(
+                        diadanh.moTa,
+                        textAlign: TextAlign.start,
+                        softWrap: true,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          height: 1.5,
+                          color: Color(0XFF242A37),
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ),
+                    sliderTitle("Quán ăn gần đây"),
+                    lstQuanAn(diadanh.tinhthanh!.tenTinhThanh),
+                    sliderTitle("Lưu trú gần đây"),
+                    lstLuuTru(diadanh.tinhthanh!.tenTinhThanh),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+                Positioned(
+                  top: 248,
+                  right: 5,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MapPage(
+                            diadanh: diadanh,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 7),
+                      decoration: BoxDecoration(
+                        color: const Color(0XFFFFFFFF),
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(
+                          color: const Color(0XFFB1BCD0),
+                          width: 0.5,
+                        ),
+                      ),
+                      child: Row(
+                        children: const [
+                          FaIcon(
+                            FontAwesomeIcons.locationArrow,
+                            color: Color(0XFF0066FF),
+                            size: 14,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Xem bản đồ",
+                            style: TextStyle(
+                              color: Color(0XFF0066FF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ));
-            }
-            return Center(
-                child: Column(
+                ),
+              ],
+            ));
+          }
+          return Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
@@ -712,8 +747,10 @@ class PlaceDetailState extends State<PlaceDetail> {
                   ),
                 ),
               ],
-            ));
-          }),
+            ),
+          );
+        },
+      ),
     );
   }
 }
