@@ -42,6 +42,8 @@ class EditPostState extends State<EditPost> {
   bool isPost = true;
   String hoTenUser = '';
   String hinhAnh = '';
+  bool isEdit = false;
+
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -92,7 +94,7 @@ class EditPostState extends State<EditPost> {
         elevation: 1.0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context, true);
+            Navigator.pop(context, isEdit);
           },
           icon: const FaIcon(
             FontAwesomeIcons.arrowLeft,

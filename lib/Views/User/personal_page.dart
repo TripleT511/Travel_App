@@ -2,11 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
@@ -15,7 +13,6 @@ import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/baiviet/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/Views/baiviet/edit_post.dart';
-import 'package:vietnam_travel_app/Views/User/settings_page.dart';
 
 // ignore: must_be_immutable
 class PersonalPage extends StatefulWidget {
@@ -39,19 +36,20 @@ class PersonalPageState extends State<PersonalPage> {
   var _image;
   final picker = ImagePicker();
   String avatar = "images/user-default.jpg";
+  bool isEdit = false;
 
   _like(int id) async {
-    setState(() {});
-    // ignore: unused_local_variable
-    bool boollike = await BaiVietProvider.likePost(id);
-    // _loadBaiViet();
+    setState(() {
+      isEdit = true;
+    });
+    await BaiVietProvider.likePost(id);
   }
 
   _dislike(int id) async {
-    setState(() {});
-    // ignore: unused_local_variable
-    bool boolUnLike = await BaiVietProvider.unLikePost(id);
-    // _loadBaiViet();
+    setState(() {
+      isEdit = true;
+    });
+    await BaiVietProvider.unLikePost(id);
   }
 
   int idUser = 0;
@@ -73,6 +71,7 @@ class PersonalPageState extends State<PersonalPage> {
         UserObject newUser = await UserProvider.getUser();
         setState(() {
           avatar = newUser.hinhAnh;
+          isEdit = true;
         });
         Navigator.pop(context);
       } else {
@@ -96,6 +95,7 @@ class PersonalPageState extends State<PersonalPage> {
       setState(() {
         lstBaiViet = newBaiViet;
         user = newUser;
+        isEdit = true;
       });
       Navigator.pop(context, true);
 
@@ -316,7 +316,20 @@ class PersonalPageState extends State<PersonalPage> {
                           user: baiviet.user,
                           post: baiviet),
                     ),
-                  );
+                  ).then((value) async {
+                    if (value != false) {
+                      Navigator.pop(context);
+                      EasyLoading.show(status: 'Đang cập nhật lại dữ liệu...');
+                      List<BaiVietChiaSeObject> newBaiViet =
+                          await BaiVietProvider.getAllBaiVietUser(idUser);
+                      UserObject newUser = await UserProvider.getUser();
+                      setState(() {
+                        lstBaiViet = newBaiViet;
+                        user = newUser;
+                      });
+                      EasyLoading.dismiss();
+                    }
+                  });
                 },
               ),
               ListTile(
@@ -355,6 +368,15 @@ class PersonalPageState extends State<PersonalPage> {
             ],
           );
         });
+  }
+
+  _updateUser() async {
+    EasyLoading.show(status: "Đang cập nhật lại dữ liệu");
+    UserObject newUser = await UserProvider.getUser();
+    setState(() {
+      user = newUser;
+    });
+    EasyLoading.dismiss();
   }
 
   _loadUser() async {
@@ -438,7 +460,7 @@ class PersonalPageState extends State<PersonalPage> {
           onPressed: () {},
           child: IconButton(
             onPressed: () {
-              Navigator.pop(context, true);
+              Navigator.pop(context, isEdit);
             },
             icon: const FaIcon(
               FontAwesomeIcons.arrowLeft,
@@ -761,20 +783,24 @@ class PersonalPageState extends State<PersonalPage> {
                             ),
                             GestureDetector(
                               onTap: () {
+                                setState(() {
+                                  isEdit = true;
+                                });
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ChiTietBaiViet(
-                                        baiviet: lstBaiViet[index],
-                                        index: index,
-                                        loaibaiviet: 2),
+                                      baiviet: lstBaiViet[index],
+                                    ),
                                   ),
                                 ).then((value) {
-                                  setState(() {
-                                    if (mounted) {
-                                      _loadUser();
-                                    }
-                                  });
+                                  if (value != false) {
+                                    setState(() {
+                                      if (mounted && idUser == user.id) {
+                                        _updateUser();
+                                      }
+                                    });
+                                  }
                                 });
                               },
                               child: Container(

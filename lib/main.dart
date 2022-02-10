@@ -31,6 +31,12 @@ void configLoading() {
     ..loadingStyle = EasyLoadingStyle.light
     ..indicatorSize = 45.0
     ..radius = 10.0
+    ..boxShadow = [
+      const BoxShadow(
+        color: Color(0XFF242A37),
+        offset: Offset(1.5, 0.5),
+      ),
+    ]
     ..progressColor = Colors.yellow
     ..backgroundColor = Colors.green
     ..indicatorColor = const Color(0XFF0066FF)

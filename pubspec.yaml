@@ -46,6 +46,7 @@ dependencies:
   flutter_easyloading: ^3.0.3
   sliding_up_panel: ^2.0.0+1
   flutter_launcher_icons: ^0.9.2
+  flutter_polyline_points: ^1.0.0
 
 dev_dependencies:
   flutter_test:

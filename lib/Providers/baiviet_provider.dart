@@ -46,6 +46,17 @@ class BaiVietProvider {
     return parseBaiViet(response.body);
   }
 
+  static Future<BaiVietChiaSeObject> getBaiVietById(int id) async {
+    var token = await UserProvider.getToken();
+    final response =
+        await http.get(Uri.parse(urlAPI + 'baiviet/$id'), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    return BaiVietChiaSeObject.fromJson(jsonDecode(response.body));
+  }
+
   static Future<bool> createPost(
     File _image,
     String idDiaDanh,

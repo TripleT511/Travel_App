@@ -3,11 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:location/location.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:vietnam_travel_app/Models/direction_object.dart';
 
 const urlAPI = "https://shielded-lowlands-87962.herokuapp.com/api/";
 const urlImage = "https://shielded-lowlands-87962.herokuapp.com/";
 const apiKeyMap = "EGAzhmbOrycEXAWPWtOspStQSZKW2CACMtGM7cvm";
-const apiKeyMaHoa = "mYaON1rG83Hjdqxf93GXFlY4IxpEwLcoAXWUKwjR";
+const apiKeyMaHoa = "0NLaBSB8R9DiF2hWdldRmcRM86X1h4mrNA8VX2oN";
 
 SizedBox slideShimmer() {
   return SizedBox(
@@ -402,5 +403,158 @@ Widget noData() {
         fontWeight: FontWeight.normal,
       ),
     ),
+  );
+}
+
+Widget showModalDirection(DirectionObject direction) {
+  return Column(
+    children: [
+      Align(
+        alignment: Alignment.center,
+        child: Container(
+          margin: const EdgeInsets.only(top: 7),
+          width: 40,
+          height: 4,
+          decoration: BoxDecoration(
+            color: const Color(0X1A242A37),
+            borderRadius: BorderRadius.circular(25),
+          ),
+        ),
+      ),
+      Row(
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            margin:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 15, right: 10),
+            child: Text(
+              direction.legs.duration.text,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: Color(0XFF0066FF),
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            margin: const EdgeInsets.only(top: 10, bottom: 10, right: 15),
+            child: Text(
+              "(" + direction.legs.distance.text + ")",
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w400,
+                color: Color(0XFFB1BCD0),
+              ),
+            ),
+          ),
+        ],
+      ),
+      Container(
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+        child: const Text(
+          "Do tình trạng giao thông, hiện đây là tuyến đường nhanh nhất",
+          softWrap: true,
+          overflow: TextOverflow.clip,
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            color: Color(0XFFB1BCD0),
+            fontSize: 16,
+          ),
+        ),
+      ),
+      Container(
+        alignment: Alignment.centerLeft,
+        margin: const EdgeInsets.only(bottom: 10, left: 15, right: 15),
+        child: const Text(
+          "Các chặng",
+          softWrap: true,
+          overflow: TextOverflow.clip,
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            color: Color(0XE6242A37),
+            fontSize: 18,
+          ),
+        ),
+      ),
+      const Divider(
+        color: Color(0X99B1BCD0),
+        height: 0.5,
+      ),
+      Expanded(
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: direction.legs.steps.length,
+            itemBuilder: (context, index) {
+              if (index == direction.legs.steps.length - 1) {
+                return Card(
+                  margin: const EdgeInsets.only(bottom: 100, left: 0, right: 0),
+                  elevation: 0,
+                  child: ListTile(
+                    onTap: () {},
+                    title: Text(
+                      direction.legs.steps[index].instructions,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0XFF242A37)),
+                    ),
+                    subtitle: Text(
+                      direction.legs.steps[index].distance.text,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0X99242A37)),
+                    ),
+                    trailing: Text(
+                      direction.legs.steps[index].duration.text,
+                      textAlign: TextAlign.left,
+                      style: const TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0X99242A37)),
+                    ),
+                  ),
+                );
+              }
+              return ListTile(
+                onTap: () {},
+                title: Text(
+                  direction.legs.steps[index].instructions,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0XFF242A37)),
+                ),
+                subtitle: Text(
+                  direction.legs.steps[index].distance.text,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0X99242A37)),
+                ),
+                trailing: Text(
+                  direction.legs.steps[index].duration.text,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0X99242A37)),
+                ),
+              );
+            }),
+      )
+    ],
   );
 }

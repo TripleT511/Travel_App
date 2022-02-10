@@ -131,10 +131,14 @@ class HomePageState extends State<HomePage> {
   void loadListBaiVietKhiLike() async {
     final data = await BaiVietProvider.getAllBaiViet();
     final data2 = await BaiVietProvider.getAllBaiVietNoiBat();
-    setState(() {
-      lstBaiViet = data;
-      lstBaiVietNoiBat = data2;
-    });
+    if (mounted) {
+      setState(() {
+        lstBaiViet = data;
+        lstBaiVietNoiBat = data2;
+      });
+    }
+
+    EasyLoading.dismiss();
   }
 
   void loadListBaiViet() async {
@@ -211,6 +215,7 @@ class HomePageState extends State<HomePage> {
       setState(() {
         lstBaiViet = newBaiViet;
         lstBaiVietNoiBat = newBaiVietNoiBat;
+        lstBaiViet1 = [];
       });
 
       EasyLoading.showSuccess('Xóa bài viết thành công');
@@ -375,7 +380,13 @@ class HomePageState extends State<HomePage> {
                           user: baiviet.user,
                           post: baiviet),
                     ),
-                  );
+                  ).then((value) async {
+                    if (value != false) {
+                      Navigator.pop(context);
+                      EasyLoading.show(status: 'Đang cập nhật lại dữ liệu...');
+                      loadListBaiVietKhiLike();
+                    }
+                  });
                 },
               ),
               ListTile(
@@ -488,12 +499,14 @@ class HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ChiTietBaiViet(
-                                baiviet: lstBaiVietNoiBat[index],
-                                index: index,
-                                loaibaiviet: 0)),
+                          builder: (context) => ChiTietBaiViet(
+                            baiviet: lstBaiVietNoiBat[index],
+                          ),
+                        ),
                       ).then((value) {
-                        if (value != null) {
+                        if (value != false) {
+                          EasyLoading.show(
+                              status: 'Đang cập nhật lại dữ liệu...');
                           setState(() {
                             loadListBaiVietKhiLike();
                           });
@@ -818,8 +831,15 @@ class HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  PersonalPage(user: lstBaiViet[index].user)));
+                              builder: (context) => PersonalPage(
+                                  user: lstBaiViet[index].user))).then((value) {
+                        if (value != false) {
+                          EasyLoading.show(
+                              status: 'Đang cập nhật lại dữ liệu...');
+                          loadListBaiVietKhiLike();
+                          lstBaiViet1 = [];
+                        }
+                      });
                     },
                     child: Container(
                       width: 40,
@@ -838,8 +858,15 @@ class HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  PersonalPage(user: lstBaiViet[index].user)));
+                              builder: (context) => PersonalPage(
+                                  user: lstBaiViet[index].user))).then((value) {
+                        if (value != false) {
+                          EasyLoading.show(
+                              status: 'Đang cập nhật lại dữ liệu...');
+                          loadListBaiVietKhiLike();
+                          lstBaiViet1 = [];
+                        }
+                      });
                     },
                     child: Text(
                       lstBaiViet[index].user.hoTen,
@@ -882,12 +909,13 @@ class HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChiTietBaiViet(
-                            baiviet: lstBaiViet[index],
-                            index: index,
-                            loaibaiviet: 1),
+                          baiviet: lstBaiViet[index],
+                        ),
                       ),
                     ).then((value) {
-                      if (value != null) {
+                      if (value != false) {
+                        EasyLoading.show(
+                            status: 'Đang cập nhật lại dữ liệu...');
                         setState(() {
                           loadListBaiVietKhiLike();
                         });
@@ -914,11 +942,18 @@ class HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ChiTietBaiViet(
-                            baiviet: lstBaiViet[index],
-                            index: index,
-                            loaibaiviet: 1),
+                          baiviet: lstBaiViet[index],
+                        ),
                       ),
-                    );
+                    ).then((value) {
+                      if (value != false) {
+                        EasyLoading.show(
+                            status: 'Đang cập nhật lại dữ liệu...');
+                        setState(() {
+                          loadListBaiVietKhiLike();
+                        });
+                      }
+                    });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width,

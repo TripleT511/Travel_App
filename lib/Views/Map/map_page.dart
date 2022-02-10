@@ -5,39 +5,94 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/address_object.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
+import 'package:vietnam_travel_app/Models/direction_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
-import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Views/Map/search_map.dart';
 import 'package:vietnam_travel_app/de_xuat_dia_danh.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'dart:math' as math;
 
 // ignore: must_be_immutable
 class MapPage extends StatefulWidget {
   DiaDanhObject? diadanh;
   PlaceDetailObject? placeDetail;
-  MapPage({Key? key, this.diadanh, this.placeDetail}) : super(key: key);
+  DirectionObject? direction;
+  MapPage({Key? key, this.diadanh, this.placeDetail, this.direction})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
     // ignore: no_logic_in_create_state
-    return MapPageState(diadanh, placeDetail);
+    return MapPageState(diadanh, placeDetail, direction);
   }
 }
 
 class MapPageState extends State<MapPage> {
   DiaDanhObject? diadanh;
   PlaceDetailObject? placeDetail;
-  MapPageState(this.diadanh, this.placeDetail);
-
+  DirectionObject? direction;
+  MapPageState(this.diadanh, this.placeDetail, this.direction);
   late MapboxMapController mapController;
   final LatLng center = const LatLng(10.5601935, 106.632571);
   String styleMap =
       "https://tiles.goong.io/assets/goong_light_v2.json?api_key=" + apiKeyMap;
   List<HinhAnhObject> lstHinhAnh = [];
+  _addline() {
+    PolylinePoints polylinePoints = PolylinePoints();
+    List<PointLatLng> result =
+        polylinePoints.decodePolyline(direction!.overview_polyline.points);
+    List<LatLng> list = [];
+    for (var item in result) {
+      list.add(LatLng(item.latitude, item.longitude));
+    }
+    if (mounted) {
+      mapController.addLine(
+        LineOptions(
+            geometry: list,
+            lineColor: "#0066ff",
+            lineWidth: 8.0,
+            lineOpacity: 1,
+            draggable: false),
+      );
+    }
+  }
 
   _onMapCreated(MapboxMapController controller) async {
     mapController = controller;
-
-    if (placeDetail != null) {
+    if (direction != null) {
+      _addline();
+      PolylinePoints polylinePoints = PolylinePoints();
+      List<PointLatLng> result =
+          polylinePoints.decodePolyline(direction!.overview_polyline.points);
+      controller.addCircle(
+        CircleOptions(
+          geometry: LatLng(result[0].latitude, result[0].longitude),
+          circleColor: "#0066FF",
+          circleStrokeColor: "#FFFFFF",
+          circleStrokeWidth: 3,
+          circleRadius: 7,
+        ),
+      );
+      int centerIndex = result.length ~/ 2;
+      double centerLat = result[centerIndex].latitude;
+      double centerLng = result[centerIndex].longitude;
+      controller.addSymbol(
+        SymbolOptions(
+          iconSize: 1,
+          geometry: LatLng(result[result.length - 1].latitude,
+              result[result.length - 1].longitude),
+          iconImage: 'images/red_marker.png',
+        ),
+      );
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(centerLat, centerLng),
+            zoom: 9,
+          ),
+        ),
+      );
+    } else if (placeDetail != null) {
       controller.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
@@ -50,7 +105,7 @@ class MapPageState extends State<MapPage> {
       controller.addSymbol(
         SymbolOptions(
           iconSize: 1,
-          draggable: true,
+          draggable: false,
           geometry: LatLng(placeDetail!.geometry.location.lat,
               placeDetail!.geometry.location.lng),
           iconImage: 'images/red_marker.png',
@@ -70,7 +125,7 @@ class MapPageState extends State<MapPage> {
       controller.addSymbol(
         SymbolOptions(
           iconSize: 1,
-          draggable: true,
+          draggable: false,
           geometry: LatLng(viDo, kinhDo),
           iconImage: 'images/red_marker.png',
         ),
@@ -280,8 +335,12 @@ class MapPageState extends State<MapPage> {
         ),
       ),
       body: SlidingUpPanel(
-        minHeight: diadanh != null || placeDetail != null ? 130 : 0,
-        maxHeight: 300,
+        minHeight: direction != null
+            ? 150
+            : diadanh != null || placeDetail != null
+                ? 130
+                : 0,
+        maxHeight: direction != null ? MediaQuery.of(context).size.height : 300,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
@@ -293,7 +352,7 @@ class MapPageState extends State<MapPage> {
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: center,
-                zoom: 13,
+                zoom: 10,
               ),
               scrollGesturesEnabled: true,
               rotateGesturesEnabled: true,
@@ -310,29 +369,62 @@ class MapPageState extends State<MapPage> {
             Positioned(
               top: MediaQuery.of(context).size.height / 1.7,
               right: 20,
-              child: Container(
-                margin: const EdgeInsets.only(bottom: 130),
-                child: GestureDetector(
-                  onTap: () {
-                    _viTriCuaToi();
-                  },
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: const Color(0XFFFFFFFF),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      Icons.my_location_outlined,
-                      size: 25,
-                      color: Color(0XFF0066FF),
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _viTriCuaToi();
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: const Color(0XFFFFFFFF),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const Icon(
+                        Icons.my_location_outlined,
+                        size: 25,
+                        color: Color(0XFF0066FF),
+                      ),
                     ),
                   ),
-                ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  direction == null && diadanh == null && placeDetail == null
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchMap(
+                                        isDirection: true,
+                                      )),
+                            );
+                          },
+                          child: Container(
+                            width: 50,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: const Color(0XFF0066FF),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Transform.rotate(
+                              angle: -90 * math.pi / 180,
+                              child: const FaIcon(
+                                FontAwesomeIcons.levelDownAlt,
+                                size: 18,
+                                color: Color(0XFFFFFFFF),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
+                ],
               ),
             ),
-            diadanh == null && placeDetail == null
+          direction == null && diadanh == null && placeDetail == null
                 ? Padding(
                     padding: const EdgeInsets.only(
                         top: 5.0, left: 10.0, right: 10.0),
@@ -350,7 +442,9 @@ class MapPageState extends State<MapPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const SearchMap()),
+                                  builder: (context) => SearchMap(
+                                        isDirection: false,
+                                      )),
                             );
                           },
                           showCursor: true,
@@ -383,11 +477,13 @@ class MapPageState extends State<MapPage> {
                 : Container(),
           ],
         ),
-        panel: diadanh != null
-            ? showModal(diadanh, null)
-            : placeDetail != null
-                ? showModal(null, placeDetail)
-                : Container(),
+        panel: direction != null
+            ? showModalDirection(direction!)
+            : diadanh != null
+                ? showModal(diadanh, null)
+                : placeDetail != null
+                    ? showModal(null, placeDetail)
+                    : Container(),
       ),
     );
   }
