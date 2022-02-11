@@ -44,7 +44,7 @@ void configLoading() {
     ..maskColor = Colors.blue.withOpacity(0.5)
     ..textStyle = const TextStyle(
       color: Color(0XFF242A37),
-      fontSize: 14.0,
+      fontSize: 16.0,
     )
     ..successWidget = const FaIcon(
       FontAwesomeIcons.solidCheckCircle,

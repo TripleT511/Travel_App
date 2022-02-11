@@ -62,9 +62,11 @@ class CreatePostState extends State<CreatePost> {
 
   _loadDiaDanh() async {
     var data = await DiaDanhProvider.getAllDiaDanh();
-    setState(() {});
-    lstDiaDanh = data;
-    lstDiaDanhSearch = lstDiaDanh;
+    if (mounted) {
+      setState(() {});
+      lstDiaDanh = data;
+      lstDiaDanhSearch = lstDiaDanh;
+    }
   }
 
   _createPost() async {
@@ -123,6 +125,18 @@ class CreatePostState extends State<CreatePost> {
         });
       }
     }
+  }
+
+  _handleClickDiaDanh(DiaDanhObject diadanh) {
+    if (mounted) {
+      setState(() {
+        idDiaDanh = diadanh.id.toString();
+        tenDiaDanhCheckIn = diadanh.tenDiaDanh;
+        viTriCuaToi = "";
+        txtSearch.clear();
+      });
+    }
+    Navigator.pop(context);
   }
 
   _showBottomSheet() {
@@ -221,14 +235,7 @@ class CreatePostState extends State<CreatePost> {
                         return Card(
                           child: ListTile(
                             onTap: () {
-                              setState(() {
-                                idDiaDanh =
-                                    lstDiaDanhSearch[index].id.toString();
-                                tenDiaDanhCheckIn =
-                                    lstDiaDanhSearch[index].tenDiaDanh;
-                                viTriCuaToi = "";
-                              });
-                              Navigator.pop(context);
+                              _handleClickDiaDanh(lstDiaDanhSearch[index]);
                             },
                             title: Text(
                               lstDiaDanhSearch[index].tenDiaDanh,

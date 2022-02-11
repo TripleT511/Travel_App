@@ -71,6 +71,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
       setState(() {
         tenTinhThanh = tinhthanh.tenTinhThanh.toString();
         tinhThanhID = tinhthanh.id.toString();
+        txtSearch.clear();
       });
     }
     Navigator.pop(context);

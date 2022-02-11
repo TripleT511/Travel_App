@@ -71,13 +71,13 @@ class SeeMorePageState extends State<SeeMorePage> {
           ),
           const SizedBox(height: 15),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Text(
               des,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color(0XFF242A37),
-                fontSize: 14,
+                fontSize: 16,
               ),
             ),
           ),

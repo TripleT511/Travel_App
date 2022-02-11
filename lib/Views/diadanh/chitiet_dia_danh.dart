@@ -108,7 +108,7 @@ class PlaceDetailState extends State<PlaceDetail> {
 
   SizedBox lstQuanAn(String tenTinhThanh) {
     return SizedBox(
-      height: (lstLT.length > 0)? 212 : 20,
+      height: (lstLT.length > 0) ? 212 : 20,
       child: lstQuan.length > 0
           ? ListView.builder(
               shrinkWrap: true,
@@ -241,7 +241,7 @@ class PlaceDetailState extends State<PlaceDetail> {
               child: const Text(
                 "Không có dữ liệu",
                 style: TextStyle(
-                  color: Colors.red,
+                  color: Color(0XFFB1BCD0),
                 ),
               ),
             ),
@@ -380,7 +380,7 @@ class PlaceDetailState extends State<PlaceDetail> {
               child: const Text(
                 "Không có dữ liệu",
                 style: TextStyle(
-                  color: Colors.red,
+                  color: Color(0XFFB1BCD0),
                 ),
               ),
             ),
@@ -424,10 +424,10 @@ class PlaceDetailState extends State<PlaceDetail> {
               }
             },
             child: (lstQuan.length < 1)
-                ? Text("")
+                ? const Text("")
                 : (lstLT.length < 1)
-                    ? Text("")
-                    : Text(
+                    ? const Text("")
+                    : const Text(
                         "Xem thêm",
                         style: TextStyle(
                           fontSize: 14,

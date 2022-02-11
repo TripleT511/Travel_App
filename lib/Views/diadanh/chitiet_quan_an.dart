@@ -277,7 +277,15 @@ class RestaurantDetailState extends State<RestaurantDetail> {
                                     ),
                                   ],
                                 )
-                              : const Text("Không có dữ liệu"),
+                              : Container(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: const Text(
+                                    "Không có dữ liệu",
+                                    style: TextStyle(
+                                      color: Color(0XFFB1BCD0),
+                                    ),
+                                  ),
+                                ),
                         ),
                       ),
                     ],
