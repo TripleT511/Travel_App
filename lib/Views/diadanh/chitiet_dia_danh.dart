@@ -46,7 +46,6 @@ class PlaceDetailState extends State<PlaceDetail> {
   final List<SizedBox> imgDiaDanh = [];
   bool isLoadingQuanAn = false;
   bool isLoadingLuuTru = false;
-  String xemThem = "Xem thêm";
 
   DiaDanhObject? diaDanh;
   _loadQuanAn() async {
@@ -108,7 +107,7 @@ class PlaceDetailState extends State<PlaceDetail> {
 
   SizedBox lstQuanAn(String tenTinhThanh) {
     return SizedBox(
-      height: (lstLT.length > 0) ? 212 : 20,
+      height: (lstQuan.length > 0) ? 212 : 20,
       child: lstQuan.length > 0
           ? ListView.builder(
               shrinkWrap: true,
@@ -250,7 +249,7 @@ class PlaceDetailState extends State<PlaceDetail> {
 
   SizedBox lstLuuTru(String tenTinhThanh) {
     return SizedBox(
-      height: 212,
+      height: (lstLT.length > 0) ? 212 : 20,
       child: lstLT.length > 0
           ? ListView.builder(
               shrinkWrap: true,
@@ -410,7 +409,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const QuanAn(),
+                    builder: (context) => DanhSachQuanAn(diadanh: diaDanh),
                   ),
                 );
               }
@@ -418,16 +417,16 @@ class PlaceDetailState extends State<PlaceDetail> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const LuuTru(),
+                    builder: (context) => DanhSachLuuTru(diadanh: diaDanh),
                   ),
                 );
               }
             },
-            child: (lstQuan.length < 1)
-                ? const Text("")
-                : (lstLT.length < 1)
-                    ? const Text("")
-                    : const Text(
+            child: (lstQuan.length < 1 && title == "Quán ăn gần đây")
+                ? Text("")
+                : (lstLT.length < 1 && title == "Lưu trú gần đây")
+                    ? Text("")
+                    : Text(
                         "Xem thêm",
                         style: TextStyle(
                           fontSize: 14,
