@@ -5,6 +5,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
@@ -32,6 +33,10 @@ class PersonalPageState extends State<PersonalPage> {
   bool checkLike = true;
   bool checkUnLike = false;
   List<BaiVietChiaSeObject> lstBaiViet = [];
+  List<BaiVietChiaSeObject> lstBaiVietTemp = [];
+  ScrollController _scrollController = ScrollController();
+  int _currentMax = 1;
+
   // ignore: prefer_typing_uninitialized_variables
   var _image;
   final picker = ImagePicker();
@@ -52,8 +57,112 @@ class PersonalPageState extends State<PersonalPage> {
     await BaiVietProvider.unLikePost(id);
   }
 
+  _updateUser() async {
+    EasyLoading.show(status: "Đang cập nhật lại dữ liệu");
+    UserObject newUser = await UserProvider.getUser();
+    setState(() {
+      user = newUser;
+    });
+    EasyLoading.dismiss();
+  }
+
+  _loadUser() async {
+    SharedPreferences pres = await SharedPreferences.getInstance();
+    String us = pres.getString("user") ?? '';
+    UserObject user = UserObject.fromJson(jsonDecode(us));
+    setState(() {
+      idUser = user.id;
+    });
+  }
+
+  _getData() {
+    if (_currentMax + 1 <= lstBaiVietTemp.length) {
+      for (int i = _currentMax; i < _currentMax + 1; i++) {
+        lstBaiViet.add(lstBaiVietTemp[i]);
+      }
+      _currentMax += 1;
+    }
+    setState(() {});
+  }
+
+  void _loadBaiViet() async {
+    final data = await BaiVietProvider.getAllBaiVietUser(user.id);
+    setState(() {
+      lstBaiVietTemp = data;
+    });
+    for (int i = 0; i < _currentMax; i++) {
+      lstBaiViet.add(lstBaiVietTemp[i]);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUser();
+    avatar = user.hinhAnh;
+    _loadBaiViet();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getData();
+      }
+    });
+  }
+
+  InkWell kLike(int value, IconData icon, Color color, Function ontap) {
+    return InkWell(
+      onTap: () => ontap(),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            '$value',
+            style: const TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0XFFB1BCD0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  InkWell kUnLike(int value, IconData icon, Color color, Function ontap) {
+    return InkWell(
+      onTap: () => ontap(),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            '$value',
+            style: const TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: Color(0XFFB1BCD0),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   int idUser = 0;
-  String countBaiViet = "0";
+
   Future pickerImage() async {
     var pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
@@ -370,83 +479,6 @@ class PersonalPageState extends State<PersonalPage> {
         });
   }
 
-  _updateUser() async {
-    EasyLoading.show(status: "Đang cập nhật lại dữ liệu");
-    UserObject newUser = await UserProvider.getUser();
-    setState(() {
-      user = newUser;
-    });
-    EasyLoading.dismiss();
-  }
-
-  _loadUser() async {
-    SharedPreferences pres = await SharedPreferences.getInstance();
-    String us = pres.getString("user") ?? '';
-    UserObject user = UserObject.fromJson(jsonDecode(us));
-    setState(() {
-      idUser = user.id;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUser();
-    avatar = user.hinhAnh;
-  }
-
-  InkWell kLike(int value, IconData icon, Color color, Function ontap) {
-    return InkWell(
-      onTap: () => ontap(),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: color,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            '$value',
-            style: const TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Color(0XFFB1BCD0),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  InkWell kUnLike(int value, IconData icon, Color color, Function ontap) {
-    return InkWell(
-      onTap: () => ontap(),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: color,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            '$value',
-            style: const TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Color(0XFFB1BCD0),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -471,6 +503,7 @@ class PersonalPageState extends State<PersonalPage> {
         ),
       ),
       body: SingleChildScrollView(
+        controller: _scrollController,
         child: Column(
           children: [
             Stack(
@@ -716,8 +749,9 @@ class PersonalPageState extends State<PersonalPage> {
               future: BaiVietProvider.getAllBaiVietUser(user.id),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  List<BaiVietChiaSeObject> lstBaiViet = snapshot.data!;
+                  // List<BaiVietChiaSeObject> lstBaiViet = snapshot.data!;
                   return ListView.builder(
+                    scrollDirection: Axis.vertical,
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
