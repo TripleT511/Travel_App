@@ -350,6 +350,7 @@ class PersonalPageState extends State<PersonalPage> {
                       List<BaiVietChiaSeObject> newBaiViet =
                           await BaiVietProvider.getAllBaiVietUser(idUser);
                       UserObject newUser = await UserProvider.getUser();
+
                       setState(() {
                         lstBaiViet = newBaiViet;
                         user = newUser;
