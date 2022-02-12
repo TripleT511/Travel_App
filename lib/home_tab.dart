@@ -15,7 +15,7 @@ import 'package:vietnam_travel_app/Views/baiviet/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/Views/baiviet/edit_post.dart';
 import 'package:vietnam_travel_app/Views/User/personal_page.dart';
-import 'package:vietnam_travel_app/chitiet_nhu_cau.dart';
+import 'package:vietnam_travel_app/Views/NhuCau/chitiet_nhu_cau.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

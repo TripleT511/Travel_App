@@ -8,7 +8,6 @@ import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/user_provider.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/Views/baiviet/edit_post.dart';
-import 'package:vietnam_travel_app/main.dart';
 import 'package:vietnam_travel_app/Views/User/personal_page.dart';
 
 // ignore: must_be_immutable
@@ -174,7 +173,7 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
   }
 
   _addViewPost() async {
-    bool isView = await BaiVietProvider.viewPost(baiviet.id);
+    await BaiVietProvider.viewPost(baiviet.id);
     _loadBaiViet();
   }
 
@@ -442,7 +441,6 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
                           if (idUser == baiviet.user.id) {
                             showModalEdit(baiviet);
                           } else {
-                            print("Không được phép sửa");
                             return;
                           }
                         },

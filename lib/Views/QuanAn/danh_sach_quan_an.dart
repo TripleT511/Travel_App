@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
-import 'package:vietnam_travel_app/Models/nhucau_object.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
-import 'package:vietnam_travel_app/Providers/nhucau_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
-import 'package:vietnam_travel_app/Views/diadanh/chitiet_dia_danh.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_quan_an.dart';
 
-import 'Models/quanan_object.dart';
+import '../../Models/quanan_object.dart';
 
 class DanhSachQuanAn extends StatefulWidget {
   final DiaDanhObject? diadanh;
@@ -63,8 +59,8 @@ class DanhSachQuanAnState extends State<DanhSachQuanAn> {
         title: Text(
           "Quán ăn - ${diadanh?.tinhthanh?.tenTinhThanh}",
           style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
             fontFamily: 'Roboto',
             color: Color(0XFF242A37),
           ),
@@ -189,7 +185,7 @@ class DanhSachQuanAnState extends State<DanhSachQuanAn> {
                                 Container(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Text(
-                                    lstQuanAn[index].thoiGianHoatDong?? "" ,
+                                    lstQuanAn[index].thoiGianHoatDong ?? "",
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontFamily: 'Roboto',

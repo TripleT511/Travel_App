@@ -38,11 +38,15 @@ class PersonalPageState extends State<PersonalPage> {
 
   _loadBaiViet() async {
     final data = await BaiVietProvider.getAllBaiVietUser(user.id);
-    setState(() {
-      lstBaiVietTemp = data;
-    });
-    for (int i = 0; i < _currentMax; i++) {
-      lstBaiViet.add(lstBaiVietTemp[i]);
+    if (mounted) {
+      setState(() {
+        lstBaiVietTemp = data;
+      });
+    }
+    if (data.length != 0) {
+      for (int i = 0; i < _currentMax; i++) {
+        lstBaiViet.add(lstBaiVietTemp[i]);
+      }
     }
   }
 
@@ -51,6 +55,7 @@ class PersonalPageState extends State<PersonalPage> {
     if (mounted) {
       setState(() {
         lstBaiViet = data;
+        isEdit = true;
       });
     }
 
@@ -64,17 +69,12 @@ class PersonalPageState extends State<PersonalPage> {
   bool isEdit = false;
 
   _like(int id) async {
-    setState(() {
-      isEdit = true;
-    });
     await BaiVietProvider.likePost(id);
+
     _loadListBaiVietKhiLike();
   }
 
   _dislike(int id) async {
-    setState(() {
-      isEdit = true;
-    });
     await BaiVietProvider.unLikePost(id);
     _loadListBaiVietKhiLike();
   }

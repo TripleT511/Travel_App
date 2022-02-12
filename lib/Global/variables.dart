@@ -341,7 +341,6 @@ Widget shimmerBaiViet(BuildContext context) {
       ],
     ),
   );
-  ;
 }
 
 Container sliderTitle(String title) {

@@ -7,7 +7,6 @@ import 'package:vietnam_travel_app/Global/variables.dart';
 import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
 import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
-import 'package:vietnam_travel_app/main.dart';
 
 class EditPost extends StatefulWidget {
   final String tenDiaDanh;

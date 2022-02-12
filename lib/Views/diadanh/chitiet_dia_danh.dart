@@ -15,11 +15,9 @@ import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_luu_tru.dart';
-import 'package:vietnam_travel_app/danh_sach_luu_tru.dart';
-import 'package:vietnam_travel_app/danh_sach_quan_an.dart';
-import 'package:vietnam_travel_app/luu_tru.dart';
+import 'package:vietnam_travel_app/Views/LuuTru/danh_sach_luu_tru.dart';
+import 'package:vietnam_travel_app/Views/QuanAn/danh_sach_quan_an.dart';
 import 'package:vietnam_travel_app/Views/Map/map_page.dart';
-import 'package:vietnam_travel_app/quan_an.dart';
 import 'package:vietnam_travel_app/Views/baiviet/create_post.dart';
 
 import '../../Models/quanan_object.dart';
@@ -520,7 +518,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                       slideImg(imgDiaDanh),
                     ]),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(10, 10, 130, 5),
+                      margin: const EdgeInsets.fromLTRB(10, 10, 135, 5),
                       child: Text(
                         diadanh.tenDiaDanh,
                         style: const TextStyle(

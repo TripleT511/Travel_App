@@ -36,6 +36,8 @@ class MapPageState extends State<MapPage> {
   final LatLng center = const LatLng(10.5601935, 106.632571);
   String styleMap =
       "https://tiles.goong.io/assets/goong_light_v2.json?api_key=" + apiKeyMap;
+  String styleStreet =
+      "https://tiles.goong.io/assets/goong_map_web.json?api_key=" + apiKeyMap;
   List<HinhAnhObject> lstHinhAnh = [];
   _addline() {
     PolylinePoints polylinePoints = PolylinePoints();
@@ -51,7 +53,7 @@ class MapPageState extends State<MapPage> {
             geometry: list,
             lineColor: "#0066ff",
             lineWidth: 8.0,
-            lineOpacity: 1,
+            lineOpacity: 0.8,
             draggable: false),
       );
     }
@@ -73,15 +75,14 @@ class MapPageState extends State<MapPage> {
           circleRadius: 7,
         ),
       );
-      int centerIndex = result.length ~/ 2;
-      double centerLat = result[centerIndex].latitude;
-      double centerLng = result[centerIndex].longitude;
+      double centerLat = result[result.length - 1].latitude;
+      double centerLng = result[result.length - 1].longitude;
       controller.addSymbol(
         SymbolOptions(
           iconSize: 1,
           geometry: LatLng(result[result.length - 1].latitude,
               result[result.length - 1].longitude),
-          iconImage: 'images/red_marker.png',
+          iconImage: 'images/marker.png',
         ),
       );
       controller.animateCamera(
@@ -108,7 +109,7 @@ class MapPageState extends State<MapPage> {
           draggable: false,
           geometry: LatLng(placeDetail!.geometry.location.lat,
               placeDetail!.geometry.location.lng),
-          iconImage: 'images/red_marker.png',
+          iconImage: 'images/marker.png',
         ),
       );
 
@@ -127,7 +128,7 @@ class MapPageState extends State<MapPage> {
           iconSize: 1,
           draggable: false,
           geometry: LatLng(viDo, kinhDo),
-          iconImage: 'images/red_marker.png',
+          iconImage: 'images/marker.png',
         ),
       );
       if (mounted) {
@@ -138,7 +139,18 @@ class MapPageState extends State<MapPage> {
     } else {
       final result = await acquireCurrentLocation();
       controller.animateCamera(
-        CameraUpdate.newLatLng(result),
+        CameraUpdate.newCameraPosition(
+            CameraPosition(target: result, zoom: 14)),
+      );
+
+      controller.addCircle(
+        CircleOptions(
+          geometry: LatLng(result.latitude, result.longitude),
+          circleColor: "#0066FF",
+          circleStrokeColor: "#FFFFFF",
+          circleStrokeWidth: 3,
+          circleRadius: 7,
+        ),
       );
     }
   }
@@ -146,12 +158,9 @@ class MapPageState extends State<MapPage> {
   _viTriCuaToi() async {
     final result = await acquireCurrentLocation();
 
-    mapController
-        .animateCamera(
-          CameraUpdate.newLatLng(result),
-        )
-        .then((result) =>
-            print("mapController.animateCamera() returned $result"));
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(CameraPosition(target: result, zoom: 14)),
+    );
   }
 
   Widget showModal(DiaDanhObject? diadanh, PlaceDetailObject? placeDetail) {
@@ -348,7 +357,7 @@ class MapPageState extends State<MapPage> {
         body: Stack(
           children: [
             MapboxMap(
-              styleString: styleMap,
+              styleString: direction != null ? styleStreet : styleMap,
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
                 target: center,
@@ -424,7 +433,7 @@ class MapPageState extends State<MapPage> {
                 ],
               ),
             ),
-          direction == null && diadanh == null && placeDetail == null
+            direction == null && diadanh == null && placeDetail == null
                 ? Padding(
                     padding: const EdgeInsets.only(
                         top: 5.0, left: 10.0, right: 10.0),

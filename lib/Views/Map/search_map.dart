@@ -36,23 +36,28 @@ class SearchMapState extends State<SearchMap> {
   List<String> loaiXe = ["car", "bike", "taxi"];
   Timer? _debounce;
   void _searchDiaDiem() async {
-    if (txtStart.text.isNotEmpty) {
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 100), () async {
-        if (mounted) {
-          setState(() {});
-          data = await AddressProvider.getAllDiaDanh(txtStart.text);
-        }
-      });
+    if (indexInput == 0) {
+      if (txtStart.text.isNotEmpty) {
+        if (_debounce?.isActive ?? false) _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 100), () async {
+          if (mounted) {
+            setState(() {});
+            data = await AddressProvider.getAllDiaDanh(txtStart.text);
+          }
+        });
+      }
     }
-    if (txtEnd.text.isNotEmpty) {
-      if (_debounce?.isActive ?? false) _debounce?.cancel();
-      _debounce = Timer(const Duration(milliseconds: 100), () async {
-        if (mounted) {
-          setState(() {});
-          data = await AddressProvider.getAllDiaDanh(txtEnd.text);
-        }
-      });
+
+    if (indexInput == 1) {
+      if (txtEnd.text.isNotEmpty) {
+        if (_debounce?.isActive ?? false) _debounce?.cancel();
+        _debounce = Timer(const Duration(milliseconds: 100), () async {
+          if (mounted) {
+            setState(() {});
+            data = await AddressProvider.getAllDiaDanh(txtEnd.text);
+          }
+        });
+      }
     }
 
     if (txtSearch.text.isNotEmpty) {
@@ -185,7 +190,8 @@ class SearchMapState extends State<SearchMap> {
                 ? Card(
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: Container(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 10, top: 5, bottom: 5),
                       color: Colors.white,
                       child: TextField(
                         controller: txtSearch,
@@ -239,7 +245,8 @@ class SearchMapState extends State<SearchMap> {
                         ),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.only(left: 10),
+                            padding: const EdgeInsets.only(
+                                left: 10, top: 5, bottom: 5),
                             color: Colors.white,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,

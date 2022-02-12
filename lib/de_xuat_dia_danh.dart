@@ -630,7 +630,7 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
                     if (checkImage) {
                       _deXuatDiaDanh();
                     } else {
-                      return null;
+                      return;
                     }
                   },
                   child: const Text(
