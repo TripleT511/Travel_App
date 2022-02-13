@@ -93,13 +93,17 @@ class PersonalPageState extends State<PersonalPage> {
       bool isSuccess = await UserProvider.uploadImage(_image!);
       // ignore: unrelated_type_equality_checks
       if (isSuccess == true) {
+        UserObject newUser = await UserProvider.getUser();
+        if (mounted) {
+          setState(() {
+            avatar = newUser.hinhAnh;
+            isEdit = true;
+          });
+        }
+
         EasyLoading.showSuccess('Cập nhật ảnh đại diện thành công');
         EasyLoading.dismiss();
-        UserObject newUser = await UserProvider.getUser();
-        setState(() {
-          avatar = newUser.hinhAnh;
-          isEdit = true;
-        });
+
         Navigator.pop(context);
       } else {
         EasyLoading.showError('Cập nhật ảnh đại diện thất bại');
@@ -790,8 +794,8 @@ class PersonalPageState extends State<PersonalPage> {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: CircleAvatar(
-                                  backgroundImage: NetworkImage(urlImage +
-                                      lstBaiViet[index].user.hinhAnh),
+                                  backgroundImage:
+                                      NetworkImage(urlImage + avatar),
                                 ),
                               ),
                               title: Text(

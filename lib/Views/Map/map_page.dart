@@ -39,7 +39,7 @@ class MapPageState extends State<MapPage> {
   String styleStreet =
       "https://tiles.goong.io/assets/goong_map_web.json?api_key=" + apiKeyMap;
   List<HinhAnhObject> lstHinhAnh = [];
-  _addline() {
+  _addline(MapboxMapController controller) {
     PolylinePoints polylinePoints = PolylinePoints();
     List<PointLatLng> result =
         polylinePoints.decodePolyline(direction!.overview_polyline.points);
@@ -48,7 +48,7 @@ class MapPageState extends State<MapPage> {
       list.add(LatLng(item.latitude, item.longitude));
     }
     if (mounted) {
-      mapController.addLine(
+      controller.addLine(
         LineOptions(
             geometry: list,
             lineColor: "#0066ff",
@@ -57,42 +57,40 @@ class MapPageState extends State<MapPage> {
             draggable: false),
       );
     }
+
+    controller.addCircle(
+      CircleOptions(
+        geometry: LatLng(result[0].latitude, result[0].longitude),
+        circleColor: "#0066FF",
+        circleStrokeColor: "#FFFFFF",
+        circleStrokeWidth: 3,
+        circleRadius: 7,
+      ),
+    );
+    double centerLat = result[result.length - 1].latitude;
+    double centerLng = result[result.length - 1].longitude;
+    controller.addSymbol(
+      SymbolOptions(
+        iconSize: 1,
+        geometry: LatLng(result[result.length - 1].latitude,
+            result[result.length - 1].longitude),
+        iconImage: 'images/marker.png',
+      ),
+    );
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(centerLat, centerLng),
+          zoom: 9,
+        ),
+      ),
+    );
   }
 
   _onMapCreated(MapboxMapController controller) async {
     mapController = controller;
     if (direction != null) {
-      _addline();
-      PolylinePoints polylinePoints = PolylinePoints();
-      List<PointLatLng> result =
-          polylinePoints.decodePolyline(direction!.overview_polyline.points);
-      controller.addCircle(
-        CircleOptions(
-          geometry: LatLng(result[0].latitude, result[0].longitude),
-          circleColor: "#0066FF",
-          circleStrokeColor: "#FFFFFF",
-          circleStrokeWidth: 3,
-          circleRadius: 7,
-        ),
-      );
-      double centerLat = result[result.length - 1].latitude;
-      double centerLng = result[result.length - 1].longitude;
-      controller.addSymbol(
-        SymbolOptions(
-          iconSize: 1,
-          geometry: LatLng(result[result.length - 1].latitude,
-              result[result.length - 1].longitude),
-          iconImage: 'images/marker.png',
-        ),
-      );
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target: LatLng(centerLat, centerLng),
-            zoom: 9,
-          ),
-        ),
-      );
+      _addline(controller);
     } else if (placeDetail != null) {
       controller.animateCamera(
         CameraUpdate.newCameraPosition(
@@ -141,16 +139,6 @@ class MapPageState extends State<MapPage> {
       controller.animateCamera(
         CameraUpdate.newCameraPosition(
             CameraPosition(target: result, zoom: 14)),
-      );
-
-      controller.addCircle(
-        CircleOptions(
-          geometry: LatLng(result.latitude, result.longitude),
-          circleColor: "#0066FF",
-          circleStrokeColor: "#FFFFFF",
-          circleStrokeWidth: 3,
-          circleRadius: 7,
-        ),
       );
     }
   }
