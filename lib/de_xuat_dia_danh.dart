@@ -235,10 +235,12 @@ class DeXuatDiaDanhState extends State<DeXuatDiaDanh> {
 
   _loadTinhThanh() async {
     var data = await TinhThanhProvider.getAllTinhThanh();
-    setState(() {
-      lstTinhThanh = data;
-      lstTinhThanhSearch = lstTinhThanh;
-    });
+    if (mounted) {
+      setState(() {
+        lstTinhThanh = data;
+        lstTinhThanhSearch = lstTinhThanh;
+      });
+    }
   }
 
   @override

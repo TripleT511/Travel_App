@@ -518,7 +518,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                       slideImg(imgDiaDanh),
                     ]),
                     Container(
-                      margin: const EdgeInsets.fromLTRB(10, 10, 135, 5),
+                      margin: const EdgeInsets.fromLTRB(10, 10, 140, 5),
                       child: Text(
                         diadanh.tenDiaDanh,
                         style: const TextStyle(

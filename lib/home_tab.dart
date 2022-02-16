@@ -143,11 +143,15 @@ class HomePageState extends State<HomePage> {
 
   void loadListBaiViet() async {
     final data = await BaiVietProvider.getAllBaiViet();
-    setState(() {
-      lstBaiViet1 = data;
-    });
-    for (int i = 0; i < currentLoad; i++) {
-      lstBaiViet.add(lstBaiViet1[i]);
+    if (mounted) {
+      setState(() {
+        lstBaiViet1 = data;
+      });
+    }
+    if (data.length > 0) {
+      for (int i = 0; i < currentLoad; i++) {
+        lstBaiViet.add(lstBaiViet1[i]);
+      }
     }
   }
 

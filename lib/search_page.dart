@@ -25,6 +25,7 @@ class SearchPageState extends State<SearchPage> {
     final data = await TinhThanhProvider.getAllTinhThanh();
     setState(() {
       lstTinhThanhTemp = data;
+      _currentMax = lstTinhThanhTemp.length;
     });
     for (int i = 0; i < _currentMax; i++) {
       lstTinhThanh.add(lstTinhThanhTemp[i]);
