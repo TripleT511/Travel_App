@@ -500,11 +500,7 @@ class PlaceDetailState extends State<PlaceDetail> {
                                 builder: (context) =>
                                     ChiTietBaiViet(baiviet: lstBVShow[index])))
                         .then((value) {
-                      if (value != false) {
-                        EasyLoading.show(
-                            status: 'Đang cập nhật lại dữ liệu...');
-                        setState(() {});
-                      }
+                      if (value != false) {}
                     });
                     //Navigator.push(
                     //  context,
