@@ -2,18 +2,22 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vietnam_travel_app/Global/variables.dart';
+import 'package:vietnam_travel_app/Models/baiviet_object.dart';
 import 'package:vietnam_travel_app/Models/diadanh_object.dart';
 import 'package:vietnam_travel_app/Models/hinhanh_object.dart';
 import 'package:vietnam_travel_app/Models/luutru_object.dart';
 import 'package:vietnam_travel_app/Models/nhucaudiadanh_object.dart';
 import 'package:vietnam_travel_app/Models/user_object.dart';
+import 'package:vietnam_travel_app/Providers/baiviet_provider.dart';
 import 'package:vietnam_travel_app/Providers/diadanh_provider.dart';
 import 'package:vietnam_travel_app/Providers/luutru_provider.dart';
 import 'package:vietnam_travel_app/Providers/quanan_provider.dart';
+import 'package:vietnam_travel_app/Views/baiviet/chitiet_baiviet.dart';
 import 'package:vietnam_travel_app/Views/diadanh/chitiet_luu_tru.dart';
 import 'package:vietnam_travel_app/Views/LuuTru/danh_sach_luu_tru.dart';
 import 'package:vietnam_travel_app/Views/QuanAn/danh_sach_quan_an.dart';
@@ -41,11 +45,15 @@ class PlaceDetailState extends State<PlaceDetail> {
   late final UserObject user;
   List<QuanAnObject> lstQuan = [];
   List<LuuTruObject> lstLT = [];
+  List<BaiVietChiaSeObject> lstBV = [];
+  List<BaiVietChiaSeObject> lstBVShow = [];
   final List<SizedBox> imgDiaDanh = [];
   bool isLoadingQuanAn = false;
   bool isLoadingLuuTru = false;
+  bool isLoadingBaiViet = false;
 
   DiaDanhObject? diaDanh;
+
   _loadQuanAn() async {
     setState(() {
       isLoadingQuanAn = true;
@@ -66,6 +74,25 @@ class PlaceDetailState extends State<PlaceDetail> {
       isLoadingLuuTru = false;
       lstLT = data;
     });
+  }
+
+  _loadBaiViet() async {
+    setState(() {
+      isLoadingBaiViet = true;
+    });
+    final data = await BaiVietProvider.getAllBaiViet();
+    setState(() {
+      isLoadingBaiViet = false;
+      lstBV = data;
+    });
+    for (int i = 0; i < lstBV.length; i++) {
+      if (lstBV[i].idDiaDanh == id) {
+        if (lstBVShow.length == 5) {
+          break;
+        }
+        lstBVShow.add(lstBV[i]);
+      }
+    }
   }
 
   _loadUser() async {
@@ -444,9 +471,192 @@ class PlaceDetailState extends State<PlaceDetail> {
     _loadUser();
     _loadQuanAn();
     _loadLuuTru();
+    _loadBaiViet();
   }
 
   final scroll = ScrollController();
+  SizedBox slideBaiViet() {
+    return SizedBox(
+      height: 215,
+      child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: isLoadingBaiViet ? 2 : lstBVShow.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) => isLoadingBaiViet
+            ? Shimmer.fromColors(
+                child: slideShimmer(),
+                baseColor: const Color(0X1AC5B5D4),
+                highlightColor: const Color(0X1A050505))
+            : Container(
+                padding: const EdgeInsets.only(left: 10),
+                width: 271,
+                height: 210,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ChiTietBaiViet(baiviet: lstBVShow[index])))
+                        .then((value) {
+                      if (value != false) {
+                        EasyLoading.show(
+                            status: 'Đang cập nhật lại dữ liệu...');
+                        setState(() {});
+                      }
+                    });
+                    //Navigator.push(
+                    //  context,
+                    //  MaterialPageRoute(
+                    //   builder: (context) => ChiTietBaiViet(
+                    //    baiviet: lstBVShow[index],
+                    //  ),
+                    //  ),
+                    // ).then((value) {
+                    // if (value != false) {
+                    //  EasyLoading.show(
+                    //     status: 'Đang cập nhật lại dữ liệu...');
+                    //setState(() {
+                    // loadListBaiVietKhiLike();
+                    // });
+                    // }
+                    //  });
+                  },
+                  child: Stack(children: [
+                    Card(
+                      elevation: 1.0,
+                      color: Colors.white,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadiusDirectional.only(
+                          topStart: Radius.circular(16.0),
+                          topEnd: Radius.circular(16.0),
+                          bottomStart: Radius.circular(16.0),
+                          bottomEnd: Radius.circular(16.0),
+                        ),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(
+                            urlImage + lstBVShow[index].hinhanh.hinhAnh,
+                            width: 271,
+                            height: 132,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, bottom: 10, right: 10),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              lstBVShow[index].noiDung,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w400,
+                                color: Color(0XFF242A37),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 10),
+                            child: Row(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 0),
+                                      child: const Icon(
+                                        Icons.thumb_up,
+                                        color: Color(0XFF0066FF),
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        lstBVShow[index].likes_count.toString(),
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          color: Color(0XFF242A37),
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      child: const FaIcon(
+                                        FontAwesomeIcons.solidEye,
+                                        color: Color(0XFF3EFF7F),
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        lstBVShow[index].views_count.toString(),
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          color: Color(0XFF242A37),
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(left: 10),
+                                      child: const FaIcon(
+                                        FontAwesomeIcons.mapMarkerAlt,
+                                        color: Color(0XFFFF2D55),
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 120,
+                                      margin: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        lstBVShow[index].diadanh.tenDiaDanh,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontFamily: 'Roboto',
+                                          fontSize: 14,
+                                          color: Color(0XFF242A37),
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ]),
+                ),
+              ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -643,6 +853,8 @@ class PlaceDetailState extends State<PlaceDetail> {
                     lstQuanAn(diadanh.tinhthanh!.tenTinhThanh),
                     sliderTitle("Lưu trú gần đây"),
                     lstLuuTru(diadanh.tinhthanh!.tenTinhThanh),
+                    sliderTitle("Bài viết liên quan"),
+                    slideBaiViet(),
                     const SizedBox(
                       height: 10,
                     ),
