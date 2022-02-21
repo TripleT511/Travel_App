@@ -73,6 +73,9 @@ class CreatePostState extends State<CreatePost> {
     if (idDiaDanh == "0" && tenDiaDanhCheckIn == "") {
       EasyLoading.showError('Chưa chọn địa danh');
       return;
+    } else if (txtNoiDung.text.length > 300) {
+      EasyLoading.showError('Tối đa 300 kí tự');
+      return;
     }
     if (formKey.currentState!.validate()) {
       EasyLoading.show(status: 'Vui lòng đợi...');

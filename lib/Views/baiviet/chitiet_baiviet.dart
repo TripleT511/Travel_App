@@ -417,7 +417,11 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
                                       PersonalPage(user: baiviet.user)));
                         },
                         child: Text(
-                          baiviet.user.hoTen,
+                          idUser != baiviet.user.id
+                              ? (baiviet.user.trangThaiHoTen == 1
+                                  ? baiviet.user.hoTen
+                                  : "Không hiển thị")
+                              : baiviet.user.hoTen,
                           style: const TextStyle(
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Roboto',

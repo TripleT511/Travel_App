@@ -405,9 +405,11 @@ class PersonalPageState extends State<PersonalPage> {
   _updateUser() async {
     EasyLoading.show(status: "Đang cập nhật lại dữ liệu");
     UserObject newUser = await UserProvider.getUser();
-    setState(() {
-      user = newUser;
-    });
+    if (mounted) {
+      setState(() {
+        user = newUser;
+      });
+    }
     EasyLoading.dismiss();
   }
 
@@ -415,9 +417,11 @@ class PersonalPageState extends State<PersonalPage> {
     SharedPreferences pres = await SharedPreferences.getInstance();
     String us = pres.getString("user") ?? '';
     UserObject user = UserObject.fromJson(jsonDecode(us));
-    setState(() {
-      idUser = user.id;
-    });
+    if (mounted) {
+      setState(() {
+        idUser = user.id;
+      });
+    }
   }
 
   _getData() {
@@ -598,7 +602,9 @@ class PersonalPageState extends State<PersonalPage> {
               alignment: Alignment.center,
               padding: const EdgeInsets.only(top: 15),
               child: Text(
-                user.hoTen,
+                idUser != user.id
+                    ? (user.trangThaiHoTen == 1 ? user.hoTen : "Không hiển thị")
+                    : user.hoTen,
                 style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
@@ -877,6 +883,9 @@ class PersonalPageState extends State<PersonalPage> {
                               child: Text(
                                 lstBaiViet[index].noiDung,
                                 textAlign: TextAlign.start,
+                                overflow: lstBaiViet[index].noiDung.length > 100
+                                    ? TextOverflow.ellipsis
+                                    : null,
                                 style: const TextStyle(
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w400,

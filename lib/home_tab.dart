@@ -873,7 +873,11 @@ class HomePageState extends State<HomePage> {
                       });
                     },
                     child: Text(
-                      lstBaiViet[index].user.hoTen,
+                      idUser != lstBaiViet[index].user.id
+                          ? (lstBaiViet[index].user.trangThaiHoTen == 1
+                              ? lstBaiViet[index].user.hoTen
+                              : "Không hiển thị")
+                          : lstBaiViet[index].user.hoTen,
                       style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           fontFamily: 'Roboto',
@@ -967,8 +971,9 @@ class HomePageState extends State<HomePage> {
                     child: Text(
                       lstBaiViet[index].noiDung,
                       textAlign: TextAlign.start,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
+                      overflow: lstBaiViet[index].noiDung.length > 100
+                          ? TextOverflow.ellipsis
+                          : null,
                       style: const TextStyle(
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w400,
