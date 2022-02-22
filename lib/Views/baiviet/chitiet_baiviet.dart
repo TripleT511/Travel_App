@@ -391,10 +391,18 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
                       leading: GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      PersonalPage(user: baiviet.user)));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PersonalPage(user: baiviet.user)))
+                              .then((value) {
+                            if (value != false) {
+                              EasyLoading.show(
+                                  status: 'Đang cập nhật lại dữ liệu...');
+                              _loadBaiViet();
+                              _loadUser();
+                            }
+                          });
                         },
                         child: Container(
                           width: 40,
@@ -411,10 +419,18 @@ class ChiTietBaiVietState extends State<ChiTietBaiViet> {
                       title: GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      PersonalPage(user: baiviet.user)));
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          PersonalPage(user: baiviet.user)))
+                              .then((value) {
+                            if (value != false) {
+                              EasyLoading.show(
+                                  status: 'Đang cập nhật lại dữ liệu...');
+                              _loadBaiViet();
+                              _loadUser();
+                            }
+                          });
                         },
                         child: Text(
                           idUser != baiviet.user.id

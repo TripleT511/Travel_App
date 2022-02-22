@@ -77,14 +77,19 @@ class PlaceDetailState extends State<PlaceDetail> {
   }
 
   _loadBaiViet() async {
-    setState(() {
-      isLoadingBaiViet = true;
-    });
+    if (mounted) {
+      setState(() {
+        isLoadingBaiViet = true;
+      });
+    }
     final data = await BaiVietProvider.getAllBaiViet();
-    setState(() {
-      isLoadingBaiViet = false;
-      lstBV = data;
-    });
+    if (mounted) {
+      setState(() {
+        isLoadingBaiViet = false;
+        lstBV = data;
+      });
+    }
+
     for (int i = 0; i < lstBV.length; i++) {
       if (lstBV[i].idDiaDanh == id) {
         if (lstBVShow.length == 5) {
@@ -93,6 +98,7 @@ class PlaceDetailState extends State<PlaceDetail> {
         lstBVShow.add(lstBV[i]);
       }
     }
+    EasyLoading.dismiss();
   }
 
   _loadUser() async {
@@ -499,25 +505,20 @@ class PlaceDetailState extends State<PlaceDetail> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     ChiTietBaiViet(baiviet: lstBVShow[index])))
-                        .then((value) {
-                      if (value != false) {}
+                        .then((value) async {
+                      print(value);
+                      if (value != false) {
+                        EasyLoading.show(
+                            status: "Đang cập nhật lại dữ liệu...");
+                        if (mounted) {
+                          setState(() {
+                            lstBV = [];
+                            lstBVShow = [];
+                          });
+                        }
+                        _loadBaiViet();
+                      }
                     });
-                    //Navigator.push(
-                    //  context,
-                    //  MaterialPageRoute(
-                    //   builder: (context) => ChiTietBaiViet(
-                    //    baiviet: lstBVShow[index],
-                    //  ),
-                    //  ),
-                    // ).then((value) {
-                    // if (value != false) {
-                    //  EasyLoading.show(
-                    //     status: 'Đang cập nhật lại dữ liệu...');
-                    //setState(() {
-                    // loadListBaiVietKhiLike();
-                    // });
-                    // }
-                    //  });
                   },
                   child: Stack(children: [
                     Card(

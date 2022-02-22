@@ -56,6 +56,7 @@ class PersonalPageState extends State<PersonalPage> {
       setState(() {
         lstBaiViet = data;
         isEdit = true;
+        print(isEdit);
       });
     }
 
@@ -805,7 +806,11 @@ class PersonalPageState extends State<PersonalPage> {
                                 ),
                               ),
                               title: Text(
-                                lstBaiViet[index].user.hoTen,
+                                idUser != user.id
+                                    ? (user.trangThaiHoTen == 1
+                                        ? user.hoTen
+                                        : "Không hiển thị")
+                                    : user.hoTen,
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontFamily: 'Roboto',
